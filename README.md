@@ -1,6 +1,9 @@
 # SkyNewTab-Poem-React
 基于 React 的一款浏览器新标签页插件。
 
+## 注意
+* 原 SkyNewTab-Poem-Angular 不再继续受支持，此为最新版。
+
 ## 声明
 * 诗词由第三方网站提供，内容不代表作者任何观点。  
 * 本作品由作者个人出于学习目的开发，由于成本原因，难以保证不同型号设备下的最终品质，后续尽量完善。
@@ -9,8 +12,8 @@
 
 ## 简介
 适用于 Chrome、Edge、Firefox、~~Safari~~ 的新标签页插件。  
-基于 Html + TypeScript + CSS + React + ant Design + Bootstrap Icon。  
-语言：中文  
+基于 Html + TypeScript + CSS + React + Ant Design + Bootstrap Icon。  
+语言：中文
 * 节气来源：https://www.mxnzp.com 
 * 天气来源：https://www.jinrishici.com  
 * 诗词来源：https://www.jinrishici.com 
