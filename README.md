@@ -2,7 +2,7 @@
 基于 React 的一款浏览器新标签页插件。
 
 ## 注意
-* 原 SkyNewTab-Poem-Angular 不再继续受支持，此为最新版。
+* 原 [SkyNewTab-Poem-Angular](https://github.com/xyk953651094/SkyNewTab-Poem-Angular) 不再继续受支持，此为最新版。
 
 ## 声明
 * 诗词由第三方网站提供，内容不代表作者任何观点。  
