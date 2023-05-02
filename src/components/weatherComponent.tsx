@@ -1,10 +1,11 @@
 import React, {useEffect, useState} from "react";
-import {Popover, Button} from "antd";
+import {Popover, Button, Col, Space} from "antd";
 import {
     getWeatherIcon,
     httpRequest
 } from "../typescripts/publicFunctions";
-import "../stylesheets/weatherComponent.scss"
+import "../stylesheets/publicStyles.scss"
+import {CheckCircleOutlined} from "@ant-design/icons";
 
 function WeatherComponent(props: any) {
     const [weatherIcon, setWeatherIcon] = useState("");
@@ -15,6 +16,10 @@ function WeatherComponent(props: any) {
     const [rainfall, setRainfall] = useState("暂无信息");
     const [visibility, setVisibility] = useState("暂无信息");
     const [windInfo, setWindInfo] = useState("暂无信息");
+
+    function weatherButtonOnClick() {
+        window.open("https://cn.bing.com/search?&q=%E5%A4%A9%E6%B0%94", "_blank");
+    }
 
     useEffect(() => {
         function getWeather() {
@@ -65,20 +70,31 @@ function WeatherComponent(props: any) {
     }, []);
 
     const popoverContent = (
-        <div>
-            <p><i className="bi bi-moisture"></i>{" 空气湿度：" + humidity}</p>
-            <p><i className="bi bi-water"></i>{" 空气质量：" + pm25}</p>
-            <p><i className="bi bi-cloud-rain"></i>{" 降雨概率：" + rainfall}</p>
-            <p><i className="bi bi-eye"></i>{" 视线距离：" + visibility}</p>
-            <p><i className="bi bi-wind"></i>{" 风速情况：" + windInfo}</p>
-        </div>
+        <Space direction="vertical">
+            <Button type="text" shape="round" size={"small"} icon={<i className="bi bi-moisture">&nbsp;&nbsp;&nbsp;</i>} style={{color: props.fontColor}}>
+                {"空气湿度：" + humidity}
+            </Button>
+            <Button type="text" shape="round" size={"small"} icon={<i className="bi bi-water">&nbsp;&nbsp;&nbsp;</i>} style={{color: props.fontColor}}>
+                {"空气质量：" + pm25}
+            </Button>
+            <Button type="text" shape="round" size={"small"} icon={<i className="bi bi-cloud-rain">&nbsp;&nbsp;&nbsp;</i>} style={{color: props.fontColor}}>
+                {"降雨概率：" + rainfall}
+            </Button>
+            <Button type="text" shape="round" size={"small"} icon={<i className="bi bi-eye">&nbsp;&nbsp;&nbsp;</i>} style={{color: props.fontColor}}>
+                {"视线距离：" + visibility}
+            </Button>
+            <Button type="text" shape="round" size={"small"} icon={<i className="bi bi-wind">&nbsp;&nbsp;&nbsp;</i>} style={{color: props.fontColor}}>
+                {"风速情况：" + windInfo}
+            </Button>
+        </Space>
     );
 
     return (
         <Popover title={region} content={popoverContent}
                  placement="topLeft" color={"transparent"}>
-            <Button type="text" shape="round" size={"large"} icon={<i className={weatherIcon}> </i>}
-                    className={"weatherFont zIndexHigh"}
+            <Button type="text" shape="round" size={"large"} icon={<i className={weatherIcon}>&nbsp;</i>}
+                    onClick={weatherButtonOnClick}
+                    className={"buttonFont"}
                     style={{
                         color: props.fontColor,
                     }}

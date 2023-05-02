@@ -43,7 +43,7 @@ function App() {
         <Layout>
             <Header id={"header"} className={"zIndexMiddle"}>
                 <Row>
-                    <Col xs={24} sm={24} md={{span: 10, offset: 2}} lg={{span: 10, offset: 2}} xl={{span: 10, offset: 2}}>
+                    <Col xs={0} sm={0} md={{span: 10, offset: 2}} lg={{span: 10, offset: 2}} xl={{span: 10, offset: 2}}>
                         <GreetComponent fontColor={fontColor} />
                     </Col>
                     <Col xs={0} sm={0} md={10} lg={10} xl={10} style={{textAlign: "right"}}>
