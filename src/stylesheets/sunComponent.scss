@@ -1,0 +1,59 @@
+.sunDiv {
+  width: 200px;
+  height: 200px;
+  position: absolute;
+  top: 0;
+  right:0;
+  /*overflow: hidden;*/
+}
+
+.sunDiv .sunSvg {
+  width: 200px;
+  height: 200px;
+}
+
+.svgAnimation {
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  transform-box:fill-box;
+  transform-origin:center;
+}
+
+#sunRect1 {
+  animation-name: rotate;
+  animation-duration: 18s;
+}
+
+#sunRect2 {
+  animation-name: rotate;
+  animation-duration: 12s;
+}
+
+#sunRect3 {
+  animation-name: rotate;
+  animation-duration: 6s;
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+#sunCircle1, #sunCircle2, #sunCircle3 {
+  animation-name: scale;
+  animation-duration: 6s;
+  animation-direction: alternate;
+}
+
+@keyframes scale {
+  from {
+    transform: scale(0.95);
+  }
+  to {
+    transform: scale(1.05);
+  }
+}
