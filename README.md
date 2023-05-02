@@ -25,4 +25,8 @@
 * 下载本页面提供的文件进行安装
 
 ## 效果展示
+<img width="1440" alt="截屏2023-05-02 17 32 51" src="https://user-images.githubusercontent.com/28004442/235631465-e8fdd911-63ac-4586-91a3-0613fa9dc388.png">
 
+<img width="1440" alt="截屏2023-05-02 17 33 22" src="https://user-images.githubusercontent.com/28004442/235631554-ecad6683-0991-4bae-8304-8171a5d58aa3.png">
+
+<img width="1440" alt="截屏2023-05-02 17 33 48" src="https://user-images.githubusercontent.com/28004442/235631649-c564f423-5540-49a7-9b49-293da6882825.png">
