@@ -1,4 +1,4 @@
-# SkyNewTab-Poem-React
+# 云开诗词新标签页 based on React
 基于 React 的一款浏览器新标签页插件。
 
 ## 注意
