@@ -1,6 +1,4 @@
 # 云开诗词新标签页 based on React
-基于 React 的一款浏览器新标签页插件。
-
 ## 注意
 * 原 [SkyNewTab-Poem-Angular](https://github.com/xyk953651094/SkyNewTab-Poem-Angular) 不再继续受支持，此为最新版。
 
