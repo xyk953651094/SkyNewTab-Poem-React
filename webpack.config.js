@@ -1,7 +1,7 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const {CleanWebpackPlugin} = require('clean-webpack-plugin');
 
 module.exports = {
     // mode: 'development',
@@ -56,9 +56,9 @@ module.exports = {
     },
     plugins: [
         new HtmlWebpackPlugin({
-            title: 'Sky 新标签页',
+            title: '云开诗词新标签页',
             filename: 'mainPage.html',
-            template: 'typescripts/index.html',
+            template: 'public/index.html',
             chunks: ['mainPage']
         }),
         new CopyWebpackPlugin({

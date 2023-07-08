@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {Popover, Button, Col, Space} from "antd";
+import {Popover, Button, Space, Typography} from "antd";
 import {CheckCircleOutlined, CloseCircleOutlined} from "@ant-design/icons";
 import {
     getTimeDetails,
@@ -8,6 +8,8 @@ import {
     httpRequest
 } from "../typescripts/publicFunctions";
 import "../stylesheets/publicStyles.scss"
+
+const {Text} = Typography;
 
 function GreetComponent(props: any) {
     const [greet, setGreet] = useState(getGreetContent());
@@ -86,12 +88,21 @@ function GreetComponent(props: any) {
 
     const popoverContent = (
         <Space direction="vertical">
-            <Button type="text" shape="round" size={"small"} icon={<CheckCircleOutlined />} style={{color: props.fontColor}}>
-                {" 宜：" + suit}
-            </Button>
-            <Button type="text" shape="round" size={"small"} icon={<CloseCircleOutlined />} style={{color: props.fontColor}}>
-                {" 忌：" + avoid}
-            </Button>
+            <Space>
+                <CheckCircleOutlined />
+                <Text style={{color: props.fontColor}}>{" 宜：" + suit}</Text>
+            </Space>
+            <Space>
+                <CloseCircleOutlined />
+                <Text style={{color: props.fontColor}}>{" 忌：" + avoid}</Text>
+            </Space>
+
+            {/*<Button type="text" shape="round" size={"small"} icon={<CheckCircleOutlined />} style={{color: props.fontColor, cursor: "default"}}>*/}
+            {/*    {" 宜：" + suit}*/}
+            {/*</Button>*/}
+            {/*<Button type="text" shape="round" size={"small"} icon={<CloseCircleOutlined />} style={{color: props.fontColor, cursor: "default"}}>*/}
+            {/*    {" 忌：" + avoid}*/}
+            {/*</Button>*/}
         </Space>
     );
 
