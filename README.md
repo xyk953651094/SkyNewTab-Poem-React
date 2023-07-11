@@ -23,9 +23,10 @@
 * 下载本页面提供的文件进行安装
 
 ## 效果展示
-<img width="1440" alt="截屏2023-05-02 19 44 55" src="https://user-images.githubusercontent.com/28004442/235657362-9f6eeb25-91e6-4912-9609-fa593bf7d05a.png">
+<img width="1440" alt="截屏2023-07-11 15 40 28" src="https://github.com/xyk953651094/SkyNewTab-Poem-React/assets/28004442/34579e53-11e6-4774-8038-6171bd694dc4">
 
-<img width="1440" alt="截屏2023-05-02 19 44 45" src="https://user-images.githubusercontent.com/28004442/235657385-ecfe905b-1203-4f06-b984-5d314d8c02c8.png">
+<img width="1440" alt="截屏2023-07-11 15 40 48" src="https://github.com/xyk953651094/SkyNewTab-Poem-React/assets/28004442/67537832-b60e-49b8-a6c6-7ca9dad3ec9a">
 
-<img width="1440" alt="截屏2023-05-02 19 45 04" src="https://user-images.githubusercontent.com/28004442/235657396-822c25e0-4046-4f64-8e3c-0b12973f1d23.png">
+<img width="1440" alt="截屏2023-07-11 15 41 08" src="https://github.com/xyk953651094/SkyNewTab-Poem-React/assets/28004442/c09be8a9-34b3-4047-8083-26dc781820e6">
+
 
