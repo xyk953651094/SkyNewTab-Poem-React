@@ -1,7 +1,4 @@
 # 云开诗词新标签页 based on React
-## 注意
-* 原 [SkyNewTab-Poem-Angular](https://github.com/xyk953651094/SkyNewTab-Poem-Angular) 不再继续受支持，此为最新版。
-
 ## 声明
 * 诗词由第三方网站提供，内容不代表作者任何观点。  
 * 本作品由作者个人出于学习目的开发，由于成本原因，难以保证不同型号设备下的最终品质，后续尽量完善。
