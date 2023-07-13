@@ -14,7 +14,7 @@
 * 诗词来源：https://www.jinrishici.com 
 
 ## 安装
-* 本插件不提供商店版，请移步 [SkyNewTab-Poem-Angular](https://github.com/xyk953651094/SkyNewTab-Poem-Angular)
+* 本插件与 [SkyNewTab-Poem-Angular](https://github.com/xyk953651094/SkyNewTab-Poem-Angular) 重复，因此不上架浏览器插件商店。 
 * 下载本页面提供的文件进行安装
 
 ## 效果展示
