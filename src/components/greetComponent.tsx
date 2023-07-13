@@ -13,14 +13,13 @@ const {Text} = Typography;
 
 function GreetComponent(props: any) {
     const [greet, setGreet] = useState(getGreetContent());
-    const [solarTerms, setSolarTerms] = useState("")
     const [greetIcon, setGreetIcon] = useState(getGreetIcon());
     const [calendar, setCalendar] = useState(getTimeDetails(new Date()).showDate4 + " " + getTimeDetails(new Date()).showWeek);
     const [suit, setSuit] = useState("暂无信息");
     const [avoid, setAvoid] = useState("暂无信息");
 
-    function greetButtonOnClick() {
-        window.open("https://cn.bing.com/search?&q=" + solarTerms, "_blank");
+    function greetBtnOnClick() {
+        window.open("https://cn.bing.com/search?&q=日历", "_blank");
     }
 
     useEffect(() => {
@@ -51,10 +50,6 @@ function GreetComponent(props: any) {
             let holidayContent = data.solarTerms;
             if (data.solarTerms.indexOf("后") === -1) {
                 holidayContent = "今日" + holidayContent;
-                setSolarTerms(data.solarTerms);
-            }
-            else {
-                setSolarTerms(data.solarTerms.substring(0, data.solarTerms.length - 1));  // 删除“后”字
             }
             if (data.typeDes !== "休息日" && data.typeDes !== "工作日"){
                 holidayContent = holidayContent + " · " + data.typeDes;
@@ -90,11 +85,11 @@ function GreetComponent(props: any) {
         <Space direction="vertical">
             <Space>
                 <CheckCircleOutlined />
-                <Text style={{color: props.fontColor}}>{" 宜：" + suit}</Text>
+                <Text style={{color: props.fontColor}} className={"popoverFont"}>{" 宜：" + suit}</Text>
             </Space>
             <Space>
                 <CloseCircleOutlined />
-                <Text style={{color: props.fontColor}}>{" 忌：" + avoid}</Text>
+                <Text style={{color: props.fontColor}} className={"popoverFont"}>{" 忌：" + avoid}</Text>
             </Space>
 
             {/*<Button type="text" shape="round" size={"small"} icon={<CheckCircleOutlined />} style={{color: props.fontColor, cursor: "default"}}>*/}
@@ -109,10 +104,10 @@ function GreetComponent(props: any) {
     return (
         <Popover
             title={calendar} content={popoverContent}
-            placement="topLeft" color={"transparent"}>
+            placement="bottomLeft" color={"transparent"}>
             <Button type="text" shape="round" size={"large"} icon={<i className={greetIcon}>&nbsp;</i>}
                     className={"buttonFont"}
-                    onClick={greetButtonOnClick}
+                    onClick={greetBtnOnClick}
                     style={{
                         color: props.fontColor
                     }}

@@ -8,11 +8,11 @@ function PoemComponent(props: any) {
     const [poemAuthor, setPoemAuthor] = useState("张九龄");
     const [poemAuthorDetails, setPoemAuthorDetails] = useState("【唐】张九龄 ·《望月怀远》");
 
-    function poemContentButtonOnClick() {
+    function poemContentBtnOnClick() {
         window.open("https://cn.bing.com/search?&q=" + poemContent, "_blank");
     }
 
-    function poemAuthorButtonOnClick() {
+    function poemAuthorBtnOnClick() {
         window.open("https://cn.bing.com/search?&q=" + poemAuthor, "_blank");
     }
 
@@ -59,13 +59,13 @@ function PoemComponent(props: any) {
         <Space direction="vertical">
             <Col xs={24} sm={24} md={24} lg={24} xl={24} className={"center"}>
                 <Button type="text" shape="round" size={"large"}
-                        className="buttonFont" onClick={poemContentButtonOnClick} style={{color: props.fontColor}}>
+                        className="buttonFont" onClick={poemContentBtnOnClick} style={{color: props.fontColor}}>
                     {poemContent}
                 </Button>
             </Col>
             <Col xs={0} sm={0} md={0} lg={24} xl={24} className={"center"}>
                 <Button type="text" shape="round" size={"large"}
-                        className="buttonFont" onClick={poemAuthorButtonOnClick} style={{color: props.fontColor}}>
+                        className="buttonFont" onClick={poemAuthorBtnOnClick} style={{color: props.fontColor}}>
                     {poemAuthorDetails}
                 </Button>
             </Col>

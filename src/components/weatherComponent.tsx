@@ -18,7 +18,7 @@ function WeatherComponent(props: any) {
     const [visibility, setVisibility] = useState("暂无信息");
     const [windInfo, setWindInfo] = useState("暂无信息");
 
-    function weatherButtonOnClick() {
+    function weatherBtnOnClick() {
         window.open("https://cn.bing.com/search?&q=%E5%A4%A9%E6%B0%94", "_blank");
     }
 
@@ -74,23 +74,23 @@ function WeatherComponent(props: any) {
         <Space direction="vertical">
             <Space>
                 <i className="bi bi-moisture"></i>
-                <Text style={{color: props.fontColor}}>{" 空气湿度：" + humidity}</Text>
+                <Text style={{color: props.fontColor}} className={"popoverFont"}>{" 空气湿度：" + humidity}</Text>
             </Space>
             <Space>
                 <i className="bi bi-water"></i>
-                <Text style={{color: props.fontColor}}>{" 空气质量：" + pm25}</Text>
+                <Text style={{color: props.fontColor}} className={"popoverFont"}>{" 空气质量：" + pm25}</Text>
             </Space>
             <Space>
                 <i className="bi bi-cloud-rain"></i>
-                <Text style={{color: props.fontColor}}>{" 降雨概率：" + rainfall}</Text>
+                <Text style={{color: props.fontColor}} className={"popoverFont"}>{" 降雨概率：" + rainfall}</Text>
             </Space>
             <Space>
                 <i className="bi bi-eye"></i>
-                <Text style={{color: props.fontColor}}>{" 视线距离：" + visibility}</Text>
+                <Text style={{color: props.fontColor}} className={"popoverFont"}>{" 视线距离：" + visibility}</Text>
             </Space>
             <Space>
                 <i className="bi bi-wind"></i>
-                <Text style={{color: props.fontColor}}>{" 风速情况：" + windInfo}</Text>
+                <Text style={{color: props.fontColor}} className={"popoverFont"}>{" 风速情况：" + windInfo}</Text>
             </Space>
 
             {/*<Button type="text" shape="round" size={"small"} icon={<i className="bi bi-moisture">&nbsp;&nbsp;&nbsp;</i>} style={{color: props.fontColor, cursor: "default"}}>*/}
@@ -113,9 +113,9 @@ function WeatherComponent(props: any) {
 
     return (
         <Popover title={region} content={popoverContent}
-                 placement="topLeft" color={"transparent"}>
+                 placement="bottomLeft" color={"transparent"}>
             <Button type="text" shape="round" size={"large"} icon={<i className={weatherIcon}>&nbsp;</i>}
-                    onClick={weatherButtonOnClick}
+                    onClick={weatherBtnOnClick}
                     className={"buttonFont"}
                     style={{
                         color: props.fontColor,

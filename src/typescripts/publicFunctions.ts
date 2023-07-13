@@ -1,5 +1,6 @@
 import "jquery-color"
 const $ = require("jquery");
+
 // 网络请求
 export function httpRequest(headers: object, url: string, data: object, method: "GET" | "POST") {
     return new Promise(function(resolve,reject){
