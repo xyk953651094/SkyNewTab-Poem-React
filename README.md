@@ -16,14 +16,19 @@
 * 诗词来源：https://www.jinrishici.com 
 
 ## 安装
-* 本插件与 [SkyNewTab-Poem-Angular](https://github.com/xyk953651094/SkyNewTab-Poem-Angular) 重复，暂时不上架各浏览器插件商店。 
+* 本插件与 [SkyNewTab-Poem-Angular](https://github.com/xyk953651094/SkyNewTab-Poem-Angular) 重复，暂时不上架各商店。
 * 下载本页面提供的文件进行安装
 
 ## 效果展示
+### Chromium & Firefox
 <img width="1440" alt="截屏2023-07-11 15 40 28" src="https://github.com/xyk953651094/SkyNewTab-Poem-React/assets/28004442/34579e53-11e6-4774-8038-6171bd694dc4">
 
 <img width="1440" alt="截屏2023-07-11 15 40 48" src="https://github.com/xyk953651094/SkyNewTab-Poem-React/assets/28004442/67537832-b60e-49b8-a6c6-7ca9dad3ec9a">
 
 <img width="1440" alt="截屏2023-07-11 15 41 08" src="https://github.com/xyk953651094/SkyNewTab-Poem-React/assets/28004442/c09be8a9-34b3-4047-8083-26dc781820e6">
 
+### Safari for iPhone
 
+### Safari for iPad
+
+### Safari for Mac
