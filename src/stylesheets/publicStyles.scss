@@ -39,7 +39,7 @@ html, body {
 }
 
 .buttonFont {
-  font-family: cursive,SimSun, Arial, Helvetica, sans-serif;
+  font-family: cursive, SimSun, Arial, Helvetica, sans-serif;
   font-size: 25px !important;
   line-height: 25px;
   overflow: hidden;
@@ -57,21 +57,10 @@ html, body {
   cursor: default;
 }
 
-//.buttonFont > i {
-//  vertical-align: middle;
-//}
-
 /*水平垂直居中*/
 .center {
   display: flex;
   justify-content: center;
   align-items: center;
   text-align: center;
-}
-
-@media screen and (max-width: 500px) and (orientation:portrait) {
-  .buttonFont {
-    font-size: 20px;
-    line-height: 20px !important;
-  }
 }

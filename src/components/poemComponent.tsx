@@ -1,10 +1,11 @@
 import React, {useEffect, useState} from 'react';
-import {Col, Button, Space, message} from "antd";
+import {Row, Col, Button, Space, message} from "antd";
 import "../stylesheets/publicStyles.scss";
+import "../stylesheets/poemComponent.scss"
 const poemRequest = require('jinrishici');
 
 function PoemComponent(props: any) {
-    const [poemContent, setPoemContent] = useState("海上生明月，天涯共此时");
+    const [poemContent, setPoemContent] = useState("海上生明月，天涯共此时。");
     const [poemAuthor, setPoemAuthor] = useState("张九龄");
     const [poemAuthorDetails, setPoemAuthorDetails] = useState("【唐】张九龄 ·《望月怀远》");
 
@@ -56,20 +57,20 @@ function PoemComponent(props: any) {
     }, []);
 
     return (
-        <Space direction="vertical">
-            <Col xs={24} sm={24} md={24} lg={24} xl={24} className={"center"}>
+        <Row justify="center">
+            <Col xs={24} sm={24} md={24} lg={24} xl={24}>
                 <Button type="text" shape="round" size={"large"}
-                        className="buttonFont" onClick={poemContentBtnOnClick} style={{color: props.fontColor}}>
+                        className="buttonFont poemContent" onClick={poemContentBtnOnClick} style={{color: props.fontColor}}>
                     {poemContent}
                 </Button>
             </Col>
-            <Col xs={0} sm={0} md={0} lg={24} xl={24} className={"center"}>
+            <Col xs={0} sm={0} md={0} lg={24} xl={24}>
                 <Button type="text" shape="round" size={"large"}
                         className="buttonFont" onClick={poemAuthorBtnOnClick} style={{color: props.fontColor}}>
                     {poemAuthorDetails}
                 </Button>
             </Col>
-        </Space>
+        </Row>
     );
 }
 

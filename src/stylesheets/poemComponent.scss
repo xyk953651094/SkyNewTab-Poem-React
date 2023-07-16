@@ -1,0 +1,10 @@
+/*移动端竖屏样式*/
+@media screen and (max-width: 500px) and (orientation:portrait) {
+    .poemContent {
+        height: 100% !important;
+    }
+
+    .poemContent > span {
+        writing-mode: vertical-lr;
+    }
+}
