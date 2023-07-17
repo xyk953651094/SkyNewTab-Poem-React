@@ -28,6 +28,7 @@
 <img width="1440" alt="截屏2023-07-11 15 41 08" src="https://github.com/xyk953651094/SkyNewTab-Poem-React/assets/28004442/c09be8a9-34b3-4047-8083-26dc781820e6">
 
 ### Safari for iPhone
+<img width="500" alt="截屏2023-07-16 19 56 51" src="https://github.com/xyk953651094/SkyNewTab-Poem-React/assets/28004442/3c132d3b-9779-4684-b864-e9c2e2f63459">
 
 ### Safari for iPad
 <img alt="截屏2023-07-16 18 58 03" src="https://github.com/xyk953651094/SkyNewTab-Poem-React/assets/28004442/fe477580-297a-42ee-b103-843078cb9f9e">
