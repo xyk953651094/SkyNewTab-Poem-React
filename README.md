@@ -8,15 +8,15 @@
 * [JetBrains Open Source Support](https://jb.gg/OpenSourceSupport "跳转至 JetBrains Open Source Support")
 
 ## 简介
-适用于 Chrome、Edge、Firefox、Safari 的新标签页插件。  
-基于 Html + TypeScript + CSS + React + Ant Design + Bootstrap Icon。  
-语言：中文
+* 适用于 Chrome、Edge、Firefox、Safari 的新标签页插件。  
+* 基于 Html + TypeScript + CSS + React + Ant Design + Bootstrap Icon。  
+* 支持语言：中文。
 * 节气来源：https://www.mxnzp.com 
 * 天气来源：https://www.jinrishici.com  
 * 诗词来源：https://www.jinrishici.com 
 
 ## 安装
-* 本插件与 [SkyNewTab-Poem-Angular](https://github.com/xyk953651094/SkyNewTab-Poem-Angular) 重复，暂时不上架各商店。
+* 与 [SkyNewTab-Poem-Angular](https://github.com/xyk953651094/SkyNewTab-Poem-Angular) 重复，暂时不上架各商店。
 * 下载本页面提供的文件进行安装。
 
 ## 效果展示
