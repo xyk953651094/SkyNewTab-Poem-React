@@ -1,8 +1,9 @@
 import React, {useEffect, useState} from 'react';
-import {Row, Col, Button, Space, message} from "antd";
+import {Row, Col, Button, Space, message, Typography} from "antd";
 import "../stylesheets/publicStyles.scss";
 import "../stylesheets/poemComponent.scss"
 const poemRequest = require('jinrishici');
+const {Text} = Typography;
 
 function PoemComponent(props: any) {
     const [poemContent, setPoemContent] = useState("海上生明月，天涯共此时。");
@@ -57,12 +58,19 @@ function PoemComponent(props: any) {
     }, []);
 
     return (
-        <Row justify="center">
-            <Col xs={24} sm={24} md={24} lg={24} xl={24}>
+        <Row justify="center" align="middle">
+            <Col xs={0} sm={0} md={0} lg={24} xl={24}>
                 <Button type="text" shape="round" size={"large"}
-                        className="buttonFont poemContent" onClick={poemContentBtnOnClick} style={{color: props.fontColor}}>
+                        className="buttonFont" onClick={poemContentBtnOnClick} style={{color: props.fontColor}}>
                     {poemContent}
                 </Button>
+            </Col>
+            <Col xs={24} sm={24} md={24} lg={0} xl={0}>
+                <Space align={"center"}>
+                    <Text className="buttonFont vertical" style={{color: props.fontColor}}>
+                        {poemContent}
+                    </Text>
+                </Space>
             </Col>
             <Col xs={0} sm={0} md={0} lg={24} xl={24}>
                 <Button type="text" shape="round" size={"large"}
