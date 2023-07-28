@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {Row, Col, Button, Space, message, Typography} from "antd";
 import "../stylesheets/publicStyles.scss";
 import "../stylesheets/poemComponent.scss"
+import {getFontColor, getReverseColor} from "../typescripts/publicFunctions";
 const poemRequest = require('jinrishici');
 const {Text} = Typography;
 
@@ -9,6 +10,16 @@ function PoemComponent(props: any) {
     const [poemContent, setPoemContent] = useState("海上生明月，天涯共此时。");
     const [poemAuthor, setPoemAuthor] = useState("张九龄");
     const [poemAuthorDetails, setPoemAuthorDetails] = useState("【唐】张九龄 ·《望月怀远》");
+
+    function btnMouseOver(e: any) {
+        e.currentTarget.style.backgroundColor = props.fontColor;
+        e.currentTarget.style.color = getFontColor(props.fontColor);
+    }
+
+    function btnMouseOut(e:any) {
+        e.currentTarget.style.backgroundColor = "transparent";
+        e.currentTarget.style.color = props.fontColor;
+    }
 
     function poemContentBtnOnClick() {
         window.open("https://cn.bing.com/search?&q=" + poemContent, "_blank");
@@ -60,8 +71,8 @@ function PoemComponent(props: any) {
     return (
         <Row justify="center" align="middle">
             <Col xs={0} sm={0} md={0} lg={24} xl={24}>
-                <Button type="text" shape="round" size={"large"}
-                        className="buttonFont" onClick={poemContentBtnOnClick} style={{color: props.fontColor}}>
+                <Button type="text" shape="round" size={"large"} className="buttonFont" style={{color: props.fontColor}}
+                         onClick={poemContentBtnOnClick} onMouseOver={btnMouseOver} onMouseOut={btnMouseOut}>
                     {poemContent}
                 </Button>
             </Col>
@@ -73,8 +84,8 @@ function PoemComponent(props: any) {
                 </Space>
             </Col>
             <Col xs={0} sm={0} md={0} lg={24} xl={24}>
-                <Button type="text" shape="round" size={"large"}
-                        className="buttonFont" onClick={poemAuthorBtnOnClick} style={{color: props.fontColor}}>
+                <Button type="text" shape="round" size={"large"} className="buttonFont" style={{color: props.fontColor}}
+                        onClick={poemAuthorBtnOnClick} onMouseOver={btnMouseOver} onMouseOut={btnMouseOut}>
                     {poemAuthorDetails}
                 </Button>
             </Col>

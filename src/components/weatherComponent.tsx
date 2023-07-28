@@ -2,7 +2,8 @@ import React, {useEffect, useState} from "react";
 import {Popover, Button, Space, Typography} from "antd";
 import {
     getWeatherIcon,
-    httpRequest
+    httpRequest,
+    getFontColor,
 } from "../typescripts/publicFunctions";
 import "../stylesheets/publicStyles.scss"
 
@@ -17,6 +18,16 @@ function WeatherComponent(props: any) {
     const [rainfall, setRainfall] = useState("暂无信息");
     const [visibility, setVisibility] = useState("暂无信息");
     const [windInfo, setWindInfo] = useState("暂无信息");
+
+    function btnMouseOver(e: any) {
+        e.currentTarget.style.backgroundColor = props.fontColor;
+        e.currentTarget.style.color = getFontColor(props.fontColor);
+    }
+
+    function btnMouseOut(e:any) {
+        e.currentTarget.style.backgroundColor = "transparent";
+        e.currentTarget.style.color = props.fontColor;
+    }
 
     function weatherBtnOnClick() {
         window.open("https://cn.bing.com/search?&q=%E5%A4%A9%E6%B0%94", "_blank");
@@ -115,7 +126,7 @@ function WeatherComponent(props: any) {
         <Popover title={region} content={popoverContent}
                  placement="bottomLeft" color={"transparent"}>
             <Button type="text" shape="round" size={"large"} icon={<i className={weatherIcon}>&nbsp;</i>}
-                    onClick={weatherBtnOnClick}
+                    onClick={weatherBtnOnClick} onMouseOver={btnMouseOver} onMouseOut={btnMouseOut}
                     className={"buttonFont"}
                     style={{
                         color: props.fontColor,

@@ -139,7 +139,7 @@ export function getWeatherIcon(weatherInfo: string) {
 }
 
 // 根据图片背景颜色获取元素反色效果
-export function getComponentBackgroundColor(color: string) {
+export function getReverseColor(color: string) {
     color = "0x" + color.replace("#", '');
     let newColor = "000000" + (0xFFFFFF - parseInt(color)).toString(16);
     return "#" + newColor.substring(newColor.length-6, newColor.length);

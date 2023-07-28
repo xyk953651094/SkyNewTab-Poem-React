@@ -5,7 +5,7 @@ import {
     getTimeDetails,
     getGreetContent,
     getGreetIcon,
-    httpRequest
+    httpRequest, getFontColor
 } from "../typescripts/publicFunctions";
 import "../stylesheets/publicStyles.scss"
 
@@ -17,6 +17,16 @@ function GreetComponent(props: any) {
     const [calendar, setCalendar] = useState(getTimeDetails(new Date()).showDate4 + " " + getTimeDetails(new Date()).showWeek);
     const [suit, setSuit] = useState("暂无信息");
     const [avoid, setAvoid] = useState("暂无信息");
+
+    function btnMouseOver(e: any) {
+        e.currentTarget.style.backgroundColor = props.fontColor;
+        e.currentTarget.style.color = getFontColor(props.fontColor);
+    }
+
+    function btnMouseOut(e:any) {
+        e.currentTarget.style.backgroundColor = "transparent";
+        e.currentTarget.style.color = props.fontColor;
+    }
 
     function greetBtnOnClick() {
         window.open("https://cn.bing.com/search?&q=日历", "_blank");
@@ -107,7 +117,7 @@ function GreetComponent(props: any) {
             placement="bottomLeft" color={"transparent"}>
             <Button type="text" shape="round" size={"large"} icon={<i className={greetIcon}>&nbsp;</i>}
                     className={"buttonFont"}
-                    onClick={greetBtnOnClick}
+                    onClick={greetBtnOnClick} onMouseOver={btnMouseOver} onMouseOut={btnMouseOut}
                     style={{
                         color: props.fontColor
                     }}
