@@ -1,8 +1,9 @@
 import React, {useEffect, useState} from 'react';
-import {Row, Col, Button, Space, message, Typography} from "antd";
+import {Button, Col, message, Row, Space, Typography} from "antd";
 import "../stylesheets/publicStyles.scss";
 import "../stylesheets/poemComponent.scss"
-import {getFontColor, getReverseColor} from "../typescripts/publicFunctions";
+import {getFontColor} from "../typescripts/publicFunctions";
+
 const poemRequest = require('jinrishici');
 const {Text} = Typography;
 
@@ -16,7 +17,7 @@ function PoemComponent(props: any) {
         e.currentTarget.style.color = getFontColor(props.fontColor);
     }
 
-    function btnMouseOut(e:any) {
+    function btnMouseOut(e: any) {
         e.currentTarget.style.backgroundColor = "transparent";
         e.currentTarget.style.color = props.fontColor;
     }
@@ -50,19 +51,16 @@ function PoemComponent(props: any) {
         // 防抖节流
         let lastPoemRequestTime: any = localStorage.getItem("lastPoemRequestTime");
         let nowTimeStamp = new Date().getTime();
-        if(lastPoemRequestTime === null) {  // 第一次请求时 lastRequestTime 为 null，因此直接进行请求赋值 lastRequestTime
+        if (lastPoemRequestTime === null) {  // 第一次请求时 lastRequestTime 为 null，因此直接进行请求赋值 lastRequestTime
             getPoem();
-        }
-        else if(nowTimeStamp - parseInt(lastPoemRequestTime) > 60 * 1000) {  // 必须多于一分钟才能进行新的请求
+        } else if (nowTimeStamp - parseInt(lastPoemRequestTime) > 60 * 1000) {  // 必须多于一分钟才能进行新的请求
             getPoem();
-        }
-        else {  // 一分钟之内使用上一次请求结果
+        } else {  // 一分钟之内使用上一次请求结果
             let lastPoem: any = localStorage.getItem("lastPoem");
             if (lastPoem) {
                 lastPoem = JSON.parse(lastPoem);
                 setPoem(lastPoem);
-            }
-            else {
+            } else {
                 message.error("获取诗词失败");
             }
         }
@@ -70,25 +68,27 @@ function PoemComponent(props: any) {
 
     return (
         <Row justify="center" align="middle">
-            <Col xs={0} sm={0} md={0} lg={24} xl={24}>
-                <Button type="text" shape="round" size={"large"} className="buttonFont" style={{color: props.fontColor}}
-                         onClick={poemContentBtnOnClick} onMouseOver={btnMouseOver} onMouseOut={btnMouseOut}>
-                    {poemContent}
-                </Button>
-            </Col>
-            <Col xs={24} sm={24} md={24} lg={0} xl={0}>
-                <Space align={"center"}>
-                    <Text className="buttonFont vertical" style={{color: props.fontColor}}>
+            <Space direction={"vertical"}>
+                <Col xs={0} sm={0} md={0} lg={24} xl={24}>
+                    <Button type="text" shape="round" size={"large"} className="buttonFont" style={{color: props.fontColor}}
+                            onClick={poemContentBtnOnClick} onMouseOver={btnMouseOver} onMouseOut={btnMouseOut}>
                         {poemContent}
-                    </Text>
-                </Space>
-            </Col>
-            <Col xs={0} sm={0} md={0} lg={24} xl={24}>
-                <Button type="text" shape="round" size={"large"} className="buttonFont" style={{color: props.fontColor}}
-                        onClick={poemAuthorBtnOnClick} onMouseOver={btnMouseOver} onMouseOut={btnMouseOut}>
-                    {poemAuthorDetails}
-                </Button>
-            </Col>
+                    </Button>
+                </Col>
+                <Col xs={24} sm={24} md={24} lg={0} xl={0}>
+                    <Space align={"center"}>
+                        <Text className="buttonFont vertical" style={{color: props.fontColor}}>
+                            {poemContent}
+                        </Text>
+                    </Space>
+                </Col>
+                <Col xs={0} sm={0} md={0} lg={24} xl={24}>
+                    <Button type="text" shape="round" size={"large"} className="buttonFont" style={{color: props.fontColor}}
+                            onClick={poemAuthorBtnOnClick} onMouseOver={btnMouseOver} onMouseOut={btnMouseOut}>
+                        {poemAuthorDetails}
+                    </Button>
+                </Col>
+            </Space>
         </Row>
     );
 }

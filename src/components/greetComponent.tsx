@@ -1,15 +1,10 @@
 import React, {useEffect, useState} from "react";
-import {Popover, Button, Space, Typography} from "antd";
+import {Button, Popover, Space, Typography} from "antd";
 import {CheckCircleOutlined, CloseCircleOutlined} from "@ant-design/icons";
-import {
-    getTimeDetails,
-    getGreetContent,
-    getGreetIcon,
-    httpRequest, getFontColor
-} from "../typescripts/publicFunctions";
+import {getFontColor, getGreetContent, getGreetIcon, getTimeDetails, httpRequest} from "../typescripts/publicFunctions";
 import "../stylesheets/publicStyles.scss"
 
-const {Text} = Typography;
+const {Title, Text} = Typography;
 
 function GreetComponent(props: any) {
     const [greet, setGreet] = useState(getGreetContent());
@@ -23,7 +18,7 @@ function GreetComponent(props: any) {
         e.currentTarget.style.color = getFontColor(props.fontColor);
     }
 
-    function btnMouseOut(e:any) {
+    function btnMouseOut(e: any) {
         e.currentTarget.style.backgroundColor = "transparent";
         e.currentTarget.style.color = props.fontColor;
     }
@@ -42,14 +37,14 @@ function GreetComponent(props: any) {
                 "app_secret": "RVlRVjZTYXVqeHB3WCtQUG5lM0h0UT09",
             };
             httpRequest(headers, url, data, "GET")
-                .then(function(resultData: any){
+                .then(function (resultData: any) {
                     localStorage.setItem("lastHolidayRequestTime", String(new Date().getTime()));  // 保存请求时间，防抖节流
                     if (resultData.code === 1) {
                         localStorage.setItem("lastHoliday", JSON.stringify(resultData.data));      // 保存请求结果，防抖节流
                         setHoliday(resultData.data);
                     }
                 })
-                .catch(function(){
+                .catch(function () {
                     // 请求失败也更新请求时间，防止超时后无信息可显示
                     localStorage.setItem("lastHolidayRequestTime", String(new Date().getTime()));  // 保存请求时间，防抖节流
                 });
@@ -61,7 +56,7 @@ function GreetComponent(props: any) {
             if (data.solarTerms.indexOf("后") === -1) {
                 holidayContent = "今日" + holidayContent;
             }
-            if (data.typeDes !== "休息日" && data.typeDes !== "工作日"){
+            if (data.typeDes !== "休息日" && data.typeDes !== "工作日") {
                 holidayContent = holidayContent + " · " + data.typeDes;
             }
             let timeDetails = getTimeDetails(new Date());
@@ -76,13 +71,11 @@ function GreetComponent(props: any) {
         // 防抖节流
         let lastRequestTime: any = localStorage.getItem("lastHolidayRequestTime");
         let nowTimeStamp = new Date().getTime();
-        if(lastRequestTime === null) {  // 第一次请求时 lastRequestTime 为 null，因此直接进行请求赋值 lastRequestTime
+        if (lastRequestTime === null) {  // 第一次请求时 lastRequestTime 为 null，因此直接进行请求赋值 lastRequestTime
             getHoliday();
-        }
-        else if(nowTimeStamp - parseInt(lastRequestTime) > 60 * 60 * 1000) {  // 必须多于一小时才能进行新的请求
+        } else if (nowTimeStamp - parseInt(lastRequestTime) > 60 * 60 * 1000) {  // 必须多于一小时才能进行新的请求
             getHoliday();
-        }
-        else {  // 一小时之内使用上一次请求结果
+        } else {  // 一小时之内使用上一次请求结果
             let lastHoliday: any = localStorage.getItem("lastHoliday");
             if (lastHoliday) {
                 lastHoliday = JSON.parse(lastHoliday);
@@ -94,11 +87,11 @@ function GreetComponent(props: any) {
     const popoverContent = (
         <Space direction="vertical">
             <Space>
-                <CheckCircleOutlined />
+                <CheckCircleOutlined/>
                 <Text style={{color: props.fontColor}} className={"popoverFont"}>{" 宜：" + suit}</Text>
             </Space>
             <Space>
-                <CloseCircleOutlined />
+                <CloseCircleOutlined/>
                 <Text style={{color: props.fontColor}} className={"popoverFont"}>{" 忌：" + avoid}</Text>
             </Space>
 

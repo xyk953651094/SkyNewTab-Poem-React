@@ -1,6 +1,6 @@
 /*移动端竖屏样式*/
-@media screen and (max-width: 500px) and (orientation:portrait) {
-    div:has(.portrait)  {
+@media screen and (max-width: 500px) and (orientation: portrait) {
+    div:has(.portrait) {
         display: inline-flex;
     }
 
