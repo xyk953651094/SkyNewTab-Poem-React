@@ -1,5 +1,5 @@
-import React, {useState, useEffect} from 'react';
-import {Layout, Row, Col, Space} from "antd";
+import React, {useEffect, useState} from 'react';
+import {Col, Layout, Row, Space} from "antd";
 import "./stylesheets/publicStyles.scss"
 import {themeArray} from "./typescripts/publicConstants";
 
@@ -33,7 +33,11 @@ function App() {
             if (popoverEle.length && popoverEle.length > 0) {
                 $(".ant-popover-arrow").css("display", "none");
                 $(".ant-popover-inner").css("box-shadow", "none");
-                $(".ant-popover-title").css({"color": fontColor, "font-family": "cursive, SimSun, Arial, Helvetica, sans-serif", "font-size": "20px"});
+                $(".ant-popover-title").css({
+                    "color": fontColor,
+                    "font-family": "'Times New Roman', cursive, sans-serif",
+                    "font-size": "20px",
+                });
                 $(".ant-popover-inner-content").css("color", fontColor);
             }
         });
@@ -42,20 +46,20 @@ function App() {
     return (
         <Layout>
             <Header id={"header"} className={"zIndexMiddle"}>
-                <Row>
-                    <Col xs={0} sm={0} md={{span: 10, offset: 2}} lg={{span: 10, offset: 2}} xl={{span: 10, offset: 2}}>
-                        <GreetComponent fontColor={fontColor} />
+                <Row justify="center">
+                    <Col xs={0} sm={0} md={10} lg={10} xl={10} xxl={10}>
+                        <GreetComponent fontColor={fontColor}/>
                     </Col>
-                    <Col xs={0} sm={0} md={10} lg={10} xl={10} style={{textAlign: "right"}}>
+                    <Col xs={0} sm={0} md={10} lg={10} xl={10} xxl={10} style={{textAlign: "right"}}>
                         <Space size={"small"}>
-                            <WeatherComponent fontColor={fontColor} />
+                            <WeatherComponent fontColor={fontColor}/>
                         </Space>
                     </Col>
                     <SunComponent sunColor={svgColor}/>
                 </Row>
             </Header>
             <Content id={"content"} className="center">
-                <PoemComponent fontColor={fontColor} />
+                <PoemComponent fontColor={fontColor}/>
             </Content>
             <Footer id={"footer"}>
                 <WaveComponent waveColor={svgColor}/>

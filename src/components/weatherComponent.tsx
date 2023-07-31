@@ -1,9 +1,6 @@
 import React, {useEffect, useState} from "react";
-import {Popover, Button, Space, Typography} from "antd";
-import {
-    getWeatherIcon,
-    httpRequest
-} from "../typescripts/publicFunctions";
+import {Button, Popover, Space, Typography} from "antd";
+import {getFontColor, getWeatherIcon, httpRequest,} from "../typescripts/publicFunctions";
 import "../stylesheets/publicStyles.scss"
 
 const {Text} = Typography;
@@ -18,7 +15,17 @@ function WeatherComponent(props: any) {
     const [visibility, setVisibility] = useState("暂无信息");
     const [windInfo, setWindInfo] = useState("暂无信息");
 
-    function weatherButtonOnClick() {
+    function btnMouseOver(e: any) {
+        e.currentTarget.style.backgroundColor = props.fontColor;
+        e.currentTarget.style.color = getFontColor(props.fontColor);
+    }
+
+    function btnMouseOut(e: any) {
+        e.currentTarget.style.backgroundColor = "transparent";
+        e.currentTarget.style.color = props.fontColor;
+    }
+
+    function weatherBtnOnClick() {
         window.open("https://cn.bing.com/search?&q=%E5%A4%A9%E6%B0%94", "_blank");
     }
 
@@ -28,14 +35,14 @@ function WeatherComponent(props: any) {
             let url = "https://v2.jinrishici.com/info";
             let data = {};
             httpRequest(headers, url, data, "GET")
-                .then(function(resultData: any){
+                .then(function (resultData: any) {
                     localStorage.setItem("lastWeatherRequestTime", String(new Date().getTime()));  // 保存请求时间，防抖节流
                     if (resultData.status === "success" && resultData.data.weatherData !== null) {
                         localStorage.setItem("lastWeather", JSON.stringify(resultData.data));      // 保存请求结果，防抖节流
                         setWeather(resultData.data);
                     }
                 })
-                .catch(function(){
+                .catch(function () {
                     // 请求失败也更新请求时间，防止超时后无信息可显示
                     localStorage.setItem("lastWeatherRequestTime", String(new Date().getTime()));  // 保存请求时间，防抖节流
                 });
@@ -43,7 +50,7 @@ function WeatherComponent(props: any) {
 
         function setWeather(data: any) {
             setWeatherIcon(getWeatherIcon(data.weatherData.weather));
-            setWeatherInfo(data.weatherData.weather  + "｜" + data.weatherData.temperature + "°C");
+            setWeatherInfo(data.weatherData.weather + "｜" + data.weatherData.temperature + "°C");
             setRegion(data.region.replace("|", " · "));
             setHumidity(data.weatherData.humidity);
             setPm25(data.weatherData.pm25);
@@ -55,13 +62,11 @@ function WeatherComponent(props: any) {
         // 防抖节流
         let lastRequestTime: any = localStorage.getItem("lastWeatherRequestTime");
         let nowTimeStamp = new Date().getTime();
-        if(lastRequestTime === null) {  // 第一次请求时 lastRequestTime 为 null，因此直接进行请求赋值 lastRequestTime
+        if (lastRequestTime === null) {  // 第一次请求时 lastRequestTime 为 null，因此直接进行请求赋值 lastRequestTime
             getWeather();
-        }
-        else if(nowTimeStamp - parseInt(lastRequestTime) > 0) {  // 必须多于一小时才能进行新的请求
+        } else if (nowTimeStamp - parseInt(lastRequestTime) > 0) {  // 必须多于一小时才能进行新的请求
             getWeather();
-        }
-        else {  // 一小时之内使用上一次请求结果
+        } else {  // 一小时之内使用上一次请求结果
             let lastWeather: any = localStorage.getItem("lastWeather");
             if (lastWeather) {
                 lastWeather = JSON.parse(lastWeather);
@@ -74,23 +79,23 @@ function WeatherComponent(props: any) {
         <Space direction="vertical">
             <Space>
                 <i className="bi bi-moisture"></i>
-                <Text style={{color: props.fontColor}}>{" 空气湿度：" + humidity}</Text>
+                <Text style={{color: props.fontColor}} className={"popoverFont"}>{" 空气湿度：" + humidity}</Text>
             </Space>
             <Space>
                 <i className="bi bi-water"></i>
-                <Text style={{color: props.fontColor}}>{" 空气质量：" + pm25}</Text>
+                <Text style={{color: props.fontColor}} className={"popoverFont"}>{" 空气质量：" + pm25}</Text>
             </Space>
             <Space>
                 <i className="bi bi-cloud-rain"></i>
-                <Text style={{color: props.fontColor}}>{" 降雨概率：" + rainfall}</Text>
+                <Text style={{color: props.fontColor}} className={"popoverFont"}>{" 降雨概率：" + rainfall}</Text>
             </Space>
             <Space>
                 <i className="bi bi-eye"></i>
-                <Text style={{color: props.fontColor}}>{" 视线距离：" + visibility}</Text>
+                <Text style={{color: props.fontColor}} className={"popoverFont"}>{" 视线距离：" + visibility}</Text>
             </Space>
             <Space>
                 <i className="bi bi-wind"></i>
-                <Text style={{color: props.fontColor}}>{" 风速情况：" + windInfo}</Text>
+                <Text style={{color: props.fontColor}} className={"popoverFont"}>{" 风速情况：" + windInfo}</Text>
             </Space>
 
             {/*<Button type="text" shape="round" size={"small"} icon={<i className="bi bi-moisture">&nbsp;&nbsp;&nbsp;</i>} style={{color: props.fontColor, cursor: "default"}}>*/}
@@ -113,9 +118,9 @@ function WeatherComponent(props: any) {
 
     return (
         <Popover title={region} content={popoverContent}
-                 placement="topLeft" color={"transparent"}>
+                 placement="bottomLeft" color={"transparent"}>
             <Button type="text" shape="round" size={"large"} icon={<i className={weatherIcon}>&nbsp;</i>}
-                    onClick={weatherButtonOnClick}
+                    onClick={weatherBtnOnClick} onMouseOver={btnMouseOver} onMouseOut={btnMouseOut}
                     className={"buttonFont"}
                     style={{
                         color: props.fontColor,
