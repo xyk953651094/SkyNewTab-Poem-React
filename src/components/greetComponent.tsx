@@ -86,21 +86,23 @@ function GreetComponent(props: any) {
 
     const popoverContent = (
         <Space direction="vertical">
-            <Space>
-                <CheckCircleOutlined/>
-                <Text style={{color: props.fontColor}} className={"popoverFont"}>{" 宜：" + suit}</Text>
-            </Space>
-            <Space>
-                <CloseCircleOutlined/>
-                <Text style={{color: props.fontColor}} className={"popoverFont"}>{" 忌：" + avoid}</Text>
-            </Space>
+            <Button type="text" shape="round" icon={<CheckCircleOutlined />} onMouseOver={btnMouseOver} onMouseOut={btnMouseOut}
+                    className={"popoverFont"} style={{color: props.fontColor, cursor: "default"}}>
+                {"宜：" + suit}
+            </Button>
+            <Button type="text" shape="round" icon={<CloseCircleOutlined />} onMouseOver={btnMouseOver} onMouseOut={btnMouseOut}
+                    className={"popoverFont"} style={{color: props.fontColor, cursor: "default"}}>
+                {"忌：" + avoid}
+            </Button>
 
-            {/*<Button type="text" shape="round" size={"small"} icon={<CheckCircleOutlined />} style={{color: props.fontColor, cursor: "default"}}>*/}
-            {/*    {" 宜：" + suit}*/}
-            {/*</Button>*/}
-            {/*<Button type="text" shape="round" size={"small"} icon={<CloseCircleOutlined />} style={{color: props.fontColor, cursor: "default"}}>*/}
-            {/*    {" 忌：" + avoid}*/}
-            {/*</Button>*/}
+            {/*<Space>*/}
+            {/*    <CheckCircleOutlined/>*/}
+            {/*    <Text style={{color: props.fontColor}} className={"popoverFont"}>{" 宜：" + suit}</Text>*/}
+            {/*</Space>*/}
+            {/*<Space>*/}
+            {/*    <CloseCircleOutlined/>*/}
+            {/*    <Text style={{color: props.fontColor}} className={"popoverFont"}>{" 忌：" + avoid}</Text>*/}
+            {/*</Space>*/}
         </Space>
     );
 
