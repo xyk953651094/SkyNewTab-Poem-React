@@ -47,10 +47,10 @@ function App() {
         <Layout>
             <Header id={"header"} className={"zIndexMiddle"}>
                 <Row justify="center">
-                    <Col xs={0} sm={0} md={10} lg={10} xl={10} xxl={10}>
+                    <Col xs={22} sm={22} md={9} lg={9} xl={9} xxl={9}>
                         <GreetComponent fontColor={fontColor}/>
                     </Col>
-                    <Col xs={0} sm={0} md={10} lg={10} xl={10} xxl={10} style={{textAlign: "right"}}>
+                    <Col xs={0} sm={0} md={9} lg={9} xl={9} xxl={9} style={{textAlign: "right"}}>
                         <Space size={"small"}>
                             <WeatherComponent fontColor={fontColor}/>
                         </Space>

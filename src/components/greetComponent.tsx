@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from "react";
 import {Button, Popover, Space, Typography} from "antd";
 import {CheckCircleOutlined, CloseCircleOutlined} from "@ant-design/icons";
+import {device} from "../typescripts/publicConstants";
 import {getFontColor, getGreetContent, getGreetIcon, getTimeDetails, httpRequest} from "../typescripts/publicFunctions";
 import "../stylesheets/publicStyles.scss"
 
@@ -86,23 +87,16 @@ function GreetComponent(props: any) {
 
     const popoverContent = (
         <Space direction="vertical">
-            <Button type="text" shape="round" icon={<CheckCircleOutlined />} onMouseOver={btnMouseOver} onMouseOut={btnMouseOut}
+            <Button type="text" shape="round" icon={<CheckCircleOutlined/>} onMouseOver={btnMouseOver}
+                    onMouseOut={btnMouseOut}
                     className={"popoverFont"} style={{color: props.fontColor, cursor: "default"}}>
                 {"宜：" + suit}
             </Button>
-            <Button type="text" shape="round" icon={<CloseCircleOutlined />} onMouseOver={btnMouseOver} onMouseOut={btnMouseOut}
+            <Button type="text" shape="round" icon={<CloseCircleOutlined/>} onMouseOver={btnMouseOver}
+                    onMouseOut={btnMouseOut}
                     className={"popoverFont"} style={{color: props.fontColor, cursor: "default"}}>
                 {"忌：" + avoid}
             </Button>
-
-            {/*<Space>*/}
-            {/*    <CheckCircleOutlined/>*/}
-            {/*    <Text style={{color: props.fontColor}} className={"popoverFont"}>{" 宜：" + suit}</Text>*/}
-            {/*</Space>*/}
-            {/*<Space>*/}
-            {/*    <CloseCircleOutlined/>*/}
-            {/*    <Text style={{color: props.fontColor}} className={"popoverFont"}>{" 忌：" + avoid}</Text>*/}
-            {/*</Space>*/}
         </Space>
     );
 
@@ -117,7 +111,7 @@ function GreetComponent(props: any) {
                         color: props.fontColor
                     }}
             >
-                {greet}
+                {(device === "iPhone" || device === "Android") ? getGreetContent() : greet}
             </Button>
         </Popover>
     );

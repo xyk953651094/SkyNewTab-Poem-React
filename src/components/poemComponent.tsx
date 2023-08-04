@@ -71,22 +71,24 @@ function PoemComponent(props: any) {
         <Row justify="center" align="middle">
             <Space direction={"vertical"}>
                 <Col xs={0} sm={0} md={0} lg={24} xl={24}>
-                    <Button type="text" shape="round" size={"large"} className="buttonFont" style={{color: props.fontColor}}
+                    <Button type="text" shape="round" size={"large"} className="buttonFont"
+                            style={{color: props.fontColor}}
                             onClick={poemContentBtnOnClick} onMouseOver={btnMouseOver} onMouseOut={btnMouseOut}>
-                        {poemContent.length < poemMaxSize? poemContent : poemContent.substring(0, poemMaxSize) + "..."}
+                        {poemContent.length < poemMaxSize ? poemContent : poemContent.substring(0, poemMaxSize) + "..."}
                     </Button>
                 </Col>
                 <Col xs={24} sm={24} md={24} lg={0} xl={0}>
                     <Space align={"center"}>
                         <Text className="buttonFont vertical" style={{color: props.fontColor}}>
-                            {poemContent.length < 20? poemContent : poemContent.substring(0, 20) + "..."}
+                            {poemContent.length < 20 ? poemContent : poemContent.substring(0, 20) + "..."}
                         </Text>
                     </Space>
                 </Col>
                 <Col xs={0} sm={0} md={0} lg={24} xl={24}>
-                    <Button type="text" shape="round" size={"large"} className="buttonFont" style={{color: props.fontColor}}
+                    <Button type="text" shape="round" size={"large"} className="buttonFont"
+                            style={{color: props.fontColor}}
                             onClick={poemAuthorBtnOnClick} onMouseOver={btnMouseOver} onMouseOut={btnMouseOut}>
-                        {poemAuthorDetails.length < poemMaxSize? poemAuthorDetails : poemAuthorDetails.substring(0, poemMaxSize) + "..."}
+                        {poemAuthorDetails.length < poemMaxSize ? poemAuthorDetails : poemAuthorDetails.substring(0, poemMaxSize) + "..."}
                     </Button>
                 </Col>
             </Space>
