@@ -64,7 +64,7 @@ function GreetComponent(props: any) {
             setGreet(getGreetContent() + "｜" + holidayContent);
             setCalendar(timeDetails.showDate4 + " " + timeDetails.showWeek + "｜" +
                 data.yearTips + data.chineseZodiac + "年｜" +
-                data.lunarCalendar);
+                data.lunarCalendar + "｜" + data.constellation);
             setSuit(data.suit.replace(/\./g, " · "));
             setAvoid(data.avoid.replace(/\./g, " · "));
         }
