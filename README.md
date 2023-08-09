@@ -16,7 +16,10 @@
 * 诗词来源：https://www.jinrishici.com 
 
 ## 安装
-* 与 [SkyNewTab-Poem-Angular](https://github.com/xyk953651094/SkyNewTab-Poem-Angular) 重复，暂时不上架各商店。
+* [Chrome 网上应用商店](https://chrome.google.com/webstore/detail/hbbkhohnflilcpjkkemkdkdifknebnjf)
+* [Edge 外接程序商店](https://microsoftedge.microsoft.com/addons/detail/bjffkcmhfeebpeaifnblceieijbpplhp)
+* [Firefox 附加组件商店](https://addons.mozilla.org/zh-CN/firefox/addon/%E4%BA%91%E5%BC%80%E8%AF%97%E8%AF%8D%E6%96%B0%E6%A0%87%E7%AD%BE%E9%A1%B5)
+* App Store & Mac App Store：由于成本原因，暂不上架苹果应用商店。
 * 下载本页面提供的文件进行安装。
 
 ## 效果展示
