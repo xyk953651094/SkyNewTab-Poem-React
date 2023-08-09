@@ -77,42 +77,31 @@ function WeatherComponent(props: any) {
 
     const popoverContent = (
         <Space direction="vertical">
-            <Space>
-                <i className="bi bi-moisture"></i>
-                <Text style={{color: props.fontColor}} className={"popoverFont"}>{" 空气湿度：" + humidity}</Text>
-            </Space>
-            <Space>
-                <i className="bi bi-water"></i>
-                <Text style={{color: props.fontColor}} className={"popoverFont"}>{" 空气质量：" + pm25}</Text>
-            </Space>
-            <Space>
-                <i className="bi bi-cloud-rain"></i>
-                <Text style={{color: props.fontColor}} className={"popoverFont"}>{" 降雨概率：" + rainfall}</Text>
-            </Space>
-            <Space>
-                <i className="bi bi-eye"></i>
-                <Text style={{color: props.fontColor}} className={"popoverFont"}>{" 视线距离：" + visibility}</Text>
-            </Space>
-            <Space>
-                <i className="bi bi-wind"></i>
-                <Text style={{color: props.fontColor}} className={"popoverFont"}>{" 风速情况：" + windInfo}</Text>
-            </Space>
-
-            {/*<Button type="text" shape="round" size={"small"} icon={<i className="bi bi-moisture">&nbsp;&nbsp;&nbsp;</i>} style={{color: props.fontColor, cursor: "default"}}>*/}
-            {/*    {"空气湿度：" + humidity}*/}
-            {/*</Button>*/}
-            {/*<Button type="text" shape="round" size={"small"} icon={<i className="bi bi-water">&nbsp;&nbsp;&nbsp;</i>} style={{color: props.fontColor, cursor: "default"}}>*/}
-            {/*    {"空气质量：" + pm25}*/}
-            {/*</Button>*/}
-            {/*<Button type="text" shape="round" size={"small"} icon={<i className="bi bi-cloud-rain">&nbsp;&nbsp;&nbsp;</i>} style={{color: props.fontColor, cursor: "default"}}>*/}
-            {/*    {"降雨概率：" + rainfall}*/}
-            {/*</Button>*/}
-            {/*<Button type="text" shape="round" size={"small"} icon={<i className="bi bi-eye">&nbsp;&nbsp;&nbsp;</i>} style={{color: props.fontColor, cursor: "default"}}>*/}
-            {/*    {"视线距离：" + visibility}*/}
-            {/*</Button>*/}
-            {/*<Button type="text" shape="round" size={"small"} icon={<i className="bi bi-wind">&nbsp;&nbsp;&nbsp;</i>} style={{color: props.fontColor, cursor: "default"}}>*/}
-            {/*    {"风速情况：" + windInfo}*/}
-            {/*</Button>*/}
+            <Button type="text" shape="round" icon={<i className="bi bi-moisture">&nbsp;&nbsp;&nbsp;</i>}
+                    onMouseOver={btnMouseOver} onMouseOut={btnMouseOut}
+                    className={"popoverFont"} style={{color: props.fontColor, cursor: "default"}}>
+                {"空气湿度：" + humidity}
+            </Button>
+            <Button type="text" shape="round" icon={<i className="bi bi-water">&nbsp;&nbsp;&nbsp;</i>}
+                    onMouseOver={btnMouseOver} onMouseOut={btnMouseOut}
+                    className={"popoverFont"} style={{color: props.fontColor, cursor: "default"}}>
+                {"空气质量：" + pm25}
+            </Button>
+            <Button type="text" shape="round" icon={<i className="bi bi-cloud-rain">&nbsp;&nbsp;&nbsp;</i>}
+                    onMouseOver={btnMouseOver} onMouseOut={btnMouseOut}
+                    className={"popoverFont"} style={{color: props.fontColor, cursor: "default"}}>
+                {"降雨概率：" + rainfall}
+            </Button>
+            <Button type="text" shape="round" icon={<i className="bi bi-eye">&nbsp;&nbsp;&nbsp;</i>}
+                    onMouseOver={btnMouseOver} onMouseOut={btnMouseOut}
+                    className={"popoverFont"} style={{color: props.fontColor, cursor: "default"}}>
+                {"视线距离：" + visibility}
+            </Button>
+            <Button type="text" shape="round" icon={<i className="bi bi-wind">&nbsp;&nbsp;&nbsp;</i>}
+                    onMouseOver={btnMouseOver} onMouseOut={btnMouseOut}
+                    className={"popoverFont"} style={{color: props.fontColor, cursor: "default"}}>
+                {"风速情况：" + windInfo}
+            </Button>
         </Space>
     );
 
