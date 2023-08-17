@@ -5,7 +5,7 @@ import {device} from "../typescripts/publicConstants";
 import {getFontColor, getGreetContent, getGreetIcon, getTimeDetails, httpRequest} from "../typescripts/publicFunctions";
 import "../stylesheets/publicStyles.scss"
 
-const {Title, Text} = Typography;
+const {Text} = Typography;
 
 function GreetComponent(props: any) {
     const [greet, setGreet] = useState(getGreetContent());
@@ -104,7 +104,7 @@ function GreetComponent(props: any) {
         <Popover
             title={calendar} content={popoverContent}
             placement="bottomLeft" color={"transparent"}>
-            <Button type="text" shape="round" size={"large"} icon={<i className={greetIcon}>&nbsp;</i>}
+            <Button type="text" shape="round" size={"large"} icon={<i className={greetIcon}>&nbsp;&nbsp;</i>}
                     className={"buttonFont"}
                     onClick={greetBtnOnClick} onMouseOver={btnMouseOver} onMouseOut={btnMouseOut}
                     style={{

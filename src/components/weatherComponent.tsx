@@ -108,7 +108,7 @@ function WeatherComponent(props: any) {
     return (
         <Popover title={region} content={popoverContent}
                  placement="bottomLeft" color={"transparent"}>
-            <Button type="text" shape="round" size={"large"} icon={<i className={weatherIcon}>&nbsp;</i>}
+            <Button type="text" shape="round" size={"large"} icon={<i className={weatherIcon}>&nbsp;&nbsp;</i>}
                     onClick={weatherBtnOnClick} onMouseOver={btnMouseOver} onMouseOut={btnMouseOut}
                     className={"buttonFont"}
                     style={{
