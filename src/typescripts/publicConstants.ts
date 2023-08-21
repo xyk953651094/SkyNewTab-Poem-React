@@ -1,6 +1,6 @@
 import {getDevice} from "./publicFunctions";
 
-export let themeArray: ({ bodyBackgroundColor: string; fontColor: string; svgColor: string[]; }[]) = [
+export const themeArray: ({ bodyBackgroundColor: string; fontColor: string; svgColor: string[]; }[]) = [
     // 深色
     {
         'bodyBackgroundColor': '#5C2223',
@@ -66,5 +66,20 @@ export let themeArray: ({ bodyBackgroundColor: string; fontColor: string; svgCol
     },  // 脏橘
 ];
 
+// 中国窗体
+export const chinaWindow = [
+    "icon-chuangge1",
+    "icon-chuangge3",
+    // "icon-chuangge4",
+    "icon-chuangge5",
+    "icon-chuangge7",
+    "icon-chuangge9",
+    "icon-chuangge10",
+    "icon-chuangge11",
+    "icon-chuangge13",
+    "icon-chuangge14",
+    "icon-chuangge16",
+]
+
 // 常用变量
-export let device = getDevice();  // 获取当前设备类型
+export const device = getDevice();  // 获取当前设备类型

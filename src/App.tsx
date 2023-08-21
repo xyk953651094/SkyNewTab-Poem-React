@@ -8,6 +8,7 @@ import WeatherComponent from "./components/weatherComponent";
 import SunComponent from "./components/sunComponent";
 import PoemComponent from "./components/poemComponent";
 import WaveComponent from "./components/waveComponent";
+import WindowComponent from "./components/windowComponent";
 
 
 const {Header, Content, Footer} = Layout;
@@ -46,6 +47,7 @@ function App() {
     return (
         <Layout>
             <Header id={"header"} className={"zIndexMiddle"}>
+                <SunComponent sunColor={svgColor}/>
                 <Row justify="center">
                     <Col xs={22} sm={22} md={9} lg={9} xl={9} xxl={9}>
                         <GreetComponent fontColor={fontColor}/>
@@ -55,8 +57,8 @@ function App() {
                             <WeatherComponent fontColor={fontColor}/>
                         </Space>
                     </Col>
-                    <SunComponent sunColor={svgColor}/>
                 </Row>
+                <WindowComponent fontColor={fontColor}/>
             </Header>
             <Content id={"content"} className="center">
                 <PoemComponent fontColor={fontColor}/>

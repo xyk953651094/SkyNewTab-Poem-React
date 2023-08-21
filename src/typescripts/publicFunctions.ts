@@ -1,4 +1,5 @@
 import "jquery-color"
+import {chinaWindow} from "./publicConstants";
 
 const $ = require("jquery");
 
@@ -137,6 +138,13 @@ export function getWeatherIcon(weatherInfo: string) {
     } else {
         return ""
     }
+}
+
+// 获取中国窗体
+export function getWindowClassName() {
+    let arrayLength = chinaWindow.length;
+    let index = Math.floor(Math.random() * arrayLength);
+    return chinaWindow[index];
 }
 
 // 根据图片背景颜色获取元素反色效果
