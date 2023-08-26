@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from 'react';
-import "../stylesheets/windowComponent.scss"
+import "../stylesheets/popupComponent.scss"
 import {getWindowClassName} from "../typescripts/publicFunctions";
 
-function WindowComponent(props: any) {
+function PopupWindowComponent(props: any) {
     const [windowClassName, setWindowClassName] = useState(getWindowClassName());
 
     useEffect(() => {
@@ -10,8 +10,8 @@ function WindowComponent(props: any) {
     });
 
     return (
-        <i className={"chinaObject iconfont " + windowClassName} style={{color: props.fontColor}}></i>
+        <i className={"chinaWindow iconfont " + windowClassName} style={{color: props.fontColor}}></i>
     );
 }
 
-export default WindowComponent;
+export default PopupWindowComponent;

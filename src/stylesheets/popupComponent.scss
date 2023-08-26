@@ -1,0 +1,41 @@
+body {
+    width: max-content !important;
+    //width: 600px;
+}
+
+.popupLayout {
+    background: transparent;
+}
+
+.popupHeader {
+    height: 50px;
+    line-height: 50px;
+    background-color: transparent;
+    text-align: center;
+}
+
+.popupContent {
+    background-color: transparent;
+}
+
+.popupFooter {
+    height: 50px;
+    line-height: 50px;
+    padding: 10px 0;
+    background-color: transparent;
+    text-align: center;
+}
+
+.chinaWindow {
+    font-size: 72px !important;
+    line-height: 72px;
+}
+
+.chinaObject {
+    font-size: 72px !important;
+    line-height: 72px;
+}
+
+.rotate90 {
+    transform: rotate(90deg);
+}

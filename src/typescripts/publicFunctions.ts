@@ -1,5 +1,5 @@
 import "jquery-color"
-import {chinaWindow} from "./publicConstants";
+import {chinaObject, chinaWindow} from "./publicConstants";
 
 const $ = require("jquery");
 
@@ -145,6 +145,12 @@ export function getWindowClassName() {
     let arrayLength = chinaWindow.length;
     let index = Math.floor(Math.random() * arrayLength);
     return chinaWindow[index];
+}
+
+export function getObjectClassName() {
+    let arrayLength = chinaObject.length;
+    let index = Math.floor(Math.random() * arrayLength);
+    return chinaObject[index];
 }
 
 // 根据图片背景颜色获取元素反色效果

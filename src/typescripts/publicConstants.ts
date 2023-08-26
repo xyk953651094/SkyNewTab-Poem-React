@@ -70,15 +70,27 @@ export const themeArray: ({ bodyBackgroundColor: string; fontColor: string; svgC
 export const chinaWindow = [
     "icon-chuangge1",
     "icon-chuangge3",
-    // "icon-chuangge4",
+    "icon-chuangge4",
     "icon-chuangge5",
     "icon-chuangge7",
     "icon-chuangge9",
     "icon-chuangge10",
     "icon-chuangge11",
+    "icon-chuangge12",
     "icon-chuangge13",
     "icon-chuangge14",
+    "icon-chuangge15",
     "icon-chuangge16",
+]
+
+// 中国窗体
+export const chinaObject = [
+    "icon-chaye",
+    "icon-huaping",
+    "icon-huaping1",
+    "icon-meihua",
+    "icon-facaishu",
+    "icon-chuxiye",
 ]
 
 // 常用变量

@@ -61,6 +61,13 @@ html, body {
     cursor: default;
 }
 
+.popupFont {
+    font-family: "Times New Roman", cursive, sans-serif;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
 /*水平垂直居中*/
 .center {
     display: flex;
