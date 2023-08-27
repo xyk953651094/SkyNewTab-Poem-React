@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
-import {Button, Popover, Space, Typography} from "antd";
-import {CheckCircleOutlined, CloseCircleOutlined} from "@ant-design/icons";
+import {Row, Col, Button, Popover, Space, Typography} from "antd";
+import {HistoryOutlined, InfoCircleOutlined, CalendarOutlined, CheckCircleOutlined, CloseCircleOutlined} from "@ant-design/icons";
 import {device} from "../typescripts/publicConstants";
 import {getFontColor, getGreetContent, getGreetIcon, getTimeDetails, httpRequest} from "../typescripts/publicFunctions";
 import "../stylesheets/publicStyles.scss"
@@ -8,6 +8,7 @@ import "../stylesheets/publicStyles.scss"
 const {Text} = Typography;
 
 function GreetComponent(props: any) {
+    const [searchEngineUrl, setSearchEngineUrl] = useState("https://www.bing.com/search?q=");
     const [greet, setGreet] = useState(getGreetContent());
     const [greetIcon, setGreetIcon] = useState(getGreetIcon());
     const [calendar, setCalendar] = useState(getTimeDetails(new Date()).showDate4 + " " + getTimeDetails(new Date()).showWeek);
@@ -15,17 +16,21 @@ function GreetComponent(props: any) {
     const [avoid, setAvoid] = useState("暂无信息");
 
     function btnMouseOver(e: any) {
-        e.currentTarget.style.backgroundColor = props.fontColor;
-        e.currentTarget.style.color = getFontColor(props.fontColor);
+        e.currentTarget.style.backgroundColor = props.majorColor;
+        e.currentTarget.style.color = getFontColor(props.majorColor);
     }
 
     function btnMouseOut(e: any) {
         e.currentTarget.style.backgroundColor = "transparent";
-        e.currentTarget.style.color = props.fontColor;
+        e.currentTarget.style.color = getFontColor(props.minorColor);
     }
 
-    function greetBtnOnClick() {
-        window.open("https://cn.bing.com/search?&q=日历", "_blank");
+    function historyBtnOnClick() {
+        window.open( searchEngineUrl + "历史上的今天", "_blank",);
+    }
+
+    function infoBtnOnClick() {
+        window.open(searchEngineUrl + "万年历", "_blank");
     }
 
     useEffect(() => {
@@ -85,16 +90,43 @@ function GreetComponent(props: any) {
         }
     }, []);
 
+    const popoverTitle = (
+        <Row align={"middle"}>
+            <Col span={10}>
+                <Text className={"popoverFont"} style={{color: getFontColor(props.minorColor)}}>{"万年历"}</Text>
+            </Col>
+            <Col span={14} style={{textAlign: "right"}}>
+                <Space>
+                    <Button type={"text"} shape={"round"} icon={<HistoryOutlined/>} onClick={historyBtnOnClick}
+                            onMouseOver={btnMouseOver} onMouseOut={btnMouseOut}
+                            className={"popoverFont"} style={{color: getFontColor(props.minorColor)}}>
+                        {"历史上的今天"}
+                    </Button>
+                    <Button type={"text"} shape={"round"} icon={<InfoCircleOutlined/>} onClick={infoBtnOnClick}
+                            onMouseOver={btnMouseOver} onMouseOut={btnMouseOut}
+                            className={"popoverFont"} style={{color: getFontColor(props.minorColor)}}>
+                        {"更多信息"}
+                    </Button>
+                </Space>
+            </Col>
+        </Row>
+    );
+
     const popoverContent = (
         <Space direction="vertical">
-            <Button type="text" shape="round" icon={<CheckCircleOutlined/>} onMouseOver={btnMouseOver}
-                    onMouseOut={btnMouseOut}
-                    className={"popoverFont"} style={{color: props.fontColor, cursor: "default"}}>
+            <Button type={"text"} shape={"round"} icon={<CalendarOutlined/>}
+                    onMouseOver={btnMouseOver} onMouseOut={btnMouseOut}
+                    className={"popoverFont"} style={{color: getFontColor(props.minorColor), cursor: "default"}}>
+                {calendar}
+            </Button>
+            <Button type="text" shape="round" icon={<CheckCircleOutlined/>}
+                    onMouseOver={btnMouseOver} onMouseOut={btnMouseOut}
+                    className={"popoverFont"} style={{color: getFontColor(props.minorColor), cursor: "default"}}>
                 {"宜：" + suit}
             </Button>
-            <Button type="text" shape="round" icon={<CloseCircleOutlined/>} onMouseOver={btnMouseOver}
-                    onMouseOut={btnMouseOut}
-                    className={"popoverFont"} style={{color: props.fontColor, cursor: "default"}}>
+            <Button type="text" shape="round" icon={<CloseCircleOutlined/>}
+                    onMouseOver={btnMouseOver} onMouseOut={btnMouseOut}
+                    className={"popoverFont"} style={{color: getFontColor(props.minorColor), cursor: "default"}}>
                 {"忌：" + avoid}
             </Button>
         </Space>
@@ -102,13 +134,14 @@ function GreetComponent(props: any) {
 
     return (
         <Popover
-            title={calendar} content={popoverContent}
-            placement="bottomLeft" color={"transparent"}>
+            title={popoverTitle} content={popoverContent}
+            placement="bottomLeft" color={props.minorColor}>
             <Button type="text" shape="round" size={"large"} icon={<i className={greetIcon}>&nbsp;&nbsp;</i>}
                     className={"buttonFont"}
-                    onClick={greetBtnOnClick} onMouseOver={btnMouseOver} onMouseOut={btnMouseOut}
                     style={{
-                        color: props.fontColor
+                        cursor: "default",
+                        color: getFontColor(props.minorColor),
+                        backgroundColor: props.minorColor
                     }}
             >
                 {(device === "iPhone" || device === "Android") ? getGreetContent() : greet}

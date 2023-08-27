@@ -10,7 +10,7 @@ function PopupObjectComponent(props: any) {
     });
 
     return (
-        <i className={"chinaObject iconfont " + objectClassName} style={{color: props.fontColor}}></i>
+        <i className={"chinaObject iconfont " + objectClassName} style={{color: props.minorColor}}></i>
     );
 }
 

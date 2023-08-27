@@ -13,16 +13,17 @@ const {Header, Content, Footer} = Layout;
 const $ = require("jquery")
 
 function PopupComponent() {
-    const [fontColor, setFontColor] = useState("#ffffff");
+    const [majorColor, setMajorColor] = useState("#000000");
+    const [minorColor, setMinorColor] = useState("#ffffff");
 
     function btnMouseOver(e: any) {
-        e.currentTarget.style.backgroundColor = fontColor;
-        e.currentTarget.style.color = getFontColor(fontColor);
+        e.currentTarget.style.backgroundColor = minorColor;
+        e.currentTarget.style.color = getFontColor(minorColor);
     }
 
     function btnMouseOut(e: any) {
         e.currentTarget.style.backgroundColor = "transparent";
-        e.currentTarget.style.color = fontColor;
+        e.currentTarget.style.color = minorColor;
     }
 
     useEffect(() => {
@@ -30,8 +31,9 @@ function PopupComponent() {
 
         // 随机颜色主题
         let randomNum = Math.floor(Math.random() * themeArray.length);  // 随机选择
-        bodyEle.css("background-color", themeArray[randomNum].bodyBackgroundColor);
-        setFontColor(themeArray[randomNum].fontColor);
+        bodyEle.css("background-color", themeArray[randomNum].majorColor);
+        setMajorColor(themeArray[randomNum].majorColor);
+        setMinorColor(themeArray[randomNum].minorColor);
     }, [])
    
     return (
@@ -40,7 +42,7 @@ function PopupComponent() {
                 <Space align={"center"}>
                     <Button type={"text"} shape={"round"} icon={<DashboardOutlined/>}
                             onMouseOver={btnMouseOver} onMouseOut={btnMouseOut}
-                            style={{color: fontColor, cursor: "default"}}
+                            style={{color: minorColor, cursor: "default"}}
                             className={"popupFont"}
                     >
                         云开诗词新标签页的仪表盘
@@ -49,25 +51,17 @@ function PopupComponent() {
             </Header>
             <Content className={"popupContent center"}>
                 <List>
-                    <List.Item style={{borderBlockEndColor: fontColor}}>
-                        <PopupPoemComponent fontColor={fontColor}/>
-
-                        {/*<Row gutter={16}>*/}
-                        {/*    <Col span={6}>*/}
-                        {/*        <PopupObjectComponent fontColor={fontColor}/>*/}
-                        {/*    </Col>*/}
-                        {/*    <Col span={12} className={"center"}>*/}
-                        {/*        <PopupPoemComponent fontColor={fontColor}/>*/}
-                        {/*    </Col>*/}
-                        {/*    <Col span={6}>*/}
-                        {/*        <PopupWindowComponent fontColor={fontColor}/>*/}
-                        {/*    </Col>*/}
-                        {/*</Row>*/}
+                    <List.Item style={{borderBlockEndColor: minorColor}}>
+                        <Space>
+                            <PopupObjectComponent minorColor={minorColor}/>
+                            <PopupPoemComponent minorColor={minorColor}/>
+                            <PopupWindowComponent minorColor={minorColor}/>
+                        </Space>
                     </List.Item>
                 </List>
             </Content>
             <Footer className={"popupFooter"}>
-                <PopupFooterComponent fontColor={fontColor}/>
+                <PopupFooterComponent minorColor={minorColor}/>
             </Footer>
         </Layout>
     );
