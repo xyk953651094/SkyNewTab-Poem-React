@@ -49,7 +49,7 @@ function PopupComponent() {
                     </Button>
                 </Space>
             </Header>
-            <Content className={"popupContent center"}>
+            <Content className={"popupContent alignCenter"}>
                 <List>
                     <List.Item style={{borderBlockEndColor: minorColor}}>
                         <Space>

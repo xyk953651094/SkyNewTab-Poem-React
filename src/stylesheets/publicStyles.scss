@@ -57,11 +57,18 @@ html, body {
 }
 
 /*水平垂直居中*/
-.center {
+.alignCenter {
     display: flex;
     justify-content: center;
     align-items: center;
     text-align: center;
+}
+
+.alignRight {
+    display: flex;
+    justify-content: right;
+    align-items: center;
+    text-align: right;
 }
 
 /*桌面端大屏样式*/

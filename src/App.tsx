@@ -60,7 +60,7 @@ function App() {
                 </Row>
                 <SunComponent sunColors={svgColors}/>
             </Header>
-            <Content id={"content"} className="center">
+            <Content id={"content"} className="alignCenter">
                 <PoemComponent minorColor={minorColor}/>
             </Content>
             <Footer id={"footer"}>
