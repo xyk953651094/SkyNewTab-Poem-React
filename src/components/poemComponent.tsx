@@ -72,7 +72,7 @@ function PoemComponent(props: any) {
         <Row justify="center" align="middle">
             <Space direction={"vertical"}>
                 <Col xs={0} sm={0} md={0} lg={24} xl={24}>
-                    <Button type="text" shape="round" size={"large"} className="buttonFont"
+                    <Button type="text" shape="round" size={"large"} className="poemFont"
                             style={{color: props.minorColor}}
                             onClick={poemContentBtnOnClick} onMouseOver={btnMouseOver} onMouseOut={btnMouseOut}>
                         {poemContent.length < poemMaxSize ? poemContent : poemContent.substring(0, poemMaxSize) + "..."}
@@ -80,13 +80,13 @@ function PoemComponent(props: any) {
                 </Col>
                 <Col xs={24} sm={24} md={24} lg={0} xl={0}>
                     <Space align={"center"}>
-                        <Text className="buttonFont vertical" style={{color: props.minorColor}}>
+                        <Text className="poemFont vertical" style={{color: props.minorColor}}>
                             {poemContent.length < 20 ? poemContent : poemContent.substring(0, 20) + "..."}
                         </Text>
                     </Space>
                 </Col>
                 <Col xs={0} sm={0} md={0} lg={24} xl={24}>
-                    <Button type="text" shape="round" size={"large"} className="buttonFont"
+                    <Button type="text" shape="round" size={"large"} className="poemFont"
                             style={{color: props.minorColor}}
                             onClick={poemAuthorBtnOnClick} onMouseOver={btnMouseOver} onMouseOut={btnMouseOut}>
                         {poemAuthorDetails.length < poemMaxSize ? poemAuthorDetails : poemAuthorDetails.substring(0, poemMaxSize) + "..."}

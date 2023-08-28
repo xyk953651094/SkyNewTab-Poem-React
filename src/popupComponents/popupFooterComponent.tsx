@@ -19,19 +19,19 @@ function PopupFooterComponent(props: any) {
             <Button type={"text"} shape={"round"} icon={<GithubOutlined/>}
                     href={"https://github.com/xyk953651094"} target={"_blank"}
                     onMouseOver={btnMouseOver} onMouseOut={btnMouseOut}
-                    style={{color: props.minorColor}} className={"popupFont"}>
+                    style={{color: props.minorColor}} className={"poemFont"}>
                 主页
             </Button>
             <Button type={"text"} shape={"round"} icon={<MessageOutlined/>}
                     href={"https://xyk953651094.blogspot.com"} target={"_blank"}
                     onMouseOver={btnMouseOver} onMouseOut={btnMouseOut}
-                    style={{color: props.minorColor}} className={"popupFont"}>
+                    style={{color: props.minorColor}} className={"poemFont"}>
                 博客
             </Button>
             <Button type={"text"} shape={"round"} icon={<GiftOutlined/>}
                     href={"https://afdian.net/a/xyk953651094"} target={"_blank"}
                     onMouseOver={btnMouseOver} onMouseOut={btnMouseOut}
-                    style={{color: props.minorColor}} className={"popupFont"}>
+                    style={{color: props.minorColor}} className={"poemFont"}>
                 支持
             </Button>
         </Space>

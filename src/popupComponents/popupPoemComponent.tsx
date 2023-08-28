@@ -54,7 +54,7 @@ function PopupPoemComponent(props: any) {
         <Row justify="center" align="middle">
             <Space direction={"vertical"}>
                 <Col span={24}>
-                    <Button type="text" shape="round" className="popupFont"
+                    <Button type="text" shape="round" className="poemFont"
                             style={{color: props.minorColor}}
                             onClick={poemContentBtnOnClick} onMouseOver={btnMouseOver} onMouseOut={btnMouseOut}>
                         {/*{"你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好..."}*/}
@@ -62,7 +62,7 @@ function PopupPoemComponent(props: any) {
                     </Button>
                 </Col>
                 <Col span={24}>
-                    <Button type="text" shape="round" className="popupFont"
+                    <Button type="text" shape="round" className="poemFont"
                             style={{color: props.minorColor}}
                             onClick={poemAuthorBtnOnClick} onMouseOver={btnMouseOver} onMouseOut={btnMouseOut}>
                         {poemAuthorDetails.length < poemMaxSize ? poemAuthorDetails : poemAuthorDetails.substring(0, poemMaxSize) + "..."}

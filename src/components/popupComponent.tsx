@@ -43,7 +43,7 @@ function PopupComponent() {
                     <Button type={"text"} shape={"round"} icon={<DashboardOutlined/>}
                             onMouseOver={btnMouseOver} onMouseOut={btnMouseOut}
                             style={{color: minorColor, cursor: "default"}}
-                            className={"popupFont"}
+                            className={"poemFont"}
                     >
                         云开诗词新标签页的仪表盘
                     </Button>

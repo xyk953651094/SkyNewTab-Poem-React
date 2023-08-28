@@ -80,14 +80,14 @@ function WeatherComponent(props: any) {
     const popoverTitle = (
         <Row align={"middle"}>
             <Col span={10}>
-                <Text className={"popoverFont"} style={{color: getFontColor(props.minorColor)}}>{"天气信息"}</Text>
+                <Text className={"poemFont"} style={{color: getFontColor(props.minorColor)}}>{"天气信息"}</Text>
             </Col>
             <Col span={14} style={{textAlign: "right"}}>
                 <Space>
                     <Button type={"text"} shape={"round"} icon={<InfoCircleOutlined/>}
                             onMouseOver={btnMouseOver} onMouseOut={btnMouseOut}
                             onClick={infoBtnOnClick}
-                            className={"popoverFont"} style={{color: getFontColor(props.minorColor)}}>
+                            className={"poemFont"} style={{color: getFontColor(props.minorColor)}}>
                         {"更多信息"}
                     </Button>
                 </Space>
@@ -99,42 +99,42 @@ function WeatherComponent(props: any) {
         <Space direction="vertical">
             <Button type="text" shape="round" icon={<i className="bi bi-geo-alt">&nbsp;&nbsp;&nbsp;</i>}
                     onMouseOver={btnMouseOver} onMouseOut={btnMouseOut}
-                    className={"popoverFont"} style={{color: getFontColor(props.minorColor), cursor: "default"}}>
+                    className={"poemFont"} style={{color: getFontColor(props.minorColor), cursor: "default"}}>
                 {"地理位置：" + location}
             </Button>
             <Button type="text" shape="round" icon={<i className="bi bi-moisture">&nbsp;&nbsp;&nbsp;</i>}
                     onMouseOver={btnMouseOver} onMouseOut={btnMouseOut}
-                    className={"popoverFont"} style={{color: getFontColor(props.minorColor), cursor: "default"}}>
+                    className={"poemFont"} style={{color: getFontColor(props.minorColor), cursor: "default"}}>
                 {"空气湿度：" + humidity}
             </Button>
             <Button type="text" shape="round" icon={<i className="bi bi-water">&nbsp;&nbsp;&nbsp;</i>}
                     onMouseOver={btnMouseOver} onMouseOut={btnMouseOut}
-                    className={"popoverFont"} style={{color: getFontColor(props.minorColor), cursor: "default"}}>
+                    className={"poemFont"} style={{color: getFontColor(props.minorColor), cursor: "default"}}>
                 {"空气质量：" + pm25}
             </Button>
             <Button type="text" shape="round" icon={<i className="bi bi-cloud-rain">&nbsp;&nbsp;&nbsp;</i>}
                     onMouseOver={btnMouseOver} onMouseOut={btnMouseOut}
-                    className={"popoverFont"} style={{color: getFontColor(props.minorColor), cursor: "default"}}>
+                    className={"poemFont"} style={{color: getFontColor(props.minorColor), cursor: "default"}}>
                 {"降雨概率：" + rainfall}
             </Button>
             <Button type="text" shape="round" icon={<i className="bi bi-eye">&nbsp;&nbsp;&nbsp;</i>}
                     onMouseOver={btnMouseOver} onMouseOut={btnMouseOut}
-                    className={"popoverFont"} style={{color: getFontColor(props.minorColor), cursor: "default"}}>
+                    className={"poemFont"} style={{color: getFontColor(props.minorColor), cursor: "default"}}>
                 {"视线距离：" + visibility}
             </Button>
             <Button type="text" shape="round" icon={<i className="bi bi-wind">&nbsp;&nbsp;&nbsp;</i>}
                     onMouseOver={btnMouseOver} onMouseOut={btnMouseOut}
-                    className={"popoverFont"} style={{color: getFontColor(props.minorColor), cursor: "default"}}>
+                    className={"poemFont"} style={{color: getFontColor(props.minorColor), cursor: "default"}}>
                 {"风速情况：" + windInfo}
             </Button>
         </Space>
     );
 
     return (
-        <Popover title={popoverTitle} content={popoverContent}
-                 placement="bottomRight" color={props.minorColor} overlayStyle={{width: "250px"}}>
+        <Popover title={popoverTitle} content={popoverContent} color={props.minorColor}
+                 placement="bottomLeft" overlayStyle={{width: "250px"}}>
             <Button type="text" shape="round" size={"large"} icon={<i className={weatherIcon}>&nbsp;&nbsp;</i>}
-                    className={"buttonFont"}
+                    className={"poemFont"}
                     style={{
                         cursor: "default",
                         color: getFontColor(props.minorColor),

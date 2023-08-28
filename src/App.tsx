@@ -5,6 +5,8 @@ import {themeArray} from "./typescripts/publicConstants";
 
 import GreetComponent from "./components/greetComponent";
 import WeatherComponent from "./components/weatherComponent";
+import DailyComponent from "./components/dailyComponent";
+import TodoComponent from "./components/todoComponent";
 import SunComponent from "./components/sunComponent";
 import PoemComponent from "./components/poemComponent";
 import WaveComponent from "./components/waveComponent";
@@ -30,17 +32,70 @@ function App() {
 
         // 修改弹窗主题
         bodyEle.bind("DOMNodeInserted", () => {
+            // 通用
+            $(".ant-list-item").css({"borderBlockEndColor": getFontColor(minorColor), "padding": "10px, 0"});
+            $(".ant-list-item-meta-title").css("color", getFontColor(minorColor));
+            $(".ant-list-item-meta-description").css("color", getFontColor(minorColor));
+            $(".ant-list-item-action").css("marginInlineStart", "0");
+            $(".ant-empty-description").css("color", getFontColor(minorColor)).addClass("poemFont");
+
             // popover
             let popoverEle = $(".ant-popover");
             if (popoverEle.length && popoverEle.length > 0) {
-                // $(".ant-popover-arrow").css("display", "none");
-                // $(".ant-popover-inner").css("box-shadow", "none");
                 $(".ant-popover-title").css({
                     "color": getFontColor(minorColor),
                     "font-family": "'Times New Roman', cursive, sans-serif",
                     "font-size": "20px",
                 });
-                // $(".ant-popover-inner-content").css("color", getFontColor(minorColor));
+            }
+
+            // toolTip
+            let toolTipEle = $(".ant-tooltip");
+            if (toolTipEle.length && toolTipEle.length > 0) {
+                $(".ant-tooltip-inner").css("color", getFontColor(minorColor));
+            }
+
+            // message
+            let messageEle = $(".ant-message");
+            if (messageEle.length && messageEle.length > 0) {
+                $(".ant-message-notice-content").css({
+                    "backgroundColor": minorColor,
+                    "color": getFontColor(minorColor)
+                });
+                $(".ant-message-custom-content > .anticon").css("color", getFontColor(minorColor));
+            }
+
+            // drawer
+            let drawerEle = $(".ant-drawer");
+            if (drawerEle.length && drawerEle.length > 0) {
+                $(".ant-drawer-close").css("color", getFontColor(minorColor));
+                $(".ant-drawer-title").css("color", getFontColor(minorColor));
+                $(".ant-form-item-label > label").css("color", getFontColor(minorColor));
+                $(".ant-radio-wrapper").children(":last-child").css("color", getFontColor(minorColor));
+                $(".ant-checkbox-wrapper").children(":last-child").css("color", getFontColor(minorColor));
+                $(".ant-collapse").css("backgroundColor", minorColor);
+                $(".ant-collapse-header").css("color", getFontColor(minorColor));
+            }
+
+            // modal
+            let modalEle = $(".ant-modal");
+            if (modalEle.length && modalEle.length > 0) {
+                $(".ant-modal-content").css("backgroundColor", minorColor);
+                $(".ant-modal-title").css({
+                    "backgroundColor": minorColor,
+                    "color": getFontColor(minorColor)
+                });
+                $(".ant-form-item-label > label").css("color", getFontColor(minorColor));
+                $(".ant-modal-footer > .ant-btn").css("color", getFontColor(minorColor));
+                $(".ant-modal-footer > .ant-btn").addClass("ant-btn-round ant-btn-text").removeClass("ant-btn-default ant-btn-primary");
+                $(".ant-modal-footer > .ant-btn").on("mouseover", (e: any) => {
+                    e.currentTarget.style.backgroundColor = majorColor;
+                    e.currentTarget.style.color = getFontColor(majorColor);
+                });
+                $(".ant-modal-footer > .ant-btn").on("mouseout", (e: any) => {
+                    e.currentTarget.style.backgroundColor = "transparent";
+                    e.currentTarget.style.color = getFontColor(minorColor);
+                });
             }
         });
     }, [minorColor]);
@@ -49,12 +104,16 @@ function App() {
         <Layout>
             <Header id={"header"} className={"zIndexMiddle"}>
                 <Row justify="center">
-                    <Col xs={22} sm={22} md={9} lg={9} xl={9} xxl={9}>
-                        <GreetComponent majorColor={majorColor} minorColor={minorColor}/>
+                    <Col xs={0} sm={0} md={9} lg={9} xl={9} xxl={9}>
+                        <Space>
+                            <GreetComponent majorColor={majorColor} minorColor={minorColor}/>
+                            <WeatherComponent majorColor={majorColor} minorColor={minorColor}/>
+                        </Space>
                     </Col>
-                    <Col xs={0} sm={0} md={9} lg={9} xl={9} xxl={9} style={{textAlign: "right"}}>
-                        <Space size={"small"}>
-                            <WeatherComponent  majorColor={majorColor} minorColor={minorColor}/>
+                    <Col xs={22} sm={22} md={9} lg={9} xl={9} xxl={9} style={{textAlign: "right"}}>
+                        <Space>
+                            <DailyComponent majorColor={majorColor} minorColor={minorColor}/>
+                            <TodoComponent majorColor={majorColor} minorColor={minorColor}/>
                         </Space>
                     </Col>
                 </Row>

@@ -93,18 +93,18 @@ function GreetComponent(props: any) {
     const popoverTitle = (
         <Row align={"middle"}>
             <Col span={10}>
-                <Text className={"popoverFont"} style={{color: getFontColor(props.minorColor)}}>{"万年历"}</Text>
+                <Text className={"poemFont"} style={{color: getFontColor(props.minorColor)}}>{"万年历"}</Text>
             </Col>
             <Col span={14} style={{textAlign: "right"}}>
                 <Space>
                     <Button type={"text"} shape={"round"} icon={<HistoryOutlined/>} onClick={historyBtnOnClick}
                             onMouseOver={btnMouseOver} onMouseOut={btnMouseOut}
-                            className={"popoverFont"} style={{color: getFontColor(props.minorColor)}}>
+                            className={"poemFont"} style={{color: getFontColor(props.minorColor)}}>
                         {"历史上的今天"}
                     </Button>
                     <Button type={"text"} shape={"round"} icon={<InfoCircleOutlined/>} onClick={infoBtnOnClick}
                             onMouseOver={btnMouseOver} onMouseOut={btnMouseOut}
-                            className={"popoverFont"} style={{color: getFontColor(props.minorColor)}}>
+                            className={"poemFont"} style={{color: getFontColor(props.minorColor)}}>
                         {"更多信息"}
                     </Button>
                 </Space>
@@ -116,17 +116,17 @@ function GreetComponent(props: any) {
         <Space direction="vertical">
             <Button type={"text"} shape={"round"} icon={<CalendarOutlined/>}
                     onMouseOver={btnMouseOver} onMouseOut={btnMouseOut}
-                    className={"popoverFont"} style={{color: getFontColor(props.minorColor), cursor: "default"}}>
+                    className={"poemFont"} style={{color: getFontColor(props.minorColor), cursor: "default"}}>
                 {calendar}
             </Button>
             <Button type="text" shape="round" icon={<CheckCircleOutlined/>}
                     onMouseOver={btnMouseOver} onMouseOut={btnMouseOut}
-                    className={"popoverFont"} style={{color: getFontColor(props.minorColor), cursor: "default"}}>
+                    className={"poemFont"} style={{color: getFontColor(props.minorColor), cursor: "default"}}>
                 {"宜：" + suit}
             </Button>
             <Button type="text" shape="round" icon={<CloseCircleOutlined/>}
                     onMouseOver={btnMouseOver} onMouseOut={btnMouseOut}
-                    className={"popoverFont"} style={{color: getFontColor(props.minorColor), cursor: "default"}}>
+                    className={"poemFont"} style={{color: getFontColor(props.minorColor), cursor: "default"}}>
                 {"忌：" + avoid}
             </Button>
         </Space>
@@ -137,7 +137,7 @@ function GreetComponent(props: any) {
             title={popoverTitle} content={popoverContent}
             placement="bottomLeft" color={props.minorColor}>
             <Button type="text" shape="round" size={"large"} icon={<i className={greetIcon}>&nbsp;&nbsp;</i>}
-                    className={"buttonFont"}
+                    className={"poemFont"}
                     style={{
                         cursor: "default",
                         color: getFontColor(props.minorColor),
