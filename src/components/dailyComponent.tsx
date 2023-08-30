@@ -125,6 +125,8 @@ function DailyComponent(props: any) {
     };
 
     useEffect(() => {
+        setDisplay(props.preferenceData.simpleMode ? "none" : "block");
+
         let daily = [];
         let tempDaily = localStorage.getItem("daily");
         if (tempDaily) {
@@ -132,7 +134,7 @@ function DailyComponent(props: any) {
         }
         setListItems(daily);
         setDailySize(daily.length);
-    }, [])
+    }, [props.preferenceData.simpleMode])
 
 
     const popoverTitle = (
@@ -169,7 +171,7 @@ function DailyComponent(props: any) {
                     actions={[
                         <Button type={"text"} shape={"circle"} icon={<DeleteOutlined/>}
                                 onMouseOver={btnMouseOver} onMouseOut={btnMouseOut}
-                                onClick={removeBtnOnClick.bind(item)}
+                                onClick={(event)=>removeBtnOnClick(item)}
                                 className={"poemFont"}
                                 style={{color: getFontColor(props.minorColor)}}/>
                     ]}
@@ -204,20 +206,18 @@ function DailyComponent(props: any) {
             <Popover title={popoverTitle} content={popoverContent} placement={"bottomRight"}
                      color={props.minorColor}
                      overlayStyle={{width: "550px"}}>
-                <Badge size={"small"} count={listItems.length} style={{display: display}}>
-                    <Button shape={"round"} icon={<CalendarOutlined/>} size={"large"}
-                            id={"dailyBtn"}
-                            className={"poemFont"}
-                            style={{
-                                cursor: "default",
-                                display: display,
-                                backgroundColor: props.minorColor,
-                                color: getFontColor(props.minorColor)
-                            }}
-                    >
-                        {"倒数日（" + listItems.length + "）"}
-                    </Button>
-                </Badge>
+                <Button type={"text"} shape={"round"} icon={<CalendarOutlined/>} size={"large"}
+                        id={"dailyBtn"}
+                        className={"componentTheme poemFont"}
+                        style={{
+                            cursor: "default",
+                            display: display,
+                            backgroundColor: props.minorColor,
+                            color: getFontColor(props.minorColor)
+                        }}
+                >
+                    {dailySize + " 个倒数日"}
+                </Button>
             </Popover>
             <Modal title={"添加倒数日 " + dailySize + " / " + dailyMaxSize} closeIcon={false}
                    centered
@@ -228,10 +228,10 @@ function DailyComponent(props: any) {
             >
                 <Form>
                     <Form.Item label={"倒数标题"} name={"dailyInput"}>
-                        <Input placeholder="请输入标题" id={"dailyInput"} maxLength={10} allowClear showCount/>
+                        <Input className={"poemFont"} placeholder="请输入标题" id={"dailyInput"} maxLength={10} allowClear showCount/>
                     </Form.Item>
                     <Form.Item label={"倒数日期"} name={"dailyDatePicker"}>
-                        <DatePicker onChange={datePickerOnChange} id={"dailyDatePicker"} allowClear={false}/>
+                        <DatePicker className={"poemFont"} onChange={datePickerOnChange} id={"dailyDatePicker"} allowClear={false}/>
                     </Form.Item>
                 </Form>
             </Modal>

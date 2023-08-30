@@ -4,7 +4,7 @@ import "../stylesheets/publicStyles.scss";
 import "../stylesheets/poemComponent.scss"
 import {getFontColor} from "../typescripts/publicFunctions";
 
-const poemMaxSize = 30;
+const poemMaxSize = 25;
 
 function PopupPoemComponent(props: any) {
     const [searchEngineUrl, setSearchEngineUrl] = useState("https://www.bing.com/search?q=");

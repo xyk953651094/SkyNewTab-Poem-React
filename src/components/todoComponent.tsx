@@ -125,6 +125,8 @@ function TodoComponent(props: any) {
     }
 
     useEffect(() => {
+        setDisplay(props.preferenceData.simpleMode ? "none" : "block");
+
         let todos = [];
         let tempTodos = localStorage.getItem("todos");
         if (tempTodos) {
@@ -133,7 +135,7 @@ function TodoComponent(props: any) {
 
         setListItems(todos);
         setTodoSize(todos.length);
-    }, [])
+    }, [props.preferenceData.simpleMode])
     
     const popoverTitle = (
         <Row align={"middle"}>
@@ -169,7 +171,7 @@ function TodoComponent(props: any) {
                     actions={[
                         <Button type={"text"} shape={"circle"} icon={<CheckOutlined/>}
                                 onMouseOver={btnMouseOver} onMouseOut={btnMouseOut}
-                                onClick={finishBtnOnClick.bind(item)}
+                                onClick={(event)=>finishBtnOnClick(item)}
                                 className={"poemFont"}
                                 style={{color: getFontColor(props.minorColor)}}/>
                     ]}
@@ -202,16 +204,18 @@ function TodoComponent(props: any) {
             <Popover title={popoverTitle} content={popoverContent} placement="bottomRight"
                      color={props.minorColor}
                      overlayStyle={{width: "550px"}}>
-                <Button shape={"circle"} icon={<CheckSquareOutlined/>} size={"large"}
+                <Button type={"text"} shape={"round"} icon={<CheckSquareOutlined/>} size={"large"}
                         id={"todoBtn"}
-                        className={"poemFont"}
+                        className={"componentTheme poemFont"}
                         style={{
                             cursor: "default",
                             display: display,
                             backgroundColor: props.minorColor,
                             color: getFontColor(props.minorColor)
                         }}
-                />
+                >
+                    {todoSize + " 个待办事项"}
+                </Button>
             </Popover>
             <Modal title={"添加待办事项 " + todoSize + " / " + todoMaxSize} closeIcon={false}
                    centered
@@ -226,6 +230,7 @@ function TodoComponent(props: any) {
                     </Form.Item>
                     <Form.Item label={"标签分类"} name={"todoSelect"}>
                         <Select
+                            popupClassName={"poemFont"}
                             defaultValue="work"
                             onChange={selectOnChange}
                             options={[

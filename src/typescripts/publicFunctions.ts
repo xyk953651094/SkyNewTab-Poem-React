@@ -192,3 +192,31 @@ export function getDevice() {
         return ""
     }
 }
+
+export function getSearchEngineDetail(searchEngine: string) {
+    let searchEngineUrl: string;
+    let searchEngineIconUrl: string;
+    switch (searchEngine) {
+        case "baidu":
+            searchEngineUrl = "https://www.baidu.com/s?wd=";
+            searchEngineIconUrl = "https://www.baidu.com/favicon.ico";
+            break;
+        case "bing":
+            searchEngineUrl = "https://www.bing.com/search?q=";
+            searchEngineIconUrl = "https://www.bing.com/favicon.ico";
+            break;
+        case "google":
+            searchEngineUrl = "https://www.google.com/search?q=";
+            searchEngineIconUrl = "https://www.google.com/favicon.ico";
+            break;
+        case "yandex":
+            searchEngineUrl = "https://yandex.com/search/?text=";
+            searchEngineIconUrl = "https://yastatic.net/s3/home-static/_/92/929b10d17990e806734f68758ec917ec.png";
+            break;
+        default:
+            searchEngineUrl = "https://www.bing.com/search?q=";
+            searchEngineIconUrl = "https://www.bing.com/favicon.ico";
+            break;
+    }
+    return {"searchEngineUrl": searchEngineUrl, "searchEngineIconUrl": searchEngineIconUrl};
+}

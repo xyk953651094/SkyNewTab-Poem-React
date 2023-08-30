@@ -50,10 +50,10 @@ html, body {
 
 /*水平垂直居中*/
 .alignCenter {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    text-align: center !important;
 }
 
 .alignRight {
@@ -61,6 +61,19 @@ html, body {
     justify-content: right;
     align-items: center;
     text-align: right;
+}
+
+/*毛玻璃效果*/
+.componentTheme {
+    border-width: 0;
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1), 0 2px 2px 1px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    overflow: hidden;
+}
+
+input::placeholder {
+    font-family: "Times New Roman", cursive, sans-serif;
 }
 
 /*桌面端大屏样式*/

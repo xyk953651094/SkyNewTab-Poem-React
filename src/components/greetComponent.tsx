@@ -2,15 +2,24 @@ import React, {useEffect, useState} from "react";
 import {Row, Col, Button, Popover, Space, Typography} from "antd";
 import {HistoryOutlined, InfoCircleOutlined, CalendarOutlined, CheckCircleOutlined, CloseCircleOutlined} from "@ant-design/icons";
 import {device} from "../typescripts/publicConstants";
-import {getFontColor, getGreetContent, getGreetIcon, getTimeDetails, httpRequest} from "../typescripts/publicFunctions";
+import {
+    getFontColor,
+    getGreetContent,
+    getGreetIcon,
+    getSearchEngineDetail,
+    getTimeDetails,
+    httpRequest
+} from "../typescripts/publicFunctions";
 import "../stylesheets/publicStyles.scss"
 
 const {Text} = Typography;
 
 function GreetComponent(props: any) {
+    const [display, setDisplay] = useState("block");
     const [searchEngineUrl, setSearchEngineUrl] = useState("https://www.bing.com/search?q=");
-    const [greet, setGreet] = useState(getGreetContent());
     const [greetIcon, setGreetIcon] = useState(getGreetIcon());
+    const [greetContent, setGreetContent] = useState(getGreetContent());
+    const [holidayContent, setHolidayContent] = useState("");
     const [calendar, setCalendar] = useState(getTimeDetails(new Date()).showDate4 + " " + getTimeDetails(new Date()).showWeek);
     const [suit, setSuit] = useState("暂无信息");
     const [avoid, setAvoid] = useState("暂无信息");
@@ -34,6 +43,9 @@ function GreetComponent(props: any) {
     }
 
     useEffect(() => {
+        setDisplay(props.preferenceData.simpleMode ? "none" : "block");
+        setSearchEngineUrl(getSearchEngineDetail(props.preferenceData.searchEngine).searchEngineUrl);
+
         // 获取节假日信息
         function getHoliday() {
             let headers = {};
@@ -66,7 +78,8 @@ function GreetComponent(props: any) {
                 holidayContent = holidayContent + " · " + data.typeDes;
             }
             let timeDetails = getTimeDetails(new Date());
-            setGreet(getGreetContent() + "｜" + holidayContent);
+
+            setHolidayContent(holidayContent);
             setCalendar(timeDetails.showDate4 + " " + timeDetails.showWeek + "｜" +
                 data.yearTips + data.chineseZodiac + "年｜" +
                 data.lunarCalendar + "｜" + data.constellation);
@@ -75,20 +88,27 @@ function GreetComponent(props: any) {
         }
 
         // 防抖节流
-        let lastRequestTime: any = localStorage.getItem("lastHolidayRequestTime");
-        let nowTimeStamp = new Date().getTime();
-        if (lastRequestTime === null) {  // 第一次请求时 lastRequestTime 为 null，因此直接进行请求赋值 lastRequestTime
-            getHoliday();
-        } else if (nowTimeStamp - parseInt(lastRequestTime) > 60 * 60 * 1000) {  // 必须多于一小时才能进行新的请求
-            getHoliday();
-        } else {  // 一小时之内使用上一次请求结果
-            let lastHoliday: any = localStorage.getItem("lastHoliday");
-            if (lastHoliday) {
-                lastHoliday = JSON.parse(lastHoliday);
-                setHoliday(lastHoliday);
+        if (!props.preferenceData.simpleMode) {
+            let lastRequestTime: any = localStorage.getItem("lastHolidayRequestTime");
+            let nowTimeStamp = new Date().getTime();
+            if (lastRequestTime === null) {  // 第一次请求时 lastRequestTime 为 null，因此直接进行请求赋值 lastRequestTime
+                getHoliday();
+            } else if (nowTimeStamp - parseInt(lastRequestTime) > 60 * 60 * 1000) {  // 必须多于一小时才能进行新的请求
+                getHoliday();
+            } else {  // 一小时之内使用上一次请求结果
+                let lastHoliday: any = localStorage.getItem("lastHoliday");
+                if (lastHoliday) {
+                    lastHoliday = JSON.parse(lastHoliday);
+                    setHoliday(lastHoliday);
+                }
             }
+
+            setInterval(() => {
+                setGreetIcon(getGreetIcon());
+                setGreetContent(getGreetContent());
+            }, 60 * 60 * 1000);
         }
-    }, []);
+    }, [props.preferenceData.searchEngine, props.preferenceData.simpleMode]);
 
     const popoverTitle = (
         <Row align={"middle"}>
@@ -136,15 +156,16 @@ function GreetComponent(props: any) {
         <Popover
             title={popoverTitle} content={popoverContent}
             placement="bottomLeft" color={props.minorColor}>
-            <Button type="text" shape="round" size={"large"} icon={<i className={greetIcon}>&nbsp;&nbsp;</i>}
-                    className={"poemFont"}
+            <Button type="text" shape="round" size={"large"} icon={<i className={greetIcon}></i>}
+                    className={"componentTheme poemFont"}
                     style={{
+                        display: display,
                         cursor: "default",
                         color: getFontColor(props.minorColor),
                         backgroundColor: props.minorColor
                     }}
             >
-                {(device === "iPhone" || device === "Android") ? getGreetContent() : greet}
+                {greetContent + "｜" + holidayContent}
             </Button>
         </Popover>
     );

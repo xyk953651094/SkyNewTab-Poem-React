@@ -1,13 +1,14 @@
 import React, {useEffect, useState} from "react";
-import {Row, Col, Button, Layout, List, Space} from "antd";
+import {Button, Layout, List, Space} from "antd";
 import {DashboardOutlined} from "@ant-design/icons";
 import "../stylesheets/popupComponent.scss"
+import {defaultPreferenceData, themeArray} from "../typescripts/publicConstants";
 import {getFontColor} from "../typescripts/publicFunctions";
 import PopupPoemComponent from "../popupComponents/popupPoemComponent";
 import PopupFooterComponent from "../popupComponents/popupFooterComponent";
 import PopupWindowComponent from "../popupComponents/popupWindowComponent";
 import PopupObjectComponent from "../popupComponents/popupObjectComponent";
-import {themeArray} from "../typescripts/publicConstants";
+import PopupStatusComponent from "../popupComponents/popupStatusComponent";
 
 const {Header, Content, Footer} = Layout;
 const $ = require("jquery")
@@ -15,6 +16,7 @@ const $ = require("jquery")
 function PopupComponent() {
     const [majorColor, setMajorColor] = useState("#000000");
     const [minorColor, setMinorColor] = useState("#ffffff");
+    const [preferenceData, setPreferenceData] = useState(defaultPreferenceData);
 
     function btnMouseOver(e: any) {
         e.currentTarget.style.backgroundColor = minorColor;
@@ -27,11 +29,17 @@ function PopupComponent() {
     }
 
     useEffect(() => {
-        let bodyEle = $("body");
+        // 加载偏好设置
+        let tempPreferenceData = localStorage.getItem("preferenceData");
+        if (tempPreferenceData === null) {
+            localStorage.setItem("preferenceData", JSON.stringify(defaultPreferenceData));
+        }
+        setPreferenceData(tempPreferenceData === null ? defaultPreferenceData : JSON.parse(tempPreferenceData));
 
         // 随机颜色主题
+        let bodyEle = $("body");
         let randomNum = Math.floor(Math.random() * themeArray.length);  // 随机选择
-        bodyEle.css("background-color", themeArray[randomNum].majorColor);
+        bodyEle.css("backgroundColor", themeArray[randomNum].majorColor);
         setMajorColor(themeArray[randomNum].majorColor);
         setMinorColor(themeArray[randomNum].minorColor);
     }, [])
@@ -49,9 +57,12 @@ function PopupComponent() {
                     </Button>
                 </Space>
             </Header>
-            <Content className={"popupContent alignCenter"}>
+            <Content className={"popupContent"}>
                 <List>
                     <List.Item style={{borderBlockEndColor: minorColor}}>
+                        <PopupStatusComponent minorColor={minorColor} preferenceData={preferenceData}/>
+                    </List.Item>
+                    <List.Item className={"alignCenter"}>
                         <Space>
                             <PopupObjectComponent minorColor={minorColor}/>
                             <PopupPoemComponent minorColor={minorColor}/>

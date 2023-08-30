@@ -17,11 +17,13 @@ function PoemComponent(props: any) {
     function btnMouseOver(e: any) {
         e.currentTarget.style.backgroundColor = props.minorColor;
         e.currentTarget.style.color = getFontColor(props.minorColor);
+        e.currentTarget.classList.add("componentTheme");
     }
 
     function btnMouseOut(e: any) {
         e.currentTarget.style.backgroundColor = "transparent";
         e.currentTarget.style.color = props.minorColor;
+        e.currentTarget.classList.remove("componentTheme");
     }
 
     function poemContentBtnOnClick() {

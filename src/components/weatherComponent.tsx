@@ -1,15 +1,16 @@
 import React, {useEffect, useState} from "react";
 import {Row, Col, Button, Popover, Space, Typography} from "antd";
 import {InfoCircleOutlined} from "@ant-design/icons";
-import {getFontColor, getWeatherIcon, httpRequest,} from "../typescripts/publicFunctions";
+import {getFontColor, getSearchEngineDetail, getWeatherIcon, httpRequest,} from "../typescripts/publicFunctions";
 import "../stylesheets/publicStyles.scss"
 
 const {Text} = Typography;
 
 function WeatherComponent(props: any) {
+    const [display, setDisplay] = useState(props.preferenceData.simpleMode ? "none" : "block");
     const [searchEngineUrl, setSearchEngineUrl] = useState("https://www.bing.com/search?q=");
     const [weatherIcon, setWeatherIcon] = useState("");
-    const [weatherInfo, setWeatherInfo] = useState("暂无信息");
+    const [weatherContent, setWeatherContent] = useState("暂无信息");
     const [location, setLocation] = useState("暂无信息");
     const [humidity, setHumidity] = useState("暂无信息");
     const [pm25, setPm25] = useState("暂无信息");
@@ -32,6 +33,9 @@ function WeatherComponent(props: any) {
     }
 
     useEffect(() => {
+        setDisplay(props.preferenceData.simpleMode ? "none" : "block");
+        setSearchEngineUrl(getSearchEngineDetail(props.preferenceData.searchEngine).searchEngineUrl);
+
         function getWeather() {
             let headers = {};
             let url = "https://v2.jinrishici.com/info";
@@ -52,7 +56,7 @@ function WeatherComponent(props: any) {
 
         function setWeather(data: any) {
             setWeatherIcon(getWeatherIcon(data.weatherData.weather));
-            setWeatherInfo(data.weatherData.weather + "｜" + data.weatherData.temperature + "°C");
+            setWeatherContent(data.weatherData.weather + "｜" + data.weatherData.temperature + "°C");
             setLocation(data.region.replace("|", " · "));
             setHumidity(data.weatherData.humidity);
             setPm25(data.weatherData.pm25);
@@ -62,20 +66,22 @@ function WeatherComponent(props: any) {
         }
 
         // 防抖节流
-        let lastRequestTime: any = localStorage.getItem("lastWeatherRequestTime");
-        let nowTimeStamp = new Date().getTime();
-        if (lastRequestTime === null) {  // 第一次请求时 lastRequestTime 为 null，因此直接进行请求赋值 lastRequestTime
-            getWeather();
-        } else if (nowTimeStamp - parseInt(lastRequestTime) > 0) {  // 必须多于一小时才能进行新的请求
-            getWeather();
-        } else {  // 一小时之内使用上一次请求结果
-            let lastWeather: any = localStorage.getItem("lastWeather");
-            if (lastWeather) {
-                lastWeather = JSON.parse(lastWeather);
-                setWeather(lastWeather);
+        if (!props.preferenceData.simpleMode) {
+            let lastRequestTime: any = localStorage.getItem("lastWeatherRequestTime");
+            let nowTimeStamp = new Date().getTime();
+            if (lastRequestTime === null) {  // 第一次请求时 lastRequestTime 为 null，因此直接进行请求赋值 lastRequestTime
+                getWeather();
+            } else if (nowTimeStamp - parseInt(lastRequestTime) > 0) {  // 必须多于一小时才能进行新的请求
+                getWeather();
+            } else {  // 一小时之内使用上一次请求结果
+                let lastWeather: any = localStorage.getItem("lastWeather");
+                if (lastWeather) {
+                    lastWeather = JSON.parse(lastWeather);
+                    setWeather(lastWeather);
+                }
             }
         }
-    }, []);
+    }, [props.preferenceData.searchEngine, props.preferenceData.simpleMode]);
 
     const popoverTitle = (
         <Row align={"middle"}>
@@ -133,15 +139,16 @@ function WeatherComponent(props: any) {
     return (
         <Popover title={popoverTitle} content={popoverContent} color={props.minorColor}
                  placement="bottomLeft" overlayStyle={{width: "250px"}}>
-            <Button type="text" shape="round" size={"large"} icon={<i className={weatherIcon}>&nbsp;&nbsp;</i>}
-                    className={"poemFont"}
+            <Button type="text" shape="round" size={"large"} icon={<i className={weatherIcon}></i>}
+                    className={"componentTheme poemFont"}
                     style={{
+                        display: display,
                         cursor: "default",
                         color: getFontColor(props.minorColor),
                         backgroundColor: props.minorColor
                     }}
             >
-                {weatherInfo}
+                {weatherContent}
             </Button>
         </Popover>
     );
