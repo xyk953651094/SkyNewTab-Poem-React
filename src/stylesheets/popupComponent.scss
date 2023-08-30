@@ -1,5 +1,5 @@
 body {
-    width: max-content !important;
+    width: max-content;
     //width: 600px;
 }
 
@@ -38,4 +38,16 @@ body {
 
 .rotate90 {
     transform: rotate(90deg);
+}
+
+.popupFont {
+    font-family: "Times New Roman", cursive, sans-serif;
+}
+
+/*水平垂直居中*/
+.alignCenter {
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    text-align: center !important;
 }

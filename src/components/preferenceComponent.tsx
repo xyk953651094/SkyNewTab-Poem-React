@@ -53,16 +53,17 @@ function PreferenceComponent(props: any) {
             return newPreferenceData;
         });
         if (checked) {
-            message.success("已开启简洁模式");
+            message.success("已开启简洁模式，一秒后刷新页面");
         } else {
-            message.success("已关闭简洁模式");
+            message.success("已关闭简洁模式，一秒后刷新页面");
         }
+        refreshWindow();
     }
 
     // 重置设置
     function clearStorageBtnOnClick() {
         localStorage.clear();
-        message.success("已重置所有内容，1秒后刷新页面");
+        message.success("已重置所有内容，一秒后刷新页面");
         refreshWindow();
     }
 

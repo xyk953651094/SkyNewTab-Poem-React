@@ -37,6 +37,7 @@ function App() {
 
         // 随机颜色主题
         let randomNum = Math.floor(Math.random() * themeArray.length);  // 随机选择
+        localStorage.setItem("themeColor", JSON.stringify(themeArray[randomNum]));
         setMajorColor(themeArray[randomNum].majorColor);
         setMinorColor(themeArray[randomNum].minorColor);
         setSvgColors(themeArray[randomNum].svgColors);

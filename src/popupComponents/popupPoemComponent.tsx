@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {Button, Col, message, Row, Space} from "antd";
-import "../stylesheets/publicStyles.scss";
+import {Button, Col, Row, Space} from "antd";
 import "../stylesheets/poemComponent.scss"
 import {getFontColor} from "../typescripts/publicFunctions";
 
@@ -54,7 +53,7 @@ function PopupPoemComponent(props: any) {
         <Row justify="center" align="middle">
             <Space direction={"vertical"}>
                 <Col span={24}>
-                    <Button type="text" shape="round" className="poemFont"
+                    <Button type="text" shape="round" className="popupFont"
                             style={{color: props.minorColor}}
                             onClick={poemContentBtnOnClick} onMouseOver={btnMouseOver} onMouseOut={btnMouseOut}>
                         {/*{"你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好..."}*/}
@@ -62,7 +61,7 @@ function PopupPoemComponent(props: any) {
                     </Button>
                 </Col>
                 <Col span={24}>
-                    <Button type="text" shape="round" className="poemFont"
+                    <Button type="text" shape="round" className="popupFont"
                             style={{color: props.minorColor}}
                             onClick={poemAuthorBtnOnClick} onMouseOver={btnMouseOver} onMouseOut={btnMouseOut}>
                         {poemAuthorDetails.length < poemMaxSize ? poemAuthorDetails : poemAuthorDetails.substring(0, poemMaxSize) + "..."}

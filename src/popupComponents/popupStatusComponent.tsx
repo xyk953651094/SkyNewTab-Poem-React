@@ -68,34 +68,34 @@ function PopupImageComponent(props: any) {
                 <Button type={"text"} shape={"round"} icon={<i className={greetIcon}> </i>}
                         onMouseOver={btnMouseOver} onMouseOut={btnMouseOut}
                         onClick={greetBtnOnClick}
-                        className={"poemFont"}
+                        className={"popupFont"}
                         style={{color: props.minorColor}}>
                     {greetContent}
                 </Button>
                 <Button type={"text"} shape={"round"} icon={<i className={weatherIcon}> </i>}
                         onMouseOver={btnMouseOver} onMouseOut={btnMouseOut}
                         onClick={weatherBtnOnClick}
-                        className={"poemFont"}
+                        className={"popupFont"}
                         style={{color: props.minorColor}}>
                     {weatherContent}
                 </Button>
                 <Button type={"text"} shape={"round"} icon={<CalendarOutlined/>}
                         onMouseOver={btnMouseOver}
                         onMouseOut={btnMouseOut}
-                        className={"poemFont"}
+                        className={"popupFont"}
                         style={{color: props.minorColor, cursor: "default"}}>
                     {dailySize + " 个倒数日"}
                 </Button>
                 <Button type={"text"} shape={"round"} icon={<CheckSquareOutlined/>}
                         onMouseOver={btnMouseOver} onMouseOut={btnMouseOut}
-                        className={"poemFont"}
+                        className={"popupFont"}
                         style={{color: props.minorColor, cursor: "default"}}>
                     {todoSize + " 个待办事项"}
                 </Button>
             </Space>
             <Button type={"text"} shape={"round"} icon={<InfoCircleOutlined />}
                     onMouseOver={btnMouseOver} onMouseOut={btnMouseOut}
-                    className={"poemFont"}
+                    className={"popupFont"}
                     style={{color: props.minorColor, cursor: "default", display: props.preferenceData.simpleMode ? "inline-block" : "none"}}>
                 {"已开启简洁模式"}
             </Button>

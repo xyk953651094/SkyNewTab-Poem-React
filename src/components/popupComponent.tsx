@@ -36,12 +36,17 @@ function PopupComponent() {
         }
         setPreferenceData(tempPreferenceData === null ? defaultPreferenceData : JSON.parse(tempPreferenceData));
 
-        // 随机颜色主题
+        // 设置颜色主题
         let bodyEle = $("body");
         let randomNum = Math.floor(Math.random() * themeArray.length);  // 随机选择
-        bodyEle.css("backgroundColor", themeArray[randomNum].majorColor);
-        setMajorColor(themeArray[randomNum].majorColor);
-        setMinorColor(themeArray[randomNum].minorColor);
+        let themeColor = themeArray[randomNum];
+        let tempThemeColor = localStorage.getItem("themeColor");
+        if (tempThemeColor) {
+            themeColor = JSON.parse(tempThemeColor);
+        }
+        bodyEle.css("backgroundColor", themeColor.majorColor + " !important");
+        setMajorColor(themeColor.majorColor);
+        setMinorColor(themeColor.minorColor);
     }, [])
    
     return (
@@ -51,7 +56,7 @@ function PopupComponent() {
                     <Button type={"text"} shape={"round"} icon={<DashboardOutlined/>}
                             onMouseOver={btnMouseOver} onMouseOut={btnMouseOut}
                             style={{color: minorColor, cursor: "default"}}
-                            className={"poemFont"}
+                            className={"popupFont"}
                     >
                         云开诗词新标签页的仪表盘
                     </Button>
@@ -59,7 +64,7 @@ function PopupComponent() {
             </Header>
             <Content className={"popupContent"}>
                 <List>
-                    <List.Item style={{borderBlockEndColor: minorColor}}>
+                    <List.Item className={"alignCenter"} style={{borderBlockEndColor: minorColor}}>
                         <PopupStatusComponent minorColor={minorColor} preferenceData={preferenceData}/>
                     </List.Item>
                     <List.Item className={"alignCenter"}>
