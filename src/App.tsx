@@ -83,9 +83,9 @@ function App() {
             // drawer
             let drawerEle = $(".ant-drawer");
             if (drawerEle.length && drawerEle.length > 0) {
-                $(".ant-drawer-title").css("color", minorColor).addClass("poemFont");
-                $(".ant-form-item-label > label").css("color", minorColor).addClass("poemFont");
-                $(".ant-radio-wrapper").children(":last-child").css("color", minorColor).addClass("poemFont");
+                $(".ant-drawer-title").css("color", getFontColor(minorColor)).addClass("poemFont");
+                $(".ant-form-item-label > label").css("color", getFontColor(minorColor)).addClass("poemFont");
+                $(".ant-radio-wrapper").children(":last-child").css("color", getFontColor(minorColor)).addClass("poemFont");
             }
 
             // modal

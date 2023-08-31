@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import "../stylesheets/popupComponent.scss"
-import {getObjectClassName} from "../typescripts/publicFunctions";
+import {getFontColor, getObjectClassName} from "../typescripts/publicFunctions";
 
 function PopupObjectComponent(props: any) {
     const [objectClassName, setObjectClassName] = useState(getObjectClassName());
@@ -10,7 +10,7 @@ function PopupObjectComponent(props: any) {
     });
 
     return (
-        <i className={"chinaObject iconfont " + objectClassName} style={{color: props.minorColor}}></i>
+        <i className={"chinaObject iconfont " + objectClassName} style={{color: getFontColor(props.minorColor)}}></i>
     );
 }
 

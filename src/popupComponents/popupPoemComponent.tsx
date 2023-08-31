@@ -12,13 +12,13 @@ function PopupPoemComponent(props: any) {
     const [poemAuthorDetails, setPoemAuthorDetails] = useState("【唐】张九龄 ·《望月怀远》");
 
     function btnMouseOver(e: any) {
-        e.currentTarget.style.backgroundColor = props.minorColor;
-        e.currentTarget.style.color = getFontColor(props.minorColor);
+        e.currentTarget.style.backgroundColor = props.majorColor;
+        e.currentTarget.style.color = getFontColor(props.majorColor);
     }
 
     function btnMouseOut(e: any) {
         e.currentTarget.style.backgroundColor = "transparent";
-        e.currentTarget.style.color = props.minorColor;
+        e.currentTarget.style.color = getFontColor(props.minorColor);
     }
 
     function poemContentBtnOnClick() {
@@ -54,7 +54,7 @@ function PopupPoemComponent(props: any) {
             <Space direction={"vertical"}>
                 <Col span={24}>
                     <Button type="text" shape="round" className="popupFont"
-                            style={{color: props.minorColor}}
+                            style={{color: getFontColor(props.minorColor)}}
                             onClick={poemContentBtnOnClick} onMouseOver={btnMouseOver} onMouseOut={btnMouseOut}>
                         {/*{"你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好..."}*/}
                         {poemContent.length < poemMaxSize ? poemContent : poemContent.substring(0, poemMaxSize) + "..."}
@@ -62,7 +62,7 @@ function PopupPoemComponent(props: any) {
                 </Col>
                 <Col span={24}>
                     <Button type="text" shape="round" className="popupFont"
-                            style={{color: props.minorColor}}
+                            style={{color: getFontColor(props.minorColor)}}
                             onClick={poemAuthorBtnOnClick} onMouseOver={btnMouseOver} onMouseOut={btnMouseOut}>
                         {poemAuthorDetails.length < poemMaxSize ? poemAuthorDetails : poemAuthorDetails.substring(0, poemMaxSize) + "..."}
                     </Button>

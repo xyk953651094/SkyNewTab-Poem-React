@@ -1,14 +1,14 @@
 import React, {useEffect, useState} from "react";
-import {Button, Layout, List, Space} from "antd";
-import {DashboardOutlined} from "@ant-design/icons";
+import {Layout, List, Space} from "antd";
 import "../stylesheets/popupComponent.scss"
 import {defaultPreferenceData, themeArray} from "../typescripts/publicConstants";
-import {getFontColor} from "../typescripts/publicFunctions";
 import PopupPoemComponent from "../popupComponents/popupPoemComponent";
 import PopupFooterComponent from "../popupComponents/popupFooterComponent";
 import PopupWindowComponent from "../popupComponents/popupWindowComponent";
 import PopupObjectComponent from "../popupComponents/popupObjectComponent";
 import PopupStatusComponent from "../popupComponents/popupStatusComponent";
+import PopupHeaderComponent from "../popupComponents/popupHeaderComponent";
+import {getFontColor} from "../typescripts/publicFunctions";
 
 const {Header, Content, Footer} = Layout;
 const $ = require("jquery")
@@ -17,16 +17,6 @@ function PopupComponent() {
     const [majorColor, setMajorColor] = useState("#000000");
     const [minorColor, setMinorColor] = useState("#ffffff");
     const [preferenceData, setPreferenceData] = useState(defaultPreferenceData);
-
-    function btnMouseOver(e: any) {
-        e.currentTarget.style.backgroundColor = minorColor;
-        e.currentTarget.style.color = getFontColor(minorColor);
-    }
-
-    function btnMouseOut(e: any) {
-        e.currentTarget.style.backgroundColor = "transparent";
-        e.currentTarget.style.color = minorColor;
-    }
 
     useEffect(() => {
         // 加载偏好设置
@@ -44,7 +34,7 @@ function PopupComponent() {
         if (tempThemeColor) {
             themeColor = JSON.parse(tempThemeColor);
         }
-        bodyEle.css("backgroundColor", themeColor.majorColor + " !important");
+        bodyEle.css("backgroundColor", themeColor.minorColor + " !important");
         setMajorColor(themeColor.majorColor);
         setMinorColor(themeColor.minorColor);
     }, [])
@@ -52,32 +42,43 @@ function PopupComponent() {
     return (
         <Layout className={"popupLayout"}>
             <Header className={"popupHeader"}>
-                <Space align={"center"}>
-                    <Button type={"text"} shape={"round"} icon={<DashboardOutlined/>}
-                            onMouseOver={btnMouseOver} onMouseOut={btnMouseOut}
-                            style={{color: minorColor, cursor: "default"}}
-                            className={"popupFont"}
-                    >
-                        云开诗词新标签页的仪表盘
-                    </Button>
-                </Space>
+                <PopupHeaderComponent
+                    majorColor={majorColor}
+                    minorColor={minorColor}
+                />
             </Header>
             <Content className={"popupContent"}>
                 <List>
-                    <List.Item className={"alignCenter"} style={{borderBlockEndColor: minorColor}}>
-                        <PopupStatusComponent minorColor={minorColor} preferenceData={preferenceData}/>
+                    <List.Item className={"alignCenter"} style={{borderBlockEndColor: getFontColor(minorColor)}}>
+                        <PopupStatusComponent
+                            majorColor={majorColor}
+                            minorColor={minorColor}
+                            preferenceData={preferenceData}
+                        />
                     </List.Item>
                     <List.Item className={"alignCenter"}>
                         <Space>
-                            <PopupObjectComponent minorColor={minorColor}/>
-                            <PopupPoemComponent minorColor={minorColor}/>
-                            <PopupWindowComponent minorColor={minorColor}/>
+                            <PopupObjectComponent
+                                majorColor={majorColor}
+                                minorColor={minorColor}
+                            />
+                            <PopupPoemComponent
+                                majorColor={majorColor}
+                                minorColor={minorColor}
+                            />
+                            <PopupWindowComponent
+                                majorColor={majorColor}
+                                minorColor={minorColor}
+                            />
                         </Space>
                     </List.Item>
                 </List>
             </Content>
             <Footer className={"popupFooter"}>
-                <PopupFooterComponent minorColor={minorColor}/>
+                <PopupFooterComponent
+                    majorColor={majorColor}
+                    minorColor={minorColor}
+                />
             </Footer>
         </Layout>
     );
