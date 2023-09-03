@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import type {DatePickerProps} from 'antd';
-import {Badge, Button, Col, DatePicker, Form, Input, List, message, Modal, Popover, Row, Space, Typography} from "antd";
+import {Button, Col, DatePicker, Form, Input, List, message, Modal, Popover, Row, Space, Typography} from "antd";
 import {CalendarOutlined, ClockCircleOutlined, DeleteOutlined, PlusOutlined} from "@ant-design/icons";
 import {getFontColor, getTimeDetails} from "../typescripts/publicFunctions";
 

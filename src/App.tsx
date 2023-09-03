@@ -131,7 +131,7 @@ function App() {
                             />
                         </Space>
                     </Col>
-                    <Col xs={22} sm={22} md={9} lg={9} xl={9} xxl={9} style={{textAlign: "right"}}>
+                    <Col xs={0} sm={0} md={9} lg={9} xl={9} xxl={9} style={{textAlign: "right"}}>
                         <Space>
                             <DailyComponent
                                 majorColor={majorColor}
@@ -149,6 +149,13 @@ function App() {
                                 getPreferenceData={getPreferenceData}
                             />
                         </Space>
+                    </Col>
+                    <Col xs={22} sm={22} md={0} lg={0} xl={0} xxl={0} style={{textAlign: "right"}}>
+                        <PreferenceComponent
+                            majorColor={majorColor}
+                            minorColor={minorColor}
+                            getPreferenceData={getPreferenceData}
+                        />
                     </Col>
                 </Row>
                 <SunComponent sunColors={svgColors}/>

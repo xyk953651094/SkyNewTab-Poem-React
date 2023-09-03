@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {Button, Col, Row, Space} from "antd";
 import "../stylesheets/poemComponent.scss"
-import {getFontColor} from "../typescripts/publicFunctions";
+import {getFontColor, getSearchEngineDetail} from "../typescripts/publicFunctions";
 
 const poemMaxSize = 25;
 
@@ -39,6 +39,8 @@ function PopupPoemComponent(props: any) {
     }
 
     useEffect(() => {
+        setSearchEngineUrl(getSearchEngineDetail(props.preferenceData.searchEngine).searchEngineUrl);
+
         function getPoem() {
             let poemData = localStorage.getItem("lastPoem");
             if(poemData){

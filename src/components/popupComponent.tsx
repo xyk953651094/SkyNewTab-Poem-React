@@ -65,6 +65,7 @@ function PopupComponent() {
                             <PopupPoemComponent
                                 majorColor={majorColor}
                                 minorColor={minorColor}
+                                preferenceData={preferenceData}
                             />
                             <PopupWindowComponent
                                 majorColor={majorColor}
