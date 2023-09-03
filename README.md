@@ -15,10 +15,11 @@
 * 天气来源：https://www.jinrishici.com  
 * 诗词来源：https://www.jinrishici.com
 
-## V1.7.0 更新内容
+## 最近更新
+* 新增倒数日、待办事项、菜单栏、popup
 * 优化代码质量
 * 修复已知问题
-* 优化视觉效果，新增倒数日、待办事项、菜单栏、插件按钮弹窗
+* 优化视觉效果
 
 ## 安装
 * [Chrome 网上应用商店](https://chrome.google.com/webstore/detail/hbbkhohnflilcpjkkemkdkdifknebnjf)
