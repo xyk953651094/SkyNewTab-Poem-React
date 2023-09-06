@@ -17,8 +17,7 @@ function WeatherComponent(props: any) {
     const [rainfall, setRainfall] = useState("暂无信息");
     const [visibility, setVisibility] = useState("暂无信息");
     const [windInfo, setWindInfo] = useState("暂无信息");
-    const [temperatureSuggest, setTemperatureSuggest] = useState("暂无信息");
-    const [airSuggest, setAirSuggest] = useState("暂无信息");
+    const [suggest, setSuggest] = useState("暂无信息");
 
     function btnMouseOver(e: any) {
         e.currentTarget.style.backgroundColor = props.majorColor;
@@ -43,27 +42,38 @@ function WeatherComponent(props: any) {
         window.open(searchEngineUrl + "天气", "_blank");
     }
 
-    function getTemperatureSuggest(temperature: number) {
+    function getSuggest(temperature: number, pm25: number) {
+        let tempTemperature = "";
+        let tempPm25 = "";
+
         if (temperature > 30) {
-            return "温度炎热，注意避暑"
+            tempTemperature = "温度炎热，注意避暑"
         }
         else if(temperature < 10) {
-            return "温度寒冷，注意防寒"
+            tempTemperature = "温度寒冷，注意防寒"
         }
-        else {
-            return "温度宜人，适合外出"
-        }
-    }
 
-    function getAirSuggest(pm25: number) {
         if (pm25 > 200) {
-            return " · 空气较差，不宜外出"
+            tempPm25 = "空气较差，不宜外出"
         }
         else if(pm25 < 100) {
-            return " · 空气良好，适合外出"
+            tempPm25 = "空气良好，适合外出"
+        }
+
+        if(tempTemperature.length === 0 && tempPm25.length === 0) {
+            return "";
+        }
+        else if (tempTemperature.length !== 0 && tempPm25.length === 0) {
+            return tempTemperature;
+        }
+        else if (tempTemperature.length !== 0 && tempPm25.length !== 0) {
+            return tempTemperature + " · " + tempPm25;
+        }
+        else if (tempTemperature.length === 0 && tempPm25.length !== 0) {
+            return tempPm25;
         }
         else {
-            return ""
+            return "";
         }
     }
 
@@ -98,8 +108,8 @@ function WeatherComponent(props: any) {
             setRainfall(data.weatherData.rainfall + "%");
             setVisibility(data.weatherData.visibility);
             setWindInfo(data.weatherData.windDirection + data.weatherData.windPower + "级");
-            setTemperatureSuggest(getTemperatureSuggest(parseInt(data.weatherData.temperature)));
-            setAirSuggest(getAirSuggest(parseInt(data.weatherData.pm25)));
+            // @ts-ignore
+            setSuggest(getSuggest(parseInt(data.weatherData.temperature), parseInt(data.weatherData.pm25)));
         }
 
         // 防抖节流
@@ -146,11 +156,11 @@ function WeatherComponent(props: any) {
 
     const popoverContent = (
         <List>
-            <List.Item>
+            <List.Item style={{display: suggest.length === 0 ? "none" : "block"}}>
                 <Button type="text" shape="round" icon={<BulbOutlined />}
                         onMouseOver={btnMouseOver} onMouseOut={btnMouseOut}
                         className={"poemFont"} style={{color: getFontColor(props.minorColor), cursor: "default"}}>
-                    {temperatureSuggest + airSuggest}
+                    {suggest}
                 </Button>
             </List.Item>
             <List.Item>
