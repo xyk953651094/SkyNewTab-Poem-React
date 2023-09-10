@@ -171,7 +171,7 @@ function GreetComponent(props: any) {
     return (
         <Popover
             title={popoverTitle} content={popoverContent}
-            placement="bottomLeft" color={props.minorColor}>
+            placement="bottomLeft" overlayStyle={{minWidth: "550px"}} color={props.minorColor}>
             <Button type="text" shape="round" size={"large"} icon={<i className={greetIcon}></i>}
                     className={"componentTheme poemFont"}
                     style={{
