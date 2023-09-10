@@ -23,12 +23,18 @@
 * 下载 Releases 页面提供的文件进行安装
 
 ## 效果展示
-### Chromium & Firefox
-<img width="1440" alt="截屏2023-07-11 15 40 28" src="https://github.com/xyk953651094/SkyNewTab-Poem-React/assets/28004442/34579e53-11e6-4774-8038-6171bd694dc4">
+### Chromium & Firefox & Safari for Mac
+<img width="1440" alt="截屏2023-09-10 21 21 43" src="https://github.com/xyk953651094/SkyNewTab-Poem-React/assets/28004442/4d883c89-874c-411e-9eeb-e1e1db4a0123">
 
-<img width="1440" alt="截屏2023-07-11 15 40 48" src="https://github.com/xyk953651094/SkyNewTab-Poem-React/assets/28004442/67537832-b60e-49b8-a6c6-7ca9dad3ec9a">
+<img width="1440" alt="截屏2023-09-10 21 21 54" src="https://github.com/xyk953651094/SkyNewTab-Poem-React/assets/28004442/d840808c-656e-4c00-a154-08f6d9f452f1">
 
-<img width="1440" alt="截屏2023-07-11 15 41 08" src="https://github.com/xyk953651094/SkyNewTab-Poem-React/assets/28004442/c09be8a9-34b3-4047-8083-26dc781820e6">
+<img width="1440" alt="截屏2023-09-10 21 23 25" src="https://github.com/xyk953651094/SkyNewTab-Poem-React/assets/28004442/c4e838c2-d478-45a0-8b05-2d6c9599d0a0">
+
+<img width="1440" alt="截屏2023-09-10 21 22 20" src="https://github.com/xyk953651094/SkyNewTab-Poem-React/assets/28004442/a266e3f3-b465-4b2b-9ceb-041af8b92e09">
+
+<img width="1440" alt="截屏2023-09-10 21 22 46" src="https://github.com/xyk953651094/SkyNewTab-Poem-React/assets/28004442/f7a938bc-cbb8-48df-a9e5-2342caef9e96">
+
+<img width="1440" alt="截屏2023-09-10 21 23 48" src="https://github.com/xyk953651094/SkyNewTab-Poem-React/assets/28004442/b4c0d50e-437a-4087-a862-2c2be342d495">
 
 ### Safari for iPhone
 <img width="400" alt="截屏2023-07-16 19 56 51" src="https://github.com/xyk953651094/SkyNewTab-Poem-React/assets/28004442/3c132d3b-9779-4684-b864-e9c2e2f63459">
@@ -37,9 +43,4 @@
 <img alt="截屏2023-07-16 18 58 03" src="https://github.com/xyk953651094/SkyNewTab-Poem-React/assets/28004442/fe477580-297a-42ee-b103-843078cb9f9e">
 
 <img alt="截屏2023-07-16 18 58 03" src="https://github.com/xyk953651094/SkyNewTab-Poem-React/assets/28004442/978e3972-db10-46a3-85d4-43fb0face75c">
-
-### Safari for Mac
-<img width="1440" alt="截屏2023-07-16 18 58 03" src="https://github.com/xyk953651094/SkyNewTab-Poem-React/assets/28004442/d5445b22-a9b9-4354-9b7d-6f69344553eb">
-
-<img width="1440" alt="截屏2023-07-16 18 58 13" src="https://github.com/xyk953651094/SkyNewTab-Poem-React/assets/28004442/6d39aacc-a26c-4683-91cd-a41fec231ac6">
 
