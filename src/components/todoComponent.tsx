@@ -229,7 +229,7 @@ function TodoComponent(props: any) {
             >
                 <Form>
                     <Form.Item label={"待办事项"} name={"todoInput"}>
-                        <Input placeholder="请输入待办内容" id="todoInput" maxLength={10} allowClear showCount/>
+                        <Input className={"poemFont"} placeholder="请输入待办内容" id="todoInput" maxLength={10} allowClear showCount/>
                     </Form.Item>
                     <Form.Item label={"标签分类"} name={"todoSelect"}>
                         <Select

@@ -44,8 +44,10 @@ html, body {
 
 .poemFont {
     font-family: "Times New Roman", cursive, sans-serif;
-    //font-size: 25px !important;
-    //line-height: 25px;
+}
+
+#dailyInput, #todoInput {
+    font-family: "Times New Roman", cursive, sans-serif;
 }
 
 .largeFont {

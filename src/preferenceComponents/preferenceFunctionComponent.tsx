@@ -105,7 +105,7 @@ function PreferenceFunctionComponent(props: any) {
                     </Radio.Group>
                 </Form.Item>
                 <Form.Item name={"simpleMode"} label={"简洁模式"} valuePropName={"checked"}>
-                    <Switch checkedChildren="已开启" unCheckedChildren="已关闭"
+                    <Switch checkedChildren="已开启" unCheckedChildren="已关闭" className={"poemFont"}
                             onChange={simpleModeSwitchOnChange}/>
                 </Form.Item>
                 <Form.Item name={"clearStorageButton"} label={"危险设置"}>
