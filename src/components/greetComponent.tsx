@@ -1,7 +1,13 @@
 import React, {useEffect, useState} from "react";
-import {Row, Col, Button, Popover, Space, Typography} from "antd";
-import {HistoryOutlined, InfoCircleOutlined, CalendarOutlined, CheckCircleOutlined, CloseCircleOutlined} from "@ant-design/icons";
-import {device} from "../typescripts/publicConstants";
+import {Button, Col, Popover, Row, Space, Typography} from "antd";
+import {
+    CalendarOutlined,
+    CheckCircleOutlined,
+    CloseCircleOutlined,
+    HistoryOutlined,
+    InfoCircleOutlined,
+    StarOutlined
+} from "@ant-design/icons";
 import {
     getFontColor,
     getGreetContent,
@@ -13,6 +19,7 @@ import {
 import "../stylesheets/publicStyles.scss"
 
 const {Text} = Typography;
+const btnMaxSize = 80;
 
 function GreetComponent(props: any) {
     const [display, setDisplay] = useState("block");
@@ -34,8 +41,12 @@ function GreetComponent(props: any) {
         e.currentTarget.style.color = getFontColor(props.minorColor);
     }
 
+    function constellationBtnOnClick() {
+        window.open(searchEngineUrl + "星座运势", "_blank");
+    }
+
     function historyBtnOnClick() {
-        window.open( searchEngineUrl + "历史上的今天", "_blank",);
+        window.open(searchEngineUrl + "历史上的今天", "_blank");
     }
 
     function infoBtnOnClick() {
@@ -112,11 +123,16 @@ function GreetComponent(props: any) {
 
     const popoverTitle = (
         <Row align={"middle"}>
-            <Col span={10}>
+            <Col span={6}>
                 <Text className={"poemFont"} style={{color: getFontColor(props.minorColor)}}>{"万年历"}</Text>
             </Col>
-            <Col span={14} style={{textAlign: "right"}}>
+            <Col span={18} style={{textAlign: "right"}}>
                 <Space>
+                    <Button type={"text"} shape={"round"} icon={<StarOutlined/>} onClick={constellationBtnOnClick}
+                            onMouseOver={btnMouseOver} onMouseOut={btnMouseOut}
+                            className={"poemFont"} style={{color: getFontColor(props.minorColor)}}>
+                        {"星座运势"}
+                    </Button>
                     <Button type={"text"} shape={"round"} icon={<HistoryOutlined/>} onClick={historyBtnOnClick}
                             onMouseOver={btnMouseOver} onMouseOut={btnMouseOut}
                             className={"poemFont"} style={{color: getFontColor(props.minorColor)}}>
@@ -142,12 +158,12 @@ function GreetComponent(props: any) {
             <Button type="text" shape="round" icon={<CheckCircleOutlined/>}
                     onMouseOver={btnMouseOver} onMouseOut={btnMouseOut}
                     className={"poemFont"} style={{color: getFontColor(props.minorColor), cursor: "default"}}>
-                {"宜：" + suit}
+                {"宜：" + (suit.length < btnMaxSize) ? suit : suit.substring(0, btnMaxSize) + "..."}
             </Button>
             <Button type="text" shape="round" icon={<CloseCircleOutlined/>}
                     onMouseOver={btnMouseOver} onMouseOut={btnMouseOut}
                     className={"poemFont"} style={{color: getFontColor(props.minorColor), cursor: "default"}}>
-                {"忌：" + avoid}
+                {"忌：" + (avoid.length < btnMaxSize) ? avoid : avoid.substring(0, btnMaxSize) + "..."}
             </Button>
         </Space>
     );

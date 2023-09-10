@@ -38,7 +38,7 @@ function PopupComponent() {
         setMajorColor(themeColor.majorColor);
         setMinorColor(themeColor.minorColor);
     }, [])
-   
+
     return (
         <Layout className={"popupLayout"}>
             <Header className={"popupHeader"}>

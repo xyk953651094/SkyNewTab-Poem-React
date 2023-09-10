@@ -39,7 +39,7 @@ function PreferenceInfoComponent(props: any) {
                         className={"poemFont"} style={{color: getFontColor(props.minorColor)}}>
                     {"天气来源：https://www.jinrishici.com"}
                 </Button>
-                <Button type={"text"} shape={"round"} icon={<ReadOutlined />}
+                <Button type={"text"} shape={"round"} icon={<ReadOutlined/>}
                         href={"https://www.jinrishici.com/"} target={"_blank"}
                         onMouseOver={btnMouseOver} onMouseOut={btnMouseOut}
                         className={"poemFont"} style={{color: getFontColor(props.minorColor)}}>

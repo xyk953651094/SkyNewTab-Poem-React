@@ -53,6 +53,7 @@ function App() {
             $(".ant-list-item-meta-description").css("color", getFontColor(minorColor));
             $(".ant-list-item-action").css("marginInlineStart", "0");
             $(".ant-empty-description").css("color", getFontColor(minorColor)).addClass("poemFont");
+            $(".ant-alert").css("padding", "10px");
 
             // popover
             let popoverEle = $(".ant-popover");
@@ -117,7 +118,7 @@ function App() {
         <Layout>
             <Header id={"header"} className={"zIndexMiddle"}>
                 <Row justify="center">
-                    <Col xs={0} sm={0} md={9} lg={9} xl={9} xxl={9}>
+                    <Col xs={0} sm={0} md={0} lg={9} xl={9} xxl={9}>
                         <Space>
                             <GreetComponent
                                 majorColor={majorColor}
@@ -131,7 +132,7 @@ function App() {
                             />
                         </Space>
                     </Col>
-                    <Col xs={0} sm={0} md={9} lg={9} xl={9} xxl={9} style={{textAlign: "right"}}>
+                    <Col xs={0} sm={0} md={0} lg={9} xl={9} xxl={9} style={{textAlign: "right"}}>
                         <Space>
                             <DailyComponent
                                 majorColor={majorColor}
@@ -150,7 +151,7 @@ function App() {
                             />
                         </Space>
                     </Col>
-                    <Col xs={22} sm={22} md={0} lg={0} xl={0} xxl={0} style={{textAlign: "right"}}>
+                    <Col xs={22} sm={22} md={22} lg={0} xl={0} xxl={0} style={{textAlign: "right"}}>
                         <PreferenceComponent
                             majorColor={majorColor}
                             minorColor={minorColor}

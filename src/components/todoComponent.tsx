@@ -98,7 +98,7 @@ function TodoComponent(props: any) {
                 todos.splice(index, 1);
             }
             localStorage.setItem("todos", JSON.stringify(todos));
-            
+
             setListItems(todos);
             setTodoSize(todos.length);
         }
@@ -139,7 +139,7 @@ function TodoComponent(props: any) {
         setListItems(todos);
         setTodoSize(todos.length);
     }, [props.preferenceData.simpleMode])
-    
+
     const popoverTitle = (
         <Row align={"middle"}>
             <Col span={10}>
@@ -174,7 +174,7 @@ function TodoComponent(props: any) {
                     actions={[
                         <Button type={"text"} shape={"circle"} icon={<CheckOutlined/>}
                                 onMouseOver={btnMouseOver} onMouseOut={btnMouseOut}
-                                onClick={(event)=>finishBtnOnClick(item)}
+                                onClick={(event) => finishBtnOnClick(item)}
                                 className={"poemFont"}
                                 style={{color: getFontColor(props.minorColor)}}/>
                     ]}

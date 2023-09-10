@@ -13,7 +13,7 @@ function PreferenceLinkComponent(props: any) {
         e.currentTarget.style.backgroundColor = "transparent";
         e.currentTarget.style.color = getFontColor(props.minorColor);
     }
-    
+
     return (
         <Card title={"联系作者"} size={"small"}
               extra={<SendOutlined style={{color: getFontColor(props.minorColor)}}/>}

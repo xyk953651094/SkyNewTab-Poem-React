@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import {Button, Space} from "antd";
-import {CalendarOutlined, InfoCircleOutlined, CheckSquareOutlined} from "@ant-design/icons";
+import {CalendarOutlined, CheckSquareOutlined, InfoCircleOutlined} from "@ant-design/icons";
 import "../stylesheets/popupComponent.scss"
 import {
     getFontColor,
@@ -60,7 +60,7 @@ function PopupImageComponent(props: any) {
         setDailySize(tempDaily ? JSON.parse(tempDaily).length : 0);
         setTodoSize(tempTodos ? JSON.parse(tempTodos).length : 0);
         setSearchEngineUrl(getSearchEngineDetail(props.preferenceData.searchEngine).searchEngineUrl);
-    },[props.preferenceData.searchEngine])
+    }, [props.preferenceData.searchEngine])
 
     return (
         <>
@@ -93,10 +93,14 @@ function PopupImageComponent(props: any) {
                     {todoSize + " 个待办事项"}
                 </Button>
             </Space>
-            <Button type={"text"} shape={"round"} icon={<InfoCircleOutlined />}
+            <Button type={"text"} shape={"round"} icon={<InfoCircleOutlined/>}
                     onMouseOver={btnMouseOver} onMouseOut={btnMouseOut}
                     className={"popupFont"}
-                    style={{color: getFontColor(props.minorColor), cursor: "default", display: props.preferenceData.simpleMode ? "inline-block" : "none"}}>
+                    style={{
+                        color: getFontColor(props.minorColor),
+                        cursor: "default",
+                        display: props.preferenceData.simpleMode ? "inline-block" : "none"
+                    }}>
                 {"已开启简洁模式"}
             </Button>
         </>

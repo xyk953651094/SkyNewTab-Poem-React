@@ -1,9 +1,11 @@
 import React, {useEffect, useState} from "react";
-import {Button, Card, Col, Form, message, Radio, RadioChangeEvent, Row, Switch} from "antd";
+import {Alert, Button, Card, Col, Form, message, Radio, RadioChangeEvent, Row, Switch, Typography} from "antd";
 import {DeleteOutlined, SettingOutlined} from "@ant-design/icons";
 import {getFontColor} from "../typescripts/publicFunctions";
 import {defaultPreferenceData} from "../typescripts/publicConstants";
 import {PreferenceDataInterface} from "../typescripts/publicInterface";
+
+const {Title, Text, Paragraph} = Typography;
 
 function PreferenceFunctionComponent(props: any) {
     const [preferenceData, setPreferenceData] = useState(initPreferenceData());
@@ -42,8 +44,7 @@ function PreferenceFunctionComponent(props: any) {
         if (tempPreferenceData === null) {
             localStorage.setItem("preferenceData", JSON.stringify(defaultPreferenceData));
             return defaultPreferenceData;
-        }
-        else {
+        } else {
             return JSON.parse(tempPreferenceData);
         }
     }
@@ -116,6 +117,23 @@ function PreferenceFunctionComponent(props: any) {
                         清空并重置所有内容
                     </Button>
                 </Form.Item>
+                {/*<Form.Item label={"提示信息"}>*/}
+                {/*    <Paragraph>*/}
+                {/*        <ol className={"poemFont"} style={{color: getFontColor(props.minorColor)}}>*/}
+                {/*            <li>清空并重置所有内容将删除所有缓存，插件出现问题时可尝试此按钮</li>*/}
+                {/*        </ol>*/}
+                {/*    </Paragraph>*/}
+                {/*</Form.Item>*/}
+                <Alert
+                    message={
+                        <Title level={5} className={"poemFont"}>{"警告信息"}</Title>
+                    }
+                    description={
+                        <Text
+                            className={"poemFont"}>{"清空并重置所有内容将删除所有缓存，插件出现问题时可尝试此按钮"}</Text>
+                    }
+                    type="warning"
+                />
             </Form>
         </Card>
     );

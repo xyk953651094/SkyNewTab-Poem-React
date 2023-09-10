@@ -13,7 +13,7 @@ function PreferenceFooterComponent(props: any) {
         e.currentTarget.style.backgroundColor = "transparent";
         e.currentTarget.style.color = getFontColor(props.minorColor);
     }
-    
+
     return (
         <Space>
             <Button type={"text"} shape={"round"} icon={<GithubOutlined/>}

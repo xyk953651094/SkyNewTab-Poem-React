@@ -86,7 +86,7 @@ function DailyComponent(props: any) {
                     "timeStamp": Date.now()
                 });
                 localStorage.setItem("daily", JSON.stringify(daily));
-                
+
                 setDisplayModal(false);
                 setListItems(daily);
                 setDailySize(daily.length);
@@ -171,7 +171,7 @@ function DailyComponent(props: any) {
                     actions={[
                         <Button type={"text"} shape={"circle"} icon={<DeleteOutlined/>}
                                 onMouseOver={btnMouseOver} onMouseOut={btnMouseOut}
-                                onClick={(event)=>removeBtnOnClick(item)}
+                                onClick={(event) => removeBtnOnClick(item)}
                                 className={"poemFont"}
                                 style={{color: getFontColor(props.minorColor)}}/>
                     ]}
@@ -228,10 +228,12 @@ function DailyComponent(props: any) {
             >
                 <Form>
                     <Form.Item label={"倒数标题"} name={"dailyInput"}>
-                        <Input className={"poemFont"} placeholder="请输入标题" id={"dailyInput"} maxLength={10} allowClear showCount/>
+                        <Input className={"poemFont"} placeholder="请输入标题" id={"dailyInput"} maxLength={10}
+                               allowClear showCount/>
                     </Form.Item>
                     <Form.Item label={"倒数日期"} name={"dailyDatePicker"}>
-                        <DatePicker className={"poemFont"} onChange={datePickerOnChange} id={"dailyDatePicker"} allowClear={false}/>
+                        <DatePicker className={"poemFont"} onChange={datePickerOnChange} id={"dailyDatePicker"}
+                                    allowClear={false}/>
                     </Form.Item>
                 </Form>
             </Modal>

@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {Button, Drawer, Space, Tooltip, Typography} from "antd";
+import {Button, Drawer, Space, Tooltip} from "antd";
 import {MoreOutlined} from "@ant-design/icons";
 import {getFontColor} from "../typescripts/publicFunctions";
 import {device} from "../typescripts/publicConstants";
@@ -11,7 +11,7 @@ import PreferenceFunctionComponent from "../preferenceComponents/preferenceFunct
 
 function PreferenceComponent(props: any) {
     const [displayDrawer, setDisplayDrawer] = useState(false);
-    const [drawerPosition, setDrawerPosition] = useState("right");
+    const [drawerPosition, setDrawerPosition] = useState<"right" | "bottom">("right");
 
     function showDrawerBtnOnClick() {
         setDisplayDrawer(true);
@@ -20,14 +20,14 @@ function PreferenceComponent(props: any) {
     function drawerOnClose() {
         setDisplayDrawer(false);
     }
-    
+
     useEffect(() => {
         // 屏幕适配
         if (device === "iPhone" || device === "Android") {
             setDrawerPosition("bottom")
         }
     }, [])
-    
+
     return (
         <>
             <Tooltip title={"菜单栏"} placement={"bottomRight"} color={props.minorColor}>
@@ -41,7 +41,9 @@ function PreferenceComponent(props: any) {
             <Drawer
                 title={"菜单栏"}
                 size={"default"}
-                placement={"right"}
+                width={380}
+                height={500}
+                placement={drawerPosition}
                 onClose={drawerOnClose}
                 open={displayDrawer}
                 closeIcon={false}

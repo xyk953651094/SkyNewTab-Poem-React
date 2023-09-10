@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
-import {Row, Col, Button, List, Popover, Space, Typography, message} from "antd";
-import {EnvironmentOutlined, InfoCircleOutlined, BulbOutlined} from "@ant-design/icons";
+import {Button, Col, List, message, Popover, Row, Space, Typography} from "antd";
+import {EnvironmentOutlined, InfoCircleOutlined} from "@ant-design/icons";
 import {getFontColor, getSearchEngineDetail, getWeatherIcon, httpRequest,} from "../typescripts/publicFunctions";
 import "../stylesheets/publicStyles.scss"
 
@@ -17,7 +17,6 @@ function WeatherComponent(props: any) {
     const [rainfall, setRainfall] = useState("暂无信息");
     const [visibility, setVisibility] = useState("暂无信息");
     const [windInfo, setWindInfo] = useState("暂无信息");
-    const [suggest, setSuggest] = useState("暂无信息");
 
     function btnMouseOver(e: any) {
         e.currentTarget.style.backgroundColor = props.majorColor;
@@ -30,51 +29,15 @@ function WeatherComponent(props: any) {
     }
 
     function locationBtnOnClick() {
-        if(location !== "暂无信息") {
+        if (location !== "暂无信息") {
             window.open(searchEngineUrl + location, "_blank");
-        }
-        else {
+        } else {
             message.error("无跳转链接");
         }
     }
 
     function infoBtnOnClick() {
         window.open(searchEngineUrl + "天气", "_blank");
-    }
-
-    function getSuggest(temperature: number, pm25: number) {
-        let tempTemperature = "";
-        let tempPm25 = "";
-
-        if (temperature > 30) {
-            tempTemperature = "温度炎热，注意避暑"
-        }
-        else if(temperature < 10) {
-            tempTemperature = "温度寒冷，注意防寒"
-        }
-
-        if (pm25 > 200) {
-            tempPm25 = "空气较差，不宜外出"
-        }
-        else if(pm25 < 100) {
-            tempPm25 = "空气良好，适合外出"
-        }
-
-        if(tempTemperature.length === 0 && tempPm25.length === 0) {
-            return "";
-        }
-        else if (tempTemperature.length !== 0 && tempPm25.length === 0) {
-            return tempTemperature;
-        }
-        else if (tempTemperature.length !== 0 && tempPm25.length !== 0) {
-            return tempTemperature + " · " + tempPm25;
-        }
-        else if (tempTemperature.length === 0 && tempPm25.length !== 0) {
-            return tempPm25;
-        }
-        else {
-            return "";
-        }
     }
 
     useEffect(() => {
@@ -108,8 +71,6 @@ function WeatherComponent(props: any) {
             setRainfall(data.weatherData.rainfall + "%");
             setVisibility(data.weatherData.visibility);
             setWindInfo(data.weatherData.windDirection + data.weatherData.windPower + "级");
-            // @ts-ignore
-            setSuggest(getSuggest(parseInt(data.weatherData.temperature), parseInt(data.weatherData.pm25)));
         }
 
         // 防抖节流
@@ -156,13 +117,6 @@ function WeatherComponent(props: any) {
 
     const popoverContent = (
         <List>
-            <List.Item style={{display: suggest.length === 0 ? "none" : "block"}}>
-                <Button type="text" shape="round" icon={<BulbOutlined />}
-                        onMouseOver={btnMouseOver} onMouseOut={btnMouseOut}
-                        className={"poemFont"} style={{color: getFontColor(props.minorColor), cursor: "default"}}>
-                    {suggest}
-                </Button>
-            </List.Item>
             <List.Item>
                 <Space direction="vertical">
                     <Button type="text" shape="round" icon={<i className="bi bi-moisture">&nbsp;&nbsp;&nbsp;</i>}

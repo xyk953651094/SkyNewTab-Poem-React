@@ -43,7 +43,7 @@ function PopupPoemComponent(props: any) {
 
         function getPoem() {
             let poemData = localStorage.getItem("lastPoem");
-            if(poemData){
+            if (poemData) {
                 setPoem(JSON.parse(poemData));
             }
         }
