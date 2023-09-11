@@ -37,10 +37,12 @@
 <img width="1440" alt="截屏2023-09-10 21 23 48" src="https://github.com/xyk953651094/SkyNewTab-Poem-React/assets/28004442/b4c0d50e-437a-4087-a862-2c2be342d495">
 
 ### Safari for iPhone
-<img width="400" alt="截屏2023-07-16 19 56 51" src="https://github.com/xyk953651094/SkyNewTab-Poem-React/assets/28004442/3c132d3b-9779-4684-b864-e9c2e2f63459">
+<img width="300" alt="IMG_23F3F4A6B663-1" src="https://github.com/xyk953651094/SkyNewTab-Poem-React/assets/28004442/6ffd8dd0-191f-4af5-9653-da538bcdd24a">
+
+<img width="300" alt="IMG_5B1992591A09-1" src="https://github.com/xyk953651094/SkyNewTab-Poem-React/assets/28004442/9a1dbdde-0ec5-4561-a092-0160a14af61b">
 
 ### Safari for iPad
-<img alt="截屏2023-07-16 18 58 03" src="https://github.com/xyk953651094/SkyNewTab-Poem-React/assets/28004442/fe477580-297a-42ee-b103-843078cb9f9e">
+![IMG_7DC385D5FCCB-1](https://github.com/xyk953651094/SkyNewTab-Poem-React/assets/28004442/83ba1ab7-19c3-4df6-9a37-aefca4b3bfb4)
 
-<img alt="截屏2023-07-16 18 58 03" src="https://github.com/xyk953651094/SkyNewTab-Poem-React/assets/28004442/978e3972-db10-46a3-85d4-43fb0face75c">
+![IMG_18F7ECB432B4-1](https://github.com/xyk953651094/SkyNewTab-Poem-React/assets/28004442/1bcd91f1-5c09-4eef-951c-26561befe13d)
 
