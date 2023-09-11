@@ -70,7 +70,7 @@ function WeatherComponent(props: any) {
             setPm25(data.weatherData.pm25);
             setRainfall(data.weatherData.rainfall + "%");
             setVisibility(data.weatherData.visibility);
-            setWindInfo(data.weatherData.windDirection + data.weatherData.windPower + "级");
+            setWindInfo(data.weatherData.windDirection + " " + data.weatherData.windPower + " 级");
         }
 
         // 防抖节流
