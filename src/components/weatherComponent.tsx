@@ -119,31 +119,45 @@ function WeatherComponent(props: any) {
         <List>
             <List.Item>
                 <Space direction="vertical">
-                    <Button type="text" shape="round" icon={<i className="bi bi-moisture">&nbsp;&nbsp;&nbsp;</i>}
-                            onMouseOver={btnMouseOver} onMouseOut={btnMouseOut}
-                            className={"poemFont"} style={{color: getFontColor(props.minorColor), cursor: "default"}}>
-                        {"空气湿度：" + humidity}
-                    </Button>
-                    <Button type="text" shape="round" icon={<i className="bi bi-water">&nbsp;&nbsp;&nbsp;</i>}
-                            onMouseOver={btnMouseOver} onMouseOut={btnMouseOut}
-                            className={"poemFont"} style={{color: getFontColor(props.minorColor), cursor: "default"}}>
-                        {"空气质量：" + pm25}
-                    </Button>
-                    <Button type="text" shape="round" icon={<i className="bi bi-cloud-rain">&nbsp;&nbsp;&nbsp;</i>}
-                            onMouseOver={btnMouseOver} onMouseOut={btnMouseOut}
-                            className={"poemFont"} style={{color: getFontColor(props.minorColor), cursor: "default"}}>
-                        {"降雨概率：" + rainfall}
-                    </Button>
-                    <Button type="text" shape="round" icon={<i className="bi bi-eye">&nbsp;&nbsp;&nbsp;</i>}
-                            onMouseOver={btnMouseOver} onMouseOut={btnMouseOut}
-                            className={"poemFont"} style={{color: getFontColor(props.minorColor), cursor: "default"}}>
-                        {"视线距离：" + visibility}
-                    </Button>
-                    <Button type="text" shape="round" icon={<i className="bi bi-wind">&nbsp;&nbsp;&nbsp;</i>}
-                            onMouseOver={btnMouseOver} onMouseOut={btnMouseOut}
-                            className={"poemFont"} style={{color: getFontColor(props.minorColor), cursor: "default"}}>
-                        {"风速情况：" + windInfo}
-                    </Button>
+                    <Row gutter={8}>
+                        <Col span={12}>
+                            <Button type="text" shape="round" icon={<i className="bi bi-moisture">&nbsp;&nbsp;&nbsp;</i>}
+                                    onMouseOver={btnMouseOver} onMouseOut={btnMouseOut}
+                                    className={"poemFont"} style={{color: getFontColor(props.minorColor), cursor: "default"}}>
+                                {"空气湿度：" + humidity + "%"}
+                            </Button>
+                        </Col>
+                        <Col span={12}>
+                            <Button type="text" shape="round" icon={<i className="bi bi-water">&nbsp;&nbsp;&nbsp;</i>}
+                                    onMouseOver={btnMouseOver} onMouseOut={btnMouseOut}
+                                    className={"poemFont"} style={{color: getFontColor(props.minorColor), cursor: "default"}}>
+                                {"空气质量：" + pm25}
+                            </Button>
+                        </Col>
+                    </Row>
+                    <Row gutter={8}>
+                        <Col span={12}>
+                            <Button type="text" shape="round" icon={<i className="bi bi-cloud-rain">&nbsp;&nbsp;&nbsp;</i>}
+                                    onMouseOver={btnMouseOver} onMouseOut={btnMouseOut}
+                                    className={"poemFont"} style={{color: getFontColor(props.minorColor), cursor: "default"}}>
+                                {"降雨概率：" + rainfall}
+                            </Button>
+                        </Col>
+                        <Col span={12}>
+                            <Button type="text" shape="round" icon={<i className="bi bi-eye">&nbsp;&nbsp;&nbsp;</i>}
+                                    onMouseOver={btnMouseOver} onMouseOut={btnMouseOut}
+                                    className={"poemFont"} style={{color: getFontColor(props.minorColor), cursor: "default"}}>
+                                {"视线距离：" + visibility}
+                            </Button>
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Button type="text" shape="round" icon={<i className="bi bi-wind">&nbsp;&nbsp;&nbsp;</i>}
+                                onMouseOver={btnMouseOver} onMouseOut={btnMouseOut}
+                                className={"poemFont"} style={{color: getFontColor(props.minorColor), cursor: "default"}}>
+                            {"风速情况：" + windInfo}
+                        </Button>
+                    </Row>
                 </Space>
             </List.Item>
         </List>

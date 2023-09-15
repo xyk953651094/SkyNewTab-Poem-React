@@ -81,12 +81,11 @@ function PoemComponent(props: any) {
                     </Button>
                 </Col>
                 <Col xs={24} sm={24} md={24} lg={0} xl={0}>
-                    <Space align={"center"}>
+                    <div className="alignCenter">
                         <Text className="poemFont largeFont vertical" style={{color: props.minorColor}}>
-                            {/*{"测试测试测试测试测试测试测试测试测试测试..."}*/}
                             {poemContent.length < 20 ? poemContent : poemContent.substring(0, 20) + "..."}
                         </Text>
-                    </Space>
+                    </div>
                 </Col>
                 <Col xs={0} sm={0} md={0} lg={24} xl={24}>
                     <Button type="text" shape="round" size={"large"} className="poemFont largeFont"

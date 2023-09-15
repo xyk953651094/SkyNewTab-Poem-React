@@ -1,6 +1,6 @@
 import React from "react";
 import {Button, Space} from "antd";
-import {GiftOutlined, GithubOutlined, MessageOutlined} from "@ant-design/icons";
+import {GiftOutlined, GithubOutlined, NotificationOutlined} from "@ant-design/icons";
 import {getFontColor} from "../typescripts/publicFunctions";
 
 function PreferenceFooterComponent(props: any) {
@@ -23,7 +23,7 @@ function PreferenceFooterComponent(props: any) {
                     style={{color: getFontColor(props.minorColor)}}>
                 主页
             </Button>
-            <Button type={"text"} shape={"round"} icon={<MessageOutlined/>}
+            <Button type={"text"} shape={"round"} icon={<NotificationOutlined/>}
                     href={"https://xyk953651094.blogspot.com"} target={"_blank"}
                     onMouseOver={btnMouseOver} onMouseOut={btnMouseOut}
                     className={"poemFont"}
