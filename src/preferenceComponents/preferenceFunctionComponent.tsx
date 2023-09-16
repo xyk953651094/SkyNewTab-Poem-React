@@ -76,6 +76,20 @@ function PreferenceFunctionComponent(props: any) {
         refreshWindow();
     }
 
+    function displayAlertSwitchOnChange(checked: boolean) {
+        setPreferenceData((preferenceData: PreferenceDataInterface) => {
+            let newPreferenceData = modifyPreferenceData({displayAlert: checked});
+            props.getPreferenceData(newPreferenceData);
+            localStorage.setItem("preferenceData", JSON.stringify(newPreferenceData));
+            return newPreferenceData;
+        });
+        if (checked) {
+            message.success("已显示提示信息");
+        } else {
+            message.success("已隐藏提示信息");
+        }
+    }
+
     useEffect(() => {
 
     }, []);
@@ -108,6 +122,10 @@ function PreferenceFunctionComponent(props: any) {
                     <Switch checkedChildren="已开启" unCheckedChildren="已关闭" className={"poemFont"}
                             onChange={simpleModeSwitchOnChange}/>
                 </Form.Item>
+                <Form.Item name={"displayAlert"} label={"提示信息"} valuePropName={"checked"}>
+                    <Switch checkedChildren="已显示" unCheckedChildren="已隐藏" className={"poemFont"}
+                            onChange={displayAlertSwitchOnChange}/>
+                </Form.Item>
                 <Form.Item name={"clearStorageButton"} label={"危险设置"}>
                     <Button type={"text"} shape={"round"} icon={<DeleteOutlined/>}
                             onMouseOver={btnMouseOver} onMouseOut={btnMouseOut}
@@ -117,22 +135,16 @@ function PreferenceFunctionComponent(props: any) {
                         清空并重置所有内容
                     </Button>
                 </Form.Item>
-                {/*<Form.Item label={"提示信息"}>*/}
-                {/*    <Paragraph>*/}
-                {/*        <ol className={"poemFont"} style={{color: getFontColor(props.minorColor)}}>*/}
-                {/*            <li>清空并重置所有内容将删除所有缓存，插件出现问题时可尝试此按钮</li>*/}
-                {/*        </ol>*/}
-                {/*    </Paragraph>*/}
-                {/*</Form.Item>*/}
                 <Alert
                     message={
                         <Title level={5} className={"poemFont"}>{"警告信息"}</Title>
                     }
                     description={
                         <Text
-                            className={"poemFont"}>{"清空并重置所有内容将删除所有缓存，插件出现问题时可尝试此按钮"}</Text>
+                            className={"poemFont"}>{"清空并重置所有内容将删除所有缓存并恢复初始状态，插件出现问题时可尝试此按钮"}</Text>
                     }
                     type="warning"
+                    style={{display: preferenceData.displayAlert ? "block" : "none"}}
                 />
             </Form>
         </Card>

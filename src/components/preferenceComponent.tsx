@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import {Button, Drawer, Space, Tooltip} from "antd";
-import {MoreOutlined} from "@ant-design/icons";
+import {MenuOutlined} from "@ant-design/icons";
 import {getFontColor} from "../typescripts/publicFunctions";
 import {device} from "../typescripts/publicConstants";
 import PreferenceLinkComponent from "../preferenceComponents/preferenceLinkComponent";
@@ -31,7 +31,7 @@ function PreferenceComponent(props: any) {
     return (
         <>
             <Tooltip title={"菜单栏"} placement={"bottomRight"} color={props.minorColor}>
-                <Button type={"text"} shape={"circle"} icon={<MoreOutlined/>} size={"large"}
+                <Button type={"text"} shape={"circle"} icon={<MenuOutlined/>} size={"large"}
                         onClick={showDrawerBtnOnClick}
                         id={"preferenceBtn"}
                         className={"componentTheme poemFont"}
