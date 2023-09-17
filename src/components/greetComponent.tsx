@@ -1,34 +1,62 @@
 import React, {useEffect, useState} from "react";
-import {Button, Popover, Space, Typography} from "antd";
-import {CheckCircleOutlined, CloseCircleOutlined} from "@ant-design/icons";
-import {device} from "../typescripts/publicConstants";
-import {getFontColor, getGreetContent, getGreetIcon, getTimeDetails, httpRequest} from "../typescripts/publicFunctions";
+import {Button, Col, Popover, Row, Space, Typography} from "antd";
+import {
+    CalendarOutlined,
+    CheckCircleOutlined,
+    CloseCircleOutlined,
+    HistoryOutlined,
+    InfoCircleOutlined,
+    StarOutlined
+} from "@ant-design/icons";
+import {
+    getFontColor,
+    getGreetContent,
+    getGreetIcon,
+    getSearchEngineDetail,
+    getTimeDetails,
+    httpRequest
+} from "../typescripts/publicFunctions";
 import "../stylesheets/publicStyles.scss"
 
 const {Text} = Typography;
+const btnMaxSize = 80;
 
 function GreetComponent(props: any) {
-    const [greet, setGreet] = useState(getGreetContent());
+    const [display, setDisplay] = useState("block");
+    const [searchEngineUrl, setSearchEngineUrl] = useState("https://www.bing.com/search?q=");
     const [greetIcon, setGreetIcon] = useState(getGreetIcon());
+    const [greetContent, setGreetContent] = useState(getGreetContent());
+    const [holidayContent, setHolidayContent] = useState("");
     const [calendar, setCalendar] = useState(getTimeDetails(new Date()).showDate4 + " " + getTimeDetails(new Date()).showWeek);
     const [suit, setSuit] = useState("暂无信息");
     const [avoid, setAvoid] = useState("暂无信息");
 
     function btnMouseOver(e: any) {
-        e.currentTarget.style.backgroundColor = props.fontColor;
-        e.currentTarget.style.color = getFontColor(props.fontColor);
+        e.currentTarget.style.backgroundColor = props.majorColor;
+        e.currentTarget.style.color = getFontColor(props.majorColor);
     }
 
     function btnMouseOut(e: any) {
         e.currentTarget.style.backgroundColor = "transparent";
-        e.currentTarget.style.color = props.fontColor;
+        e.currentTarget.style.color = getFontColor(props.minorColor);
     }
 
-    function greetBtnOnClick() {
-        window.open("https://cn.bing.com/search?&q=日历", "_blank");
+    function constellationBtnOnClick() {
+        window.open(searchEngineUrl + "星座运势", "_blank");
+    }
+
+    function historyBtnOnClick() {
+        window.open(searchEngineUrl + "历史上的今天", "_blank");
+    }
+
+    function infoBtnOnClick() {
+        window.open(searchEngineUrl + "万年历", "_blank");
     }
 
     useEffect(() => {
+        setDisplay(props.preferenceData.simpleMode ? "none" : "block");
+        setSearchEngineUrl(getSearchEngineDetail(props.preferenceData.searchEngine).searchEngineUrl);
+
         // 获取节假日信息
         function getHoliday() {
             let headers = {};
@@ -61,7 +89,8 @@ function GreetComponent(props: any) {
                 holidayContent = holidayContent + " · " + data.typeDes;
             }
             let timeDetails = getTimeDetails(new Date());
-            setGreet(getGreetContent() + "｜" + holidayContent);
+
+            setHolidayContent(holidayContent);
             setCalendar(timeDetails.showDate4 + " " + timeDetails.showWeek + "｜" +
                 data.yearTips + data.chineseZodiac + "年｜" +
                 data.lunarCalendar + "｜" + data.constellation);
@@ -70,48 +99,89 @@ function GreetComponent(props: any) {
         }
 
         // 防抖节流
-        let lastRequestTime: any = localStorage.getItem("lastHolidayRequestTime");
-        let nowTimeStamp = new Date().getTime();
-        if (lastRequestTime === null) {  // 第一次请求时 lastRequestTime 为 null，因此直接进行请求赋值 lastRequestTime
-            getHoliday();
-        } else if (nowTimeStamp - parseInt(lastRequestTime) > 60 * 60 * 1000) {  // 必须多于一小时才能进行新的请求
-            getHoliday();
-        } else {  // 一小时之内使用上一次请求结果
-            let lastHoliday: any = localStorage.getItem("lastHoliday");
-            if (lastHoliday) {
-                lastHoliday = JSON.parse(lastHoliday);
-                setHoliday(lastHoliday);
+        if (!props.preferenceData.simpleMode) {
+            let lastRequestTime: any = localStorage.getItem("lastHolidayRequestTime");
+            let nowTimeStamp = new Date().getTime();
+            if (lastRequestTime === null) {  // 第一次请求时 lastRequestTime 为 null，因此直接进行请求赋值 lastRequestTime
+                getHoliday();
+            } else if (nowTimeStamp - parseInt(lastRequestTime) > 60 * 60 * 1000) {  // 必须多于一小时才能进行新的请求
+                getHoliday();
+            } else {  // 一小时之内使用上一次请求结果
+                let lastHoliday: any = localStorage.getItem("lastHoliday");
+                if (lastHoliday) {
+                    lastHoliday = JSON.parse(lastHoliday);
+                    setHoliday(lastHoliday);
+                }
             }
+
+            setInterval(() => {
+                setGreetIcon(getGreetIcon());
+                setGreetContent(getGreetContent());
+            }, 60 * 60 * 1000);
         }
-    }, []);
+    }, [props.preferenceData.searchEngine, props.preferenceData.simpleMode]);
+
+    const popoverTitle = (
+        <Row align={"middle"}>
+            <Col span={6}>
+                <Text className={"poemFont"} style={{color: getFontColor(props.minorColor)}}>{"万年历"}</Text>
+            </Col>
+            <Col span={18} style={{textAlign: "right"}}>
+                <Space>
+                    <Button type={"text"} shape={"round"} icon={<StarOutlined/>} onClick={constellationBtnOnClick}
+                            onMouseOver={btnMouseOver} onMouseOut={btnMouseOut}
+                            className={"poemFont"} style={{color: getFontColor(props.minorColor)}}>
+                        {"星座运势"}
+                    </Button>
+                    <Button type={"text"} shape={"round"} icon={<HistoryOutlined/>} onClick={historyBtnOnClick}
+                            onMouseOver={btnMouseOver} onMouseOut={btnMouseOut}
+                            className={"poemFont"} style={{color: getFontColor(props.minorColor)}}>
+                        {"历史上的今天"}
+                    </Button>
+                    <Button type={"text"} shape={"round"} icon={<InfoCircleOutlined/>} onClick={infoBtnOnClick}
+                            onMouseOver={btnMouseOver} onMouseOut={btnMouseOut}
+                            className={"poemFont"} style={{color: getFontColor(props.minorColor)}}>
+                        {"更多信息"}
+                    </Button>
+                </Space>
+            </Col>
+        </Row>
+    );
 
     const popoverContent = (
         <Space direction="vertical">
-            <Button type="text" shape="round" icon={<CheckCircleOutlined/>} onMouseOver={btnMouseOver}
-                    onMouseOut={btnMouseOut}
-                    className={"popoverFont"} style={{color: props.fontColor, cursor: "default"}}>
-                {"宜：" + suit}
+            <Button type={"text"} shape={"round"} icon={<CalendarOutlined/>}
+                    onMouseOver={btnMouseOver} onMouseOut={btnMouseOut}
+                    className={"poemFont"} style={{color: getFontColor(props.minorColor), cursor: "default"}}>
+                {calendar}
             </Button>
-            <Button type="text" shape="round" icon={<CloseCircleOutlined/>} onMouseOver={btnMouseOver}
-                    onMouseOut={btnMouseOut}
-                    className={"popoverFont"} style={{color: props.fontColor, cursor: "default"}}>
-                {"忌：" + avoid}
+            <Button type="text" shape="round" icon={<CheckCircleOutlined/>}
+                    onMouseOver={btnMouseOver} onMouseOut={btnMouseOut}
+                    className={"poemFont"} style={{color: getFontColor(props.minorColor), cursor: "default"}}>
+                {"宜：" + (suit.length < btnMaxSize) ? suit : suit.substring(0, btnMaxSize) + "..."}
+            </Button>
+            <Button type="text" shape="round" icon={<CloseCircleOutlined/>}
+                    onMouseOver={btnMouseOver} onMouseOut={btnMouseOut}
+                    className={"poemFont"} style={{color: getFontColor(props.minorColor), cursor: "default"}}>
+                {"忌：" + (avoid.length < btnMaxSize) ? avoid : avoid.substring(0, btnMaxSize) + "..."}
             </Button>
         </Space>
     );
 
     return (
         <Popover
-            title={calendar} content={popoverContent}
-            placement="bottomLeft" color={"transparent"}>
-            <Button type="text" shape="round" size={"large"} icon={<i className={greetIcon}>&nbsp;&nbsp;</i>}
-                    className={"buttonFont"}
-                    onClick={greetBtnOnClick} onMouseOver={btnMouseOver} onMouseOut={btnMouseOut}
+            title={popoverTitle} content={popoverContent}
+            placement="bottomLeft" overlayStyle={{minWidth: "550px"}} color={props.minorColor}>
+            <Button type="text" shape="round" size={"large"} icon={<i className={greetIcon}></i>}
+                    className={"componentTheme poemFont"}
                     style={{
-                        color: props.fontColor
+                        display: display,
+                        cursor: "default",
+                        color: getFontColor(props.minorColor),
+                        backgroundColor: props.minorColor
                     }}
             >
-                {(device === "iPhone" || device === "Android") ? getGreetContent() : greet}
+                {greetContent + "｜" + holidayContent}
             </Button>
         </Popover>
     );

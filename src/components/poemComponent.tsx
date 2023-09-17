@@ -9,26 +9,29 @@ const {Text} = Typography;
 const poemMaxSize = 30;
 
 function PoemComponent(props: any) {
+    const [searchEngineUrl, setSearchEngineUrl] = useState("https://www.bing.com/search?q=");
     const [poemContent, setPoemContent] = useState("海上生明月，天涯共此时。");
     const [poemAuthor, setPoemAuthor] = useState("张九龄");
     const [poemAuthorDetails, setPoemAuthorDetails] = useState("【唐】张九龄 ·《望月怀远》");
 
     function btnMouseOver(e: any) {
-        e.currentTarget.style.backgroundColor = props.fontColor;
-        e.currentTarget.style.color = getFontColor(props.fontColor);
+        e.currentTarget.style.backgroundColor = props.minorColor;
+        e.currentTarget.style.color = getFontColor(props.minorColor);
+        e.currentTarget.classList.add("componentTheme");
     }
 
     function btnMouseOut(e: any) {
         e.currentTarget.style.backgroundColor = "transparent";
-        e.currentTarget.style.color = props.fontColor;
+        e.currentTarget.style.color = props.minorColor;
+        e.currentTarget.classList.remove("componentTheme");
     }
 
     function poemContentBtnOnClick() {
-        window.open("https://cn.bing.com/search?&q=" + poemContent, "_blank");
+        window.open(searchEngineUrl + poemContent, "_blank");
     }
 
     function poemAuthorBtnOnClick() {
-        window.open("https://cn.bing.com/search?&q=" + poemAuthor, "_blank");
+        window.open(searchEngineUrl + poemAuthor, "_blank");
     }
 
     function setPoem(poemData: any) {
@@ -71,22 +74,22 @@ function PoemComponent(props: any) {
         <Row justify="center" align="middle">
             <Space direction={"vertical"}>
                 <Col xs={0} sm={0} md={0} lg={24} xl={24}>
-                    <Button type="text" shape="round" size={"large"} className="buttonFont"
-                            style={{color: props.fontColor}}
+                    <Button type="text" shape="round" size={"large"} className="poemFont largeFont"
+                            style={{color: props.minorColor}}
                             onClick={poemContentBtnOnClick} onMouseOver={btnMouseOver} onMouseOut={btnMouseOut}>
                         {poemContent.length < poemMaxSize ? poemContent : poemContent.substring(0, poemMaxSize) + "..."}
                     </Button>
                 </Col>
                 <Col xs={24} sm={24} md={24} lg={0} xl={0}>
-                    <Space align={"center"}>
-                        <Text className="buttonFont vertical" style={{color: props.fontColor}}>
+                    <div className="alignCenter">
+                        <Text className="poemFont largeFont vertical" style={{color: props.minorColor}}>
                             {poemContent.length < 20 ? poemContent : poemContent.substring(0, 20) + "..."}
                         </Text>
-                    </Space>
+                    </div>
                 </Col>
                 <Col xs={0} sm={0} md={0} lg={24} xl={24}>
-                    <Button type="text" shape="round" size={"large"} className="buttonFont"
-                            style={{color: props.fontColor}}
+                    <Button type="text" shape="round" size={"large"} className="poemFont largeFont"
+                            style={{color: props.minorColor}}
                             onClick={poemAuthorBtnOnClick} onMouseOver={btnMouseOver} onMouseOut={btnMouseOut}>
                         {poemAuthorDetails.length < poemMaxSize ? poemAuthorDetails : poemAuthorDetails.substring(0, poemMaxSize) + "..."}
                     </Button>

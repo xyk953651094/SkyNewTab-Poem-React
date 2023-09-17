@@ -12,6 +12,7 @@ module.exports = {
     // },
     entry: {
         mainPage: path.resolve(__dirname, "./src/index.tsx"),
+        popup: path.resolve(__dirname, "./src/popup.tsx"),
     },
     output: {
         filename: '[name].bundle.js',
@@ -60,6 +61,16 @@ module.exports = {
             filename: 'mainPage.html',
             template: 'public/index.html',
             chunks: ['mainPage']
+        }),
+        new HtmlWebpackPlugin({
+            title: '云开诗词新标签页弹窗',
+            filename: 'popup.html',
+            template: 'public/popup.html',
+            chunks: ['popup'],
+            minify: {
+                collapseWhitespace: true,
+                removeComments: true
+            }
         }),
         new CopyWebpackPlugin({
             patterns: [
