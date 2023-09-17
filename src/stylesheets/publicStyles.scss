@@ -42,31 +42,46 @@ html, body {
     padding: 0;
 }
 
-.buttonFont {
+.poemFont {
     font-family: "Times New Roman", cursive, sans-serif;
-    font-size: 25px !important;
-    line-height: 25px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
 }
 
-.popoverFont {
+#dailyInput, #todoInput {
     font-family: "Times New Roman", cursive, sans-serif;
-    font-size: 16px !important;
-    line-height: 16px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    cursor: default;
+}
+
+.largeFont {
+    font-size: 24px !important;
+    line-height: 24px !important;
 }
 
 /*水平垂直居中*/
-.center {
+.alignCenter {
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    text-align: center !important;
+}
+
+.alignRight {
     display: flex;
-    justify-content: center;
+    justify-content: right;
     align-items: center;
-    text-align: center;
+    text-align: right;
+}
+
+/*毛玻璃效果*/
+.componentTheme {
+    border-width: 0;
+    box-shadow: 0 6px 16px 0 rgba(0, 0, 0, 0.08), 0 3px 6px -4px rgba(0, 0, 0, 0.12), 0 9px 28px 8px rgba(0, 0, 0, 0.05);
+    //box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1), 0 2px 2px 1px rgba(0, 0, 0, 0.1);
+    //backdrop-filter: blur(10px);
+    //-webkit-backdrop-filter: blur(10px);
+    overflow: hidden;
+}
+
+input::placeholder {
+    font-family: "Times New Roman", cursive, sans-serif;
 }
 
 /*桌面端大屏样式*/

@@ -1,0 +1,53 @@
+body {
+    width: max-content;
+    //width: 600px;
+}
+
+.popupLayout {
+    background: transparent;
+}
+
+.popupHeader {
+    height: 50px;
+    line-height: 50px;
+    background-color: transparent;
+    text-align: center;
+}
+
+.popupContent {
+    background-color: transparent;
+}
+
+.popupFooter {
+    height: 50px;
+    line-height: 50px;
+    padding: 10px 0;
+    background-color: transparent;
+    text-align: center;
+}
+
+.chinaWindow {
+    font-size: 72px !important;
+    line-height: 72px;
+}
+
+.chinaObject {
+    font-size: 72px !important;
+    line-height: 72px;
+}
+
+.rotate90 {
+    transform: rotate(90deg);
+}
+
+.popupFont {
+    font-family: "Times New Roman", cursive, sans-serif;
+}
+
+/*水平垂直居中*/
+.alignCenter {
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    text-align: center !important;
+}

@@ -1,14 +1,17 @@
 import React, {useEffect, useState} from "react";
-import {Button, Popover, Space, Typography} from "antd";
-import {getFontColor, getWeatherIcon, httpRequest,} from "../typescripts/publicFunctions";
+import {Button, Col, List, message, Popover, Row, Space, Typography} from "antd";
+import {EnvironmentOutlined, InfoCircleOutlined} from "@ant-design/icons";
+import {getFontColor, getSearchEngineDetail, getWeatherIcon, httpRequest,} from "../typescripts/publicFunctions";
 import "../stylesheets/publicStyles.scss"
 
 const {Text} = Typography;
 
 function WeatherComponent(props: any) {
+    const [display, setDisplay] = useState(props.preferenceData.simpleMode ? "none" : "block");
+    const [searchEngineUrl, setSearchEngineUrl] = useState("https://www.bing.com/search?q=");
     const [weatherIcon, setWeatherIcon] = useState("");
-    const [weatherInfo, setWeatherInfo] = useState("暂无信息");
-    const [region, setRegion] = useState("暂无信息");
+    const [weatherContent, setWeatherContent] = useState("暂无信息");
+    const [location, setLocation] = useState("暂无信息");
     const [humidity, setHumidity] = useState("暂无信息");
     const [pm25, setPm25] = useState("暂无信息");
     const [rainfall, setRainfall] = useState("暂无信息");
@@ -16,20 +19,31 @@ function WeatherComponent(props: any) {
     const [windInfo, setWindInfo] = useState("暂无信息");
 
     function btnMouseOver(e: any) {
-        e.currentTarget.style.backgroundColor = props.fontColor;
-        e.currentTarget.style.color = getFontColor(props.fontColor);
+        e.currentTarget.style.backgroundColor = props.majorColor;
+        e.currentTarget.style.color = getFontColor(props.majorColor);
     }
 
     function btnMouseOut(e: any) {
         e.currentTarget.style.backgroundColor = "transparent";
-        e.currentTarget.style.color = props.fontColor;
+        e.currentTarget.style.color = getFontColor(props.minorColor);
     }
 
-    function weatherBtnOnClick() {
-        window.open("https://cn.bing.com/search?&q=%E5%A4%A9%E6%B0%94", "_blank");
+    function locationBtnOnClick() {
+        if (location !== "暂无信息") {
+            window.open(searchEngineUrl + location, "_blank");
+        } else {
+            message.error("无跳转链接");
+        }
+    }
+
+    function infoBtnOnClick() {
+        window.open(searchEngineUrl + "天气", "_blank");
     }
 
     useEffect(() => {
+        setDisplay(props.preferenceData.simpleMode ? "none" : "block");
+        setSearchEngineUrl(getSearchEngineDetail(props.preferenceData.searchEngine).searchEngineUrl);
+
         function getWeather() {
             let headers = {};
             let url = "https://v2.jinrishici.com/info";
@@ -50,76 +64,121 @@ function WeatherComponent(props: any) {
 
         function setWeather(data: any) {
             setWeatherIcon(getWeatherIcon(data.weatherData.weather));
-            setWeatherInfo(data.weatherData.weather + "｜" + data.weatherData.temperature + "°C");
-            setRegion(data.region.replace("|", " · "));
+            setWeatherContent(data.weatherData.weather + "｜" + data.weatherData.temperature + "°C");
+            setLocation(data.region.replace("|", " · "));
             setHumidity(data.weatherData.humidity);
             setPm25(data.weatherData.pm25);
             setRainfall(data.weatherData.rainfall + "%");
             setVisibility(data.weatherData.visibility);
-            setWindInfo(data.weatherData.windDirection + data.weatherData.windPower + "级");
+            setWindInfo(data.weatherData.windDirection + " " + data.weatherData.windPower + " 级");
         }
 
         // 防抖节流
-        let lastRequestTime: any = localStorage.getItem("lastWeatherRequestTime");
-        let nowTimeStamp = new Date().getTime();
-        if (lastRequestTime === null) {  // 第一次请求时 lastRequestTime 为 null，因此直接进行请求赋值 lastRequestTime
-            getWeather();
-        } else if (nowTimeStamp - parseInt(lastRequestTime) > 0) {  // 必须多于一小时才能进行新的请求
-            getWeather();
-        } else {  // 一小时之内使用上一次请求结果
-            let lastWeather: any = localStorage.getItem("lastWeather");
-            if (lastWeather) {
-                lastWeather = JSON.parse(lastWeather);
-                setWeather(lastWeather);
+        if (!props.preferenceData.simpleMode) {
+            let lastRequestTime: any = localStorage.getItem("lastWeatherRequestTime");
+            let nowTimeStamp = new Date().getTime();
+            if (lastRequestTime === null) {  // 第一次请求时 lastRequestTime 为 null，因此直接进行请求赋值 lastRequestTime
+                getWeather();
+            } else if (nowTimeStamp - parseInt(lastRequestTime) > 0) {  // 必须多于一小时才能进行新的请求
+                getWeather();
+            } else {  // 一小时之内使用上一次请求结果
+                let lastWeather: any = localStorage.getItem("lastWeather");
+                if (lastWeather) {
+                    lastWeather = JSON.parse(lastWeather);
+                    setWeather(lastWeather);
+                }
             }
         }
-    }, []);
+    }, [props.preferenceData.searchEngine, props.preferenceData.simpleMode]);
+
+    const popoverTitle = (
+        <Row align={"middle"}>
+            <Col span={6}>
+                <Text className={"poemFont"} style={{color: getFontColor(props.minorColor)}}>{"天气信息"}</Text>
+            </Col>
+            <Col span={18} style={{textAlign: "right"}}>
+                <Space>
+                    <Button type={"text"} shape={"round"} icon={<EnvironmentOutlined/>}
+                            onMouseOver={btnMouseOver} onMouseOut={btnMouseOut}
+                            onClick={locationBtnOnClick}
+                            className={"poemFont"} style={{color: getFontColor(props.minorColor)}}>
+                        {location}
+                    </Button>
+                    <Button type={"text"} shape={"round"} icon={<InfoCircleOutlined/>}
+                            onMouseOver={btnMouseOver} onMouseOut={btnMouseOut}
+                            onClick={infoBtnOnClick}
+                            className={"poemFont"} style={{color: getFontColor(props.minorColor)}}>
+                        {"更多信息"}
+                    </Button>
+                </Space>
+            </Col>
+        </Row>
+    );
 
     const popoverContent = (
-        <Space direction="vertical">
-            <Button type="text" shape="round" icon={<i className="bi bi-moisture">&nbsp;&nbsp;&nbsp;</i>}
-                    onMouseOver={btnMouseOver} onMouseOut={btnMouseOut}
-                    className={"popoverFont"} style={{color: props.fontColor, cursor: "default"}}>
-                {"空气湿度：" + humidity}
-            </Button>
-            <Button type="text" shape="round" icon={<i className="bi bi-water">&nbsp;&nbsp;&nbsp;</i>}
-                    onMouseOver={btnMouseOver} onMouseOut={btnMouseOut}
-                    className={"popoverFont"} style={{color: props.fontColor, cursor: "default"}}>
-                {"空气质量：" + pm25}
-            </Button>
-            <Button type="text" shape="round" icon={<i className="bi bi-cloud-rain">&nbsp;&nbsp;&nbsp;</i>}
-                    onMouseOver={btnMouseOver} onMouseOut={btnMouseOut}
-                    className={"popoverFont"} style={{color: props.fontColor, cursor: "default"}}>
-                {"降雨概率：" + rainfall}
-            </Button>
-            <Button type="text" shape="round" icon={<i className="bi bi-eye">&nbsp;&nbsp;&nbsp;</i>}
-                    onMouseOver={btnMouseOver} onMouseOut={btnMouseOut}
-                    className={"popoverFont"} style={{color: props.fontColor, cursor: "default"}}>
-                {"视线距离：" + visibility}
-            </Button>
-            <Button type="text" shape="round" icon={<i className="bi bi-wind">&nbsp;&nbsp;&nbsp;</i>}
-                    onMouseOver={btnMouseOver} onMouseOut={btnMouseOut}
-                    className={"popoverFont"} style={{color: props.fontColor, cursor: "default"}}>
-                {"风速情况：" + windInfo}
-            </Button>
-        </Space>
+        <List>
+            <List.Item>
+                <Space direction="vertical">
+                    <Row gutter={8}>
+                        <Col span={12}>
+                            <Button type="text" shape="round" icon={<i className="bi bi-moisture">&nbsp;&nbsp;&nbsp;</i>}
+                                    onMouseOver={btnMouseOver} onMouseOut={btnMouseOut}
+                                    className={"poemFont"} style={{color: getFontColor(props.minorColor), cursor: "default"}}>
+                                {"空气湿度：" + humidity + "%"}
+                            </Button>
+                        </Col>
+                        <Col span={12}>
+                            <Button type="text" shape="round" icon={<i className="bi bi-water">&nbsp;&nbsp;&nbsp;</i>}
+                                    onMouseOver={btnMouseOver} onMouseOut={btnMouseOut}
+                                    className={"poemFont"} style={{color: getFontColor(props.minorColor), cursor: "default"}}>
+                                {"空气质量：" + pm25}
+                            </Button>
+                        </Col>
+                    </Row>
+                    <Row gutter={8}>
+                        <Col span={12}>
+                            <Button type="text" shape="round" icon={<i className="bi bi-cloud-rain">&nbsp;&nbsp;&nbsp;</i>}
+                                    onMouseOver={btnMouseOver} onMouseOut={btnMouseOut}
+                                    className={"poemFont"} style={{color: getFontColor(props.minorColor), cursor: "default"}}>
+                                {"降雨概率：" + rainfall}
+                            </Button>
+                        </Col>
+                        <Col span={12}>
+                            <Button type="text" shape="round" icon={<i className="bi bi-eye">&nbsp;&nbsp;&nbsp;</i>}
+                                    onMouseOver={btnMouseOver} onMouseOut={btnMouseOut}
+                                    className={"poemFont"} style={{color: getFontColor(props.minorColor), cursor: "default"}}>
+                                {"视线距离：" + visibility}
+                            </Button>
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Button type="text" shape="round" icon={<i className="bi bi-wind">&nbsp;&nbsp;&nbsp;</i>}
+                                onMouseOver={btnMouseOver} onMouseOut={btnMouseOut}
+                                className={"poemFont"} style={{color: getFontColor(props.minorColor), cursor: "default"}}>
+                            {"风速情况：" + windInfo}
+                        </Button>
+                    </Row>
+                </Space>
+            </List.Item>
+        </List>
     );
 
     return (
-        <Popover title={region} content={popoverContent}
-                 placement="bottomLeft" color={"transparent"}>
-            <Button type="text" shape="round" size={"large"} icon={<i className={weatherIcon}>&nbsp;&nbsp;</i>}
-                    onClick={weatherBtnOnClick} onMouseOver={btnMouseOver} onMouseOut={btnMouseOut}
-                    className={"buttonFont"}
+        <Popover title={popoverTitle} content={popoverContent} color={props.minorColor}
+                 placement="bottomLeft" overlayStyle={{minWidth: "350px"}}>
+            <Button type="text" shape="round" size={"large"} icon={<i className={weatherIcon}></i>}
+                    className={"componentTheme poemFont"}
                     style={{
-                        color: props.fontColor,
+                        display: display,
+                        cursor: "default",
+                        color: getFontColor(props.minorColor),
+                        backgroundColor: props.minorColor
                     }}
             >
-                {weatherInfo}
+                {weatherContent}
             </Button>
         </Popover>
     );
-
 }
 
 export default WeatherComponent;

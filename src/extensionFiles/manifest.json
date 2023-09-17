@@ -1,7 +1,7 @@
 {
     "name": "__MSG_extensionName__",
     "description": "__MSG_extensionDescription__",
-    "version": "1.6.0",
+    "version": "1.9.0",
     "manifest_version": 3,
     "browser_specific_settings": {
         "gecko": {
@@ -24,7 +24,8 @@
             "48": "./assets/icon-48.png",
             "128": "./assets/icon-128.png"
         },
-        "default_title": "__MSG_extensionDefaultTitle__"
+        "default_title": "__MSG_extensionDefaultTitle__",
+        "default_popup": "./popup.html"
     },
     "chrome_url_overrides": {
         "newtab": "./mainPage.html"
