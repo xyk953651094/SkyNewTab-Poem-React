@@ -1,6 +1,6 @@
 import React from "react";
 import {Button, Space} from "antd";
-import {GiftOutlined, GithubOutlined, NotificationOutlined} from "@ant-design/icons";
+import {GithubOutlined, GitlabOutlined, NotificationOutlined} from "@ant-design/icons";
 import {getFontColor} from "../typescripts/publicFunctions";
 
 function PreferenceFooterComponent(props: any) {
@@ -19,9 +19,14 @@ function PreferenceFooterComponent(props: any) {
             <Button type={"text"} shape={"round"} icon={<GithubOutlined/>}
                     href={"https://github.com/xyk953651094"} target={"_blank"}
                     onMouseOver={btnMouseOver} onMouseOut={btnMouseOut}
-                    className={"poemFont"}
-                    style={{color: getFontColor(props.minorColor)}}>
-                主页
+                    style={{color: getFontColor(props.minorColor)}} className={"popupFont"}>
+                GitHub
+            </Button>
+            <Button type={"text"} shape={"round"} icon={<GitlabOutlined />}
+                    href={"https://gitlab.com/xyk953651094"} target={"_blank"}
+                    onMouseOver={btnMouseOver} onMouseOut={btnMouseOut}
+                    style={{color: getFontColor(props.minorColor)}} className={"popupFont"}>
+                GitLab
             </Button>
             <Button type={"text"} shape={"round"} icon={<NotificationOutlined/>}
                     href={"https://xyk953651094.blogspot.com"} target={"_blank"}
@@ -29,13 +34,6 @@ function PreferenceFooterComponent(props: any) {
                     className={"poemFont"}
                     style={{color: getFontColor(props.minorColor)}}>
                 博客
-            </Button>
-            <Button type={"text"} shape={"round"} icon={<GiftOutlined/>}
-                    href={"https://afdian.net/a/xyk953651094"} target={"_blank"}
-                    onMouseOver={btnMouseOver} onMouseOut={btnMouseOut}
-                    className={"poemFont"}
-                    style={{color: getFontColor(props.minorColor)}}>
-                支持
             </Button>
         </Space>
     );
