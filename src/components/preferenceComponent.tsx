@@ -8,6 +8,7 @@ import PreferenceInfoComponent from "../preferenceComponents/preferenceInfoCompo
 import PreferenceFooterComponent from "../preferenceComponents/preferenceFooterComponent";
 import PreferenceEmailComponent from "../preferenceComponents/preferenceEmailComponent";
 import PreferenceFunctionComponent from "../preferenceComponents/preferenceFunctionComponent";
+import PreferenceHeaderComponent from "../preferenceComponents/preferenceHeaderComponent";
 
 function PreferenceComponent(props: any) {
     const [displayDrawer, setDisplayDrawer] = useState(false);
@@ -31,7 +32,7 @@ function PreferenceComponent(props: any) {
     return (
         <>
             <Tooltip title={"菜单栏"} placement={"bottomRight"} color={props.minorColor}>
-                <Button type={"text"} shape={"circle"} icon={<MenuOutlined/>} size={"large"}
+                <Button type={"text"} shape={"circle"} icon={<MenuOutlined style={{fontSize: "16px"}}/>} size={"large"}
                         onClick={showDrawerBtnOnClick}
                         id={"preferenceBtn"}
                         className={"componentTheme poemFont"}
@@ -39,7 +40,6 @@ function PreferenceComponent(props: any) {
                 />
             </Tooltip>
             <Drawer
-                title={"菜单栏"}
                 size={"default"}
                 width={380}
                 height={500}
@@ -50,6 +50,11 @@ function PreferenceComponent(props: any) {
                 headerStyle={{color: getFontColor(props.minorColor), borderBottomColor: getFontColor(props.minorColor)}}
                 drawerStyle={{backgroundColor: props.minorColor}}
                 maskStyle={{backdropFilter: "blur(10px)", WebkitBackdropFilter: "blur(10px)"}}
+                title={
+                    <PreferenceHeaderComponent
+                        majorColor={props.majorColor}
+                        minorColor={props.minorColor}/>
+                }
                 footer={
                     <PreferenceFooterComponent
                         majorColor={props.majorColor}
