@@ -16,7 +16,7 @@ function PopupHeaderComponent(props: any) {
 
     return (
         <Space align={"center"}>
-            <Button type={"text"} shape={"round"} icon={<DashboardOutlined/>}
+            <Button type={"text"} shape={props.preferenceData.buttonShape} icon={<DashboardOutlined/>}
                     onMouseOver={btnMouseOver} onMouseOut={btnMouseOut}
                     style={{color: getFontColor(props.minorColor), cursor: "default"}}
                     className={"popupFont"}

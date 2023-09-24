@@ -28,7 +28,7 @@ function PreferenceLinkComponent(props: any) {
         >
             <Row gutter={[0, 8]}>
                 <Col span="12">
-                    <Button type={"text"} shape={"round"}
+                    <Button type={"text"} shape={props.preferenceData.buttonShape}
                             href={"https://hanyu.baidu.com/"} target={"_blank"}
                             onMouseOver={btnMouseOver} onMouseOut={btnMouseOut}
                             className={"poemFont"} style={{color: getFontColor(props.minorColor)}}>
@@ -37,7 +37,7 @@ function PreferenceLinkComponent(props: any) {
                     </Button>
                 </Col>
                 <Col span="12">
-                    <Button type={"text"} shape={"round"}
+                    <Button type={"text"} shape={props.preferenceData.buttonShape}
                             href={"https://hanyu.sogou.com/"} target={"_blank"}
                             onMouseOver={btnMouseOver} onMouseOut={btnMouseOut}
                             className={"poemFont"} style={{color: getFontColor(props.minorColor)}}>
@@ -46,7 +46,7 @@ function PreferenceLinkComponent(props: any) {
                     </Button>
                 </Col>
                 <Col span="12">
-                    <Button type={"text"} shape={"round"}
+                    <Button type={"text"} shape={props.preferenceData.buttonShape}
                             href={"https://guoxue.baike.so.com/query/index?type=poem&page=1"} target={"_blank"}
                             onMouseOver={btnMouseOver} onMouseOut={btnMouseOut}
                             className={"poemFont"} style={{color: getFontColor(props.minorColor)}}>
@@ -55,7 +55,7 @@ function PreferenceLinkComponent(props: any) {
                     </Button>
                 </Col>
                 <Col span="12">
-                    <Button type={"text"} shape={"round"}
+                    <Button type={"text"} shape={props.preferenceData.buttonShape}
                             href={"https://www.jetbrains.com/"} target={"_blank"}
                             onMouseOver={btnMouseOver} onMouseOut={btnMouseOut}
                             className={"poemFont"} style={{color: getFontColor(props.minorColor)}}>

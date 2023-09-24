@@ -30,6 +30,16 @@ function PreferenceFunctionComponent(props: any) {
         });
         message.success("已更换搜索引擎");
     }
+    
+    function buttonShapeRadioOnChange(event: RadioChangeEvent) {
+        setPreferenceData((preferenceData: PreferenceDataInterface) => {
+            let newPreferenceData = modifyPreferenceData({buttonShape: event.target.value});
+            props.getPreferenceData(newPreferenceData);
+            localStorage.setItem("preferenceData", JSON.stringify(newPreferenceData));
+            return newPreferenceData;
+        });
+        message.success("已更换按钮形状");
+    }
 
     // 重置设置
     function clearStorageBtnOnClick() {
@@ -118,6 +128,15 @@ function PreferenceFunctionComponent(props: any) {
                         </Row>
                     </Radio.Group>
                 </Form.Item>
+                <Form.Item name={"buttonShape"} label={"按钮形状"}>
+                    <Radio.Group buttonStyle={"solid"} style={{width: "100%"}} 
+                                 onChange={buttonShapeRadioOnChange}>
+                        <Row>
+                            <Col span={12}><Radio value={"round"}>圆形</Radio></Col>
+                            <Col span={12}><Radio value={"default"}>方形</Radio></Col>
+                        </Row>
+                    </Radio.Group>
+                </Form.Item>
                 <Form.Item name={"simpleMode"} label={"简洁模式"} valuePropName={"checked"}>
                     <Switch checkedChildren="已开启" unCheckedChildren="已关闭" className={"poemFont"}
                             onChange={simpleModeSwitchOnChange}/>
@@ -127,7 +146,7 @@ function PreferenceFunctionComponent(props: any) {
                             onChange={displayAlertSwitchOnChange}/>
                 </Form.Item>
                 <Form.Item name={"clearStorageButton"} label={"危险设置"}>
-                    <Button type={"text"} shape={"round"} icon={<DeleteOutlined/>}
+                    <Button type={"text"} shape={preferenceData.buttonShape} icon={<DeleteOutlined/>}
                             onMouseOver={btnMouseOver} onMouseOut={btnMouseOut}
                             onClick={clearStorageBtnOnClick}
                             className={"poemFont"}

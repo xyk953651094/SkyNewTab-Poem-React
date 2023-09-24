@@ -22,7 +22,7 @@ function PreferenceHeaderComponent(props: any) {
                 <Text style={{color: getFontColor(props.minorColor)}}>{"菜单栏"}</Text>
             </Col>
             <Col span={12} style={{textAlign: "right"}}>
-                <Button type={"text"} shape={"round"} icon={<GiftOutlined/>}
+                <Button type={"text"} shape={props.preferenceData.buttonShape} icon={<GiftOutlined/>}
                         href={"https://afdian.net/a/xyk953651094"} target={"_blank"}
                         onMouseOver={btnMouseOver} onMouseOut={btnMouseOut}
                         className={"poemFont"}

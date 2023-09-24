@@ -14,6 +14,7 @@ function DailyComponent(props: any) {
     const [dailySize, setDailySize] = useState(0);
     const [dailyMaxSize, setDailyMaxSize] = useState(5);
     const [selectedTimeStamp, setSelectedTimeStamp] = useState(0);
+    const [buttonShape, setButtonShape] = useState<"circle" | "default" | "round" | undefined>("round");
 
     function btnMouseOver(e: any) {
         e.currentTarget.style.backgroundColor = props.majorColor;
@@ -126,6 +127,7 @@ function DailyComponent(props: any) {
 
     useEffect(() => {
         setDisplay(props.preferenceData.simpleMode ? "none" : "block");
+        setButtonShape(props.preferenceData.buttonShape === "round" ? "circle" : "default");
 
         let daily = [];
         let tempDaily = localStorage.getItem("daily");
@@ -134,7 +136,7 @@ function DailyComponent(props: any) {
         }
         setListItems(daily);
         setDailySize(daily.length);
-    }, [props.preferenceData.simpleMode])
+    }, [props.preferenceData.buttonShape, props.preferenceData.simpleMode])
 
 
     const popoverTitle = (
@@ -146,13 +148,13 @@ function DailyComponent(props: any) {
             </Col>
             <Col span={14} style={{textAlign: "right"}}>
                 <Space>
-                    <Button type={"text"} shape={"round"} icon={<PlusOutlined/>}
+                    <Button type={"text"} shape={props.preferenceData.buttonShape} icon={<PlusOutlined/>}
                             onMouseOver={btnMouseOver} onMouseOut={btnMouseOut}
                             className={"poemFont"}
                             style={{color: getFontColor(props.minorColor)}} onClick={showAddModalBtnOnClick}>
                         {"添加倒数日"}
                     </Button>
-                    <Button type={"text"} shape={"round"} icon={<DeleteOutlined/>}
+                    <Button type={"text"} shape={props.preferenceData.buttonShape} icon={<DeleteOutlined/>}
                             onMouseOver={btnMouseOver} onMouseOut={btnMouseOut}
                             className={"poemFont"}
                             style={{color: getFontColor(props.minorColor)}} onClick={removeAllBtnOnClick}>
@@ -169,7 +171,7 @@ function DailyComponent(props: any) {
             renderItem={(item: any) => (
                 <List.Item
                     actions={[
-                        <Button type={"text"} shape={"circle"} icon={<DeleteOutlined/>}
+                        <Button type={"text"} shape={buttonShape} icon={<DeleteOutlined/>}
                                 onMouseOver={btnMouseOver} onMouseOut={btnMouseOut}
                                 onClick={(event) => removeBtnOnClick(item)}
                                 className={"poemFont"}
@@ -178,7 +180,7 @@ function DailyComponent(props: any) {
                 >
                     <Row style={{width: "100%"}}>
                         <Col span={10}>
-                            <Button type={"text"} shape={"round"} icon={<CalendarOutlined/>}
+                            <Button type={"text"} shape={props.preferenceData.buttonShape} icon={<CalendarOutlined/>}
                                     onMouseOver={btnMouseOver}
                                     onMouseOut={btnMouseOut}
                                     className={"poemFont"}
@@ -187,7 +189,7 @@ function DailyComponent(props: any) {
                             </Button>
                         </Col>
                         <Col span={14}>
-                            <Button type={"text"} shape={"round"} icon={<ClockCircleOutlined/>}
+                            <Button type={"text"} shape={props.preferenceData.buttonShape} icon={<ClockCircleOutlined/>}
                                     onMouseOver={btnMouseOver}
                                     onMouseOut={btnMouseOut}
                                     className={"poemFont"}
@@ -206,7 +208,7 @@ function DailyComponent(props: any) {
             <Popover title={popoverTitle} content={popoverContent} placement={"bottomRight"}
                      color={props.minorColor}
                      overlayStyle={{width: "550px"}}>
-                <Button type={"text"} shape={"round"} icon={<CalendarOutlined/>} size={"large"}
+                <Button type={"text"} shape={props.preferenceData.buttonShape} icon={<CalendarOutlined/>} size={"large"}
                         id={"dailyBtn"}
                         className={"componentTheme poemFont"}
                         style={{

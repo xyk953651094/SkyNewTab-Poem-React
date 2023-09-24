@@ -27,19 +27,19 @@ function PreferenceInfoComponent(props: any) {
               bodyStyle={{backgroundColor: props.minorColor}}
         >
             <Space direction={"vertical"}>
-                <Button type={"text"} shape={"round"} icon={<CalendarOutlined/>}
+                <Button type={"text"} shape={props.preferenceData.buttonShape} icon={<CalendarOutlined/>}
                         href={"https://www.mxnzp.com/"} target={"_blank"}
                         onMouseOver={btnMouseOver} onMouseOut={btnMouseOut}
                         className={"poemFont"} style={{color: getFontColor(props.minorColor)}}>
                     {"节气来源：https://www.mxnzp.com"}
                 </Button>
-                <Button type={"text"} shape={"round"} icon={<CloudOutlined/>}
+                <Button type={"text"} shape={props.preferenceData.buttonShape} icon={<CloudOutlined/>}
                         href={"https://www.jinrishici.com/"} target={"_blank"}
                         onMouseOver={btnMouseOver} onMouseOut={btnMouseOut}
                         className={"poemFont"} style={{color: getFontColor(props.minorColor)}}>
                     {"天气来源：https://www.jinrishici.com"}
                 </Button>
-                <Button type={"text"} shape={"round"} icon={<ReadOutlined/>}
+                <Button type={"text"} shape={props.preferenceData.buttonShape} icon={<ReadOutlined/>}
                         href={"https://www.jinrishici.com/"} target={"_blank"}
                         onMouseOver={btnMouseOver} onMouseOut={btnMouseOut}
                         className={"poemFont"} style={{color: getFontColor(props.minorColor)}}>

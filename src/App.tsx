@@ -99,7 +99,12 @@ function App() {
                 }).addClass("poemFont");
                 $(".ant-form-item-label > label").css("color", getFontColor(minorColor)).addClass("poemFont");
                 $(".ant-modal-footer > .ant-btn").css("color", getFontColor(minorColor));
-                $(".ant-modal-footer > .ant-btn").addClass("poemFont ant-btn-round ant-btn-text").removeClass("ant-btn-default ant-btn-primary");
+                if(preferenceData.buttonShape === "round") {
+                    $(".ant-modal-footer > .ant-btn").addClass("poemFont ant-btn-round ant-btn-text").removeClass("ant-btn-default ant-btn-primary");
+                }
+                else {
+                    $(".ant-modal-footer > .ant-btn").removeClass("ant-btn-round ant-btn-default ant-btn-primary").addClass("poemFont ant-btn-text");
+                }
                 $(".ant-modal-footer > .ant-btn").on("mouseover", (e: any) => {
                     e.currentTarget.style.backgroundColor = majorColor;
                     e.currentTarget.style.color = getFontColor(majorColor);
@@ -147,6 +152,7 @@ function App() {
                             <PreferenceComponent
                                 majorColor={majorColor}
                                 minorColor={minorColor}
+                                preferenceData={preferenceData}
                                 getPreferenceData={getPreferenceData}
                             />
                         </Space>
@@ -155,6 +161,7 @@ function App() {
                         <PreferenceComponent
                             majorColor={majorColor}
                             minorColor={minorColor}
+                            preferenceData={preferenceData}
                             getPreferenceData={getPreferenceData}
                         />
                     </Col>
@@ -162,7 +169,10 @@ function App() {
                 <SunComponent sunColors={svgColors}/>
             </Header>
             <Content id={"content"} className="alignCenter">
-                <PoemComponent minorColor={minorColor}/>
+                <PoemComponent
+                    minorColor={minorColor}
+                    preferenceData={preferenceData}
+                />
             </Content>
             <Footer id={"footer"}>
                 <WaveComponent waveColors={svgColors}/>

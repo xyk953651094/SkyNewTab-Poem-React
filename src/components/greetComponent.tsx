@@ -119,7 +119,7 @@ function GreetComponent(props: any) {
                 <Text className={"poemFont"} style={{color: getFontColor(props.minorColor)}}>{"万年历"}</Text>
             </Col>
             <Col span={14} style={{textAlign: "right"}}>
-                <Button type={"text"} shape={"round"} icon={<InfoCircleOutlined/>} onClick={infoBtnOnClick}
+                <Button type={"text"} shape={props.preferenceData.buttonShape} icon={<InfoCircleOutlined/>} onClick={infoBtnOnClick}
                         onMouseOver={btnMouseOver} onMouseOut={btnMouseOut}
                         className={"poemFont"} style={{color: getFontColor(props.minorColor)}}>
                     {"更多信息"}
@@ -130,17 +130,17 @@ function GreetComponent(props: any) {
 
     const popoverContent = (
         <Space direction="vertical">
-            <Button type={"text"} shape={"round"} icon={<CalendarOutlined/>}
+            <Button type={"text"} shape={props.preferenceData.buttonShape} icon={<CalendarOutlined/>}
                     onMouseOver={btnMouseOver} onMouseOut={btnMouseOut}
                     className={"poemFont"} style={{color: getFontColor(props.minorColor), cursor: "default"}}>
                 {calendar}
             </Button>
-            <Button type="text" shape="round" icon={<CheckCircleOutlined/>}
+            <Button type="text" shape={props.preferenceData.buttonShape} icon={<CheckCircleOutlined/>}
                     onMouseOver={btnMouseOver} onMouseOut={btnMouseOut}
                     className={"poemFont"} style={{color: getFontColor(props.minorColor), cursor: "default"}}>
                 {"宜：" + (suit.length < btnMaxSize) ? suit : suit.substring(0, btnMaxSize) + "..."}
             </Button>
-            <Button type="text" shape="round" icon={<CloseCircleOutlined/>}
+            <Button type="text" shape={props.preferenceData.buttonShape} icon={<CloseCircleOutlined/>}
                     onMouseOver={btnMouseOver} onMouseOut={btnMouseOut}
                     className={"poemFont"} style={{color: getFontColor(props.minorColor), cursor: "default"}}>
                 {"忌：" + (avoid.length < btnMaxSize) ? avoid : avoid.substring(0, btnMaxSize) + "..."}
@@ -152,7 +152,7 @@ function GreetComponent(props: any) {
         <Popover
             title={popoverTitle} content={popoverContent}
             placement="bottomLeft" overlayStyle={{minWidth: "550px"}} color={props.minorColor}>
-            <Button type="text" shape="round" size={"large"} icon={<i className={greetIcon}></i>}
+            <Button type="text" shape={props.preferenceData.buttonShape} size={"large"} icon={<i className={greetIcon}></i>}
                     className={"componentTheme poemFont"}
                     style={{
                         display: display,

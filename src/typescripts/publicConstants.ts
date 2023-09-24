@@ -98,6 +98,7 @@ export let defaultPreferenceData: PreferenceDataInterface = {
     searchEngine: "bing",
     simpleMode: false,
     displayAlert: true,
+    buttonShape: "round"
 }
 
 // 常用变量
