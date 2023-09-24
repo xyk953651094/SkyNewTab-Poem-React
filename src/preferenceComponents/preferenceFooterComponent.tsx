@@ -35,6 +35,13 @@ function PreferenceFooterComponent(props: any) {
                     style={{color: getFontColor(props.minorColor)}}>
                 博客
             </Button>
+            <Button type={"text"} shape={"round"} icon={<GiftOutlined/>}
+                    href={"https://afdian.net/a/xyk953651094"} target={"_blank"}
+                    onMouseOver={btnMouseOver} onMouseOut={btnMouseOut}
+                    className={"poemFont"}
+                    style={{color: getFontColor(props.minorColor)}}>
+                支持
+            </Button>
         </Space>
     );
 }
