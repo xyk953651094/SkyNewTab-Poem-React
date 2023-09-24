@@ -41,14 +41,6 @@ function GreetComponent(props: any) {
         e.currentTarget.style.color = getFontColor(props.minorColor);
     }
 
-    function constellationBtnOnClick() {
-        window.open(searchEngineUrl + "星座运势", "_blank");
-    }
-
-    function historyBtnOnClick() {
-        window.open(searchEngineUrl + "历史上的今天", "_blank");
-    }
-
     function infoBtnOnClick() {
         window.open(searchEngineUrl + "万年历", "_blank");
     }
@@ -123,27 +115,15 @@ function GreetComponent(props: any) {
 
     const popoverTitle = (
         <Row align={"middle"}>
-            <Col span={6}>
+            <Col span={10}>
                 <Text className={"poemFont"} style={{color: getFontColor(props.minorColor)}}>{"万年历"}</Text>
             </Col>
-            <Col span={18} style={{textAlign: "right"}}>
-                <Space>
-                    <Button type={"text"} shape={"round"} icon={<StarOutlined/>} onClick={constellationBtnOnClick}
-                            onMouseOver={btnMouseOver} onMouseOut={btnMouseOut}
-                            className={"poemFont"} style={{color: getFontColor(props.minorColor)}}>
-                        {"星座运势"}
-                    </Button>
-                    <Button type={"text"} shape={"round"} icon={<HistoryOutlined/>} onClick={historyBtnOnClick}
-                            onMouseOver={btnMouseOver} onMouseOut={btnMouseOut}
-                            className={"poemFont"} style={{color: getFontColor(props.minorColor)}}>
-                        {"历史上的今天"}
-                    </Button>
-                    <Button type={"text"} shape={"round"} icon={<InfoCircleOutlined/>} onClick={infoBtnOnClick}
-                            onMouseOver={btnMouseOver} onMouseOut={btnMouseOut}
-                            className={"poemFont"} style={{color: getFontColor(props.minorColor)}}>
-                        {"更多信息"}
-                    </Button>
-                </Space>
+            <Col span={14} style={{textAlign: "right"}}>
+                <Button type={"text"} shape={"round"} icon={<InfoCircleOutlined/>} onClick={infoBtnOnClick}
+                        onMouseOver={btnMouseOver} onMouseOut={btnMouseOut}
+                        className={"poemFont"} style={{color: getFontColor(props.minorColor)}}>
+                    {"更多信息"}
+                </Button>
             </Col>
         </Row>
     );
