@@ -13,6 +13,7 @@ import WaveComponent from "./components/waveComponent";
 import {getFontColor} from "./typescripts/publicFunctions";
 import PreferenceComponent from "./components/preferenceComponent";
 import {PreferenceDataInterface} from "./typescripts/publicInterface";
+import SearchComponent from "./components/searchComponent";
 
 const {Header, Content, Footer} = Layout;
 const $ = require('jquery');
@@ -125,6 +126,11 @@ function App() {
                 <Row justify="center">
                     <Col xs={0} sm={0} md={0} lg={9} xl={9} xxl={9}>
                         <Space>
+                            <SearchComponent
+                                majorColor={majorColor}
+                                minorColor={minorColor}
+                                preferenceData={preferenceData}
+                            />
                             <GreetComponent
                                 majorColor={majorColor}
                                 minorColor={minorColor}
