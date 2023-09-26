@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {Button, Popover, Input, Avatar, Row, Col, Typography} from "antd";
+import {Button, Popover, Input, Avatar, Row, Col, Typography, Divider} from "antd";
 import {SearchOutlined} from "@ant-design/icons";
 import {getFontColor, getSearchEngineDetail} from "../typescripts/publicFunctions";
 
@@ -7,8 +7,8 @@ const {Text} = Typography;
 
 function SearchComponent(props: any) {
     const [display, setDisplay] = useState("block");
+    const [searchEngineName, setSearchEngineName] = useState("Bing");
     const [searchEngineUrl, setSearchEngineUrl] = useState("https://www.bing.com/search?q=");
-    const [searchEngineIconUrl, setSearchEngineIconUrl] = useState("https://www.bing.com/favicon.ico");
     const [buttonShape, setButtonShape] = useState<"circle" | "default" | "round" | undefined>("round");
 
     function onPressEnter(e: any) {
@@ -16,9 +16,10 @@ function SearchComponent(props: any) {
     }
 
     useEffect(() => {
+        let searchEngineDetail = getSearchEngineDetail(props.preferenceData.searchEngine);
         setDisplay(props.preferenceData.simpleMode ? "none" : "block");
-        setSearchEngineUrl(getSearchEngineDetail(props.preferenceData.searchEngine).searchEngineUrl);
-        setSearchEngineIconUrl(getSearchEngineDetail(props.preferenceData.searchEngine).searchEngineIconUrl);
+        setSearchEngineName(searchEngineDetail.searchEngineName);
+        setSearchEngineUrl(searchEngineDetail.searchEngineUrl);
         setButtonShape(props.preferenceData.buttonShape === "round" ? "circle" : "default");
     }, [props.preferenceData.buttonShape, props.preferenceData.searchEngine, props.preferenceData.simpleMode])
 
@@ -33,7 +34,19 @@ function SearchComponent(props: any) {
     const popoverContent = (
         <Input
             className={"poemFont"}
-            prefix={<Avatar size={"small"} src={searchEngineIconUrl} alt={"图标"}/>}
+            prefix={
+                <Row align={"middle"}>
+                    <Button type={"text"} size={"small"} className={"poemFont"}
+                            style={{
+                                cursor: "default",
+                                backgroundColor: props.minorColor,
+                                color: getFontColor(props.minorColor)
+                            }}>
+                        {searchEngineName}
+                    </Button>
+                    <Divider type="vertical" />
+                </Row>
+            }
             suffix={<SearchOutlined/>}
             placeholder={"按下 Enter 键搜索"}
             onPressEnter={onPressEnter}

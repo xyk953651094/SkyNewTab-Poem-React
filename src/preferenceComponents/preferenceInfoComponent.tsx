@@ -1,6 +1,6 @@
 import React from "react";
 import {Button, Card, Space} from "antd";
-import {AppstoreOutlined, CalendarOutlined, CloudOutlined, ReadOutlined} from "@ant-design/icons";
+import {InfoCircleOutlined, CalendarOutlined, CloudOutlined, ReadOutlined} from "@ant-design/icons";
 import {getFontColor} from "../typescripts/publicFunctions";
 
 function PreferenceInfoComponent(props: any) {
@@ -16,7 +16,7 @@ function PreferenceInfoComponent(props: any) {
 
     return (
         <Card title={"产品信息"} size={"small"}
-              extra={<AppstoreOutlined style={{color: getFontColor(props.minorColor)}}/>}
+              extra={<InfoCircleOutlined style={{color: getFontColor(props.minorColor)}}/>}
               style={{border: "1px solid " + getFontColor(props.minorColor)}}
               headStyle={{
                   backgroundColor: props.minorColor,

@@ -29,38 +29,38 @@ function PreferenceLinkComponent(props: any) {
             <Row gutter={[0, 8]}>
                 <Col span="12">
                     <Button type={"text"} shape={props.preferenceData.buttonShape}
+                            icon={<Avatar size={16} shape={"square"} src={"https://www.baidu.com/favicon.ico"}/>}
                             href={"https://hanyu.baidu.com/"} target={"_blank"}
                             onMouseOver={btnMouseOver} onMouseOut={btnMouseOut}
                             className={"poemFont"} style={{color: getFontColor(props.minorColor)}}>
-                        <Avatar size={16} shape={"square"} src={"https://www.baidu.com/favicon.ico"}/>
-                        &nbsp;&nbsp;百度汉语
+                        百度汉语
                     </Button>
                 </Col>
                 <Col span="12">
                     <Button type={"text"} shape={props.preferenceData.buttonShape}
+                            icon={<Avatar size={16} shape={"square"} src={"https://www.sogou.com/favicon.ico"}/>}
                             href={"https://hanyu.sogou.com/"} target={"_blank"}
                             onMouseOver={btnMouseOver} onMouseOut={btnMouseOut}
                             className={"poemFont"} style={{color: getFontColor(props.minorColor)}}>
-                        <Avatar size={16} shape={"square"} src={"https://www.sogou.com/favicon.ico"}/>
-                        &nbsp;&nbsp;搜狗汉语
+                        搜狗汉语
                     </Button>
                 </Col>
                 <Col span="12">
                     <Button type={"text"} shape={props.preferenceData.buttonShape}
+                            icon={<Avatar size={16} shape={"square"} src={"https://www.so.com/favicon.ico"}/>}
                             href={"https://guoxue.baike.so.com/query/index?type=poem&page=1"} target={"_blank"}
                             onMouseOver={btnMouseOver} onMouseOut={btnMouseOut}
                             className={"poemFont"} style={{color: getFontColor(props.minorColor)}}>
-                        <Avatar size={16} shape={"square"} src={"https://www.so.com/favicon.ico"}/>
-                        &nbsp;&nbsp;360国学
+                        360国学
                     </Button>
                 </Col>
                 <Col span="12">
                     <Button type={"text"} shape={props.preferenceData.buttonShape}
+                            icon={<Avatar size={16} shape={"square"} src={"https://www.jetbrains.com/favicon.ico"}/>}
                             href={"https://www.jetbrains.com/"} target={"_blank"}
                             onMouseOver={btnMouseOver} onMouseOut={btnMouseOut}
                             className={"poemFont"} style={{color: getFontColor(props.minorColor)}}>
-                        <Avatar size={16} shape={"square"} src={"https://www.jetbrains.com/favicon.ico"}/>
-                        &nbsp;&nbsp;JetBrains
+                        JetBrains
                     </Button>
                 </Col>
             </Row>

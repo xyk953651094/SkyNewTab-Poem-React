@@ -1,3 +1,7 @@
+.poemText {
+    text-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
 /*移动端竖屏样式*/
 @media screen and (max-width: 500px) and (orientation: portrait) {
     div:has(.portrait) {

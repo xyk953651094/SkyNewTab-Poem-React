@@ -17,6 +17,7 @@ function PoemComponent(props: any) {
     function btnMouseOver(e: any) {
         e.currentTarget.style.backgroundColor = props.minorColor;
         e.currentTarget.style.color = getFontColor(props.minorColor);
+        e.currentTarget.classList.remove("poemText");
         e.currentTarget.classList.add("componentTheme");
     }
 
@@ -24,6 +25,7 @@ function PoemComponent(props: any) {
         e.currentTarget.style.backgroundColor = "transparent";
         e.currentTarget.style.color = props.minorColor;
         e.currentTarget.classList.remove("componentTheme");
+        e.currentTarget.classList.add("poemText");
     }
 
     function poemContentBtnOnClick() {
@@ -74,7 +76,7 @@ function PoemComponent(props: any) {
         <Row justify="center" align="middle">
             <Space direction={"vertical"}>
                 <Col xs={0} sm={0} md={0} lg={24} xl={24}>
-                    <Button type="text" shape={props.preferenceData.buttonShape} size={"large"} className="poemFont largeFont"
+                    <Button type="text" shape={props.preferenceData.buttonShape} size={"large"} className="poemText poemFont largeFont"
                             style={{color: props.minorColor}}
                             onClick={poemContentBtnOnClick} onMouseOver={btnMouseOver} onMouseOut={btnMouseOut}>
                         {poemContent.length < poemMaxSize ? poemContent : poemContent.substring(0, poemMaxSize) + "..."}
@@ -82,13 +84,13 @@ function PoemComponent(props: any) {
                 </Col>
                 <Col xs={24} sm={24} md={24} lg={0} xl={0}>
                     <div className="alignCenter">
-                        <Text className="poemFont largeFont vertical" style={{color: props.minorColor}}>
+                        <Text className="poemText poemFont largeFont vertical" style={{color: props.minorColor}}>
                             {poemContent.length < 20 ? poemContent : poemContent.substring(0, 20) + "..."}
                         </Text>
                     </div>
                 </Col>
                 <Col xs={0} sm={0} md={0} lg={24} xl={24}>
-                    <Button type="text" shape={props.preferenceData.buttonShape} size={"large"} className="poemFont largeFont"
+                    <Button type="text" shape={props.preferenceData.buttonShape} size={"large"} className="poemText poemFont largeFont"
                             style={{color: props.minorColor}}
                             onClick={poemAuthorBtnOnClick} onMouseOver={btnMouseOver} onMouseOut={btnMouseOut}>
                         {poemAuthorDetails.length < poemMaxSize ? poemAuthorDetails : poemAuthorDetails.substring(0, poemMaxSize) + "..."}

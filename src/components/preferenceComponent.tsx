@@ -9,6 +9,7 @@ import PreferenceFooterComponent from "../preferenceComponents/preferenceFooterC
 import PreferenceEmailComponent from "../preferenceComponents/preferenceEmailComponent";
 import PreferenceFunctionComponent from "../preferenceComponents/preferenceFunctionComponent";
 import PreferenceHeaderComponent from "../preferenceComponents/preferenceHeaderComponent";
+import PreferenceProductComponent from "../preferenceComponents/preferenceProductComponent";
 
 function PreferenceComponent(props: any) {
     const [displayDrawer, setDisplayDrawer] = useState(false);
@@ -79,7 +80,7 @@ function PreferenceComponent(props: any) {
                         minorColor={props.minorColor}
                         getPreferenceData={props.getPreferenceData}
                     />
-                    <PreferenceLinkComponent
+                    <PreferenceProductComponent
                         majorColor={props.majorColor}
                         minorColor={props.minorColor}
                         preferenceData={props.preferenceData}
@@ -90,6 +91,11 @@ function PreferenceComponent(props: any) {
                         preferenceData={props.preferenceData}
                     />
                     <PreferenceEmailComponent
+                        majorColor={props.majorColor}
+                        minorColor={props.minorColor}
+                        preferenceData={props.preferenceData}
+                    />
+                    <PreferenceLinkComponent
                         majorColor={props.majorColor}
                         minorColor={props.minorColor}
                         preferenceData={props.preferenceData}
