@@ -1,6 +1,6 @@
 import React from "react";
-import {Avatar, Button, Card, Col, Row} from "antd";
-import {LinkOutlined} from "@ant-design/icons";
+import {Button, Card, Col, Row} from "antd";
+import {LinkOutlined, ReadOutlined, CodeOutlined} from "@ant-design/icons";
 import {getFontColor} from "../typescripts/publicFunctions";
 
 function PreferenceLinkComponent(props: any) {
@@ -29,7 +29,7 @@ function PreferenceLinkComponent(props: any) {
             <Row gutter={[0, 8]}>
                 <Col span="12">
                     <Button type={"text"} shape={props.preferenceData.buttonShape}
-                            icon={<Avatar size={16} shape={"square"} src={"https://www.baidu.com/favicon.ico"}/>}
+                            icon={<ReadOutlined />}
                             href={"https://hanyu.baidu.com/"} target={"_blank"}
                             onMouseOver={btnMouseOver} onMouseOut={btnMouseOut}
                             className={"poemFont"} style={{color: getFontColor(props.minorColor)}}>
@@ -38,7 +38,7 @@ function PreferenceLinkComponent(props: any) {
                 </Col>
                 <Col span="12">
                     <Button type={"text"} shape={props.preferenceData.buttonShape}
-                            icon={<Avatar size={16} shape={"square"} src={"https://www.sogou.com/favicon.ico"}/>}
+                            icon={<ReadOutlined />}
                             href={"https://hanyu.sogou.com/"} target={"_blank"}
                             onMouseOver={btnMouseOver} onMouseOut={btnMouseOut}
                             className={"poemFont"} style={{color: getFontColor(props.minorColor)}}>
@@ -47,7 +47,7 @@ function PreferenceLinkComponent(props: any) {
                 </Col>
                 <Col span="12">
                     <Button type={"text"} shape={props.preferenceData.buttonShape}
-                            icon={<Avatar size={16} shape={"square"} src={"https://www.so.com/favicon.ico"}/>}
+                            icon={<ReadOutlined />}
                             href={"https://guoxue.baike.so.com/query/index?type=poem&page=1"} target={"_blank"}
                             onMouseOver={btnMouseOver} onMouseOut={btnMouseOut}
                             className={"poemFont"} style={{color: getFontColor(props.minorColor)}}>
@@ -56,7 +56,7 @@ function PreferenceLinkComponent(props: any) {
                 </Col>
                 <Col span="12">
                     <Button type={"text"} shape={props.preferenceData.buttonShape}
-                            icon={<Avatar size={16} shape={"square"} src={"https://www.jetbrains.com/favicon.ico"}/>}
+                            icon={<CodeOutlined />}
                             href={"https://www.jetbrains.com/"} target={"_blank"}
                             onMouseOver={btnMouseOver} onMouseOut={btnMouseOut}
                             className={"poemFont"} style={{color: getFontColor(props.minorColor)}}>
