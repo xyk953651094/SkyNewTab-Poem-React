@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {Button, Col, Row, Space} from "antd";
 import "../stylesheets/poemComponent.scss"
 import {getFontColor, getSearchEngineDetail} from "../typescripts/publicFunctions";
+import {ReadOutlined, UserOutlined} from "@ant-design/icons";
 
 const poemMaxSize = 25;
 
@@ -55,7 +56,7 @@ function PopupPoemComponent(props: any) {
         <Row justify="center" align="middle">
             <Space direction={"vertical"}>
                 <Col span={24}>
-                    <Button type="text" shape="round" className="popupFont"
+                    <Button type="text" shape={props.preferenceData.buttonShape} icon={<ReadOutlined />} className="popupFont"
                             style={{color: getFontColor(props.minorColor)}}
                             onClick={poemContentBtnOnClick} onMouseOver={btnMouseOver} onMouseOut={btnMouseOut}>
                         {/*{"你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好..."}*/}
@@ -63,7 +64,7 @@ function PopupPoemComponent(props: any) {
                     </Button>
                 </Col>
                 <Col span={24}>
-                    <Button type="text" shape="round" className="popupFont"
+                    <Button type="text" shape={props.preferenceData.buttonShape} icon={<UserOutlined />} className="popupFont"
                             style={{color: getFontColor(props.minorColor)}}
                             onClick={poemAuthorBtnOnClick} onMouseOver={btnMouseOver} onMouseOut={btnMouseOut}>
                         {poemAuthorDetails.length < poemMaxSize ? poemAuthorDetails : poemAuthorDetails.substring(0, poemMaxSize) + "..."}

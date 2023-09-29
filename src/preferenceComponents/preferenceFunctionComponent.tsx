@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
-import {Alert, Button, Card, Col, Form, message, Radio, RadioChangeEvent, Row, Switch, Typography} from "antd";
-import {DeleteOutlined, SettingOutlined} from "@ant-design/icons";
+import {Alert, Button, Space, Card, Col, Form, message, Radio, RadioChangeEvent, Row, Switch, Typography} from "antd";
+import {RedoOutlined, SettingOutlined} from "@ant-design/icons";
 import {getFontColor} from "../typescripts/publicFunctions";
 import {defaultPreferenceData} from "../typescripts/publicConstants";
 import {PreferenceDataInterface} from "../typescripts/publicInterface";
@@ -29,6 +29,16 @@ function PreferenceFunctionComponent(props: any) {
             return newPreferenceData;
         });
         message.success("已更换搜索引擎");
+    }
+    
+    function buttonShapeRadioOnChange(event: RadioChangeEvent) {
+        setPreferenceData((preferenceData: PreferenceDataInterface) => {
+            let newPreferenceData = modifyPreferenceData({buttonShape: event.target.value});
+            props.getPreferenceData(newPreferenceData);
+            localStorage.setItem("preferenceData", JSON.stringify(newPreferenceData));
+            return newPreferenceData;
+        });
+        message.success("已更换按钮形状");
     }
 
     // 重置设置
@@ -110,7 +120,7 @@ function PreferenceFunctionComponent(props: any) {
                 <Form.Item name={"searchEngine"} label={"搜索引擎"}>
                     <Radio.Group buttonStyle={"solid"}
                                  onChange={searchEngineRadioOnChange}>
-                        <Row>
+                        <Row gutter={[0, 8]}>
                             <Col span={12}><Radio value={"baidu"}>Baidu</Radio></Col>
                             <Col span={12}><Radio value={"bing"}>Bing</Radio></Col>
                             <Col span={12}><Radio value={"google"}>Google</Radio></Col>
@@ -118,32 +128,53 @@ function PreferenceFunctionComponent(props: any) {
                         </Row>
                     </Radio.Group>
                 </Form.Item>
-                <Form.Item name={"simpleMode"} label={"简洁模式"} valuePropName={"checked"}>
-                    <Switch checkedChildren="已开启" unCheckedChildren="已关闭" className={"poemFont"}
-                            onChange={simpleModeSwitchOnChange}/>
+                <Form.Item name={"buttonShape"} label={"按钮形状"}>
+                    <Radio.Group buttonStyle={"solid"} style={{width: "100%"}} 
+                                 onChange={buttonShapeRadioOnChange}>
+                        <Row>
+                            <Col span={12}><Radio value={"round"}>圆形</Radio></Col>
+                            <Col span={12}><Radio value={"default"}>方形</Radio></Col>
+                        </Row>
+                    </Radio.Group>
                 </Form.Item>
-                <Form.Item name={"displayAlert"} label={"提示信息"} valuePropName={"checked"}>
-                    <Switch checkedChildren="已显示" unCheckedChildren="已隐藏" className={"poemFont"}
-                            onChange={displayAlertSwitchOnChange}/>
-                </Form.Item>
+                <Row gutter={24}>
+                    <Col span={12}>
+                        <Form.Item name={"simpleMode"} label={"简洁模式"} valuePropName={"checked"}>
+                            <Switch checkedChildren="已开启" unCheckedChildren="已关闭" className={"poemFont"}
+                                    onChange={simpleModeSwitchOnChange}/>
+                        </Form.Item>
+                    </Col>
+                    <Col span={12}>
+                        <Form.Item name={"displayAlert"} label={"提示信息"} valuePropName={"checked"}>
+                            <Switch checkedChildren="已显示" unCheckedChildren="已隐藏" className={"poemFont"}
+                                    onChange={displayAlertSwitchOnChange}/>
+                        </Form.Item>
+                    </Col>
+                </Row>
                 <Form.Item name={"clearStorageButton"} label={"危险设置"}>
-                    <Button type={"text"} shape={"round"} icon={<DeleteOutlined/>}
+                    <Button type={"text"} shape={preferenceData.buttonShape} icon={<RedoOutlined/>}
                             onMouseOver={btnMouseOver} onMouseOut={btnMouseOut}
                             onClick={clearStorageBtnOnClick}
                             className={"poemFont"}
                             style={{color: getFontColor(props.minorColor)}}>
-                        清空并重置所有内容
+                        重置插件
                     </Button>
                 </Form.Item>
                 <Alert
                     message={
-                        <Title level={5} className={"poemFont"}>{"警告信息"}</Title>
+                        <Title level={5} className={"poemFont"}>{"提示信息"}</Title>
                     }
                     description={
-                        <Text
-                            className={"poemFont"}>{"清空并重置所有内容将删除所有缓存并恢复初始状态，插件出现问题时可尝试此按钮"}</Text>
+                        <Paragraph className={"poemFont"}>
+                            <ol>
+                                <Space direction={"vertical"}>
+                                    <li>重置插件将清空缓存恢复初始设置</li>
+                                    <li>插件设置出现异常可尝试重置插件</li>
+                                </Space>
+                            </ol>
+                        </Paragraph>
                     }
-                    type="warning"
+                    type="info"
                     style={{display: preferenceData.displayAlert ? "block" : "none"}}
                 />
             </Form>

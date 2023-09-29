@@ -16,25 +16,25 @@ function PopupFooterComponent(props: any) {
 
     return (
         <Space>
-            <Button type={"text"} shape={"round"} icon={<GithubOutlined/>}
+            <Button type={"text"} shape={props.preferenceData.buttonShape} icon={<GithubOutlined/>}
                     href={"https://github.com/xyk953651094"} target={"_blank"}
                     onMouseOver={btnMouseOver} onMouseOut={btnMouseOut}
                     style={{color: getFontColor(props.minorColor)}} className={"popupFont"}>
                 GitHub
             </Button>
-            <Button type={"text"} shape={"round"} icon={<GitlabOutlined />}
+            <Button type={"text"} shape={props.preferenceData.buttonShape} icon={<GitlabOutlined />}
                     href={"https://gitlab.com/xyk953651094"} target={"_blank"}
                     onMouseOver={btnMouseOver} onMouseOut={btnMouseOut}
                     style={{color: getFontColor(props.minorColor)}} className={"popupFont"}>
                 GitLab
             </Button>
-            <Button type={"text"} shape={"round"} icon={<NotificationOutlined/>}
+            <Button type={"text"} shape={props.preferenceData.buttonShape} icon={<NotificationOutlined/>}
                     href={"https://xyk953651094.blogspot.com"} target={"_blank"}
                     onMouseOver={btnMouseOver} onMouseOut={btnMouseOut}
                     style={{color: getFontColor(props.minorColor)}} className={"popupFont"}>
                 博客
             </Button>
-            <Button type={"text"} shape={"round"} icon={<GiftOutlined/>}
+            <Button type={"text"} shape={props.preferenceData.buttonShape} icon={<GiftOutlined/>}
                     href={"https://afdian.net/a/xyk953651094"} target={"_blank"}
                     onMouseOver={btnMouseOver} onMouseOut={btnMouseOut}
                     style={{color: getFontColor(props.minorColor)}} className={"popupFont"}>

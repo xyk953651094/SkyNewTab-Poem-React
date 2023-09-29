@@ -45,6 +45,7 @@ function PopupComponent() {
                 <PopupHeaderComponent
                     majorColor={majorColor}
                     minorColor={minorColor}
+                    preferenceData={preferenceData}
                 />
             </Header>
             <Content className={"popupContent"}>
@@ -79,6 +80,7 @@ function PopupComponent() {
                 <PopupFooterComponent
                     majorColor={majorColor}
                     minorColor={minorColor}
+                    preferenceData={preferenceData}
                 />
             </Footer>
         </Layout>

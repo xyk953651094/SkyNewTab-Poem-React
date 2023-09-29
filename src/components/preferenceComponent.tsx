@@ -9,10 +9,12 @@ import PreferenceFooterComponent from "../preferenceComponents/preferenceFooterC
 import PreferenceEmailComponent from "../preferenceComponents/preferenceEmailComponent";
 import PreferenceFunctionComponent from "../preferenceComponents/preferenceFunctionComponent";
 import PreferenceHeaderComponent from "../preferenceComponents/preferenceHeaderComponent";
+import PreferenceProductComponent from "../preferenceComponents/preferenceProductComponent";
 
 function PreferenceComponent(props: any) {
     const [displayDrawer, setDisplayDrawer] = useState(false);
     const [drawerPosition, setDrawerPosition] = useState<"right" | "bottom">("right");
+    const [buttonShape, setButtonShape] = useState<"circle" | "default" | "round" | undefined>("round");
 
     function showDrawerBtnOnClick() {
         setDisplayDrawer(true);
@@ -23,16 +25,18 @@ function PreferenceComponent(props: any) {
     }
 
     useEffect(() => {
+        setButtonShape(props.preferenceData.buttonShape === "round" ? "circle" : "default");
+
         // 屏幕适配
         if (device === "iPhone" || device === "Android") {
             setDrawerPosition("bottom")
         }
-    }, [])
+    }, [props.preferenceData.buttonShape])
 
     return (
         <>
             <Tooltip title={"菜单栏"} placement={"bottomRight"} color={props.minorColor}>
-                <Button type={"text"} shape={"circle"} icon={<MenuOutlined style={{fontSize: "16px"}}/>} size={"large"}
+                <Button type={"text"} shape={buttonShape} icon={<MenuOutlined style={{fontSize: "16px"}}/>} size={"large"}
                         onClick={showDrawerBtnOnClick}
                         id={"preferenceBtn"}
                         className={"componentTheme poemFont"}
@@ -53,12 +57,16 @@ function PreferenceComponent(props: any) {
                 title={
                     <PreferenceHeaderComponent
                         majorColor={props.majorColor}
-                        minorColor={props.minorColor}/>
+                        minorColor={props.minorColor}
+                        preferenceData={props.preferenceData}
+                    />
                 }
                 footer={
                     <PreferenceFooterComponent
                         majorColor={props.majorColor}
-                        minorColor={props.minorColor}/>
+                        minorColor={props.minorColor}
+                        preferenceData={props.preferenceData}
+                    />
                 }
                 footerStyle={{
                     backgroundColor: props.minorColor,
@@ -72,18 +80,26 @@ function PreferenceComponent(props: any) {
                         minorColor={props.minorColor}
                         getPreferenceData={props.getPreferenceData}
                     />
-                    <PreferenceLinkComponent
-                        majorColor={props.majorColor}
-                        minorColor={props.minorColor}
-                    />
                     <PreferenceInfoComponent
                         majorColor={props.majorColor}
                         minorColor={props.minorColor}
+                        preferenceData={props.preferenceData}
                     />
                     <PreferenceEmailComponent
                         majorColor={props.majorColor}
                         minorColor={props.minorColor}
+                        preferenceData={props.preferenceData}
                     />
+                    <PreferenceProductComponent
+                        majorColor={props.majorColor}
+                        minorColor={props.minorColor}
+                        preferenceData={props.preferenceData}
+                    />
+                    {/*<PreferenceLinkComponent*/}
+                    {/*    majorColor={props.majorColor}*/}
+                    {/*    minorColor={props.minorColor}*/}
+                    {/*    preferenceData={props.preferenceData}*/}
+                    {/*/>*/}
                 </Space>
             </Drawer>
         </>

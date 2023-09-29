@@ -65,35 +65,35 @@ function PopupImageComponent(props: any) {
     return (
         <>
             <Space style={{display: props.preferenceData.simpleMode ? "none" : "inline-flex"}}>
-                <Button type={"text"} shape={"round"} icon={<i className={greetIcon}> </i>}
+                <Button type={"text"} shape={props.preferenceData.buttonShape} icon={<i className={greetIcon}> </i>}
                         onMouseOver={btnMouseOver} onMouseOut={btnMouseOut}
                         onClick={greetBtnOnClick}
                         className={"popupFont"}
                         style={{color: getFontColor(props.minorColor)}}>
                     {greetContent}
                 </Button>
-                <Button type={"text"} shape={"round"} icon={<i className={weatherIcon}> </i>}
+                <Button type={"text"} shape={props.preferenceData.buttonShape} icon={<i className={weatherIcon}> </i>}
                         onMouseOver={btnMouseOver} onMouseOut={btnMouseOut}
                         onClick={weatherBtnOnClick}
                         className={"popupFont"}
                         style={{color: getFontColor(props.minorColor)}}>
                     {weatherContent}
                 </Button>
-                <Button type={"text"} shape={"round"} icon={<CalendarOutlined/>}
+                <Button type={"text"} shape={props.preferenceData.buttonShape} icon={<CalendarOutlined/>}
                         onMouseOver={btnMouseOver}
                         onMouseOut={btnMouseOut}
                         className={"popupFont"}
                         style={{color: getFontColor(props.minorColor), cursor: "default"}}>
                     {dailySize + " 个倒数日"}
                 </Button>
-                <Button type={"text"} shape={"round"} icon={<CheckSquareOutlined/>}
+                <Button type={"text"} shape={props.preferenceData.buttonShape} icon={<CheckSquareOutlined/>}
                         onMouseOver={btnMouseOver} onMouseOut={btnMouseOut}
                         className={"popupFont"}
                         style={{color: getFontColor(props.minorColor), cursor: "default"}}>
                     {todoSize + " 个待办事项"}
                 </Button>
             </Space>
-            <Button type={"text"} shape={"round"} icon={<InfoCircleOutlined/>}
+            <Button type={"text"} shape={props.preferenceData.buttonShape} icon={<InfoCircleOutlined/>}
                     onMouseOver={btnMouseOver} onMouseOut={btnMouseOut}
                     className={"popupFont"}
                     style={{

@@ -7,8 +7,8 @@ function WaveComponent(props: any) {
     });
 
     return (
-        <div className="waveSvg">
-            <svg className="waves" viewBox="0 24 150 24" preserveAspectRatio="none">
+        <div className="waveDiv">
+            <svg className="waveSvg" viewBox="0 24 150 24" preserveAspectRatio="none">
                 <defs>
                     <path id="wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z"/>
                 </defs>
