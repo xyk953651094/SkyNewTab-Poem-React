@@ -80,11 +80,6 @@ function PreferenceComponent(props: any) {
                         minorColor={props.minorColor}
                         getPreferenceData={props.getPreferenceData}
                     />
-                    <PreferenceProductComponent
-                        majorColor={props.majorColor}
-                        minorColor={props.minorColor}
-                        preferenceData={props.preferenceData}
-                    />
                     <PreferenceInfoComponent
                         majorColor={props.majorColor}
                         minorColor={props.minorColor}
@@ -95,11 +90,16 @@ function PreferenceComponent(props: any) {
                         minorColor={props.minorColor}
                         preferenceData={props.preferenceData}
                     />
-                    <PreferenceLinkComponent
+                    <PreferenceProductComponent
                         majorColor={props.majorColor}
                         minorColor={props.minorColor}
                         preferenceData={props.preferenceData}
                     />
+                    {/*<PreferenceLinkComponent*/}
+                    {/*    majorColor={props.majorColor}*/}
+                    {/*    minorColor={props.minorColor}*/}
+                    {/*    preferenceData={props.preferenceData}*/}
+                    {/*/>*/}
                 </Space>
             </Drawer>
         </>

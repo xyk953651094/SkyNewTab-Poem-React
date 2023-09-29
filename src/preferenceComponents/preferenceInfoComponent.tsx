@@ -1,6 +1,6 @@
 import React from "react";
 import {Button, Card, Space} from "antd";
-import {InfoCircleOutlined, CalendarOutlined, CloudOutlined, ReadOutlined} from "@ant-design/icons";
+import {InfoCircleOutlined, CalendarOutlined, CloudOutlined, ReadOutlined, CodeOutlined} from "@ant-design/icons";
 import {getFontColor} from "../typescripts/publicFunctions";
 
 function PreferenceInfoComponent(props: any) {
@@ -44,6 +44,12 @@ function PreferenceInfoComponent(props: any) {
                         onMouseOver={btnMouseOver} onMouseOut={btnMouseOut}
                         className={"poemFont"} style={{color: getFontColor(props.minorColor)}}>
                     {"诗词来源：https://www.jinrishici.com"}
+                </Button>
+                <Button type={"text"} shape={props.preferenceData.buttonShape} icon={<CodeOutlined/>}
+                        href={"https://www.jetbrains.com.cn/community/opensource/#support/"} target={"_blank"}
+                        onMouseOver={btnMouseOver} onMouseOut={btnMouseOut}
+                        className={"poemFont"} style={{color: getFontColor(props.minorColor)}}>
+                    {"开发支持：JetBrains 免费许可证计划"}
                 </Button>
             </Space>
         </Card>
