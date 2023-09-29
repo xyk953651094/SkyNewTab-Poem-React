@@ -9,6 +9,7 @@ function SearchComponent(props: any) {
     const [display, setDisplay] = useState("block");
     const [searchEngineName, setSearchEngineName] = useState("Bing");
     const [searchEngineUrl, setSearchEngineUrl] = useState("https://www.bing.com/search?q=");
+    const [buttonShape, setButtonShape] = useState<"circle" | "default" | "round" | undefined>("round");
 
     function onPressEnter(e: any) {
         window.open(searchEngineUrl + e.target.value);
@@ -19,6 +20,7 @@ function SearchComponent(props: any) {
         setDisplay(props.preferenceData.simpleMode ? "none" : "block");
         setSearchEngineName(searchEngineDetail.searchEngineName);
         setSearchEngineUrl(searchEngineDetail.searchEngineUrl);
+        setButtonShape(props.preferenceData.buttonShape === "round" ? "circle" : "default");
     }, [props.preferenceData.buttonShape, props.preferenceData.searchEngine, props.preferenceData.simpleMode])
 
     const popoverTitle = (
@@ -55,16 +57,16 @@ function SearchComponent(props: any) {
     return (
         <Popover title={popoverTitle} content={popoverContent} placement={"bottomLeft"}
                  color={props.minorColor} overlayStyle={{width: "550px"}}>
-            <Button type={"text"} shape={props.preferenceData.buttonShape} icon={<SearchOutlined />} size={"large"}
+            <Button type={"text"} shape={buttonShape} icon={<SearchOutlined />} size={"large"}
                     id={"dailyBtn"}
                     className={"componentTheme poemFont"}
                     style={{
+                        cursor: "default",
                         display: display,
                         backgroundColor: props.minorColor,
                         color: getFontColor(props.minorColor)
                     }}
             >
-                {"搜索"}
             </Button>
         </Popover>
     );
