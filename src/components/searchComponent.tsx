@@ -26,13 +26,14 @@ function SearchComponent(props: any) {
     const popoverTitle = (
         <Row align={"middle"}>
             <Col span={24}>
-                <Text className={"poemFont"} style={{color: getFontColor(props.minorColor)}}>{"搜索栏"}</Text>
+                <Text className={"poemFont"} style={{color: getFontColor(props.minorColor)}}>{"搜索栏（Beta）"}</Text>
             </Col>
         </Row>
     );
 
     const popoverContent = (
         <Input
+            id={"searchInput"}
             className={"poemFont"}
             prefix={
                 <Row align={"middle"}>
@@ -58,7 +59,6 @@ function SearchComponent(props: any) {
         <Popover title={popoverTitle} content={popoverContent} placement={"bottomLeft"}
                  color={props.minorColor} overlayStyle={{width: "550px"}}>
             <Button type={"text"} shape={buttonShape} icon={<SearchOutlined />} size={"large"}
-                    id={"dailyBtn"}
                     className={"componentTheme poemFont"}
                     style={{
                         cursor: "default",

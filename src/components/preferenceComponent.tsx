@@ -10,6 +10,7 @@ import PreferenceEmailComponent from "../preferenceComponents/preferenceEmailCom
 import PreferenceFunctionComponent from "../preferenceComponents/preferenceFunctionComponent";
 import PreferenceHeaderComponent from "../preferenceComponents/preferenceHeaderComponent";
 import PreferenceProductComponent from "../preferenceComponents/preferenceProductComponent";
+import PreferenceToTopComponent from "../preferenceComponents/preferenceToTopComponent";
 
 function PreferenceComponent(props: any) {
     const [displayDrawer, setDisplayDrawer] = useState(false);
@@ -74,7 +75,7 @@ function PreferenceComponent(props: any) {
                     textAlign: "center"
                 }}
             >
-                <Space direction={"vertical"} size={"large"}>
+                <Space direction={"vertical"} size={"large"} id={"drawerContent"}>
                     <PreferenceFunctionComponent
                         majorColor={props.majorColor}
                         minorColor={props.minorColor}
@@ -100,6 +101,11 @@ function PreferenceComponent(props: any) {
                     {/*    minorColor={props.minorColor}*/}
                     {/*    preferenceData={props.preferenceData}*/}
                     {/*/>*/}
+                    <PreferenceToTopComponent
+                        majorColor={props.majorColor}
+                        minorColor={props.minorColor}
+                        preferenceData={props.preferenceData}
+                    />
                 </Space>
             </Drawer>
         </>
