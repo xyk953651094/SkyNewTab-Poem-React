@@ -15,6 +15,18 @@ function SearchComponent(props: any) {
         window.open(searchEngineUrl + e.target.value);
     }
 
+    function changeSearchEngine() {
+        const searchEngines = ["Baidu", "Bing", "Google", "Yandex"];
+        let currentIndex = searchEngines.indexOf(searchEngineName);
+        let nextIndex = 0;
+        if (currentIndex !== searchEngines.length - 1) {
+            nextIndex = currentIndex + 1;
+        }
+
+        setSearchEngineName(searchEngines[nextIndex]);
+        setSearchEngineUrl(getSearchEngineDetail(searchEngines[nextIndex].toLowerCase()).searchEngineUrl)
+    }
+
     useEffect(() => {
         let searchEngineDetail = getSearchEngineDetail(props.preferenceData.searchEngine);
         setDisplay(props.preferenceData.simpleMode ? "none" : "block");
@@ -37,9 +49,8 @@ function SearchComponent(props: any) {
             className={"poemFont"}
             prefix={
                 <Row align={"middle"}>
-                    <Button type={"text"} size={"small"} className={"poemFont"}
+                    <Button type={"text"} size={"small"} className={"poemFont"} onClick={changeSearchEngine}
                             style={{
-                                cursor: "default",
                                 backgroundColor: props.minorColor,
                                 color: getFontColor(props.minorColor)
                             }}>
