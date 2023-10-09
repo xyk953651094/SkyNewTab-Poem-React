@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import {Button, Popover, Input, Row, Col, Typography, Divider} from "antd";
-import {SearchOutlined} from "@ant-design/icons";
+import {SearchOutlined, MenuOutlined} from "@ant-design/icons";
 import {getFontColor, getSearchEngineDetail} from "../typescripts/publicFunctions";
 
 const {Text} = Typography;
@@ -58,7 +58,7 @@ function SearchComponent(props: any) {
     return (
         <Popover title={popoverTitle} content={popoverContent} placement={"bottomLeft"}
                  color={props.minorColor} overlayStyle={{width: "550px"}}>
-            <Button type={"text"} shape={buttonShape} icon={<SearchOutlined />} size={"large"}
+            <Button type={"text"} shape={buttonShape} icon={<SearchOutlined style={{fontSize: "16px"}}/>} size={"large"}
                     className={"componentTheme poemFont"}
                     style={{
                         cursor: "default",
@@ -66,8 +66,7 @@ function SearchComponent(props: any) {
                         backgroundColor: props.minorColor,
                         color: getFontColor(props.minorColor)
                     }}
-            >
-            </Button>
+            />
         </Popover>
     );
 

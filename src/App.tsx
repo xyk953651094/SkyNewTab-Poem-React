@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {Col, Layout, Row, Space} from "antd";
 import "./stylesheets/publicStyles.scss"
-import {defaultPreferenceData, themeArray} from "./typescripts/publicConstants";
+import {defaultPreferenceData} from "./typescripts/publicConstants";
 
 import GreetComponent from "./components/greetComponent";
 import WeatherComponent from "./components/weatherComponent";
@@ -10,18 +10,19 @@ import TodoComponent from "./components/todoComponent";
 import SunComponent from "./components/sunComponent";
 import PoemComponent from "./components/poemComponent";
 import WaveComponent from "./components/waveComponent";
-import {getFontColor} from "./typescripts/publicFunctions";
+import {getFontColor, setColorTheme} from "./typescripts/publicFunctions";
 import PreferenceComponent from "./components/preferenceComponent";
 import {PreferenceDataInterface} from "./typescripts/publicInterface";
 import SearchComponent from "./components/searchComponent";
 
 const {Header, Content, Footer} = Layout;
 const $ = require('jquery');
+const themeArray = setColorTheme();
 
 function App() {
-    const [majorColor, setMajorColor] = useState("#000000");
-    const [minorColor, setMinorColor] = useState("#ffffff");
-    const [svgColors, setSvgColors] = useState(['#ffffff', '#ffffff', '#ffffff', '#ffffff']);
+    const [majorColor] = useState(themeArray.majorColor);
+    const [minorColor] = useState(themeArray.minorColor);
+    const [svgColors] = useState(themeArray.svgColors);
     const [preferenceData, setPreferenceData] = useState(defaultPreferenceData);
 
     function getPreferenceData(value: PreferenceDataInterface) {
@@ -37,16 +38,10 @@ function App() {
         setPreferenceData(tempPreferenceData === null ? defaultPreferenceData : JSON.parse(tempPreferenceData));
 
         // 随机颜色主题
-        let randomNum = Math.floor(Math.random() * themeArray.length);  // 随机选择
-        localStorage.setItem("themeColor", JSON.stringify(themeArray[randomNum]));
-        setMajorColor(themeArray[randomNum].majorColor);
-        setMinorColor(themeArray[randomNum].minorColor);
-        setSvgColors(themeArray[randomNum].svgColors);
-
-        let bodyEle = $("body");
-        bodyEle.css("background-color", themeArray[randomNum].majorColor);
+        localStorage.setItem("themeArray", JSON.stringify(themeArray));
 
         // 修改弹窗主题
+        let bodyEle = $("body");
         bodyEle.bind("DOMNodeInserted", () => {
             // 通用
             $(".ant-list-item").css({"borderBlockEndColor": getFontColor(minorColor), "padding": "10px, 0"});
@@ -118,7 +113,7 @@ function App() {
                 $(".ant-select-selection-item").addClass("poemFont");
             }
         });
-    }, [minorColor]);
+    }, [preferenceData.buttonShape, themeArray]);
 
     return (
         <Layout>

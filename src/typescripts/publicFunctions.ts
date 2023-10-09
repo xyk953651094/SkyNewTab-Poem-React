@@ -1,5 +1,5 @@
 import "jquery-color"
-import {chinaObject, chinaWindow} from "./publicConstants";
+import {chinaObject, chinaWindow, darkThemeArray, lightThemeArray} from "./publicConstants";
 
 const $ = require("jquery");
 
@@ -152,6 +152,25 @@ export function getObjectClassName() {
     let arrayLength = chinaObject.length;
     let index = Math.floor(Math.random() * arrayLength);
     return chinaObject[index];
+}
+
+// 随机显示多彩颜色主题
+export function setColorTheme() {
+    let currentHour = parseInt(getTimeDetails(new Date()).hour);
+    let themeArray = lightThemeArray;
+    if(currentHour > 18 || currentHour < 6) {  // 夜间显示深色背景
+        themeArray = darkThemeArray;
+    }
+
+    let randomNum = Math.floor(Math.random() * themeArray.length);
+    let body = document.getElementsByTagName("body")[0];
+    body.style.backgroundColor = themeArray[randomNum].majorColor;    // 设置body背景颜色
+
+    return {
+        "majorColor": themeArray[randomNum].majorColor,
+        "minorColor": themeArray[randomNum].minorColor,
+        "svgColors": themeArray[randomNum].svgColors,
+    };  // 返回各组件背景颜色
 }
 
 // 根据图片背景颜色获取元素反色效果
