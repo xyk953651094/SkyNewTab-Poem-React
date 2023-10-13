@@ -1,5 +1,6 @@
 import "jquery-color"
-import {chinaObject, chinaWindow, darkThemeArray, lightThemeArray} from "./publicConstants";
+import {chinaObject, chinaWindow, darkThemeArray, defaultPreferenceData, lightThemeArray} from "./publicConstants";
+import {PreferenceDataInterface} from "./publicInterface";
 
 const $ = require("jquery");
 
@@ -244,4 +245,50 @@ export function getSearchEngineDetail(searchEngine: string) {
             break;
     }
     return {"searchEngineName": searchEngineName, "searchEngineUrl": searchEngineUrl, "searchEngineIconUrl": searchEngineIconUrl};
+}
+
+// 补全设置数据
+export function fixPreferenceData(preferenceData: PreferenceDataInterface) {
+    let isFixed = false;
+    if(!preferenceData.searchEngine) {
+        preferenceData.searchEngine = defaultPreferenceData.searchEngine;
+        isFixed = true;
+    }
+    if(!preferenceData.buttonShape) {
+        preferenceData.buttonShape = defaultPreferenceData.buttonShape;
+        isFixed = true;
+    }
+    if(preferenceData.simpleMode === undefined || preferenceData.simpleMode === null) {
+        preferenceData.simpleMode = defaultPreferenceData.simpleMode;
+        isFixed = true;
+    }
+    if(preferenceData.displayAlert === undefined || preferenceData.displayAlert === null) {
+        preferenceData.displayAlert = defaultPreferenceData.displayAlert;
+        isFixed = true;
+    }
+
+    if (isFixed) {
+        localStorage.setItem("preferenceData", JSON.stringify(preferenceData));  // 重新保存设置
+    }
+    return preferenceData;
+}
+
+export function getPreferenceDataStorage() {
+    let tempPreferenceData = localStorage.getItem("preferenceData");
+    if (tempPreferenceData === null) {
+        localStorage.setItem("preferenceData", JSON.stringify(defaultPreferenceData));
+        return defaultPreferenceData;
+    } else {
+        return fixPreferenceData(JSON.parse(tempPreferenceData));  // 检查是否缺少数据
+    }
+}
+
+export function btnMouseOver(e: any, color: string) {
+    e.currentTarget.style.backgroundColor = color;
+    e.currentTarget.style.color = getFontColor(color);
+}
+
+export function btnMouseOut(e: any, color: string) {
+    e.currentTarget.style.backgroundColor = "transparent";
+    e.currentTarget.style.color = getFontColor(color);
 }

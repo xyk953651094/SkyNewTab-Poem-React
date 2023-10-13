@@ -1,14 +1,13 @@
 import React, {useEffect, useState} from "react";
 import {Alert, Button, Space, Card, Col, Form, message, Radio, RadioChangeEvent, Row, Switch, Typography} from "antd";
 import {RedoOutlined, SettingOutlined} from "@ant-design/icons";
-import {getFontColor} from "../typescripts/publicFunctions";
-import {defaultPreferenceData} from "../typescripts/publicConstants";
+import {getFontColor, getPreferenceDataStorage} from "../typescripts/publicFunctions";
 import {PreferenceDataInterface} from "../typescripts/publicInterface";
 
-const {Title, Text, Paragraph} = Typography;
+const {Title, Paragraph} = Typography;
 
 function PreferenceFunctionComponent(props: any) {
-    const [preferenceData, setPreferenceData] = useState(initPreferenceData());
+    const [preferenceData, setPreferenceData] = useState(getPreferenceDataStorage());
 
     function btnMouseOver(e: any) {
         e.currentTarget.style.backgroundColor = props.majorColor;
@@ -46,17 +45,6 @@ function PreferenceFunctionComponent(props: any) {
         localStorage.clear();
         message.success("已重置所有内容，一秒后刷新页面");
         refreshWindow();
-    }
-
-    // 初始化偏好设置
-    function initPreferenceData() {
-        let tempPreferenceData = localStorage.getItem("preferenceData");
-        if (tempPreferenceData === null) {
-            localStorage.setItem("preferenceData", JSON.stringify(defaultPreferenceData));
-            return defaultPreferenceData;
-        } else {
-            return JSON.parse(tempPreferenceData);
-        }
     }
 
     // 修改偏好设置

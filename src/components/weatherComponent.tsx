@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import {Button, Col, List, message, Popover, Row, Space, Typography} from "antd";
-import {EnvironmentOutlined, InfoCircleOutlined} from "@ant-design/icons";
+import {EnvironmentOutlined, MoreOutlined} from "@ant-design/icons";
 import {getFontColor, getSearchEngineDetail, getWeatherIcon, httpRequest,} from "../typescripts/publicFunctions";
 import "../stylesheets/publicStyles.scss"
 
@@ -97,7 +97,7 @@ function WeatherComponent(props: any) {
                 <Text className={"poemFont"} style={{color: getFontColor(props.minorColor)}}>{"天气信息"}</Text>
             </Col>
             <Col span={14} style={{textAlign: "right"}}>
-                <Button type={"text"} shape={props.preferenceData.buttonShape} icon={<InfoCircleOutlined/>}
+                <Button type={"text"} shape={props.preferenceData.buttonShape} icon={<MoreOutlined/>}
                         onMouseOver={btnMouseOver} onMouseOut={btnMouseOut}
                         onClick={infoBtnOnClick}
                         className={"poemFont"} style={{color: getFontColor(props.minorColor)}}>

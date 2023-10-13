@@ -4,11 +4,11 @@ import {
     CalendarOutlined,
     CheckCircleOutlined,
     CloseCircleOutlined,
-    HistoryOutlined,
-    InfoCircleOutlined,
-    StarOutlined
+    MoreOutlined,
 } from "@ant-design/icons";
 import {
+    // btnMouseOut,
+    // btnMouseOver,
     getFontColor,
     getGreetContent,
     getGreetIcon,
@@ -119,7 +119,7 @@ function GreetComponent(props: any) {
                 <Text className={"poemFont"} style={{color: getFontColor(props.minorColor)}}>{"万年历"}</Text>
             </Col>
             <Col span={14} style={{textAlign: "right"}}>
-                <Button type={"text"} shape={props.preferenceData.buttonShape} icon={<InfoCircleOutlined/>} onClick={infoBtnOnClick}
+                <Button type={"text"} shape={props.preferenceData.buttonShape} icon={<MoreOutlined/>} onClick={infoBtnOnClick}
                         onMouseOver={btnMouseOver} onMouseOut={btnMouseOut}
                         className={"poemFont"} style={{color: getFontColor(props.minorColor)}}>
                     {"更多信息"}
@@ -131,7 +131,7 @@ function GreetComponent(props: any) {
     const popoverContent = (
         <Space direction="vertical">
             <Button type={"text"} shape={props.preferenceData.buttonShape} icon={<CalendarOutlined/>}
-                    onMouseOver={btnMouseOver} onMouseOut={btnMouseOut}
+                    onMouseOver={btnMouseOver.bind(props.majorColor)} onMouseOut={btnMouseOut}
                     className={"poemFont"} style={{color: getFontColor(props.minorColor), cursor: "default"}}>
                 {calendar}
             </Button>

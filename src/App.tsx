@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {Col, Layout, Row, Space} from "antd";
 import "./stylesheets/publicStyles.scss"
-import {defaultPreferenceData} from "./typescripts/publicConstants";
 
 import GreetComponent from "./components/greetComponent";
 import WeatherComponent from "./components/weatherComponent";
@@ -10,7 +9,7 @@ import TodoComponent from "./components/todoComponent";
 import SunComponent from "./components/sunComponent";
 import PoemComponent from "./components/poemComponent";
 import WaveComponent from "./components/waveComponent";
-import {getFontColor, setColorTheme} from "./typescripts/publicFunctions";
+import {getFontColor, getPreferenceDataStorage, setColorTheme} from "./typescripts/publicFunctions";
 import PreferenceComponent from "./components/preferenceComponent";
 import {PreferenceDataInterface} from "./typescripts/publicInterface";
 import SearchComponent from "./components/searchComponent";
@@ -23,20 +22,13 @@ function App() {
     const [majorColor] = useState(themeArray.majorColor);
     const [minorColor] = useState(themeArray.minorColor);
     const [svgColors] = useState(themeArray.svgColors);
-    const [preferenceData, setPreferenceData] = useState(defaultPreferenceData);
+    const [preferenceData, setPreferenceData] = useState(getPreferenceDataStorage());
 
     function getPreferenceData(value: PreferenceDataInterface) {
         setPreferenceData(value);
     }
 
     useEffect(() => {
-        // 加载偏好设置
-        let tempPreferenceData = localStorage.getItem("preferenceData");
-        if (tempPreferenceData === null) {
-            localStorage.setItem("preferenceData", JSON.stringify(defaultPreferenceData));
-        }
-        setPreferenceData(tempPreferenceData === null ? defaultPreferenceData : JSON.parse(tempPreferenceData));
-
         // 随机颜色主题
         localStorage.setItem("themeArray", JSON.stringify(themeArray));
 
