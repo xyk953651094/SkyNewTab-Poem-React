@@ -4,6 +4,7 @@ import {
     CalendarOutlined,
     CheckCircleOutlined,
     CloseCircleOutlined,
+    HistoryOutlined,
     MoreOutlined,
 } from "@ant-design/icons";
 import {
@@ -41,6 +42,10 @@ function GreetComponent(props: any) {
         e.currentTarget.style.color = getFontColor(props.minorColor);
     }
 
+    function historyBtnOnClick() {
+        window.open(searchEngineUrl + "历史上的今天", "_blank");
+    }
+
     function infoBtnOnClick() {
         window.open(searchEngineUrl + "万年历", "_blank");
     }
@@ -67,7 +72,14 @@ function GreetComponent(props: any) {
                 })
                 .catch(function () {
                     // 请求失败也更新请求时间，防止超时后无信息可显示
-                    localStorage.setItem("lastHolidayRequestTime", String(new Date().getTime()));  // 保存请求时间，防抖节流
+                    // localStorage.setItem("lastHolidayRequestTime", String(new Date().getTime()));  // 保存请求时间，防抖节流
+
+                    // 请求失败时使用上一次请求结果
+                    let lastHoliday: any = localStorage.getItem("lastHoliday");
+                    if (lastHoliday) {
+                        lastHoliday = JSON.parse(lastHoliday);
+                        setHoliday(lastHoliday);
+                    }
                 });
         }
 
@@ -119,11 +131,18 @@ function GreetComponent(props: any) {
                 <Text className={"poemFont"} style={{color: getFontColor(props.minorColor)}}>{"万年历"}</Text>
             </Col>
             <Col span={14} style={{textAlign: "right"}}>
-                <Button type={"text"} shape={props.preferenceData.buttonShape} icon={<MoreOutlined/>} onClick={infoBtnOnClick}
-                        onMouseOver={btnMouseOver} onMouseOut={btnMouseOut}
-                        className={"poemFont"} style={{color: getFontColor(props.minorColor)}}>
-                    {"更多信息"}
-                </Button>
+                <Space>
+                    <Button type={"text"} shape={props.preferenceData.buttonShape} icon={<HistoryOutlined/>} onClick={historyBtnOnClick}
+                            onMouseOver={btnMouseOver} onMouseOut={btnMouseOut}
+                            className={"poemFont"} style={{color: getFontColor(props.minorColor)}}>
+                        {"历史上的今天"}
+                    </Button>
+                    <Button type={"text"} shape={props.preferenceData.buttonShape} icon={<MoreOutlined/>} onClick={infoBtnOnClick}
+                            onMouseOver={btnMouseOver} onMouseOut={btnMouseOut}
+                            className={"poemFont"} style={{color: getFontColor(props.minorColor)}}>
+                        {"更多信息"}
+                    </Button>
+                </Space>
             </Col>
         </Row>
     );

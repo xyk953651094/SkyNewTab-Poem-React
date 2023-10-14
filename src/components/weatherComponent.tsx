@@ -1,13 +1,20 @@
 import React, {useEffect, useState} from "react";
 import {Button, Col, List, message, Popover, Row, Space, Typography} from "antd";
-import {EnvironmentOutlined, MoreOutlined} from "@ant-design/icons";
-import {getFontColor, getSearchEngineDetail, getWeatherIcon, httpRequest,} from "../typescripts/publicFunctions";
+import {EnvironmentOutlined, MoreOutlined, ClockCircleOutlined} from "@ant-design/icons";
+import {
+    getFontColor,
+    getSearchEngineDetail,
+    getTimeDetails,
+    getWeatherIcon,
+    httpRequest,
+} from "../typescripts/publicFunctions";
 import "../stylesheets/publicStyles.scss"
 
 const {Text} = Typography;
 
 function WeatherComponent(props: any) {
     const [display, setDisplay] = useState(props.preferenceData.simpleMode ? "none" : "block");
+    const [lastRequestTime, setLastRequestTime] = useState("暂无信息");
     const [searchEngineUrl, setSearchEngineUrl] = useState("https://www.bing.com/search?q=");
     const [weatherIcon, setWeatherIcon] = useState("");
     const [weatherContent, setWeatherContent] = useState("暂无信息");
@@ -58,7 +65,14 @@ function WeatherComponent(props: any) {
                 })
                 .catch(function () {
                     // 请求失败也更新请求时间，防止超时后无信息可显示
-                    localStorage.setItem("lastWeatherRequestTime", String(new Date().getTime()));  // 保存请求时间，防抖节流
+                    // localStorage.setItem("lastWeatherRequestTime", String(new Date().getTime()));  // 保存请求时间，防抖节流
+
+                    // 请求失败时使用上一次请求结果
+                    let lastWeather: any = localStorage.getItem("lastWeather");
+                    if (lastWeather) {
+                        lastWeather = JSON.parse(lastWeather);
+                        setWeather(lastWeather);
+                    }
                 });
         }
 
@@ -75,11 +89,11 @@ function WeatherComponent(props: any) {
 
         // 防抖节流
         if (!props.preferenceData.simpleMode) {
-            let lastRequestTime: any = localStorage.getItem("lastWeatherRequestTime");
+            let tempLastRequestTime: any = localStorage.getItem("lastWeatherRequestTime");
             let nowTimeStamp = new Date().getTime();
-            if (lastRequestTime === null) {  // 第一次请求时 lastRequestTime 为 null，因此直接进行请求赋值 lastRequestTime
+            if (tempLastRequestTime === null) {  // 第一次请求时 tempLastRequestTime 为 null，因此直接进行请求赋值 tempLastRequestTime
                 getWeather();
-            } else if (nowTimeStamp - parseInt(lastRequestTime) > 0) {  // 必须多于一小时才能进行新的请求
+            } else if (nowTimeStamp - parseInt(tempLastRequestTime) > 0) {  // 必须多于一小时才能进行新的请求
                 getWeather();
             } else {  // 一小时之内使用上一次请求结果
                 let lastWeather: any = localStorage.getItem("lastWeather");
@@ -87,6 +101,10 @@ function WeatherComponent(props: any) {
                     lastWeather = JSON.parse(lastWeather);
                     setWeather(lastWeather);
                 }
+            }
+
+            if (tempLastRequestTime !== null) {
+                setLastRequestTime(getTimeDetails(new Date(parseInt(tempLastRequestTime))).showDetail);
             }
         }
     }, [props.preferenceData.searchEngine, props.preferenceData.simpleMode]);
@@ -111,6 +129,11 @@ function WeatherComponent(props: any) {
         <List>
             <List.Item>
                 <Space direction="vertical">
+                    <Button type={"text"} shape={props.preferenceData.buttonShape} icon={<ClockCircleOutlined/>}
+                            onMouseOver={btnMouseOver} onMouseOut={btnMouseOut}
+                            className={"poemFont"} style={{color: getFontColor(props.minorColor), cursor: "default"}}>
+                        {"最后更新时间：" + lastRequestTime}
+                    </Button>
                     <Row gutter={8}>
                         <Col span={12}>
                             <Button type={"text"} shape={props.preferenceData.buttonShape} icon={<EnvironmentOutlined/>}
