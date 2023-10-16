@@ -1,5 +1,6 @@
 import "jquery-color"
-import {chinaObject, chinaWindow} from "./publicConstants";
+import {chinaObject, chinaWindow, darkThemeArray, defaultPreferenceData, lightThemeArray} from "./publicConstants";
+import {PreferenceDataInterface} from "./publicInterface";
 
 const $ = require("jquery");
 
@@ -74,6 +75,7 @@ export function getTimeDetails(param: Date) {
         showDate4: year + "年" + month + "月" + day + "日",
         showDate5: year + "-" + month + "-" + day,
         showTime: hour + ":" + minute,
+        showDetail: year + "/" + month + "/" + day + " " + hour + ":" + minute + ":" + second,
         showLocaleDate: "农历" + localeDate.split(" ")[0] + "日"
     };
 }
@@ -154,6 +156,25 @@ export function getObjectClassName() {
     return chinaObject[index];
 }
 
+// 随机显示多彩颜色主题
+export function setColorTheme() {
+    let currentHour = parseInt(getTimeDetails(new Date()).hour);
+    let themeArray = lightThemeArray;
+    if(currentHour > 18 || currentHour < 6) {  // 夜间显示深色背景
+        themeArray = darkThemeArray;
+    }
+
+    let randomNum = Math.floor(Math.random() * themeArray.length);
+    let body = document.getElementsByTagName("body")[0];
+    body.style.backgroundColor = themeArray[randomNum].majorColor;    // 设置body背景颜色
+
+    return {
+        "majorColor": themeArray[randomNum].majorColor,
+        "minorColor": themeArray[randomNum].minorColor,
+        "svgColors": themeArray[randomNum].svgColors,
+    };  // 返回各组件背景颜色
+}
+
 // 根据图片背景颜色获取元素反色效果
 export function getReverseColor(color: string) {
     color = "0x" + color.replace("#", '');
@@ -225,4 +246,50 @@ export function getSearchEngineDetail(searchEngine: string) {
             break;
     }
     return {"searchEngineName": searchEngineName, "searchEngineUrl": searchEngineUrl, "searchEngineIconUrl": searchEngineIconUrl};
+}
+
+// 补全设置数据
+export function fixPreferenceData(preferenceData: PreferenceDataInterface) {
+    let isFixed = false;
+    if(!preferenceData.searchEngine) {
+        preferenceData.searchEngine = defaultPreferenceData.searchEngine;
+        isFixed = true;
+    }
+    if(!preferenceData.buttonShape) {
+        preferenceData.buttonShape = defaultPreferenceData.buttonShape;
+        isFixed = true;
+    }
+    if(preferenceData.simpleMode === undefined || preferenceData.simpleMode === null) {
+        preferenceData.simpleMode = defaultPreferenceData.simpleMode;
+        isFixed = true;
+    }
+    if(preferenceData.displayAlert === undefined || preferenceData.displayAlert === null) {
+        preferenceData.displayAlert = defaultPreferenceData.displayAlert;
+        isFixed = true;
+    }
+
+    if (isFixed) {
+        localStorage.setItem("preferenceData", JSON.stringify(preferenceData));  // 重新保存设置
+    }
+    return preferenceData;
+}
+
+export function getPreferenceDataStorage() {
+    let tempPreferenceData = localStorage.getItem("preferenceData");
+    if (tempPreferenceData === null) {
+        localStorage.setItem("preferenceData", JSON.stringify(defaultPreferenceData));
+        return defaultPreferenceData;
+    } else {
+        return fixPreferenceData(JSON.parse(tempPreferenceData));  // 检查是否缺少数据
+    }
+}
+
+export function btnMouseOver(e: any, color: string) {
+    e.currentTarget.style.backgroundColor = color;
+    e.currentTarget.style.color = getFontColor(color);
+}
+
+export function btnMouseOut(e: any, color: string) {
+    e.currentTarget.style.backgroundColor = "transparent";
+    e.currentTarget.style.color = getFontColor(color);
 }

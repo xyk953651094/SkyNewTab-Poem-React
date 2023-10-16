@@ -50,7 +50,7 @@ function PopupPoemComponent(props: any) {
         }
 
         getPoem();
-    }, []);
+    }, [props.preferenceData.searchEngine]);
 
     return (
         <Row justify="center" align="middle">

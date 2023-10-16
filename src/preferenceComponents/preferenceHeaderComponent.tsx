@@ -19,7 +19,7 @@ function PreferenceHeaderComponent(props: any) {
     return (
         <Row align={"middle"}>
             <Col span={12}>
-                <Text style={{color: getFontColor(props.minorColor)}}>{"菜单栏"}</Text>
+                <Text className={"poemFont"} style={{color: getFontColor(props.minorColor)}}>{"菜单栏"}</Text>
             </Col>
             <Col span={12} style={{textAlign: "right"}}>
                 <Button type={"text"} shape={props.preferenceData.buttonShape} icon={<GiftOutlined/>}

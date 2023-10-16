@@ -19,13 +19,13 @@ function PreferenceFooterComponent(props: any) {
             <Button type={"text"} shape={props.preferenceData.buttonShape} icon={<GithubOutlined/>}
                     href={"https://github.com/xyk953651094"} target={"_blank"}
                     onMouseOver={btnMouseOver} onMouseOut={btnMouseOut}
-                    style={{color: getFontColor(props.minorColor)}} className={"popupFont"}>
+                    style={{color: getFontColor(props.minorColor)}} className={"poemFont"}>
                 GitHub
             </Button>
             <Button type={"text"} shape={props.preferenceData.buttonShape} icon={<GitlabOutlined />}
                     href={"https://gitlab.com/xyk953651094"} target={"_blank"}
                     onMouseOver={btnMouseOver} onMouseOut={btnMouseOut}
-                    style={{color: getFontColor(props.minorColor)}} className={"popupFont"}>
+                    style={{color: getFontColor(props.minorColor)}} className={"poemFont"}>
                 GitLab
             </Button>
             <Button type={"text"} shape={props.preferenceData.buttonShape} icon={<NotificationOutlined/>}

@@ -1,70 +1,105 @@
 import {getDevice} from "./publicFunctions";
 import {PreferenceDataInterface} from "./publicInterface";
 
-export const themeArray: ({ majorColor: string; minorColor: string; svgColors: string[]; }[]) = [
-    // 深色
+export const lightThemeArray: ({ majorColor: string; minorColor: string; svgColors: string[]; }[]) = [
     {
-        'majorColor': '#5C2223',
-        'minorColor': '#F9F871',
-        'svgColors': ['#EAC557', '#D19546', '#AF693B', '#874330']
-    },  // 暗玉紫
+        'majorColor': '#F2E6CE', 'minorColor': '#6E8B74',
+        'svgColors': ['#C0C7AF', '#90A897', '#668883']
+    },
     {
-        'majorColor': '#2D0C13',
-        'minorColor': '#F9F871',
-        'svgColors': ['#E5BB55', '#C38445', '#965438', '#622C29']
-    },  // 茄皮紫
-    // {'majorColor': '#7A7374', 'minorColor': '#FFE3EC', 'svgColors':['#FBD0FF', '#C29AF2', '#F05E84', '#8A66B9']},  // 锌灰(不好看)
+        'majorColor': '#E2E1E4', 'minorColor': '#74759B',
+        'svgColors': ['#C3C6CE', '#9FACB7', '#7A959D']
+    },
     {
-        'majorColor': '#4A5E65',
-        'minorColor': '#F9F871',
-        'svgColors': ['#AAE180', '#6BC48F', '#47A392', '#448084']
-    },  // 月兰
-    // 浅色
+        'majorColor': '#B0B298', 'minorColor': '#475C4E',
+        'svgColors': ['#8C9E89', '#6B8A7D', '#507473']
+    },
     {
-        'majorColor': '#EEA2A4',
-        'minorColor': '#2F4858',
-        'svgColors': ['#CA8CA4', '#9F7B9D', '#746B8D', '#4D5A75']
-    },  // 牡丹粉
+        'majorColor': '#EFDFDF', 'minorColor': '#795A5F',
+        'svgColors': ['#CEBCC2', '#AA9CA8', '#827E8F']
+    },
     {
-        'majorColor': '#EF498B',
-        'minorColor': '#2F4858',
-        'svgColors': ['#BF52A0', '#895AA3', '#575A94', '#365378']
-    },  // 扁豆花红
+        'majorColor': '#F2EBD9', 'minorColor': '#66363C',
+        'svgColors': ['#C3CAB7', '#94AA9C', '#6A8985']
+    },
     {
-        'majorColor': '#E9D7DF',
-        'minorColor': '#276860',
-        'svgColors': ['#C9BDCF', '#A0A7BF', '#7192A9', '#447E89']
-    },  // 丁香淡紫
+        'majorColor': '#C9DD22', 'minorColor': '#2F2F35',
+        'svgColors': ['#66C958', '#00AD7C', '#008C89']
+    },
     {
-        'majorColor': '#F7C173',
-        'minorColor': '#2F4858',
-        'svgColors': ['#AAB467', '#689F70', '#368477', '#276670']
-    },  // 肉色
+        'majorColor': '#EEF7F2', 'minorColor': '#114E7A',
+        'svgColors': ['#C3D2CE', '#99AEAE', '#728B90']
+    },
     {
-        'majorColor': '#0EB0C9',
-        'minorColor': '#F9F871',
-        'svgColors': ['#B8F283', '#7AE69D', '#3BD7B5', '#00C5C5']
-    },  // 孔雀蓝
+        'majorColor': '#D1B894', 'minorColor': '#804145',
+        'svgColors': ['#A0A681', '#739178', '#4F7A72']
+    },
     {
-        'majorColor': '#57C3C2',
-        'minorColor': '#F9F871',
-        'svgColors': ['#C7F482', '#9AEB98', '#75E0AC', '#5CD2BB']
-    },  // 石绿
+        'majorColor': '#F6DCCE', 'minorColor': '#815C94',
+        'svgColors': ['#D8B8B7', '#B397A3', '#897B8F']
+    },
     {
-        'majorColor': '#D8E3E7',
-        'minorColor': '#7B5362',
-        'svgColors': ['#BAC7D2', '#A4AABD', '#948DA4', '#886F85']
-    },  // 云峰白
+        'majorColor': '#AFDDE0', 'minorColor': '#565F9A',
+        'svgColors': ['#94C3D7', '#89A6C9', '#8B87B2']
+    },
+];
+
+export const darkThemeArray: ({ majorColor: string; minorColor: string; svgColors: string[]; }[]) = [
     {
-        'majorColor': '#FDEDDE',
-        'minorColor': '#45455D',
-        'svgColors': ['#9BAB9B', '#6D8B84', '#48696F', '#2F4858']
-    },  // 荷花白、青黛
+        'majorColor': '#6E8B74', 'minorColor': '#F2E6CE',
+        'svgColors': ['#597F71', '#47726E', '#3A6469']
+    },
     {
-        'majorColor': '#C29F8F',
-        'minorColor': '#2F4858',
-        'svgColors': ['#B08889', '#957584', '#73657C', '#50576D']
-    },  // 脏橘
+        'majorColor': '#475C4E', 'minorColor': '#B0B298',
+        'svgColors': ['#4A8884', '#4A796F', '#4A6A5D']
+    },
+    {
+        'majorColor': '#795A5F', 'minorColor': '#EFDFDF',
+        'svgColors': ['#7A7E57', '#856F52', '#856358']
+    },
+    {
+        'majorColor': '#66363C', 'minorColor': '#F2EBD9',
+        'svgColors': ['#DC9A55', '#BC7350', '#935149']
+    },
+
+
+    {
+        'majorColor': '#A29192', 'minorColor': '#444C5E',
+        'svgColors': ['#918087', '#7D707D', '#656173']
+    },
+
+    {
+        'majorColor': '#444C5E', 'minorColor': '#A29192',
+        'svgColors': ['#34C0A1', '#0099A4', '#38718B']
+    },
+    {
+        'majorColor': '#9B9690', 'minorColor': '#0D0831',
+        'svgColors': ['#526964', '#3C595F', '#2F4858', ]
+    },
+    {
+        'majorColor': '#0D0831', 'minorColor': '#9B9690',
+        'svgColors': ['#DA6F58', '#A03E5B', '#58204F', ]
+    },
+    {
+        'majorColor': '#2F2F35', 'minorColor': '#C9DD22',
+        'svgColors': ['#E18575', '#A56477', '#614B61', ]
+    },
+    {
+        'majorColor': '#114E7A', 'minorColor': '#EEF7F2',
+        'svgColors': ['#00C298', '#009DA5', '#00759B', ]
+    },
+    {
+        'majorColor': '#804145', 'minorColor': '#D1B894',
+        'svgColors': ['#6B8746', '#826E33', '#895537']
+    },
+    {
+        'majorColor': '#815C94', 'minorColor': '#F6DCCE',
+        'svgColors': ['#FF9C75', '#EF7A89', '#BE6796']
+    },
+    {
+        'majorColor': '#565F9A', 'minorColor': '#AFDDE0',
+        'svgColors': ['#9F66AB', '#8664A8', '#6E62A2']
+    },
 ];
 
 // 中国窗体

@@ -16,6 +16,5 @@ root.render(
         <App/>
         {/*<PopupComponent/>*/}
     </ConfigProvider>
-
     // </React.StrictMode>
 );

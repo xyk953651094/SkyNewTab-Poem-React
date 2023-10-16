@@ -1,14 +1,13 @@
 import React, {useEffect, useState} from "react";
 import {Layout, List, Space} from "antd";
 import "../stylesheets/popupComponent.scss"
-import {defaultPreferenceData, themeArray} from "../typescripts/publicConstants";
 import PopupPoemComponent from "../popupComponents/popupPoemComponent";
 import PopupFooterComponent from "../popupComponents/popupFooterComponent";
 import PopupWindowComponent from "../popupComponents/popupWindowComponent";
 import PopupObjectComponent from "../popupComponents/popupObjectComponent";
 import PopupStatusComponent from "../popupComponents/popupStatusComponent";
 import PopupHeaderComponent from "../popupComponents/popupHeaderComponent";
-import {getFontColor} from "../typescripts/publicFunctions";
+import {getFontColor, getPreferenceDataStorage, setColorTheme} from "../typescripts/publicFunctions";
 
 const {Header, Content, Footer} = Layout;
 const $ = require("jquery")
@@ -16,27 +15,22 @@ const $ = require("jquery")
 function PopupComponent() {
     const [majorColor, setMajorColor] = useState("#000000");
     const [minorColor, setMinorColor] = useState("#ffffff");
-    const [preferenceData, setPreferenceData] = useState(defaultPreferenceData);
+    const [preferenceData, setPreferenceData] = useState(getPreferenceDataStorage());
 
     useEffect(() => {
-        // 加载偏好设置
-        let tempPreferenceData = localStorage.getItem("preferenceData");
-        if (tempPreferenceData === null) {
-            localStorage.setItem("preferenceData", JSON.stringify(defaultPreferenceData));
-        }
-        setPreferenceData(tempPreferenceData === null ? defaultPreferenceData : JSON.parse(tempPreferenceData));
-
         // 设置颜色主题
-        let bodyEle = $("body");
-        let randomNum = Math.floor(Math.random() * themeArray.length);  // 随机选择
-        let themeColor = themeArray[randomNum];
-        let tempThemeColor = localStorage.getItem("themeColor");
-        if (tempThemeColor) {
-            themeColor = JSON.parse(tempThemeColor);
+        let themeArray;
+        let tempThemeArray = localStorage.getItem("themeArray");
+        if (tempThemeArray) {
+            themeArray = JSON.parse(tempThemeArray);
+            let bodyEle = $("body");
+            bodyEle.css("backgroundColor", themeArray.minorColor + " !important");
         }
-        bodyEle.css("backgroundColor", themeColor.minorColor + " !important");
-        setMajorColor(themeColor.majorColor);
-        setMinorColor(themeColor.minorColor);
+        else {
+            themeArray = setColorTheme();
+        }
+        setMajorColor(themeArray.majorColor);
+        setMinorColor(themeArray.minorColor);
     }, [])
 
     return (

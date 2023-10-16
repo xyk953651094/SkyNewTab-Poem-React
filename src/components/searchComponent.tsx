@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import {Button, Popover, Input, Row, Col, Typography, Divider} from "antd";
-import {SearchOutlined} from "@ant-design/icons";
+import {SearchOutlined, MenuOutlined} from "@ant-design/icons";
 import {getFontColor, getSearchEngineDetail} from "../typescripts/publicFunctions";
 
 const {Text} = Typography;
@@ -15,6 +15,18 @@ function SearchComponent(props: any) {
         window.open(searchEngineUrl + e.target.value);
     }
 
+    function changeSearchEngine() {
+        const searchEngines = ["Baidu", "Bing", "Google", "Yandex"];
+        let currentIndex = searchEngines.indexOf(searchEngineName);
+        let nextIndex = 0;
+        if (currentIndex !== searchEngines.length - 1) {
+            nextIndex = currentIndex + 1;
+        }
+
+        setSearchEngineName(searchEngines[nextIndex]);
+        setSearchEngineUrl(getSearchEngineDetail(searchEngines[nextIndex].toLowerCase()).searchEngineUrl)
+    }
+
     useEffect(() => {
         let searchEngineDetail = getSearchEngineDetail(props.preferenceData.searchEngine);
         setDisplay(props.preferenceData.simpleMode ? "none" : "block");
@@ -26,19 +38,19 @@ function SearchComponent(props: any) {
     const popoverTitle = (
         <Row align={"middle"}>
             <Col span={24}>
-                <Text className={"poemFont"} style={{color: getFontColor(props.minorColor)}}>{"搜索栏"}</Text>
+                <Text className={"poemFont"} style={{color: getFontColor(props.minorColor)}}>{"搜索栏（Beta）"}</Text>
             </Col>
         </Row>
     );
 
     const popoverContent = (
         <Input
+            id={"searchInput"}
             className={"poemFont"}
             prefix={
                 <Row align={"middle"}>
-                    <Button type={"text"} size={"small"} className={"poemFont"}
+                    <Button type={"text"} size={"small"} className={"poemFont"} onClick={changeSearchEngine}
                             style={{
-                                cursor: "default",
                                 backgroundColor: props.minorColor,
                                 color: getFontColor(props.minorColor)
                             }}>
@@ -57,8 +69,7 @@ function SearchComponent(props: any) {
     return (
         <Popover title={popoverTitle} content={popoverContent} placement={"bottomLeft"}
                  color={props.minorColor} overlayStyle={{width: "550px"}}>
-            <Button type={"text"} shape={buttonShape} icon={<SearchOutlined />} size={"large"}
-                    id={"dailyBtn"}
+            <Button type={"text"} shape={buttonShape} icon={<SearchOutlined style={{fontSize: "16px"}}/>} size={"large"}
                     className={"componentTheme poemFont"}
                     style={{
                         cursor: "default",
@@ -66,8 +77,7 @@ function SearchComponent(props: any) {
                         backgroundColor: props.minorColor,
                         color: getFontColor(props.minorColor)
                     }}
-            >
-            </Button>
+            />
         </Popover>
     );
 
