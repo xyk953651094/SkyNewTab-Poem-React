@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {Col, Layout, Row, Space} from "antd";
+import {Col, Layout, notification, Row, Space} from "antd";
 import "./stylesheets/publicStyles.scss"
 
 import GreetComponent from "./components/greetComponent";
@@ -31,6 +31,20 @@ function App() {
     useEffect(() => {
         // 随机颜色主题
         localStorage.setItem("themeArray", JSON.stringify(themeArray));
+
+        // 版本号提醒
+        let storageVersion = localStorage.getItem("SkyNewTabPoemReactVersion");
+        let currentVersion = require('../package.json').version;
+        if(storageVersion !== currentVersion) {
+            notification.info({
+                message: "已更新至 " + currentVersion,
+                description: "详情请前往 GitHub 或 GitLab 查看",
+                placement: "bottomLeft",
+                duration: 5,
+                closeIcon: false
+            });
+            localStorage.setItem("SkyNewTabPoemReactVersion", currentVersion);
+        }
 
         // 修改弹窗主题
         let bodyEle = $("body");
@@ -67,6 +81,15 @@ function App() {
                     "color": getFontColor(minorColor)
                 });
                 $(".ant-message-custom-content > .anticon").css("color", getFontColor(minorColor));
+            }
+
+            // notification
+            let notificationEle = $(".ant-notification");
+            if (notificationEle.length && notificationEle.length > 0) {
+                $(".ant-notification-notice").css({"backgroundColor": minorColor});
+                $(".ant-notification-notice-icon").css("color", getFontColor(minorColor));
+                $(".ant-notification-notice-message").css("color", getFontColor(minorColor));
+                $(".ant-notification-notice-description").css("color", getFontColor(minorColor));
             }
 
             // drawer
