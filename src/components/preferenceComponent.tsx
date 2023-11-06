@@ -15,7 +15,6 @@ import PreferenceToTopComponent from "../preferenceComponents/preferenceToTopCom
 function PreferenceComponent(props: any) {
     const [displayDrawer, setDisplayDrawer] = useState(false);
     const [drawerPosition, setDrawerPosition] = useState<"right" | "bottom">("right");
-    const [buttonShape, setButtonShape] = useState<"circle" | "default" | "round" | undefined>("round");
 
     function showDrawerBtnOnClick() {
         setDisplayDrawer(true);
@@ -26,8 +25,6 @@ function PreferenceComponent(props: any) {
     }
 
     useEffect(() => {
-        setButtonShape(props.preferenceData.buttonShape === "round" ? "circle" : "default");
-
         // 屏幕适配
         if (device === "iPhone" || device === "Android") {
             setDrawerPosition("bottom")
@@ -37,7 +34,7 @@ function PreferenceComponent(props: any) {
     return (
         <>
             <Tooltip title={"菜单栏"} placement={"bottomRight"} color={props.minorColor}>
-                <Button type={"text"} shape={buttonShape} icon={<MenuOutlined style={{fontSize: "16px"}}/>} size={"large"}
+                <Button type={"text"} shape={props.preferenceData.buttonShape === "round" ? "circle" : "default"} icon={<MenuOutlined style={{fontSize: "16px"}}/>} size={"large"}
                         onClick={showDrawerBtnOnClick}
                         id={"preferenceBtn"}
                         className={"componentTheme poemFont"}
