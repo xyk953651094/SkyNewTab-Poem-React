@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import {Button, Popover, Input, Row, Col, Typography, Divider} from "antd";
-import {SearchOutlined, MenuOutlined} from "@ant-design/icons";
+import {SearchOutlined} from "@ant-design/icons";
 import {getFontColor, getSearchEngineDetail} from "../typescripts/publicFunctions";
 
 const {Text} = Typography;
@@ -9,7 +9,6 @@ function SearchComponent(props: any) {
     const [display, setDisplay] = useState("block");
     const [searchEngineName, setSearchEngineName] = useState("Bing");
     const [searchEngineUrl, setSearchEngineUrl] = useState("https://www.bing.com/search?q=");
-    const [buttonShape, setButtonShape] = useState<"circle" | "default" | "round" | undefined>("round");
 
     function onPressEnter(e: any) {
         window.open(searchEngineUrl + e.target.value);
@@ -32,7 +31,6 @@ function SearchComponent(props: any) {
         setDisplay(props.preferenceData.simpleMode ? "none" : "block");
         setSearchEngineName(searchEngineDetail.searchEngineName);
         setSearchEngineUrl(searchEngineDetail.searchEngineUrl);
-        setButtonShape(props.preferenceData.buttonShape === "round" ? "circle" : "default");
     }, [props.preferenceData.buttonShape, props.preferenceData.searchEngine, props.preferenceData.simpleMode])
 
     const popoverTitle = (
@@ -69,7 +67,7 @@ function SearchComponent(props: any) {
     return (
         <Popover title={popoverTitle} content={popoverContent} placement={"bottomLeft"}
                  color={props.minorColor} overlayStyle={{width: "550px"}}>
-            <Button type={"text"} shape={buttonShape} icon={<SearchOutlined style={{fontSize: "16px"}}/>} size={"large"}
+            <Button type={"text"} shape={props.preferenceData.buttonShape === "round" ? "circle" : "default"} icon={<SearchOutlined style={{fontSize: "16px"}}/>} size={"large"}
                     className={"componentTheme poemFont"}
                     style={{
                         cursor: "default",
