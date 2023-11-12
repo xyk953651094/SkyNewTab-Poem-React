@@ -129,11 +129,6 @@ function WeatherComponent(props: any) {
         <List>
             <List.Item>
                 <Space direction="vertical">
-                    <Button type={"text"} shape={props.preferenceData.buttonShape} icon={<ClockCircleOutlined/>}
-                            onMouseOver={btnMouseOver} onMouseOut={btnMouseOut}
-                            className={"poemFont"} style={{color: getFontColor(props.minorColor), cursor: "default"}}>
-                        {"最后更新时间：" + lastRequestTime}
-                    </Button>
                     <Row gutter={8}>
                         <Col span={12}>
                             <Button type={"text"} shape={props.preferenceData.buttonShape} icon={<EnvironmentOutlined/>}
@@ -182,6 +177,13 @@ function WeatherComponent(props: any) {
                                 {"视线距离：" + visibility}
                             </Button>
                         </Col>
+                    </Row>
+                    <Row>
+                        <Button type={"text"} shape={props.preferenceData.buttonShape} icon={<ClockCircleOutlined/>}
+                                onMouseOver={btnMouseOver} onMouseOut={btnMouseOut}
+                                className={"poemFont"} style={{color: getFontColor(props.minorColor), cursor: "default"}}>
+                            {"上次更新：" + lastRequestTime}
+                        </Button>
                     </Row>
                 </Space>
             </List.Item>

@@ -13,6 +13,7 @@ import {getFontColor, getPreferenceDataStorage, setColorTheme} from "./typescrip
 import PreferenceComponent from "./components/preferenceComponent";
 import {PreferenceDataInterface} from "./typescripts/publicInterface";
 import SearchComponent from "./components/searchComponent";
+import ClockComponent from "./components/clockComponent";
 
 const {Header, Content, Footer} = Layout;
 const $ = require('jquery');
@@ -185,10 +186,20 @@ function App() {
                 <SunComponent sunColors={svgColors}/>
             </Header>
             <Content id={"content"} className="alignCenter">
-                <PoemComponent
-                    minorColor={minorColor}
-                    preferenceData={preferenceData}
-                />
+                <Row gutter={[0, 8]}>
+                    <Col xs={0} sm={0} md={24} lg={24} xl={24} xxl={24}>
+                        <ClockComponent
+                            majorColor={majorColor}
+                            minorColor={minorColor}
+                        />
+                    </Col>
+                    <Col span={24}>
+                        <PoemComponent
+                            minorColor={minorColor}
+                            preferenceData={preferenceData}
+                        />
+                    </Col>
+                </Row>
             </Content>
             <Footer id={"footer"}>
                 <WaveComponent waveColors={svgColors}/>

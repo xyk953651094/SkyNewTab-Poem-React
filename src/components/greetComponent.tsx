@@ -27,7 +27,7 @@ function GreetComponent(props: any) {
     const [searchEngineUrl, setSearchEngineUrl] = useState("https://www.bing.com/search?q=");
     const [greetIcon, setGreetIcon] = useState(getGreetIcon());
     const [greetContent, setGreetContent] = useState(getGreetContent());
-    const [holidayContent, setHolidayContent] = useState("");
+    const [holidayContent, setHolidayContent] = useState("暂无信息");
     const [calendar, setCalendar] = useState(getTimeDetails(new Date()).showDate4 + " " + getTimeDetails(new Date()).showWeek);
     const [suit, setSuit] = useState("暂无信息");
     const [avoid, setAvoid] = useState("暂无信息");
@@ -71,9 +71,6 @@ function GreetComponent(props: any) {
                     }
                 })
                 .catch(function () {
-                    // 请求失败也更新请求时间，防止超时后无信息可显示
-                    // localStorage.setItem("lastHolidayRequestTime", String(new Date().getTime()));  // 保存请求时间，防抖节流
-
                     // 请求失败时使用上一次请求结果
                     let lastHoliday: any = localStorage.getItem("lastHoliday");
                     if (lastHoliday) {
