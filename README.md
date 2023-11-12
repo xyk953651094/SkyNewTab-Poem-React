@@ -16,8 +16,13 @@
 ## 安装
 * Chrome、Edge、Firefox：前往插件商店搜索“云开诗词新标签页”（推荐）
 * Safari：由于成本原因，暂不提供安装方式
-* 其他浏览器（Brave、Avast、Whale、Opera、WaterFox 等）：前往 Chrome 插件商店或 FireFox 插件商店搜索安装（推荐），或者下载 Releases 页面提供的安装包自行安装
-* 注意：由于 Edge 的插件审核周期过长（一般超过7天），因此 Edge 更新时间一般晚于 Chrome 和 Firefox
+* 其他浏览器（Brave、Avast、Whale、Opera、WaterFox 等）：前往 Chrome 插件商店或 FireFox 插件商店搜索“云开诗词新标签页”（推荐）
+* 下载 [Releases](https://github.com/xyk953651094/SkyNewTab-Poem-React/releases/) 页面提供的安装包自行安装
+
+## 注意
+* 由于 Edge 插件商店审核周期过长（一般为 7 天），Edge 更新时间会晚于 Chrome 和 Firefox
+* Firefox 版本号需要 109.0.0 或以上
+* Chromium 下载 crx 文件，Firefox 下载 xpi 文件
 
 ## 指南
 * 插件出现任何异常可尝试“重置插件”按钮
