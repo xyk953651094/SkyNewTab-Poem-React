@@ -284,12 +284,12 @@ export function getPreferenceDataStorage() {
     }
 }
 
-export function btnMouseOver(e: any, color: string) {
+export function btnMouseOver(color: string, e: any) {
     e.currentTarget.style.backgroundColor = color;
     e.currentTarget.style.color = getFontColor(color);
 }
 
-export function btnMouseOut(e: any, color: string) {
+export function btnMouseOut(color: string, e: any) {
     e.currentTarget.style.backgroundColor = "transparent";
     e.currentTarget.style.color = getFontColor(color);
 }

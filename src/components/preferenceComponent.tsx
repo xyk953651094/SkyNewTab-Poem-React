@@ -3,7 +3,6 @@ import {Button, Drawer, Space, Tooltip} from "antd";
 import {MenuOutlined} from "@ant-design/icons";
 import {getFontColor} from "../typescripts/publicFunctions";
 import {device} from "../typescripts/publicConstants";
-import PreferenceLinkComponent from "../preferenceComponents/preferenceLinkComponent";
 import PreferenceInfoComponent from "../preferenceComponents/preferenceInfoComponent";
 import PreferenceFooterComponent from "../preferenceComponents/preferenceFooterComponent";
 import PreferenceEmailComponent from "../preferenceComponents/preferenceEmailComponent";
