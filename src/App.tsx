@@ -47,9 +47,10 @@ function App() {
         let storageVersion = localStorage.getItem("SkyNewTabPoemReactVersion");
         let currentVersion = require('../package.json').version;
         if(storageVersion !== currentVersion) {
-            notification.info({
-                message: "已更新至 " + currentVersion,
-                description: "详情请前往 GitHub 或 GitLab 查看",
+            notification.open({
+                icon: null,
+                message: "已更新至版本 V" + currentVersion,
+                description: "详细更新内容请前往 GitHub 或 GitLab 主页查看",
                 placement: "bottomLeft",
                 duration: 5,
                 closeIcon: false
