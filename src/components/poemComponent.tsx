@@ -47,9 +47,9 @@ function PoemComponent(props: any) {
 
     function getPoem() {
         poemRequest.load((result: any) => {
-            // TODO: 处理请求失败
             localStorage.setItem("lastPoemRequestTime", String(new Date().getTime()));  // 保存请求时间，防抖节流
             localStorage.setItem("lastPoem", JSON.stringify(result));                   // 保存请求结果，防抖节流
+
             setPoem(result);
         });
     }

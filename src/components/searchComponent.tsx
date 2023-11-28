@@ -67,7 +67,8 @@ function SearchComponent(props: any) {
     return (
         <Popover title={popoverTitle} content={popoverContent} placement={"bottomLeft"}
                  color={props.minorColor} overlayStyle={{width: "550px"}}>
-            <Button type={"text"} shape={props.preferenceData.buttonShape} icon={<SearchOutlined style={{fontSize: "16px"}}/>} size={"large"}
+            <Button type={"text"} shape={props.preferenceData.buttonShape === "round" ? "circle" : "default"}
+                    icon={<SearchOutlined style={{fontSize: "16px"}}/>} size={"large"}
                     className={"componentTheme poemFont"}
                     style={{
                         cursor: "default",
@@ -75,7 +76,7 @@ function SearchComponent(props: any) {
                         backgroundColor: props.minorColor,
                         color: getFontColor(props.minorColor)
                     }}
-            >{"搜索"}</Button>
+            />
         </Popover>
     );
 

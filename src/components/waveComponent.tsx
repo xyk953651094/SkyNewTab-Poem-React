@@ -1,4 +1,5 @@
 import React, {useEffect} from 'react';
+import "../stylesheets/publicStyles.scss"
 import "../stylesheets/waveComponent.scss"
 
 function WaveComponent(props: any) {
@@ -7,7 +8,7 @@ function WaveComponent(props: any) {
     });
 
     return (
-        <div className="waveDiv">
+        <div className="waveDiv zIndexLow">
             <svg className="waveSvg" viewBox="0 24 150 24" preserveAspectRatio="none">
                 <defs>
                     <path id="wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z"/>

@@ -119,7 +119,7 @@ function WeatherComponent(props: any) {
         <List>
             <List.Item>
                 <Space direction="vertical">
-                    <Row gutter={8}>
+                    <Row gutter={16}>
                         <Col span={12}>
                             <Button type={"text"} shape={props.preferenceData.buttonShape} icon={<EnvironmentOutlined/>}
                                     onMouseOver={(e)=>btnMouseOver(props.majorColor, e)} onMouseOut={(e)=>btnMouseOut(props.minorColor, e)}
@@ -136,7 +136,7 @@ function WeatherComponent(props: any) {
                             </Button>
                         </Col>
                     </Row>
-                    <Row gutter={8}>
+                    <Row gutter={16}>
                         <Col span={12}>
                             <Button type="text" shape={props.preferenceData.buttonShape} icon={<i className="bi bi-moisture"></i>}
                                     onMouseOver={(e)=>btnMouseOver(props.majorColor, e)} onMouseOut={(e)=>btnMouseOut(props.minorColor, e)}
@@ -152,7 +152,7 @@ function WeatherComponent(props: any) {
                             </Button>
                         </Col>
                     </Row>
-                    <Row gutter={8}>
+                    <Row gutter={16}>
                         <Col span={12}>
                             <Button type="text" shape={props.preferenceData.buttonShape} icon={<i className="bi bi-cloud-rain"></i>}
                                     onMouseOver={(e)=>btnMouseOver(props.majorColor, e)} onMouseOut={(e)=>btnMouseOut(props.minorColor, e)}

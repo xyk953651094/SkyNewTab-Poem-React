@@ -284,6 +284,15 @@ export function getPreferenceDataStorage() {
     }
 }
 
+export function getHolidayDataStorage() {
+    let tempHolidayData = localStorage.getItem("lastHoliday");
+    if (tempHolidayData !== null) {
+        return JSON.parse(tempHolidayData);
+    } else {
+        return null;
+    }
+}
+
 export function btnMouseOver(color: string, e: any) {
     e.currentTarget.style.backgroundColor = color;
     e.currentTarget.style.color = getFontColor(color);

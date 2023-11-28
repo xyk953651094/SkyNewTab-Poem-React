@@ -57,6 +57,7 @@ function GreetComponent(props: any) {
                     localStorage.setItem("lastHolidayRequestTime", String(new Date().getTime()));  // 保存请求时间，防抖节流
                     if (resultData.code === 1) {
                         localStorage.setItem("lastHoliday", JSON.stringify(resultData.data));      // 保存请求结果，防抖节流
+                        props.getHolidayData(resultData.data);                                     // 通知父组件更新节假日信息
                         setHoliday(resultData.data);
                     }
                 })

@@ -9,7 +9,12 @@ import TodoComponent from "./components/todoComponent";
 import SunComponent from "./components/sunComponent";
 import PoemComponent from "./components/poemComponent";
 import WaveComponent from "./components/waveComponent";
-import {getFontColor, getPreferenceDataStorage, setColorTheme} from "./typescripts/publicFunctions";
+import {
+    getFontColor,
+    getHolidayDataStorage,
+    getPreferenceDataStorage,
+    setColorTheme
+} from "./typescripts/publicFunctions";
 import PreferenceComponent from "./components/preferenceComponent";
 import {PreferenceDataInterface} from "./typescripts/publicInterface";
 import SearchComponent from "./components/searchComponent";
@@ -24,9 +29,14 @@ function App() {
     const [minorColor] = useState(themeArray.minorColor);
     const [svgColors] = useState(themeArray.svgColors);
     const [preferenceData, setPreferenceData] = useState(getPreferenceDataStorage());
+    const [holidayData, setHolidayData] = useState(getHolidayDataStorage());
 
     function getPreferenceData(value: PreferenceDataInterface) {
         setPreferenceData(value);
+    }
+
+    function getHolidayData(value: any) {
+        setHolidayData(value);
     }
 
     useEffect(() => {
@@ -133,9 +143,9 @@ function App() {
 
     return (
         <Layout>
-            <Header id={"header"} className={"zIndexMiddle"}>
+            <Header id={"header"}>
                 <Row justify="center">
-                    <Col xs={0} sm={0} md={0} lg={9} xl={9} xxl={9}>
+                    <Col xs={0} sm={0} md={0} lg={9} xl={9} xxl={9} className={"zIndexMiddle"}>
                         <Space>
                             <SearchComponent
                                 majorColor={majorColor}
@@ -146,6 +156,7 @@ function App() {
                                 majorColor={majorColor}
                                 minorColor={minorColor}
                                 preferenceData={preferenceData}
+                                getHolidayData={getHolidayData}
                             />
                             <WeatherComponent
                                 majorColor={majorColor}
@@ -189,8 +200,8 @@ function App() {
                 <Row gutter={[0, 8]}>
                     <Col xs={0} sm={0} md={24} lg={24} xl={24} xxl={24}>
                         <ClockComponent
-                            majorColor={majorColor}
                             minorColor={minorColor}
+                            holidayData={holidayData}
                         />
                     </Col>
                     <Col span={24}>
