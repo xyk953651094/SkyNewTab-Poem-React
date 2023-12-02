@@ -1,6 +1,6 @@
 import React from "react";
 import {Button, Card, Col, Row} from "antd";
-import {LikeOutlined, DislikeOutlined, MailOutlined} from "@ant-design/icons";
+import {LikeOutlined, DislikeOutlined, MailOutlined, QuestionCircleOutlined} from "@ant-design/icons";
 import {getFontColor, btnMouseOver, btnMouseOut} from "../typescripts/publicFunctions";
 
 function PreferenceEmailComponent(props: any) {
@@ -16,7 +16,7 @@ function PreferenceEmailComponent(props: any) {
               }}
               bodyStyle={{backgroundColor: props.minorColor}}
         >
-            <Row gutter={[0, 8]}>
+            <Row gutter={[8, 8]}>
                 <Col span="12">
                     <Button type={"text"} shape={props.preferenceData.buttonShape} icon={<LikeOutlined/>}
                             href={"mailto:xyk953651094@qq.com?&subject=云开诗词新标签页-功能建议"} target={"_blank"}
@@ -31,6 +31,14 @@ function PreferenceEmailComponent(props: any) {
                             onMouseOver={(e)=>btnMouseOver(props.majorColor, e)} onMouseOut={(e)=>btnMouseOut(props.minorColor, e)}
                             className={"poemFont"} style={{color: getFontColor(props.minorColor)}}>
                         问题反馈
+                    </Button>
+                </Col>
+                <Col span="12">
+                    <Button type={"text"} shape={props.preferenceData.buttonShape} icon={<QuestionCircleOutlined />}
+                            href={"mailto:xyk953651094@qq.com?&subject=云开诗词新标签页-问题反馈"} target={"_blank"}
+                            onMouseOver={(e)=>btnMouseOver(props.majorColor, e)} onMouseOut={(e)=>btnMouseOut(props.minorColor, e)}
+                            className={"poemFont"} style={{color: getFontColor(props.minorColor)}}>
+                        帮助文档
                     </Button>
                 </Col>
             </Row>
