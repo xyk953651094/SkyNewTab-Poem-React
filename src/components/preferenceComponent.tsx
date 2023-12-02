@@ -3,7 +3,6 @@ import {Button, Drawer, Space, Tooltip} from "antd";
 import {MenuOutlined} from "@ant-design/icons";
 import {getFontColor} from "../typescripts/publicFunctions";
 import {device} from "../typescripts/publicConstants";
-import PreferenceLinkComponent from "../preferenceComponents/preferenceLinkComponent";
 import PreferenceInfoComponent from "../preferenceComponents/preferenceInfoComponent";
 import PreferenceFooterComponent from "../preferenceComponents/preferenceFooterComponent";
 import PreferenceEmailComponent from "../preferenceComponents/preferenceEmailComponent";
@@ -43,7 +42,7 @@ function PreferenceComponent(props: any) {
             </Tooltip>
             <Drawer
                 size={"default"}
-                width={380}
+                width={400}
                 height={500}
                 placement={drawerPosition}
                 onClose={drawerOnClose}
@@ -93,11 +92,6 @@ function PreferenceComponent(props: any) {
                         minorColor={props.minorColor}
                         preferenceData={props.preferenceData}
                     />
-                    {/*<PreferenceLinkComponent*/}
-                    {/*    majorColor={props.majorColor}*/}
-                    {/*    minorColor={props.minorColor}*/}
-                    {/*    preferenceData={props.preferenceData}*/}
-                    {/*/>*/}
                     <PreferenceToTopComponent
                         majorColor={props.majorColor}
                         minorColor={props.minorColor}

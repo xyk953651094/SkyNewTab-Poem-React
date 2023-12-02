@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {Button, Col, Row, Space} from "antd";
 import "../stylesheets/poemComponent.scss"
-import {getFontColor, getSearchEngineDetail} from "../typescripts/publicFunctions";
+import {getFontColor, getSearchEngineDetail, btnMouseOver, btnMouseOut} from "../typescripts/publicFunctions";
 import {ReadOutlined, UserOutlined} from "@ant-design/icons";
 
 const poemMaxSize = 25;
@@ -11,16 +11,6 @@ function PopupPoemComponent(props: any) {
     const [poemContent, setPoemContent] = useState("海上生明月，天涯共此时。");
     const [poemAuthor, setPoemAuthor] = useState("张九龄");
     const [poemAuthorDetails, setPoemAuthorDetails] = useState("【唐】张九龄 ·《望月怀远》");
-
-    function btnMouseOver(e: any) {
-        e.currentTarget.style.backgroundColor = props.majorColor;
-        e.currentTarget.style.color = getFontColor(props.majorColor);
-    }
-
-    function btnMouseOut(e: any) {
-        e.currentTarget.style.backgroundColor = "transparent";
-        e.currentTarget.style.color = getFontColor(props.minorColor);
-    }
 
     function poemContentBtnOnClick() {
         window.open(searchEngineUrl + poemContent, "_blank");
@@ -58,7 +48,7 @@ function PopupPoemComponent(props: any) {
                 <Col span={24}>
                     <Button type="text" shape={props.preferenceData.buttonShape} icon={<ReadOutlined />} className="popupFont"
                             style={{color: getFontColor(props.minorColor)}}
-                            onClick={poemContentBtnOnClick} onMouseOver={btnMouseOver} onMouseOut={btnMouseOut}>
+                            onClick={poemContentBtnOnClick} onMouseOver={(e)=>btnMouseOver(props.majorColor, e)} onMouseOut={(e)=>btnMouseOut(props.minorColor, e)}>
                         {/*{"你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好..."}*/}
                         {poemContent.length < poemMaxSize ? poemContent : poemContent.substring(0, poemMaxSize) + "..."}
                     </Button>
@@ -66,7 +56,7 @@ function PopupPoemComponent(props: any) {
                 <Col span={24}>
                     <Button type="text" shape={props.preferenceData.buttonShape} icon={<UserOutlined />} className="popupFont"
                             style={{color: getFontColor(props.minorColor)}}
-                            onClick={poemAuthorBtnOnClick} onMouseOver={btnMouseOver} onMouseOut={btnMouseOut}>
+                            onClick={poemAuthorBtnOnClick} onMouseOver={(e)=>btnMouseOver(props.majorColor, e)} onMouseOut={(e)=>btnMouseOut(props.minorColor, e)}>
                         {poemAuthorDetails.length < poemMaxSize ? poemAuthorDetails : poemAuthorDetails.substring(0, poemMaxSize) + "..."}
                     </Button>
                 </Col>

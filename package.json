@@ -1,6 +1,6 @@
 {
   "name": "skynewtab-poem-react",
-  "version": "2.2.0",
+  "version": "2.4.0",
   "private": true,
   "dependencies": {
     "@douyinfe/semi-ui": "^2.43.1",

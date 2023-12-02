@@ -1,23 +1,13 @@
 import React from "react";
 import {Button, Space} from "antd";
 import {DashboardOutlined} from "@ant-design/icons";
-import {getFontColor} from "../typescripts/publicFunctions";
+import {getFontColor, btnMouseOver, btnMouseOut} from "../typescripts/publicFunctions";
 
 function PopupHeaderComponent(props: any) {
-    function btnMouseOver(e: any) {
-        e.currentTarget.style.backgroundColor = props.majorColor;
-        e.currentTarget.style.color = getFontColor(props.majorColor);
-    }
-
-    function btnMouseOut(e: any) {
-        e.currentTarget.style.backgroundColor = "transparent";
-        e.currentTarget.style.color = getFontColor(props.minorColor);
-    }
-
     return (
         <Space align={"center"}>
             <Button type={"text"} shape={props.preferenceData.buttonShape} icon={<DashboardOutlined/>}
-                    onMouseOver={btnMouseOver} onMouseOut={btnMouseOut}
+                    onMouseOver={(e)=>btnMouseOver(props.majorColor, e)} onMouseOut={(e)=>btnMouseOut(props.minorColor, e)}
                     style={{color: getFontColor(props.minorColor), cursor: "default"}}
                     className={"popupFont"}
             >

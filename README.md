@@ -1,4 +1,5 @@
 # 云开诗词新标签页 based on React
+
 ## 简介
 * 适用于 Chrome、Edge、Firefox、Safari 的新标签页插件
 * 基于 Html + TypeScript + CSS + React + Ant Design + Bootstrap Icon  
@@ -17,29 +18,11 @@
 * Chrome、Edge、Firefox：前往插件商店搜索“云开诗词新标签页”（推荐）
 * Safari：由于成本原因，暂不提供安装方式
 * 其他浏览器（Brave、Avast、Whale、Opera、WaterFox 等）：前往 Chrome 插件商店或 FireFox 插件商店搜索“云开诗词新标签页”（推荐）
-* 下载 [Releases](https://github.com/xyk953651094/SkyNewTab-Poem-React/releases/) 页面提供的安装包自行安装
+* 下载发布（Releases）页面提供的安装包自行安装
 
-## 注意
-* 由于 Edge 插件商店审核周期过长（一般为 7 天），Edge 更新时间会晚于 Chrome 和 Firefox
-* Firefox 版本号需要 109.0.0 或以上
-* Chromium 下载 crx 文件，Firefox 下载 xpi 文件
-
-## 指南
-* 插件出现任何异常可尝试“重置插件”按钮
-
-## 问题
-#### 为什么清除浏览器缓存会重置插件？
-答：本插件使用 LocalStorage 存储数据，清除浏览器缓存意味着清空插件的数据，请谨慎清除浏览器缓存
-#### 插件会发布移动端吗？
-答：虽然目前已支持移动端，但是使用体验仍未达到预期，因此暂时没有发布移动端的计划
-#### 为什么日历信息不准确？
-答：日历信息由第三方网站提供，若出现不准确的情形，可点击日历弹窗右上角的更多信息按钮
-#### 为什么天气信息不准确？
-答：天气信息由第三方网站提供，若出现不准确的情形，可点击天气弹窗右上角的更多信息按钮
-#### 为什么刷新后还是显示上一次的诗词？
-答：本插件设置了请求时间间隔，只有超过该时间间隔，才会请求并显示新的诗词
-#### 为什么显示的诗词经常是《春江花月夜》的内容？
-答：这是今日诗词API的自动保护机制，如果短时间内大量请求，会默认返回《春江花月夜》的内容
+## 帮助
+* GitHub Pages：https://xyk953651094.github.io/SkyDocuments
+* GitLab Pages：https://xyk953651094.gitlab.io/SkyDocuments
 
 ## 链接
 * 博客：https://xyk953651094.blogspot.com

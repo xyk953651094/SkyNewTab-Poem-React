@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from "react";
 import {Row, Col, Typography, Space} from "antd";
 import "../stylesheets/clockComponent.scss"
+import {getFontColor} from "../typescripts/publicFunctions";
 
 const {Text} = Typography;
 const $ = require("jquery");
@@ -11,7 +12,7 @@ function ClockComponent(props: any) {
     const [currentYear, setCurrentYear] = useState("暂无信息");
 
     function btnMouseOver(e: any) {
-        $(".clockText, .dateText").removeClass("textShadow").css("color", props.majorColor);
+        $(".clockText, .dateText").removeClass("textShadow").css("color", getFontColor(props.minorColor));
         e.currentTarget.style.backgroundColor = props.minorColor;
         e.currentTarget.classList.add("componentTheme");
     }
@@ -55,18 +56,16 @@ function ClockComponent(props: any) {
     }
 
     useEffect(() => {
-        let lastHolidayStorage = localStorage.getItem("lastHoliday");
-        if (lastHolidayStorage) {
-            let lastHoliday = JSON.parse(lastHolidayStorage);
-            setCurrentDate(lastHoliday.lunarCalendar);
-            setCurrentYear(lastHoliday.yearTips + lastHoliday.chineseZodiac + "年");
+        if(props.holidayData !== null) {
+            setCurrentDate(props.holidayData.lunarCalendar);
+            setCurrentYear(props.holidayData.yearTips + props.holidayData.chineseZodiac + "年");
         }
 
         // 每分钟刷新一次（日期与年份取的是万年历中请求的缓存数据，存在请求间隔，因此无法及时更新，只能更新时间）
         setInterval(() => {
             setCurrentTime(getLocaleTime());
         }, 60 * 1000);
-    }, [])
+    }, [props.holidayData])
 
     return (
         <Row justify={"center"}>

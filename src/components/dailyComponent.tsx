@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react";
 import type {DatePickerProps} from 'antd';
 import {Button, Col, DatePicker, Form, Input, List, message, Modal, Popover, Row, Space, Typography} from "antd";
 import {CalendarOutlined, ClockCircleOutlined, DeleteOutlined, PlusOutlined} from "@ant-design/icons";
-import {getFontColor, getTimeDetails} from "../typescripts/publicFunctions";
+import {btnMouseOut, btnMouseOver, getFontColor, getTimeDetails} from "../typescripts/publicFunctions";
 
 const {Text} = Typography;
 const $ = require("jquery");
@@ -16,15 +16,15 @@ function DailyComponent(props: any) {
     const [selectedTimeStamp, setSelectedTimeStamp] = useState(0);
     const [buttonShape, setButtonShape] = useState<"circle" | "default" | "round" | undefined>("round");
 
-    function btnMouseOver(e: any) {
-        e.currentTarget.style.backgroundColor = props.majorColor;
-        e.currentTarget.style.color = getFontColor(props.majorColor);
-    }
-
-    function btnMouseOut(e: any) {
-        e.currentTarget.style.backgroundColor = "transparent";
-        e.currentTarget.style.color = getFontColor(props.minorColor);
-    }
+    // function btnMouseOver(e: any) {
+    //     e.currentTarget.style.backgroundColor = props.majorColor;
+    //     e.currentTarget.style.color = getFontColor(props.majorColor);
+    // }
+    //
+    // function btnMouseOut(e: any) {
+    //     e.currentTarget.style.backgroundColor = "transparent";
+    //     e.currentTarget.style.color = getFontColor(props.minorColor);
+    // }
 
     function removeAllBtnOnClick() {
         let tempDaily = localStorage.getItem("daily");
@@ -149,13 +149,15 @@ function DailyComponent(props: any) {
             <Col span={14} style={{textAlign: "right"}}>
                 <Space>
                     <Button type={"text"} shape={props.preferenceData.buttonShape} icon={<PlusOutlined/>}
-                            onMouseOver={btnMouseOver} onMouseOut={btnMouseOut}
+                            onMouseOver={(e)=>btnMouseOver(props.majorColor, e)} 
+                            onMouseOut={(e)=>btnMouseOut(props.minorColor, e)}
                             className={"poemFont"}
                             style={{color: getFontColor(props.minorColor)}} onClick={showAddModalBtnOnClick}>
                         {"添加倒数日"}
                     </Button>
                     <Button type={"text"} shape={props.preferenceData.buttonShape} icon={<DeleteOutlined/>}
-                            onMouseOver={btnMouseOver} onMouseOut={btnMouseOut}
+                            onMouseOver={(e)=>btnMouseOver(props.majorColor, e)}  
+                            onMouseOut={(e)=>btnMouseOut(props.minorColor, e)}
                             className={"poemFont"}
                             style={{color: getFontColor(props.minorColor)}} onClick={removeAllBtnOnClick}>
                         {"全部删除"}
@@ -172,7 +174,7 @@ function DailyComponent(props: any) {
                 <List.Item
                     actions={[
                         <Button type={"text"} shape={buttonShape} icon={<DeleteOutlined/>}
-                                onMouseOver={btnMouseOver} onMouseOut={btnMouseOut}
+                                onMouseOver={(e)=>btnMouseOver(props.majorColor, e)}  onMouseOut={(e)=>btnMouseOut(props.minorColor, e)}
                                 onClick={(event) => removeBtnOnClick(item)}
                                 className={"poemFont"}
                                 style={{color: getFontColor(props.minorColor)}}/>
@@ -181,8 +183,8 @@ function DailyComponent(props: any) {
                     <Row style={{width: "100%"}}>
                         <Col span={10}>
                             <Button type={"text"} shape={props.preferenceData.buttonShape} icon={<CalendarOutlined/>}
-                                    onMouseOver={btnMouseOver}
-                                    onMouseOut={btnMouseOut}
+                                    onMouseOver={(e)=>btnMouseOver(props.majorColor, e)} 
+                                    onMouseOut={(e)=>btnMouseOut(props.minorColor, e)}
                                     className={"poemFont"}
                                     style={{color: getFontColor(props.minorColor), cursor: "default"}}>
                                 {item.title}
@@ -190,8 +192,8 @@ function DailyComponent(props: any) {
                         </Col>
                         <Col span={14}>
                             <Button type={"text"} shape={props.preferenceData.buttonShape} icon={<ClockCircleOutlined/>}
-                                    onMouseOver={btnMouseOver}
-                                    onMouseOut={btnMouseOut}
+                                    onMouseOver={(e)=>btnMouseOver(props.majorColor, e)} 
+                                    onMouseOut={(e)=>btnMouseOut(props.minorColor, e)}
                                     className={"poemFont"}
                                     style={{color: getFontColor(props.minorColor), cursor: "default"}}>
                                 {getTimeDetails(new Date(item.selectedTimeStamp)).showDate4 + "｜" + getDailyDescription(item.selectedTimeStamp)}

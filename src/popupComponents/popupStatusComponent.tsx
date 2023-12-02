@@ -7,7 +7,7 @@ import {
     getGreetContent,
     getGreetIcon,
     getSearchEngineDetail,
-    getWeatherIcon,
+    getWeatherIcon, btnMouseOver, btnMouseOut
 } from "../typescripts/publicFunctions";
 
 function PopupImageComponent(props: any) {
@@ -18,16 +18,6 @@ function PopupImageComponent(props: any) {
     const [dailySize, setDailySize] = useState(0);
     const [todoSize, setTodoSize] = useState(0);
     const [searchEngineUrl, setSearchEngineUrl] = useState("https://www.bing.com/search?q=");
-
-    function btnMouseOver(e: any) {
-        e.currentTarget.style.backgroundColor = props.majorColor;
-        e.currentTarget.style.color = getFontColor(props.majorColor);
-    }
-
-    function btnMouseOut(e: any) {
-        e.currentTarget.style.backgroundColor = "transparent";
-        e.currentTarget.style.color = getFontColor(props.minorColor);
-    }
 
     function greetBtnOnClick() {
         window.open(searchEngineUrl + "万年历", "_blank");
@@ -66,35 +56,35 @@ function PopupImageComponent(props: any) {
         <>
             <Space style={{display: props.preferenceData.simpleMode ? "none" : "inline-flex"}}>
                 <Button type={"text"} shape={props.preferenceData.buttonShape} icon={<i className={greetIcon}> </i>}
-                        onMouseOver={btnMouseOver} onMouseOut={btnMouseOut}
+                        onMouseOver={(e)=>btnMouseOver(props.majorColor, e)} onMouseOut={(e)=>btnMouseOut(props.minorColor, e)}
                         onClick={greetBtnOnClick}
                         className={"popupFont"}
                         style={{color: getFontColor(props.minorColor)}}>
                     {greetContent}
                 </Button>
                 <Button type={"text"} shape={props.preferenceData.buttonShape} icon={<i className={weatherIcon}> </i>}
-                        onMouseOver={btnMouseOver} onMouseOut={btnMouseOut}
+                        onMouseOver={(e)=>btnMouseOver(props.majorColor, e)} onMouseOut={(e)=>btnMouseOut(props.minorColor, e)}
                         onClick={weatherBtnOnClick}
                         className={"popupFont"}
                         style={{color: getFontColor(props.minorColor)}}>
                     {weatherContent}
                 </Button>
                 <Button type={"text"} shape={props.preferenceData.buttonShape} icon={<CalendarOutlined/>}
-                        onMouseOver={btnMouseOver}
-                        onMouseOut={btnMouseOut}
+                        onMouseOver={(e)=>btnMouseOver(props.majorColor, e)}
+                        onMouseOut={(e)=>btnMouseOut(props.minorColor, e)}
                         className={"popupFont"}
                         style={{color: getFontColor(props.minorColor), cursor: "default"}}>
                     {dailySize + " 个倒数日"}
                 </Button>
                 <Button type={"text"} shape={props.preferenceData.buttonShape} icon={<CheckSquareOutlined/>}
-                        onMouseOver={btnMouseOver} onMouseOut={btnMouseOut}
+                        onMouseOver={(e)=>btnMouseOver(props.majorColor, e)} onMouseOut={(e)=>btnMouseOut(props.minorColor, e)}
                         className={"popupFont"}
                         style={{color: getFontColor(props.minorColor), cursor: "default"}}>
                     {todoSize + " 个待办事项"}
                 </Button>
             </Space>
             <Button type={"text"} shape={props.preferenceData.buttonShape} icon={<InfoCircleOutlined/>}
-                    onMouseOver={btnMouseOver} onMouseOut={btnMouseOut}
+                    onMouseOver={(e)=>btnMouseOver(props.majorColor, e)} onMouseOut={(e)=>btnMouseOut(props.minorColor, e)}
                     className={"popupFont"}
                     style={{
                         color: getFontColor(props.minorColor),

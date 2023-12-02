@@ -1,4 +1,5 @@
 import React, {useEffect} from 'react';
+import "../stylesheets/publicStyles.scss"
 import "../stylesheets/sunComponent.scss"
 
 function SunComponent(props: any) {
@@ -7,7 +8,7 @@ function SunComponent(props: any) {
     });
 
     return (
-        <div className="sunDiv">
+        <div className="sunDiv zIndexLow">
             <svg className="sunSvg">
                 <circle id="sunCircle3" className="svgAnimation" cx="0" cy="0" r="140" fill={props.sunColors[2]}/>
                 <circle id="sunCircle2" className="svgAnimation" cx="0" cy="0" r="130" fill={props.sunColors[1]}/>
