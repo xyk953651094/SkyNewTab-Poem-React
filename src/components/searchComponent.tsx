@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {Button, Popover, Input, Row, Col, Typography, Divider} from "antd";
+import {Button, Col, Divider, Input, Popover, Row, Typography} from "antd";
 import {SearchOutlined} from "@ant-design/icons";
 import {getFontColor, getSearchEngineDetail} from "../typescripts/publicFunctions";
 
@@ -54,7 +54,7 @@ function SearchComponent(props: any) {
                             }}>
                         {searchEngineName}
                     </Button>
-                    <Divider type="vertical" />
+                    <Divider type="vertical"/>
                 </Row>
             }
             suffix={<SearchOutlined/>}

@@ -149,15 +149,15 @@ function DailyComponent(props: any) {
             <Col span={14} style={{textAlign: "right"}}>
                 <Space>
                     <Button type={"text"} shape={props.preferenceData.buttonShape} icon={<PlusOutlined/>}
-                            onMouseOver={(e)=>btnMouseOver(props.majorColor, e)} 
-                            onMouseOut={(e)=>btnMouseOut(props.minorColor, e)}
+                            onMouseOver={(e) => btnMouseOver(props.majorColor, e)}
+                            onMouseOut={(e) => btnMouseOut(props.minorColor, e)}
                             className={"poemFont"}
                             style={{color: getFontColor(props.minorColor)}} onClick={showAddModalBtnOnClick}>
                         {"添加倒数日"}
                     </Button>
                     <Button type={"text"} shape={props.preferenceData.buttonShape} icon={<DeleteOutlined/>}
-                            onMouseOver={(e)=>btnMouseOver(props.majorColor, e)}  
-                            onMouseOut={(e)=>btnMouseOut(props.minorColor, e)}
+                            onMouseOver={(e) => btnMouseOver(props.majorColor, e)}
+                            onMouseOut={(e) => btnMouseOut(props.minorColor, e)}
                             className={"poemFont"}
                             style={{color: getFontColor(props.minorColor)}} onClick={removeAllBtnOnClick}>
                         {"全部删除"}
@@ -174,7 +174,8 @@ function DailyComponent(props: any) {
                 <List.Item
                     actions={[
                         <Button type={"text"} shape={buttonShape} icon={<DeleteOutlined/>}
-                                onMouseOver={(e)=>btnMouseOver(props.majorColor, e)}  onMouseOut={(e)=>btnMouseOut(props.minorColor, e)}
+                                onMouseOver={(e) => btnMouseOver(props.majorColor, e)}
+                                onMouseOut={(e) => btnMouseOut(props.minorColor, e)}
                                 onClick={(event) => removeBtnOnClick(item)}
                                 className={"poemFont"}
                                 style={{color: getFontColor(props.minorColor)}}/>
@@ -183,8 +184,8 @@ function DailyComponent(props: any) {
                     <Row style={{width: "100%"}}>
                         <Col span={10}>
                             <Button type={"text"} shape={props.preferenceData.buttonShape} icon={<CalendarOutlined/>}
-                                    onMouseOver={(e)=>btnMouseOver(props.majorColor, e)} 
-                                    onMouseOut={(e)=>btnMouseOut(props.minorColor, e)}
+                                    onMouseOver={(e) => btnMouseOver(props.majorColor, e)}
+                                    onMouseOut={(e) => btnMouseOut(props.minorColor, e)}
                                     className={"poemFont"}
                                     style={{color: getFontColor(props.minorColor), cursor: "default"}}>
                                 {item.title}
@@ -192,8 +193,8 @@ function DailyComponent(props: any) {
                         </Col>
                         <Col span={14}>
                             <Button type={"text"} shape={props.preferenceData.buttonShape} icon={<ClockCircleOutlined/>}
-                                    onMouseOver={(e)=>btnMouseOver(props.majorColor, e)} 
-                                    onMouseOut={(e)=>btnMouseOut(props.minorColor, e)}
+                                    onMouseOver={(e) => btnMouseOver(props.majorColor, e)}
+                                    onMouseOut={(e) => btnMouseOut(props.minorColor, e)}
                                     className={"poemFont"}
                                     style={{color: getFontColor(props.minorColor), cursor: "default"}}>
                                 {getTimeDetails(new Date(item.selectedTimeStamp)).showDate4 + "｜" + getDailyDescription(item.selectedTimeStamp)}

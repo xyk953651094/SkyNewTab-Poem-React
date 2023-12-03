@@ -74,19 +74,19 @@ export const darkThemeArray: ({ majorColor: string; minorColor: string; svgColor
     },
     {
         'majorColor': '#9B9690', 'minorColor': '#0D0831',
-        'svgColors': ['#526964', '#3C595F', '#2F4858', ]
+        'svgColors': ['#526964', '#3C595F', '#2F4858',]
     },
     {
         'majorColor': '#0D0831', 'minorColor': '#9B9690',
-        'svgColors': ['#DA6F58', '#A03E5B', '#58204F', ]
+        'svgColors': ['#DA6F58', '#A03E5B', '#58204F',]
     },
     {
         'majorColor': '#2F2F35', 'minorColor': '#C9DD22',
-        'svgColors': ['#E18575', '#A56477', '#614B61', ]
+        'svgColors': ['#E18575', '#A56477', '#614B61',]
     },
     {
         'majorColor': '#114E7A', 'minorColor': '#EEF7F2',
-        'svgColors': ['#00C298', '#009DA5', '#00759B', ]
+        'svgColors': ['#00C298', '#009DA5', '#00759B',]
     },
     {
         'majorColor': '#804145', 'minorColor': '#D1B894',

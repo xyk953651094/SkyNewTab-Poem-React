@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {Button, Col, Row, Space} from "antd";
 import "../stylesheets/poemComponent.scss"
-import {getFontColor, getSearchEngineDetail, btnMouseOver, btnMouseOut} from "../typescripts/publicFunctions";
+import {btnMouseOut, btnMouseOver, getFontColor, getSearchEngineDetail} from "../typescripts/publicFunctions";
 import {ReadOutlined, UserOutlined} from "@ant-design/icons";
 
 const poemMaxSize = 25;
@@ -46,17 +46,21 @@ function PopupPoemComponent(props: any) {
         <Row justify="center" align="middle">
             <Space direction={"vertical"}>
                 <Col span={24}>
-                    <Button type="text" shape={props.preferenceData.buttonShape} icon={<ReadOutlined />} className="popupFont"
+                    <Button type="text" shape={props.preferenceData.buttonShape} icon={<ReadOutlined/>}
+                            className="popupFont"
                             style={{color: getFontColor(props.minorColor)}}
-                            onClick={poemContentBtnOnClick} onMouseOver={(e)=>btnMouseOver(props.majorColor, e)} onMouseOut={(e)=>btnMouseOut(props.minorColor, e)}>
+                            onClick={poemContentBtnOnClick} onMouseOver={(e) => btnMouseOver(props.majorColor, e)}
+                            onMouseOut={(e) => btnMouseOut(props.minorColor, e)}>
                         {/*{"你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好..."}*/}
                         {poemContent.length < poemMaxSize ? poemContent : poemContent.substring(0, poemMaxSize) + "..."}
                     </Button>
                 </Col>
                 <Col span={24}>
-                    <Button type="text" shape={props.preferenceData.buttonShape} icon={<UserOutlined />} className="popupFont"
+                    <Button type="text" shape={props.preferenceData.buttonShape} icon={<UserOutlined/>}
+                            className="popupFont"
                             style={{color: getFontColor(props.minorColor)}}
-                            onClick={poemAuthorBtnOnClick} onMouseOver={(e)=>btnMouseOver(props.majorColor, e)} onMouseOut={(e)=>btnMouseOut(props.minorColor, e)}>
+                            onClick={poemAuthorBtnOnClick} onMouseOver={(e) => btnMouseOver(props.majorColor, e)}
+                            onMouseOut={(e) => btnMouseOut(props.minorColor, e)}>
                         {poemAuthorDetails.length < poemMaxSize ? poemAuthorDetails : poemAuthorDetails.substring(0, poemMaxSize) + "..."}
                     </Button>
                 </Col>

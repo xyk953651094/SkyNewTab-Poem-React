@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
-import {Alert, Button, Space, Card, Col, Form, message, Radio, RadioChangeEvent, Row, Switch, Typography} from "antd";
+import {Alert, Button, Card, Col, Form, message, Radio, RadioChangeEvent, Row, Space, Switch, Typography} from "antd";
 import {RedoOutlined, SettingOutlined} from "@ant-design/icons";
-import {getFontColor, getPreferenceDataStorage, btnMouseOver, btnMouseOut} from "../typescripts/publicFunctions";
+import {btnMouseOut, btnMouseOver, getFontColor, getPreferenceDataStorage} from "../typescripts/publicFunctions";
 import {PreferenceDataInterface} from "../typescripts/publicInterface";
 
 const {Title, Paragraph} = Typography;
@@ -19,7 +19,7 @@ function PreferenceFunctionComponent(props: any) {
         });
         message.success("已更换搜索引擎");
     }
-    
+
     function buttonShapeRadioOnChange(event: RadioChangeEvent) {
         setPreferenceData((preferenceData: PreferenceDataInterface) => {
             let newPreferenceData = modifyPreferenceData({buttonShape: event.target.value});
@@ -107,7 +107,7 @@ function PreferenceFunctionComponent(props: any) {
                     </Radio.Group>
                 </Form.Item>
                 <Form.Item name={"buttonShape"} label={"按钮形状"}>
-                    <Radio.Group buttonStyle={"solid"} style={{width: "100%"}} 
+                    <Radio.Group buttonStyle={"solid"} style={{width: "100%"}}
                                  onChange={buttonShapeRadioOnChange}>
                         <Row>
                             <Col span={12}><Radio value={"round"}>圆形</Radio></Col>
@@ -131,7 +131,8 @@ function PreferenceFunctionComponent(props: any) {
                 </Row>
                 <Form.Item name={"clearStorageButton"} label={"危险设置"}>
                     <Button type={"text"} shape={preferenceData.buttonShape} icon={<RedoOutlined/>}
-                            onMouseOver={(e)=>btnMouseOver(props.majorColor, e)} onMouseOut={(e)=>btnMouseOut(props.minorColor, e)}
+                            onMouseOver={(e) => btnMouseOver(props.majorColor, e)}
+                            onMouseOut={(e) => btnMouseOut(props.minorColor, e)}
                             onClick={clearStorageBtnOnClick}
                             className={"poemFont"}
                             style={{color: getFontColor(props.minorColor)}}>

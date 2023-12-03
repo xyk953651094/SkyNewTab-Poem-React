@@ -160,7 +160,7 @@ export function getObjectClassName() {
 export function setColorTheme() {
     let currentHour = parseInt(getTimeDetails(new Date()).hour);
     let themeArray = lightThemeArray;
-    if(currentHour > 18 || currentHour < 6) {  // 夜间显示深色背景
+    if (currentHour > 18 || currentHour < 6) {  // 夜间显示深色背景
         themeArray = darkThemeArray;
     }
 
@@ -251,19 +251,19 @@ export function getSearchEngineDetail(searchEngine: string) {
 // 补全设置数据
 export function fixPreferenceData(preferenceData: PreferenceDataInterface) {
     let isFixed = false;
-    if(!preferenceData.searchEngine) {
+    if (!preferenceData.searchEngine) {
         preferenceData.searchEngine = defaultPreferenceData.searchEngine;
         isFixed = true;
     }
-    if(!preferenceData.buttonShape) {
+    if (!preferenceData.buttonShape) {
         preferenceData.buttonShape = defaultPreferenceData.buttonShape;
         isFixed = true;
     }
-    if(preferenceData.simpleMode === undefined || preferenceData.simpleMode === null) {
+    if (preferenceData.simpleMode === undefined || preferenceData.simpleMode === null) {
         preferenceData.simpleMode = defaultPreferenceData.simpleMode;
         isFixed = true;
     }
-    if(preferenceData.displayAlert === undefined || preferenceData.displayAlert === null) {
+    if (preferenceData.displayAlert === undefined || preferenceData.displayAlert === null) {
         preferenceData.displayAlert = defaultPreferenceData.displayAlert;
         isFixed = true;
     }

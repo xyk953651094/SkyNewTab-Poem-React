@@ -46,7 +46,7 @@ function App() {
         // 版本号提醒
         let storageVersion = localStorage.getItem("SkyNewTabPoemReactVersion");
         let currentVersion = require('../package.json').version;
-        if(storageVersion !== currentVersion) {
+        if (storageVersion !== currentVersion) {
             notification.open({
                 icon: null,
                 message: "已更新至版本 V" + currentVersion,
@@ -122,10 +122,9 @@ function App() {
                 }).addClass("poemFont");
                 $(".ant-form-item-label > label").css("color", getFontColor(minorColor)).addClass("poemFont");
                 $(".ant-modal-footer > .ant-btn").css("color", getFontColor(minorColor));
-                if(preferenceData.buttonShape === "round") {
+                if (preferenceData.buttonShape === "round") {
                     $(".ant-modal-footer > .ant-btn").addClass("poemFont ant-btn-round ant-btn-text").removeClass("ant-btn-default ant-btn-primary");
-                }
-                else {
+                } else {
                     $(".ant-modal-footer > .ant-btn").removeClass("ant-btn-round ant-btn-default ant-btn-primary").addClass("poemFont ant-btn-text");
                 }
                 $(".ant-modal-footer > .ant-btn").on("mouseover", (e: any) => {

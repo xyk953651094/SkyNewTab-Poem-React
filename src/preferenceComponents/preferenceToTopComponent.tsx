@@ -1,9 +1,9 @@
 import React from "react";
 import {Button, Row} from "antd";
 import {ToTopOutlined} from "@ant-design/icons";
-import {getFontColor, btnMouseOver, btnMouseOut} from "../typescripts/publicFunctions";
+import {btnMouseOut, btnMouseOver, getFontColor} from "../typescripts/publicFunctions";
 
-function PreferenceFooterComponent(props: any) {
+function PreferenceToTopComponent(props: any) {
     function toTopBtnOnClick() {
         let drawerContent: HTMLElement | null = document.getElementById("drawerContent");
         if (drawerContent) {
@@ -14,7 +14,8 @@ function PreferenceFooterComponent(props: any) {
     return (
         <Row justify={"center"}>
             <Button type={"text"} shape={props.preferenceData.buttonShape} icon={<ToTopOutlined/>}
-                    onMouseOver={(e)=>btnMouseOver(props.majorColor, e)} onMouseOut={(e)=>btnMouseOut(props.minorColor, e)}
+                    onMouseOver={(e) => btnMouseOver(props.majorColor, e)}
+                    onMouseOut={(e) => btnMouseOut(props.minorColor, e)}
                     onClick={toTopBtnOnClick}
                     style={{color: getFontColor(props.minorColor)}} className={"poemFont"}>
                 {"回到顶部"}
@@ -23,4 +24,4 @@ function PreferenceFooterComponent(props: any) {
     );
 }
 
-export default PreferenceFooterComponent;
+export default PreferenceToTopComponent;

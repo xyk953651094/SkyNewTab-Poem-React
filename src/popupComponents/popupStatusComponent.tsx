@@ -3,11 +3,13 @@ import {Button, Space} from "antd";
 import {CalendarOutlined, CheckSquareOutlined, InfoCircleOutlined} from "@ant-design/icons";
 import "../stylesheets/popupComponent.scss"
 import {
+    btnMouseOut,
+    btnMouseOver,
     getFontColor,
     getGreetContent,
     getGreetIcon,
     getSearchEngineDetail,
-    getWeatherIcon, btnMouseOver, btnMouseOut
+    getWeatherIcon
 } from "../typescripts/publicFunctions";
 
 function PopupImageComponent(props: any) {
@@ -56,35 +58,39 @@ function PopupImageComponent(props: any) {
         <>
             <Space style={{display: props.preferenceData.simpleMode ? "none" : "inline-flex"}}>
                 <Button type={"text"} shape={props.preferenceData.buttonShape} icon={<i className={greetIcon}> </i>}
-                        onMouseOver={(e)=>btnMouseOver(props.majorColor, e)} onMouseOut={(e)=>btnMouseOut(props.minorColor, e)}
+                        onMouseOver={(e) => btnMouseOver(props.majorColor, e)}
+                        onMouseOut={(e) => btnMouseOut(props.minorColor, e)}
                         onClick={greetBtnOnClick}
                         className={"popupFont"}
                         style={{color: getFontColor(props.minorColor)}}>
                     {greetContent}
                 </Button>
                 <Button type={"text"} shape={props.preferenceData.buttonShape} icon={<i className={weatherIcon}> </i>}
-                        onMouseOver={(e)=>btnMouseOver(props.majorColor, e)} onMouseOut={(e)=>btnMouseOut(props.minorColor, e)}
+                        onMouseOver={(e) => btnMouseOver(props.majorColor, e)}
+                        onMouseOut={(e) => btnMouseOut(props.minorColor, e)}
                         onClick={weatherBtnOnClick}
                         className={"popupFont"}
                         style={{color: getFontColor(props.minorColor)}}>
                     {weatherContent}
                 </Button>
                 <Button type={"text"} shape={props.preferenceData.buttonShape} icon={<CalendarOutlined/>}
-                        onMouseOver={(e)=>btnMouseOver(props.majorColor, e)}
-                        onMouseOut={(e)=>btnMouseOut(props.minorColor, e)}
+                        onMouseOver={(e) => btnMouseOver(props.majorColor, e)}
+                        onMouseOut={(e) => btnMouseOut(props.minorColor, e)}
                         className={"popupFont"}
                         style={{color: getFontColor(props.minorColor), cursor: "default"}}>
                     {dailySize + " 个倒数日"}
                 </Button>
                 <Button type={"text"} shape={props.preferenceData.buttonShape} icon={<CheckSquareOutlined/>}
-                        onMouseOver={(e)=>btnMouseOver(props.majorColor, e)} onMouseOut={(e)=>btnMouseOut(props.minorColor, e)}
+                        onMouseOver={(e) => btnMouseOver(props.majorColor, e)}
+                        onMouseOut={(e) => btnMouseOut(props.minorColor, e)}
                         className={"popupFont"}
                         style={{color: getFontColor(props.minorColor), cursor: "default"}}>
                     {todoSize + " 个待办事项"}
                 </Button>
             </Space>
             <Button type={"text"} shape={props.preferenceData.buttonShape} icon={<InfoCircleOutlined/>}
-                    onMouseOver={(e)=>btnMouseOver(props.majorColor, e)} onMouseOut={(e)=>btnMouseOut(props.minorColor, e)}
+                    onMouseOver={(e) => btnMouseOver(props.majorColor, e)}
+                    onMouseOut={(e) => btnMouseOut(props.minorColor, e)}
                     className={"popupFont"}
                     style={{
                         color: getFontColor(props.minorColor),

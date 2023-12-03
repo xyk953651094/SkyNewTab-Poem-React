@@ -77,14 +77,16 @@ function PoemComponent(props: any) {
         <Row justify="center" align="middle">
             <Space direction={"vertical"}>
                 <Col xs={0} sm={0} md={0} lg={24} xl={24}>
-                    <Button type="text" shape={props.preferenceData.buttonShape} size={"large"} className="poemText poemFont largeFont"
+                    <Button type="text" shape={props.preferenceData.buttonShape} size={"large"}
+                            className="poemText poemFont largeFont"
                             style={{color: props.minorColor}}
                             onClick={poemContentBtnOnClick} onMouseOver={btnMouseOver} onMouseOut={btnMouseOut}>
                         {poemContent.length < poemMaxSize ? poemContent : poemContent.substring(0, poemMaxSize) + "..."}
                     </Button>
                 </Col>
                 <Col xs={0} sm={0} md={0} lg={24} xl={24}>
-                    <Button type="text" shape={props.preferenceData.buttonShape} size={"large"} className="poemText poemFont largeFont"
+                    <Button type="text" shape={props.preferenceData.buttonShape} size={"large"}
+                            className="poemText poemFont largeFont"
                             style={{color: props.minorColor}}
                             onClick={poemAuthorBtnOnClick} onMouseOver={btnMouseOver} onMouseOut={btnMouseOut}>
                         {poemAuthorDetails.length < poemMaxSize ? poemAuthorDetails : poemAuthorDetails.substring(0, poemMaxSize) + "..."}
