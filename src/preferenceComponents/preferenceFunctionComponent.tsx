@@ -30,6 +30,22 @@ function PreferenceFunctionComponent(props: any) {
         message.success("已更换按钮形状");
     }
 
+    // 简洁模式
+    function simpleModeSwitchOnChange(checked: boolean) {
+        setPreferenceData((preferenceData: PreferenceDataInterface) => {
+            let newPreferenceData = modifyPreferenceData({simpleMode: checked});
+            props.getPreferenceData(newPreferenceData);
+            localStorage.setItem("preferenceData", JSON.stringify(newPreferenceData));
+            return newPreferenceData;
+        });
+        if (checked) {
+            message.success("已开启简洁模式");
+        } else {
+            message.success("已关闭简洁模式");
+        }
+        // refreshWindow();
+    }
+
     // 重置设置
     function clearStorageBtnOnClick() {
         localStorage.clear();
@@ -46,36 +62,6 @@ function PreferenceFunctionComponent(props: any) {
         setTimeout(() => {
             window.location.reload();
         }, 1000);
-    }
-
-    // 简洁模式
-    function simpleModeSwitchOnChange(checked: boolean) {
-        setPreferenceData((preferenceData: PreferenceDataInterface) => {
-            let newPreferenceData = modifyPreferenceData({simpleMode: checked});
-            props.getPreferenceData(newPreferenceData);
-            localStorage.setItem("preferenceData", JSON.stringify(newPreferenceData));
-            return newPreferenceData;
-        });
-        if (checked) {
-            message.success("已开启简洁模式，一秒后刷新页面");
-        } else {
-            message.success("已关闭简洁模式，一秒后刷新页面");
-        }
-        refreshWindow();
-    }
-
-    function displayAlertSwitchOnChange(checked: boolean) {
-        setPreferenceData((preferenceData: PreferenceDataInterface) => {
-            let newPreferenceData = modifyPreferenceData({displayAlert: checked});
-            props.getPreferenceData(newPreferenceData);
-            localStorage.setItem("preferenceData", JSON.stringify(newPreferenceData));
-            return newPreferenceData;
-        });
-        if (checked) {
-            message.success("已显示提示信息");
-        } else {
-            message.success("已隐藏提示信息");
-        }
     }
 
     useEffect(() => {
@@ -115,20 +101,10 @@ function PreferenceFunctionComponent(props: any) {
                         </Row>
                     </Radio.Group>
                 </Form.Item>
-                <Row gutter={24}>
-                    <Col span={12}>
-                        <Form.Item name={"simpleMode"} label={"简洁模式"} valuePropName={"checked"}>
-                            <Switch checkedChildren="已开启" unCheckedChildren="已关闭" className={"poemFont"}
-                                    onChange={simpleModeSwitchOnChange}/>
-                        </Form.Item>
-                    </Col>
-                    <Col span={12}>
-                        <Form.Item name={"displayAlert"} label={"提示信息"} valuePropName={"checked"}>
-                            <Switch checkedChildren="已显示" unCheckedChildren="已隐藏" className={"poemFont"}
-                                    onChange={displayAlertSwitchOnChange}/>
-                        </Form.Item>
-                    </Col>
-                </Row>
+                <Form.Item name={"simpleMode"} label={"简洁模式"} valuePropName={"checked"}>
+                    <Switch checkedChildren="已开启" unCheckedChildren="已关闭" className={"poemFont"}
+                            onChange={simpleModeSwitchOnChange}/>
+                </Form.Item>
                 <Form.Item name={"clearStorageButton"} label={"危险设置"}>
                     <Button type={"text"} shape={preferenceData.buttonShape} icon={<RedoOutlined/>}
                             onMouseOver={(e) => btnMouseOver(props.majorColor, e)}
@@ -139,23 +115,6 @@ function PreferenceFunctionComponent(props: any) {
                         重置插件
                     </Button>
                 </Form.Item>
-                <Alert
-                    message={
-                        <Title level={5} className={"poemFont"}>{"提示信息"}</Title>
-                    }
-                    description={
-                        <Paragraph className={"poemFont"}>
-                            <ol>
-                                <Space direction={"vertical"}>
-                                    <li>重置插件将清空缓存恢复初始设置</li>
-                                    <li>插件出现任何异常可尝试重置插件</li>
-                                </Space>
-                            </ol>
-                        </Paragraph>
-                    }
-                    type="info"
-                    style={{display: preferenceData.displayAlert ? "block" : "none"}}
-                />
             </Form>
         </Card>
     );
