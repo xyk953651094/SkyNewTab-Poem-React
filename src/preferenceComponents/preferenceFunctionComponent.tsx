@@ -85,10 +85,10 @@ function PreferenceFunctionComponent(props: any) {
                     <Radio.Group buttonStyle={"solid"}
                                  onChange={searchEngineRadioOnChange}>
                         <Row gutter={[0, 8]}>
-                            <Col span={12}><Radio value={"baidu"}>Baidu</Radio></Col>
-                            <Col span={12}><Radio value={"bing"}>Bing</Radio></Col>
-                            <Col span={12}><Radio value={"google"}>Google</Radio></Col>
-                            <Col span={12}><Radio value={"yandex"}>Yandex</Radio></Col>
+                            <Col span={12}><Radio value={"baidu"}>百度</Radio></Col>
+                            <Col span={12}><Radio value={"bing"}>必应</Radio></Col>
+                            <Col span={12}><Radio value={"google"}>谷歌</Radio></Col>
+                            <Col span={12}><Radio value={"yandex"}>央捷科斯</Radio></Col>
                         </Row>
                     </Radio.Group>
                 </Form.Item>

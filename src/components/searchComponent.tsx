@@ -7,7 +7,7 @@ const {Text} = Typography;
 
 function SearchComponent(props: any) {
     const [display, setDisplay] = useState("block");
-    const [searchEngineName, setSearchEngineName] = useState("Bing");
+    const [searchEngineName, setSearchEngineName] = useState("必应");
     const [searchEngineUrl, setSearchEngineUrl] = useState("https://www.bing.com/search?q=");
 
     function onPressEnter(e: any) {
@@ -15,7 +15,7 @@ function SearchComponent(props: any) {
     }
 
     function changeSearchEngine() {
-        const searchEngines = ["Baidu", "Bing", "Google", "Yandex"];
+        const searchEngines = ["百度", "必应", "谷歌", "央捷科斯"];
         let currentIndex = searchEngines.indexOf(searchEngineName);
         let nextIndex = 0;
         if (currentIndex !== searchEngines.length - 1) {
