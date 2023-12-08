@@ -78,12 +78,12 @@ function PreferenceComponent(props: any) {
                         minorColor={props.minorColor}
                         getPreferenceData={props.getPreferenceData}
                     />
-                    <PreferenceInfoComponent
+                    <PreferenceEmailComponent
                         majorColor={props.majorColor}
                         minorColor={props.minorColor}
                         preferenceData={props.preferenceData}
                     />
-                    <PreferenceEmailComponent
+                    <PreferenceInfoComponent
                         majorColor={props.majorColor}
                         minorColor={props.minorColor}
                         preferenceData={props.preferenceData}
