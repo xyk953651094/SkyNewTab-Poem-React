@@ -56,6 +56,18 @@ function App() {
                 closeIcon: false
             });
             localStorage.setItem("SkyNewTabPoemReactVersion", currentVersion);
+
+            // 额外提醒
+            if (currentVersion === "2.5.0") {
+                notification.open({
+                    icon: null,
+                    message: "重要通知",
+                    description: "本次更新改动较大，请前往 菜单栏 => 功能设置 => 重置设置",
+                    placement: "bottomLeft",
+                    duration: 10,
+                    closeIcon: false
+                });
+            }
         }
 
         // 修改弹窗主题
@@ -90,8 +102,8 @@ function App() {
             if (messageEle.length && messageEle.length > 0) {
                 $(".ant-message-notice-content").css({
                     "backgroundColor": minorColor,
-                    "color": getFontColor(minorColor)
-                });
+                    "color": getFontColor(minorColor),
+                }).addClass("poemFont");
                 $(".ant-message-custom-content > .anticon").css("color", getFontColor(minorColor));
             }
 
@@ -100,8 +112,8 @@ function App() {
             if (notificationEle.length && notificationEle.length > 0) {
                 $(".ant-notification-notice").css({"backgroundColor": minorColor});
                 $(".ant-notification-notice-icon").css("color", getFontColor(minorColor));
-                $(".ant-notification-notice-message").css("color", getFontColor(minorColor));
-                $(".ant-notification-notice-description").css("color", getFontColor(minorColor));
+                $(".ant-notification-notice-message").css("color", getFontColor(minorColor)).addClass("poemFont");
+                $(".ant-notification-notice-description").css("color", getFontColor(minorColor)).addClass("poemFont");
             }
 
             // drawer
