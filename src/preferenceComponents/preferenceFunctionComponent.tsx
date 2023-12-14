@@ -123,13 +123,11 @@ function PreferenceFunctionComponent(props: any) {
             >
                 <Form colon={false} initialValues={preferenceData}>
                     <Form.Item name={"searchEngine"} label={"搜索引擎"}>
-                        <Radio.Group buttonStyle={"solid"}
+                        <Radio.Group buttonStyle={"solid"} style={{width: "100%"}}
                                      onChange={searchEngineRadioOnChange}>
-                            <Row gutter={[0, 8]}>
-                                <Col span={12}><Radio value={"baidu"}>百度</Radio></Col>
+                            <Row>
                                 <Col span={12}><Radio value={"bing"}>必应</Radio></Col>
                                 <Col span={12}><Radio value={"google"}>谷歌</Radio></Col>
-                                <Col span={12}><Radio value={"yandex"}>央捷科斯</Radio></Col>
                             </Row>
                         </Radio.Group>
                     </Form.Item>

@@ -1,5 +1,5 @@
 export interface PreferenceDataInterface {
-    searchEngine: "bing" | "google" | "baidu",
+    searchEngine: "bing" | "google",
     simpleMode: boolean,
     displayAlert: boolean,
     buttonShape: "circle" | "default" | "round" | undefined
