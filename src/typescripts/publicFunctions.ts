@@ -301,3 +301,28 @@ export function btnMouseOut(color: string, e: any) {
     e.currentTarget.style.backgroundColor = "transparent";
     e.currentTarget.style.color = getFontColor(color);
 }
+
+// 修改菜单栏表单控件时变化主题颜色
+export function resetRadioColor(selectedRadio: string | undefined, allRadios: string[], themeColor: string) {
+    // 重置所有不是当前选中的选项的颜色
+    for (let i = 0; i < allRadios.length; i++) {
+        let currentRadio = $("#" + allRadios[i]);
+        if (selectedRadio && allRadios[i] !== selectedRadio) {
+            currentRadio.next().css({"borderColor": "#d9d9d9", "backgroundColor": "#ffffff"});
+        }
+        else {
+            currentRadio.next().css({ "borderColor": themeColor, "backgroundColor": themeColor });
+            currentRadio.parent().next().css("color", themeColor);
+        }
+    }
+}
+
+export function resetSwitchColor(element: string, checked: boolean, themeColor: string) {
+    if (!checked) {
+        $(element).children(".ant-switch-inner").css("backgroundColor", "rgb(0, 0, 0, 0)");
+    }
+    else {
+        $(element).children(".ant-switch-inner").css("backgroundColor", themeColor)
+            .find(".ant-switch-inner-checked").css("color", getFontColor(themeColor));
+    }
+}

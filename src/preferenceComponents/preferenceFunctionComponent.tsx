@@ -13,7 +13,13 @@ import {
     Switch, Typography
 } from "antd";
 import {RedoOutlined, SettingOutlined} from "@ant-design/icons";
-import {btnMouseOut, btnMouseOver, getFontColor, getPreferenceDataStorage} from "../typescripts/publicFunctions";
+import {
+    btnMouseOut,
+    btnMouseOver,
+    getFontColor,
+    getPreferenceDataStorage,
+    resetRadioColor, resetSwitchColor
+} from "../typescripts/publicFunctions";
 import {PreferenceDataInterface} from "../typescripts/publicInterface";
 import {defaultPreferenceData} from "../typescripts/publicConstants";
 
@@ -33,6 +39,7 @@ function PreferenceFunctionComponent(props: any) {
             return newPreferenceData;
         });
         message.success("已更换搜索引擎");
+        // resetRadioColor(event.target.value, ["bing", "google"], props.majorColor);
     }
 
     function buttonShapeRadioOnChange(event: RadioChangeEvent) {
@@ -43,6 +50,7 @@ function PreferenceFunctionComponent(props: any) {
             return newPreferenceData;
         });
         message.success("已更换按钮形状");
+        // resetRadioColor(event.target.value, ["round", "default"], props.majorColor);
     }
 
     // 简洁模式
@@ -58,7 +66,7 @@ function PreferenceFunctionComponent(props: any) {
         } else {
             message.success("已关闭简洁模式");
         }
-        // refreshWindow();
+        // resetSwitchColor("#simpleModeSwitch", checked, props.majorColor);
     }
 
     // 重置设置
@@ -126,8 +134,8 @@ function PreferenceFunctionComponent(props: any) {
                         <Radio.Group buttonStyle={"solid"} style={{width: "100%"}}
                                      onChange={searchEngineRadioOnChange}>
                             <Row>
-                                <Col span={12}><Radio value={"bing"}>必应</Radio></Col>
-                                <Col span={12}><Radio value={"google"}>谷歌</Radio></Col>
+                                <Col span={12}><Radio value={"bing"} id={"bing"}>必应</Radio></Col>
+                                <Col span={12}><Radio value={"google"} id={"google"}>谷歌</Radio></Col>
                             </Row>
                         </Radio.Group>
                     </Form.Item>
@@ -135,14 +143,14 @@ function PreferenceFunctionComponent(props: any) {
                         <Radio.Group buttonStyle={"solid"} style={{width: "100%"}}
                                      onChange={buttonShapeRadioOnChange}>
                             <Row>
-                                <Col span={12}><Radio value={"round"}>圆形</Radio></Col>
-                                <Col span={12}><Radio value={"default"}>方形</Radio></Col>
+                                <Col span={12}><Radio value={"round"} id={"round"}>圆形</Radio></Col>
+                                <Col span={12}><Radio value={"default"} id={"default"}>方形</Radio></Col>
                             </Row>
                         </Radio.Group>
                     </Form.Item>
                     <Form.Item name={"simpleMode"} label={"简洁模式"} valuePropName={"checked"}>
                         <Switch checkedChildren="已开启" unCheckedChildren="已关闭" className={"poemFont"}
-                                onChange={simpleModeSwitchOnChange}/>
+                                id={"simpleModeSwitch"} onChange={simpleModeSwitchOnChange}/>
                     </Form.Item>
                     <Form.Item name={"clearStorageButton"} label={"危险设置"}>
                         <Space>

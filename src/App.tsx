@@ -12,7 +12,7 @@ import WaveComponent from "./components/waveComponent";
 import {
     getFontColor,
     getHolidayDataStorage,
-    getPreferenceDataStorage,
+    getPreferenceDataStorage, resetRadioColor, resetSwitchColor,
     setColorTheme
 } from "./typescripts/publicFunctions";
 import PreferenceComponent from "./components/preferenceComponent";
@@ -122,37 +122,12 @@ function App() {
                 $(".ant-drawer-title").css("color", getFontColor(minorColor)).addClass("poemFont");
                 $(".ant-form-item-label > label").css("color", getFontColor(minorColor)).addClass("poemFont");
                 $(".ant-radio-wrapper").children(":last-child").css("color", getFontColor(minorColor)).addClass("poemFont");
-                // $(".ant-radio-checked").children(".ant-radio-inner").css({
-                //     "borderColor": majorColor,
-                //     "backgroundColor": majorColor,
-                // });
-                // $(".ant-switch-checked").children(".ant-switch-inner").css("backgroundColor", majorColor)
-                //     .find(".ant-switch-inner-checked").css("color", getFontColor(majorColor));
-            }
 
-            // 监视表单元素的 class 变化（卡顿）
-            // let antFormItem = $(".ant-radio, .ant-switch");
-            // if (antFormItem.length && antFormItem.length > 0) {
-            //     let observer = new MutationObserver(function(mutations) {
-            //         mutations.forEach(function(mutation) {
-            //             antFormItem.each((index: number, item: any) => {
-            //                 if ($(item).hasClass("ant-radio") && !$(item).hasClass("ant-radio-checked")) {
-            //                     $(item).children(".ant-radio-inner").css({
-            //                         "borderColor": "#d9d9d9",
-            //                         "backgroundColor": "#ffffff",
-            //                     });
-            //                 }
-            //
-            //                 if ($(item).hasClass("ant-switch") && !$(item).hasClass("ant-switch-checked")) {
-            //                     $(item).children(".ant-switch-inner").css("backgroundColor", "rgb(0, 0, 0, 0)");
-            //                 }
-            //             })
-            //         });
-            //     });
-            //     antFormItem.each((index: number, item: any) => {
-            //         observer.observe(item, { attributes: true, attributeFilter: ["class"] });
-            //     });
-            // }
+                // preferenceFunctionComponent
+                // resetRadioColor(preferenceData.searchEngine, ["bing", "google"], majorColor);
+                // resetRadioColor(preferenceData.buttonShape, ["round", "default"], majorColor);
+                // resetSwitchColor("#simpleModeSwitch", preferenceData.simpleMode, majorColor);
+            }
 
             // modal
             let modalEle = $(".ant-modal");
@@ -181,7 +156,7 @@ function App() {
                 $(".ant-select-selection-item").addClass("poemFont");
             }
         });
-    }, [preferenceData.buttonShape, themeArray]);
+    }, [majorColor, minorColor, preferenceData.buttonShape, preferenceData.searchEngine, preferenceData.simpleMode]);
 
     return (
         <Layout>
