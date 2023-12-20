@@ -33,7 +33,8 @@ function PreferenceComponent(props: any) {
     return (
         <>
             <Tooltip title={"菜单栏"} placement={"bottomRight"} color={props.minorColor}>
-                <Button type={"text"} shape={props.preferenceData.buttonShape === "round" ? "circle" : "default"} icon={<MenuOutlined style={{fontSize: "16px"}}/>} size={"large"}
+                <Button type={"text"} shape={props.preferenceData.buttonShape === "round" ? "circle" : "default"}
+                        icon={<MenuOutlined style={{fontSize: "16px"}}/>} size={"large"}
                         onClick={showDrawerBtnOnClick}
                         id={"preferenceBtn"}
                         className={"componentTheme poemFont"}
@@ -77,12 +78,12 @@ function PreferenceComponent(props: any) {
                         minorColor={props.minorColor}
                         getPreferenceData={props.getPreferenceData}
                     />
-                    <PreferenceInfoComponent
+                    <PreferenceEmailComponent
                         majorColor={props.majorColor}
                         minorColor={props.minorColor}
                         preferenceData={props.preferenceData}
                     />
-                    <PreferenceEmailComponent
+                    <PreferenceInfoComponent
                         majorColor={props.majorColor}
                         minorColor={props.minorColor}
                         preferenceData={props.preferenceData}

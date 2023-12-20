@@ -120,13 +120,17 @@ function GreetComponent(props: any) {
             </Col>
             <Col span={14} style={{textAlign: "right"}}>
                 <Space>
-                    <Button type={"text"} shape={props.preferenceData.buttonShape} icon={<HistoryOutlined/>} onClick={historyBtnOnClick}
-                            onMouseOver={(e)=>btnMouseOver(props.majorColor, e)} onMouseOut={(e)=>btnMouseOut(props.minorColor, e)}
+                    <Button type={"text"} shape={props.preferenceData.buttonShape} icon={<HistoryOutlined/>}
+                            onClick={historyBtnOnClick}
+                            onMouseOver={(e) => btnMouseOver(props.majorColor, e)}
+                            onMouseOut={(e) => btnMouseOut(props.minorColor, e)}
                             className={"poemFont"} style={{color: getFontColor(props.minorColor)}}>
                         {"历史上的今天"}
                     </Button>
-                    <Button type={"text"} shape={props.preferenceData.buttonShape} icon={<MoreOutlined/>} onClick={infoBtnOnClick}
-                            onMouseOver={(e)=>btnMouseOver(props.majorColor, e)} onMouseOut={(e)=>btnMouseOut(props.minorColor, e)}
+                    <Button type={"text"} shape={props.preferenceData.buttonShape} icon={<MoreOutlined/>}
+                            onClick={infoBtnOnClick}
+                            onMouseOver={(e) => btnMouseOver(props.majorColor, e)}
+                            onMouseOut={(e) => btnMouseOut(props.minorColor, e)}
                             className={"poemFont"} style={{color: getFontColor(props.minorColor)}}>
                         {"更多信息"}
                     </Button>
@@ -138,17 +142,20 @@ function GreetComponent(props: any) {
     const popoverContent = (
         <Space direction="vertical">
             <Button type={"text"} shape={props.preferenceData.buttonShape} icon={<CalendarOutlined/>}
-                    onMouseOver={(e)=>btnMouseOver(props.majorColor, e)} onMouseOut={(e)=>btnMouseOut(props.minorColor, e)}
+                    onMouseOver={(e) => btnMouseOver(props.majorColor, e)}
+                    onMouseOut={(e) => btnMouseOut(props.minorColor, e)}
                     className={"poemFont"} style={{color: getFontColor(props.minorColor), cursor: "default"}}>
                 {calendar}
             </Button>
             <Button type="text" shape={props.preferenceData.buttonShape} icon={<CheckCircleOutlined/>}
-                    onMouseOver={(e)=>btnMouseOver(props.majorColor, e)} onMouseOut={(e)=>btnMouseOut(props.minorColor, e)}
+                    onMouseOver={(e) => btnMouseOver(props.majorColor, e)}
+                    onMouseOut={(e) => btnMouseOut(props.minorColor, e)}
                     className={"poemFont"} style={{color: getFontColor(props.minorColor), cursor: "default"}}>
                 {"宜：" + (suit.length < btnMaxSize) ? suit : suit.substring(0, btnMaxSize) + "..."}
             </Button>
             <Button type="text" shape={props.preferenceData.buttonShape} icon={<CloseCircleOutlined/>}
-                    onMouseOver={(e)=>btnMouseOver(props.majorColor, e)} onMouseOut={(e)=>btnMouseOut(props.minorColor, e)}
+                    onMouseOver={(e) => btnMouseOver(props.majorColor, e)}
+                    onMouseOut={(e) => btnMouseOut(props.minorColor, e)}
                     className={"poemFont"} style={{color: getFontColor(props.minorColor), cursor: "default"}}>
                 {"忌：" + (avoid.length < btnMaxSize) ? avoid : avoid.substring(0, btnMaxSize) + "..."}
             </Button>
@@ -159,7 +166,8 @@ function GreetComponent(props: any) {
         <Popover
             title={popoverTitle} content={popoverContent}
             placement="bottomLeft" overlayStyle={{minWidth: "550px"}} color={props.minorColor}>
-            <Button type="text" shape={props.preferenceData.buttonShape} size={"large"} icon={<i className={greetIcon}></i>}
+            <Button type="text" shape={props.preferenceData.buttonShape} size={"large"}
+                    icon={<i className={greetIcon}></i>}
                     className={"componentTheme poemFont"}
                     style={{
                         display: display,

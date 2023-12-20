@@ -1,6 +1,6 @@
 {
   "name": "skynewtab-poem-react",
-  "version": "2.4.0",
+  "version": "2.5.0",
   "private": true,
   "dependencies": {
     "@douyinfe/semi-ui": "^2.43.1",
@@ -12,7 +12,7 @@
     "@types/react": "^18.2.0",
     "@types/react-dom": "^18.2.1",
     "antd": "^5.7.3",
-    "bootstrap-icons": "^1.10.5",
+    "bootstrap-icons": "^1.11.2",
     "clean-webpack-plugin": "^4.0.0",
     "copy-webpack-plugin": "^11.0.0",
     "css-loader": "^6.7.3",

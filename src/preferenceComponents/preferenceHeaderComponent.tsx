@@ -1,7 +1,7 @@
 import React from "react";
-import {Row, Col, Typography, Button, Space} from "antd";
+import {Button, Col, Row, Typography} from "antd";
 import {GiftOutlined} from "@ant-design/icons";
-import {getFontColor, btnMouseOver, btnMouseOut} from "../typescripts/publicFunctions";
+import {btnMouseOut, btnMouseOver, getFontColor} from "../typescripts/publicFunctions";
 
 const {Text} = Typography;
 
@@ -14,7 +14,8 @@ function PreferenceHeaderComponent(props: any) {
             <Col span={12} style={{textAlign: "right"}}>
                 <Button type={"text"} shape={props.preferenceData.buttonShape} icon={<GiftOutlined/>}
                         href={"https://afdian.net/a/xyk953651094"} target={"_blank"}
-                        onMouseOver={(e)=>btnMouseOver(props.majorColor, e)} onMouseOut={(e)=>btnMouseOut(props.minorColor, e)}
+                        onMouseOver={(e) => btnMouseOver(props.majorColor, e)}
+                        onMouseOut={(e) => btnMouseOut(props.minorColor, e)}
                         className={"poemFont"}
                         style={{color: getFontColor(props.minorColor)}}>
                     支持

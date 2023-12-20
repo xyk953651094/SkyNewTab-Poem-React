@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import {Button, Col, Form, Input, List, message, Modal, Popover, Rate, Row, Select, Space, Typography} from "antd";
 import {CheckOutlined, CheckSquareOutlined, PlusOutlined, TagOutlined} from "@ant-design/icons";
-import {getFontColor, btnMouseOut, btnMouseOver} from "../typescripts/publicFunctions";
+import {btnMouseOut, btnMouseOver, getFontColor} from "../typescripts/publicFunctions";
 
 const {Text} = Typography;
 const $ = require("jquery");
@@ -142,13 +142,15 @@ function TodoComponent(props: any) {
             <Col span={14} style={{textAlign: "right"}}>
                 <Space>
                     <Button type={"text"} shape={props.preferenceData.buttonShape} icon={<PlusOutlined/>}
-                            onMouseOver={(e)=>btnMouseOver(props.majorColor, e)} onMouseOut={(e)=>btnMouseOut(props.minorColor, e)}
+                            onMouseOver={(e) => btnMouseOver(props.majorColor, e)}
+                            onMouseOut={(e) => btnMouseOut(props.minorColor, e)}
                             className={"poemFont"}
                             style={{color: getFontColor(props.minorColor)}} onClick={showAddModalBtnOnClick}>
                         {"添加待办事项"}
                     </Button>
                     <Button type={"text"} shape={props.preferenceData.buttonShape} icon={<CheckOutlined/>}
-                            onMouseOver={(e)=>btnMouseOver(props.majorColor, e)} onMouseOut={(e)=>btnMouseOut(props.minorColor, e)}
+                            onMouseOver={(e) => btnMouseOver(props.majorColor, e)}
+                            onMouseOut={(e) => btnMouseOut(props.minorColor, e)}
                             className={"poemFont"}
                             style={{color: getFontColor(props.minorColor)}} onClick={finishAllBtnOnClick}>
                         {"全部完成"}
@@ -165,7 +167,8 @@ function TodoComponent(props: any) {
                 <List.Item
                     actions={[
                         <Button type={"text"} shape={buttonShape} icon={<CheckOutlined/>}
-                                onMouseOver={(e)=>btnMouseOver(props.majorColor, e)} onMouseOut={(e)=>btnMouseOut(props.minorColor, e)}
+                                onMouseOver={(e) => btnMouseOver(props.majorColor, e)}
+                                onMouseOut={(e) => btnMouseOut(props.minorColor, e)}
                                 onClick={(event) => finishBtnOnClick(item)}
                                 className={"poemFont"}
                                 style={{color: getFontColor(props.minorColor)}}/>
@@ -174,7 +177,8 @@ function TodoComponent(props: any) {
                     <Row style={{width: "100%"}}>
                         <Col span={12}>
                             <Button type={"text"} shape={props.preferenceData.buttonShape} icon={<CheckSquareOutlined/>}
-                                    onMouseOver={(e)=>btnMouseOver(props.majorColor, e)} onMouseOut={(e)=>btnMouseOut(props.minorColor, e)}
+                                    onMouseOver={(e) => btnMouseOver(props.majorColor, e)}
+                                    onMouseOut={(e) => btnMouseOut(props.minorColor, e)}
                                     className={"poemFont"}
                                     style={{color: getFontColor(props.minorColor), cursor: "default"}}>
                                 {item.title}
@@ -182,7 +186,8 @@ function TodoComponent(props: any) {
                         </Col>
                         <Col span={12}>
                             <Button type={"text"} shape={props.preferenceData.buttonShape} icon={<TagOutlined/>}
-                                    onMouseOver={(e)=>btnMouseOver(props.majorColor, e)} onMouseOut={(e)=>btnMouseOut(props.minorColor, e)}
+                                    onMouseOver={(e) => btnMouseOver(props.majorColor, e)}
+                                    onMouseOut={(e) => btnMouseOut(props.minorColor, e)}
                                     className={"poemFont"}
                                     style={{color: getFontColor(props.minorColor), cursor: "default"}}>
                                 {item.tag + "｜" + item.priority}
@@ -199,7 +204,8 @@ function TodoComponent(props: any) {
             <Popover title={popoverTitle} content={popoverContent} placement="bottomRight"
                      color={props.minorColor}
                      overlayStyle={{width: "550px"}}>
-                <Button type={"text"} shape={props.preferenceData.buttonShape} icon={<CheckSquareOutlined/>} size={"large"}
+                <Button type={"text"} shape={props.preferenceData.buttonShape} icon={<CheckSquareOutlined/>}
+                        size={"large"}
                         id={"todoBtn"}
                         className={"componentTheme poemFont"}
                         style={{
@@ -221,7 +227,8 @@ function TodoComponent(props: any) {
             >
                 <Form>
                     <Form.Item label={"待办事项"} name={"todoInput"}>
-                        <Input className={"poemFont"} placeholder="请输入待办内容" id="todoInput" maxLength={10} allowClear showCount/>
+                        <Input className={"poemFont"} placeholder="请输入待办内容" id="todoInput" maxLength={10}
+                               allowClear showCount/>
                     </Form.Item>
                     <Form.Item label={"标签分类"} name={"todoSelect"}>
                         <Select

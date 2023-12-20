@@ -12,7 +12,7 @@ import WaveComponent from "./components/waveComponent";
 import {
     getFontColor,
     getHolidayDataStorage,
-    getPreferenceDataStorage,
+    getPreferenceDataStorage, resetRadioColor, resetSwitchColor,
     setColorTheme
 } from "./typescripts/publicFunctions";
 import PreferenceComponent from "./components/preferenceComponent";
@@ -46,7 +46,7 @@ function App() {
         // 版本号提醒
         let storageVersion = localStorage.getItem("SkyNewTabPoemReactVersion");
         let currentVersion = require('../package.json').version;
-        if(storageVersion !== currentVersion) {
+        if (storageVersion !== currentVersion) {
             notification.open({
                 icon: null,
                 message: "已更新至版本 V" + currentVersion,
@@ -56,6 +56,18 @@ function App() {
                 closeIcon: false
             });
             localStorage.setItem("SkyNewTabPoemReactVersion", currentVersion);
+
+            // 额外提醒
+            if (currentVersion === "2.5.0") {
+                notification.open({
+                    icon: null,
+                    message: "重要通知",
+                    description: "本次更新改动较大，请前往 菜单栏 => 功能设置 => 重置设置",
+                    placement: "bottomLeft",
+                    duration: 10,
+                    closeIcon: false
+                });
+            }
         }
 
         // 修改弹窗主题
@@ -90,8 +102,8 @@ function App() {
             if (messageEle.length && messageEle.length > 0) {
                 $(".ant-message-notice-content").css({
                     "backgroundColor": minorColor,
-                    "color": getFontColor(minorColor)
-                });
+                    "color": getFontColor(minorColor),
+                }).addClass("poemFont");
                 $(".ant-message-custom-content > .anticon").css("color", getFontColor(minorColor));
             }
 
@@ -100,8 +112,8 @@ function App() {
             if (notificationEle.length && notificationEle.length > 0) {
                 $(".ant-notification-notice").css({"backgroundColor": minorColor});
                 $(".ant-notification-notice-icon").css("color", getFontColor(minorColor));
-                $(".ant-notification-notice-message").css("color", getFontColor(minorColor));
-                $(".ant-notification-notice-description").css("color", getFontColor(minorColor));
+                $(".ant-notification-notice-message").css("color", getFontColor(minorColor)).addClass("poemFont");
+                $(".ant-notification-notice-description").css("color", getFontColor(minorColor)).addClass("poemFont");
             }
 
             // drawer
@@ -110,6 +122,11 @@ function App() {
                 $(".ant-drawer-title").css("color", getFontColor(minorColor)).addClass("poemFont");
                 $(".ant-form-item-label > label").css("color", getFontColor(minorColor)).addClass("poemFont");
                 $(".ant-radio-wrapper").children(":last-child").css("color", getFontColor(minorColor)).addClass("poemFont");
+
+                // preferenceFunctionComponent
+                // resetRadioColor(preferenceData.searchEngine, ["bing", "google"], majorColor);
+                // resetRadioColor(preferenceData.buttonShape, ["round", "default"], majorColor);
+                // resetSwitchColor("#simpleModeSwitch", preferenceData.simpleMode, majorColor);
             }
 
             // modal
@@ -122,10 +139,9 @@ function App() {
                 }).addClass("poemFont");
                 $(".ant-form-item-label > label").css("color", getFontColor(minorColor)).addClass("poemFont");
                 $(".ant-modal-footer > .ant-btn").css("color", getFontColor(minorColor));
-                if(preferenceData.buttonShape === "round") {
+                if (preferenceData.buttonShape === "round") {
                     $(".ant-modal-footer > .ant-btn").addClass("poemFont ant-btn-round ant-btn-text").removeClass("ant-btn-default ant-btn-primary");
-                }
-                else {
+                } else {
                     $(".ant-modal-footer > .ant-btn").removeClass("ant-btn-round ant-btn-default ant-btn-primary").addClass("poemFont ant-btn-text");
                 }
                 $(".ant-modal-footer > .ant-btn").on("mouseover", (e: any) => {
@@ -140,7 +156,7 @@ function App() {
                 $(".ant-select-selection-item").addClass("poemFont");
             }
         });
-    }, [preferenceData.buttonShape, themeArray]);
+    }, [majorColor, minorColor, preferenceData.buttonShape, preferenceData.searchEngine, preferenceData.simpleMode]);
 
     return (
         <Layout>

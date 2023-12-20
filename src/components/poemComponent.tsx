@@ -60,7 +60,7 @@ function PoemComponent(props: any) {
         let nowTimeStamp = new Date().getTime();
         if (lastPoemRequestTime === null) {  // 第一次请求时 lastRequestTime 为 null，因此直接进行请求赋值 lastRequestTime
             getPoem();
-        } else if (nowTimeStamp - parseInt(lastPoemRequestTime) > 10 * 60 * 1000) {  // 必须多于十分钟才能进行新的请求
+        } else if (nowTimeStamp - parseInt(lastPoemRequestTime) > 30 * 60 * 1000) {  // 必须多于 30 分钟才能进行新的请求
             getPoem();
         } else {  // 十分钟之内使用上一次请求结果
             let lastPoem: any = localStorage.getItem("lastPoem");
@@ -77,14 +77,16 @@ function PoemComponent(props: any) {
         <Row justify="center" align="middle">
             <Space direction={"vertical"}>
                 <Col xs={0} sm={0} md={0} lg={24} xl={24}>
-                    <Button type="text" shape={props.preferenceData.buttonShape} size={"large"} className="poemText poemFont largeFont"
+                    <Button type="text" shape={props.preferenceData.buttonShape} size={"large"}
+                            className="poemText poemFont largeFont"
                             style={{color: props.minorColor}}
                             onClick={poemContentBtnOnClick} onMouseOver={btnMouseOver} onMouseOut={btnMouseOut}>
                         {poemContent.length < poemMaxSize ? poemContent : poemContent.substring(0, poemMaxSize) + "..."}
                     </Button>
                 </Col>
                 <Col xs={0} sm={0} md={0} lg={24} xl={24}>
-                    <Button type="text" shape={props.preferenceData.buttonShape} size={"large"} className="poemText poemFont largeFont"
+                    <Button type="text" shape={props.preferenceData.buttonShape} size={"large"}
+                            className="poemText poemFont largeFont"
                             style={{color: props.minorColor}}
                             onClick={poemAuthorBtnOnClick} onMouseOver={btnMouseOver} onMouseOut={btnMouseOut}>
                         {poemAuthorDetails.length < poemMaxSize ? poemAuthorDetails : poemAuthorDetails.substring(0, poemMaxSize) + "..."}

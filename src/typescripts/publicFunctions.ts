@@ -160,7 +160,7 @@ export function getObjectClassName() {
 export function setColorTheme() {
     let currentHour = parseInt(getTimeDetails(new Date()).hour);
     let themeArray = lightThemeArray;
-    if(currentHour > 18 || currentHour < 6) {  // 夜间显示深色背景
+    if (currentHour > 18 || currentHour < 6) {  // 夜间显示深色背景
         themeArray = darkThemeArray;
     }
 
@@ -216,54 +216,53 @@ export function getDevice() {
 
 export function getSearchEngineDetail(searchEngine: string) {
     let searchEngineName: string;
+    let searchEngineValue: string;
     let searchEngineUrl: string;
     let searchEngineIconUrl: string;
     switch (searchEngine) {
-        case "baidu":
-            searchEngineName = "Baidu";
-            searchEngineUrl = "https://www.baidu.com/s?wd=";
-            searchEngineIconUrl = "https://www.baidu.com/favicon.ico";
-            break;
         case "bing":
-            searchEngineName = "Bing";
+            searchEngineName = "必应";
+            searchEngineValue = "bing";
             searchEngineUrl = "https://www.bing.com/search?q=";
             searchEngineIconUrl = "https://www.bing.com/favicon.ico";
             break;
         case "google":
-            searchEngineName = "Google";
+            searchEngineName = "谷歌";
+            searchEngineValue = "google";
             searchEngineUrl = "https://www.google.com/search?q=";
             searchEngineIconUrl = "https://www.google.com/favicon.ico";
             break;
-        case "yandex":
-            searchEngineName = "Yandex";
-            searchEngineUrl = "https://yandex.com/search/?text=";
-            searchEngineIconUrl = "https://yastatic.net/s3/home-static/_/92/929b10d17990e806734f68758ec917ec.png";
-            break;
         default:
-            searchEngineName = "Bing";
+            searchEngineName = "必应";
+            searchEngineValue = "bing";
             searchEngineUrl = "https://www.bing.com/search?q=";
             searchEngineIconUrl = "https://www.bing.com/favicon.ico";
             break;
     }
-    return {"searchEngineName": searchEngineName, "searchEngineUrl": searchEngineUrl, "searchEngineIconUrl": searchEngineIconUrl};
+    return {
+        "searchEngineName": searchEngineName,
+        "searchEngineValue": searchEngineValue,
+        "searchEngineUrl": searchEngineUrl,
+        "searchEngineIconUrl": searchEngineIconUrl
+    };
 }
 
 // 补全设置数据
 export function fixPreferenceData(preferenceData: PreferenceDataInterface) {
     let isFixed = false;
-    if(!preferenceData.searchEngine) {
+    if (!preferenceData.searchEngine) {
         preferenceData.searchEngine = defaultPreferenceData.searchEngine;
         isFixed = true;
     }
-    if(!preferenceData.buttonShape) {
+    if (!preferenceData.buttonShape) {
         preferenceData.buttonShape = defaultPreferenceData.buttonShape;
         isFixed = true;
     }
-    if(preferenceData.simpleMode === undefined || preferenceData.simpleMode === null) {
+    if (preferenceData.simpleMode === undefined || preferenceData.simpleMode === null) {
         preferenceData.simpleMode = defaultPreferenceData.simpleMode;
         isFixed = true;
     }
-    if(preferenceData.displayAlert === undefined || preferenceData.displayAlert === null) {
+    if (preferenceData.displayAlert === undefined || preferenceData.displayAlert === null) {
         preferenceData.displayAlert = defaultPreferenceData.displayAlert;
         isFixed = true;
     }
@@ -301,4 +300,29 @@ export function btnMouseOver(color: string, e: any) {
 export function btnMouseOut(color: string, e: any) {
     e.currentTarget.style.backgroundColor = "transparent";
     e.currentTarget.style.color = getFontColor(color);
+}
+
+// 修改菜单栏表单控件时变化主题颜色
+export function resetRadioColor(selectedRadio: string | undefined, allRadios: string[], themeColor: string) {
+    // 重置所有不是当前选中的选项的颜色
+    for (let i = 0; i < allRadios.length; i++) {
+        let currentRadio = $("#" + allRadios[i]);
+        if (selectedRadio && allRadios[i] !== selectedRadio) {
+            currentRadio.next().css({"borderColor": "#d9d9d9", "backgroundColor": "#ffffff"});
+        }
+        else {
+            currentRadio.next().css({ "borderColor": themeColor, "backgroundColor": themeColor });
+            currentRadio.parent().next().css("color", themeColor);
+        }
+    }
+}
+
+export function resetSwitchColor(element: string, checked: boolean, themeColor: string) {
+    if (!checked) {
+        $(element).children(".ant-switch-inner").css("backgroundColor", "rgb(0, 0, 0, 0)");
+    }
+    else {
+        $(element).children(".ant-switch-inner").css("backgroundColor", themeColor)
+            .find(".ant-switch-inner-checked").css("color", getFontColor(themeColor));
+    }
 }

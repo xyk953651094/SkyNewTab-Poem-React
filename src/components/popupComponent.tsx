@@ -25,8 +25,7 @@ function PopupComponent() {
             themeArray = JSON.parse(tempThemeArray);
             let bodyEle = $("body");
             bodyEle.css("backgroundColor", themeArray.minorColor + " !important");
-        }
-        else {
+        } else {
             themeArray = setColorTheme();
         }
         setMajorColor(themeArray.majorColor);

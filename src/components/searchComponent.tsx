@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {Button, Popover, Input, Row, Col, Typography, Divider} from "antd";
+import {Button, Col, Divider, Input, Popover, Row, Typography} from "antd";
 import {SearchOutlined} from "@ant-design/icons";
 import {getFontColor, getSearchEngineDetail} from "../typescripts/publicFunctions";
 
@@ -7,7 +7,8 @@ const {Text} = Typography;
 
 function SearchComponent(props: any) {
     const [display, setDisplay] = useState("block");
-    const [searchEngineName, setSearchEngineName] = useState("Bing");
+    const [searchEngineName, setSearchEngineName] = useState("必应");
+    const [searchEngineValue, setSearchEngineValue] = useState("bing");
     const [searchEngineUrl, setSearchEngineUrl] = useState("https://www.bing.com/search?q=");
 
     function onPressEnter(e: any) {
@@ -15,14 +16,16 @@ function SearchComponent(props: any) {
     }
 
     function changeSearchEngine() {
-        const searchEngines = ["Baidu", "Bing", "Google", "Yandex"];
-        let currentIndex = searchEngines.indexOf(searchEngineName);
+        const searchEngines = ["bing", "google"];
+        let currentIndex = searchEngines.indexOf(searchEngineValue);
         let nextIndex = 0;
         if (currentIndex !== searchEngines.length - 1) {
             nextIndex = currentIndex + 1;
         }
 
-        setSearchEngineName(searchEngines[nextIndex]);
+        let searchEngineDetail = getSearchEngineDetail(searchEngines[nextIndex])
+        setSearchEngineName(searchEngineDetail.searchEngineName);
+        setSearchEngineValue(searchEngineDetail.searchEngineValue);
         setSearchEngineUrl(getSearchEngineDetail(searchEngines[nextIndex].toLowerCase()).searchEngineUrl)
     }
 
@@ -30,6 +33,7 @@ function SearchComponent(props: any) {
         let searchEngineDetail = getSearchEngineDetail(props.preferenceData.searchEngine);
         setDisplay(props.preferenceData.simpleMode ? "none" : "block");
         setSearchEngineName(searchEngineDetail.searchEngineName);
+        setSearchEngineValue(searchEngineDetail.searchEngineValue);
         setSearchEngineUrl(searchEngineDetail.searchEngineUrl);
     }, [props.preferenceData.buttonShape, props.preferenceData.searchEngine, props.preferenceData.simpleMode])
 
@@ -48,13 +52,14 @@ function SearchComponent(props: any) {
             prefix={
                 <Row align={"middle"}>
                     <Button type={"text"} size={"small"} className={"poemFont"} onClick={changeSearchEngine}
+                            icon={<i className={"bi bi-" + searchEngineValue}></i>}
                             style={{
                                 backgroundColor: props.minorColor,
                                 color: getFontColor(props.minorColor)
                             }}>
                         {searchEngineName}
                     </Button>
-                    <Divider type="vertical" />
+                    <Divider type="vertical"/>
                 </Row>
             }
             suffix={<SearchOutlined/>}
