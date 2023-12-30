@@ -50,7 +50,7 @@ function App() {
             notification.open({
                 icon: null,
                 message: "已更新至版本 V" + currentVersion,
-                description: "详细更新内容请前往 GitHub 或 GitLab 主页查看",
+                description: "详细内容请前往 GitHub 或 GitLab 主页查看",
                 placement: "bottomLeft",
                 duration: 5,
                 closeIcon: false
@@ -124,9 +124,9 @@ function App() {
                 $(".ant-radio-wrapper").children(":last-child").css("color", getFontColor(minorColor)).addClass("poemFont");
 
                 // preferenceFunctionComponent
-                // resetRadioColor(preferenceData.searchEngine, ["bing", "google"], majorColor);
-                // resetRadioColor(preferenceData.buttonShape, ["round", "default"], majorColor);
-                // resetSwitchColor("#simpleModeSwitch", preferenceData.simpleMode, majorColor);
+                resetRadioColor(preferenceData.searchEngine, ["bing", "google"], majorColor);
+                resetRadioColor(preferenceData.buttonShape, ["round", "default"], majorColor);
+                resetSwitchColor("#simpleModeSwitch", preferenceData.simpleMode, majorColor);
             }
 
             // modal
@@ -219,6 +219,7 @@ function App() {
                         <ClockComponent
                             minorColor={minorColor}
                             holidayData={holidayData}
+                            preferenceData={preferenceData}
                         />
                     </Col>
                     <Col span={24}>

@@ -7,6 +7,7 @@ const {Text} = Typography;
 const $ = require("jquery");
 
 function ClockComponent(props: any) {
+    const [display, setDisplay] = useState("flex");
     const [currentTime, setCurrentTime] = useState(getLocaleTime());
     const [currentDate, setCurrentDate] = useState("暂无信息");
     const [currentYear, setCurrentYear] = useState("暂无信息");
@@ -104,6 +105,8 @@ function ClockComponent(props: any) {
     }
 
     useEffect(() => {
+        setDisplay(props.preferenceData.simpleMode ? "none" : "flex");
+
         if (props.holidayData !== null) {
             setCurrentDate(props.holidayData.lunarCalendar);
             setCurrentYear(props.holidayData.yearTips + props.holidayData.chineseZodiac + "年");
@@ -113,10 +116,10 @@ function ClockComponent(props: any) {
         setInterval(() => {
             setCurrentTime(getLocaleTime());
         }, 60 * 1000);
-    }, [props.holidayData])
+    }, [props.holidayData, props.preferenceData.simpleMode])
 
     return (
-        <Row justify={"center"}>
+        <Row justify={"center"} style={{display: display}}>
             <Col span={24} id={"clockDiv"} className={"zIndexHigh"}
                  style={{padding: "5px 10px", borderRadius: "8px", maxWidth: "max-content"}}
                  onMouseOver={btnMouseOver} onMouseOut={btnMouseOut}>

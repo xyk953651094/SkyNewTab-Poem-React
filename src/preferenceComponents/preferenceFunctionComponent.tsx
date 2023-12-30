@@ -39,7 +39,7 @@ function PreferenceFunctionComponent(props: any) {
             return newPreferenceData;
         });
         message.success("已更换搜索引擎");
-        // resetRadioColor(event.target.value, ["bing", "google"], props.majorColor);
+        resetRadioColor(event.target.value, ["bing", "google"], props.majorColor);
     }
 
     function buttonShapeRadioOnChange(event: RadioChangeEvent) {
@@ -50,7 +50,7 @@ function PreferenceFunctionComponent(props: any) {
             return newPreferenceData;
         });
         message.success("已更换按钮形状");
-        // resetRadioColor(event.target.value, ["round", "default"], props.majorColor);
+        resetRadioColor(event.target.value, ["round", "default"], props.majorColor);
     }
 
     // 简洁模式
@@ -64,9 +64,10 @@ function PreferenceFunctionComponent(props: any) {
         if (checked) {
             message.success("已开启简洁模式");
         } else {
-            message.success("已关闭简洁模式");
+            message.success("已关闭简洁模式，一秒后刷新页面");
+            refreshWindow();
         }
-        // resetSwitchColor("#simpleModeSwitch", checked, props.majorColor);
+        resetSwitchColor("#simpleModeSwitch", checked, props.majorColor);
     }
 
     // 重置设置
