@@ -190,7 +190,7 @@ function TodoComponent(props: any) {
                                     onMouseOut={(e) => btnMouseOut(props.minorColor, e)}
                                     className={"poemFont"}
                                     style={{color: getFontColor(props.minorColor), cursor: "default"}}>
-                                {item.tag + "｜" + item.priority}
+                                {item.tag + " ｜ " + item.priority}
                             </Button>
                         </Col>
                     </Row>

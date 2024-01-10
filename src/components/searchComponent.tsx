@@ -59,7 +59,7 @@ function SearchComponent(props: any) {
                             }}>
                         {searchEngineName}
                     </Button>
-                    <Divider type="vertical"/>
+                    <Divider type="vertical" style={{borderColor: props.minorColor}}/>
                 </Row>
             }
             suffix={<SearchOutlined/>}

@@ -83,9 +83,9 @@ function GreetComponent(props: any) {
             let timeDetails = getTimeDetails(new Date());
 
             setHolidayContent(holidayContent);
-            setCalendar(timeDetails.showDate4 + " " + timeDetails.showWeek + "｜" +
-                data.yearTips + data.chineseZodiac + "年｜" +
-                data.lunarCalendar + "｜" + data.constellation);
+            setCalendar(timeDetails.showDate4 + " " + timeDetails.showWeek + " ｜ " +
+                data.yearTips + data.chineseZodiac + "年 ｜ " +
+                data.lunarCalendar + " ｜ " + data.constellation);
             setSuit(data.suit.replace(/\./g, " · "));
             setAvoid(data.avoid.replace(/\./g, " · "));
         }
@@ -176,7 +176,7 @@ function GreetComponent(props: any) {
                         backgroundColor: props.minorColor
                     }}
             >
-                {greetContent + "｜" + holidayContent}
+                {greetContent + " ｜ " + holidayContent}
             </Button>
         </Popover>
     );

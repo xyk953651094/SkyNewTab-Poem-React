@@ -70,7 +70,7 @@ function WeatherComponent(props: any) {
 
         function setWeather(data: any) {
             setWeatherIcon(getWeatherIcon(data.weatherData.weather));
-            setWeatherContent(data.weatherData.weather + "｜" + data.weatherData.temperature + "°C");
+            setWeatherContent(data.weatherData.weather + " ｜ " + data.weatherData.temperature + "°C");
             setLocation(data.region.replace("|", " · "));
             setHumidity(data.weatherData.humidity);
             setPm25(data.weatherData.pm25);

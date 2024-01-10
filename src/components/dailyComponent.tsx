@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import type {DatePickerProps} from 'antd';
+import {DatePickerProps, Divider} from 'antd';
 import {Button, Col, DatePicker, Form, Input, List, message, Modal, Popover, Row, Space, Typography} from "antd";
 import {CalendarOutlined, ClockCircleOutlined, DeleteOutlined, PlusOutlined} from "@ant-design/icons";
 import {btnMouseOut, btnMouseOver, getFontColor, getTimeDetails} from "../typescripts/publicFunctions";
@@ -197,7 +197,7 @@ function DailyComponent(props: any) {
                                     onMouseOut={(e) => btnMouseOut(props.minorColor, e)}
                                     className={"poemFont"}
                                     style={{color: getFontColor(props.minorColor), cursor: "default"}}>
-                                {getTimeDetails(new Date(item.selectedTimeStamp)).showDate4 + "｜" + getDailyDescription(item.selectedTimeStamp)}
+                                {getTimeDetails(new Date(item.selectedTimeStamp)).showDate4 + " ｜ " + getDailyDescription(item.selectedTimeStamp)}
                             </Button>
                         </Col>
                     </Row>

@@ -46,9 +46,9 @@ function PopupImageComponent(props: any) {
         let tempDaily = localStorage.getItem("daily");
         let tempTodos = localStorage.getItem("todos");
 
-        setGreetContent(tempGreet ? getGreetContent() + "｜" + setHoliday(JSON.parse(tempGreet)) : "暂无信息");
+        setGreetContent(tempGreet ? getGreetContent() + " ｜ " + setHoliday(JSON.parse(tempGreet)) : "暂无信息");
         setWeatherIcon(tempWeather ? getWeatherIcon(JSON.parse(tempWeather).weatherData.weather) : "");
-        setWeatherContent(tempWeather ? JSON.parse(tempWeather).weatherData.weather + "｜" + JSON.parse(tempWeather).weatherData.temperature + "°C" : "暂无信息");
+        setWeatherContent(tempWeather ? JSON.parse(tempWeather).weatherData.weather + " ｜ " + JSON.parse(tempWeather).weatherData.temperature + "°C" : "暂无信息");
         setDailySize(tempDaily ? JSON.parse(tempDaily).length : 0);
         setTodoSize(tempTodos ? JSON.parse(tempTodos).length : 0);
         setSearchEngineUrl(getSearchEngineDetail(props.preferenceData.searchEngine).searchEngineUrl);
