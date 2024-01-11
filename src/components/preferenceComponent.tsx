@@ -10,6 +10,7 @@ import PreferenceFunctionComponent from "../preferenceComponents/preferenceFunct
 import PreferenceHeaderComponent from "../preferenceComponents/preferenceHeaderComponent";
 import PreferenceProductComponent from "../preferenceComponents/preferenceProductComponent";
 import PreferenceToTopComponent from "../preferenceComponents/preferenceToTopComponent";
+import PreferenceHelpComponent from "../preferenceComponents/preferenceHelpComponent";
 
 function PreferenceComponent(props: any) {
     const [displayDrawer, setDisplayDrawer] = useState(false);
@@ -77,6 +78,11 @@ function PreferenceComponent(props: any) {
                         majorColor={props.majorColor}
                         minorColor={props.minorColor}
                         getPreferenceData={props.getPreferenceData}
+                    />
+                    <PreferenceHelpComponent
+                        majorColor={props.majorColor}
+                        minorColor={props.minorColor}
+                        preferenceData={props.preferenceData}
                     />
                     <PreferenceEmailComponent
                         majorColor={props.majorColor}
