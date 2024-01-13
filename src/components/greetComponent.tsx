@@ -18,6 +18,8 @@ import {
     httpRequest
 } from "../typescripts/publicFunctions";
 import "../stylesheets/publicStyles.scss"
+import PopoverComponent from "../publicComponent/popoverComponent";
+import ButtonComponent from "../publicComponent/buttonComponent";
 
 const {Text} = Typography;
 const btnMaxSize = 80;
@@ -134,6 +136,11 @@ function GreetComponent(props: any) {
                             className={"poemFont"} style={{color: getFontColor(props.minorColor)}}>
                         {"更多信息"}
                     </Button>
+                    {/*<ButtonComponent buttonShape={props.preferenceData.buttonShape} buttonIcon={<MoreOutlined/>}*/}
+                    {/*                 buttonCursor={"pointer"} buttonOnClick={infoBtnOnClick} */}
+                    {/*                 buttonContent={"更多信息"}*/}
+                    {/*                 majorColor={props.majorColor} minorColor={props.minorColor}*/}
+                    {/*/>*/}
                 </Space>
             </Col>
         </Row>
@@ -179,6 +186,14 @@ function GreetComponent(props: any) {
                 {greetContent + " ｜ " + holidayContent}
             </Button>
         </Popover>
+
+        // <PopoverComponent popoverTitle={popoverTitle} popoverContent={popoverContent}
+        //                   popoverPlacement={"bottomLeft"} popoverMinWidth={"550px"}
+        //                   buttonIcon={<i className={greetIcon}></i>} buttonDisplay={display}
+        //                   buttonContent={greetContent + " ｜ " + holidayContent}
+        //                   preferenceData={props.preferenceData} minorColor={props.minorColor}
+        //
+        // />
     );
 }
 

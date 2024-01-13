@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {DatePickerProps, Divider} from 'antd';
+import {DatePickerProps} from 'antd';
 import {Button, Col, DatePicker, Form, Input, List, message, Modal, Popover, Row, Space, Typography} from "antd";
 import {CalendarOutlined, ClockCircleOutlined, DeleteOutlined, PlusOutlined} from "@ant-design/icons";
 import {btnMouseOut, btnMouseOver, getFontColor, getTimeDetails} from "../typescripts/publicFunctions";
@@ -15,16 +15,6 @@ function DailyComponent(props: any) {
     const [dailyMaxSize, setDailyMaxSize] = useState(5);
     const [selectedTimeStamp, setSelectedTimeStamp] = useState(0);
     const [buttonShape, setButtonShape] = useState<"circle" | "default" | "round" | undefined>("round");
-
-    // function btnMouseOver(e: any) {
-    //     e.currentTarget.style.backgroundColor = props.majorColor;
-    //     e.currentTarget.style.color = getFontColor(props.majorColor);
-    // }
-    //
-    // function btnMouseOut(e: any) {
-    //     e.currentTarget.style.backgroundColor = "transparent";
-    //     e.currentTarget.style.color = getFontColor(props.minorColor);
-    // }
 
     function removeAllBtnOnClick() {
         let tempDaily = localStorage.getItem("daily");
@@ -64,7 +54,6 @@ function DailyComponent(props: any) {
             daily = JSON.parse(tempDaily);
         }
         if (daily.length < dailyMaxSize) {
-            // $("#dailyInput").val("");
             setDisplayModal(true);
             setSelectedTimeStamp(0);
         } else {
