@@ -18,6 +18,8 @@ import {
     httpRequest
 } from "../typescripts/publicFunctions";
 import "../stylesheets/publicStyles.scss"
+import PopoverComponent from "../publicComponent/popoverComponent";
+import ButtonComponent from "../publicComponent/buttonComponent";
 
 const {Text} = Typography;
 const btnMaxSize = 80;
@@ -83,9 +85,9 @@ function GreetComponent(props: any) {
             let timeDetails = getTimeDetails(new Date());
 
             setHolidayContent(holidayContent);
-            setCalendar(timeDetails.showDate4 + " " + timeDetails.showWeek + "｜" +
-                data.yearTips + data.chineseZodiac + "年｜" +
-                data.lunarCalendar + "｜" + data.constellation);
+            setCalendar(timeDetails.showDate4 + " " + timeDetails.showWeek + " ｜ " +
+                data.yearTips + data.chineseZodiac + "年 ｜ " +
+                data.lunarCalendar + " ｜ " + data.constellation);
             setSuit(data.suit.replace(/\./g, " · "));
             setAvoid(data.avoid.replace(/\./g, " · "));
         }
@@ -134,6 +136,11 @@ function GreetComponent(props: any) {
                             className={"poemFont"} style={{color: getFontColor(props.minorColor)}}>
                         {"更多信息"}
                     </Button>
+                    {/*<ButtonComponent buttonShape={props.preferenceData.buttonShape} buttonIcon={<MoreOutlined/>}*/}
+                    {/*                 buttonCursor={"pointer"} buttonOnClick={infoBtnOnClick} */}
+                    {/*                 buttonContent={"更多信息"}*/}
+                    {/*                 majorColor={props.majorColor} minorColor={props.minorColor}*/}
+                    {/*/>*/}
                 </Space>
             </Col>
         </Row>
@@ -176,9 +183,17 @@ function GreetComponent(props: any) {
                         backgroundColor: props.minorColor
                     }}
             >
-                {greetContent + "｜" + holidayContent}
+                {greetContent + " ｜ " + holidayContent}
             </Button>
         </Popover>
+
+        // <PopoverComponent popoverTitle={popoverTitle} popoverContent={popoverContent}
+        //                   popoverPlacement={"bottomLeft"} popoverMinWidth={"550px"}
+        //                   buttonIcon={<i className={greetIcon}></i>} buttonDisplay={display}
+        //                   buttonContent={greetContent + " ｜ " + holidayContent}
+        //                   preferenceData={props.preferenceData} minorColor={props.minorColor}
+        //
+        // />
     );
 }
 

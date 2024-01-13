@@ -11,6 +11,7 @@ import {
     httpRequest
 } from "../typescripts/publicFunctions";
 import "../stylesheets/publicStyles.scss"
+import PopoverComponent from "../publicComponent/popoverComponent";
 
 const {Text} = Typography;
 
@@ -70,7 +71,7 @@ function WeatherComponent(props: any) {
 
         function setWeather(data: any) {
             setWeatherIcon(getWeatherIcon(data.weatherData.weather));
-            setWeatherContent(data.weatherData.weather + "｜" + data.weatherData.temperature + "°C");
+            setWeatherContent(data.weatherData.weather + " ｜ " + data.weatherData.temperature + "°C");
             setLocation(data.region.replace("|", " · "));
             setHumidity(data.weatherData.humidity);
             setPm25(data.weatherData.pm25);
@@ -202,21 +203,29 @@ function WeatherComponent(props: any) {
     );
 
     return (
-        <Popover title={popoverTitle} content={popoverContent} color={props.minorColor}
-                 placement="bottomLeft" overlayStyle={{minWidth: "350px"}}>
-            <Button type="text" shape={props.preferenceData.buttonShape} size={"large"}
-                    icon={<i className={weatherIcon}></i>}
-                    className={"componentTheme poemFont"}
-                    style={{
-                        display: display,
-                        cursor: "default",
-                        color: getFontColor(props.minorColor),
-                        backgroundColor: props.minorColor
-                    }}
-            >
-                {weatherContent}
-            </Button>
-        </Popover>
+        <PopoverComponent popoverTitle={popoverTitle} popoverContent={popoverContent}
+                          popoverPlacement={"bottomLeft"} popoverMinWidth={"350px"}
+                          buttonIcon={<i className={weatherIcon}></i>} buttonDisplay={display}
+                          buttonContent={weatherContent}
+                          preferenceData={props.preferenceData} minorColor={props.minorColor}
+
+        />
+
+        // <Popover title={popoverTitle} content={popoverContent} color={props.minorColor}
+        //          placement="bottomLeft" overlayStyle={{minWidth: "350px"}}>
+        //     <Button type="text" shape={props.preferenceData.buttonShape} size={"large"}
+        //             icon={<i className={weatherIcon}></i>}
+        //             className={"componentTheme poemFont"}
+        //             style={{
+        //                 display: display,
+        //                 cursor: "default",
+        //                 color: getFontColor(props.minorColor),
+        //                 backgroundColor: props.minorColor
+        //             }}
+        //     >
+        //         {weatherContent}
+        //     </Button>
+        // </Popover>
     );
 }
 
