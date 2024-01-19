@@ -13,7 +13,7 @@ function PreferenceHeaderComponent(props: any) {
             </Col>
             <Col span={12} style={{textAlign: "right"}}>
                 <Button type={"text"} shape={props.preferenceData.buttonShape} icon={<GiftOutlined/>}
-                        href={"https://afdian.net/a/xyk953651094"} target={"_blank"}
+                        href={"https://afdian.net/a/xyk953651094"} target={"_self"}
                         onMouseOver={(e) => btnMouseOver(props.majorColor, e)}
                         onMouseOut={(e) => btnMouseOut(props.minorColor, e)}
                         className={"poemFont"}

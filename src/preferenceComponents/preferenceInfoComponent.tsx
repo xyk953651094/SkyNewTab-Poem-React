@@ -18,28 +18,28 @@ function PreferenceInfoComponent(props: any) {
         >
             <Space direction={"vertical"}>
                 <Button type={"text"} shape={props.preferenceData.buttonShape} icon={<CalendarOutlined/>}
-                        href={"https://www.mxnzp.com/"} target={"_blank"}
+                        href={"https://www.mxnzp.com/"} target={"_self"}
                         onMouseOver={(e) => btnMouseOver(props.majorColor, e)}
                         onMouseOut={(e) => btnMouseOut(props.minorColor, e)}
                         className={"poemFont"} style={{color: getFontColor(props.minorColor)}}>
                     {"节气来源：https://www.mxnzp.com"}
                 </Button>
                 <Button type={"text"} shape={props.preferenceData.buttonShape} icon={<CloudOutlined/>}
-                        href={"https://www.jinrishici.com/"} target={"_blank"}
+                        href={"https://www.jinrishici.com/"} target={"_self"}
                         onMouseOver={(e) => btnMouseOver(props.majorColor, e)}
                         onMouseOut={(e) => btnMouseOut(props.minorColor, e)}
                         className={"poemFont"} style={{color: getFontColor(props.minorColor)}}>
                     {"天气来源：https://www.jinrishici.com"}
                 </Button>
                 <Button type={"text"} shape={props.preferenceData.buttonShape} icon={<ReadOutlined/>}
-                        href={"https://www.jinrishici.com/"} target={"_blank"}
+                        href={"https://www.jinrishici.com/"} target={"_self"}
                         onMouseOver={(e) => btnMouseOver(props.majorColor, e)}
                         onMouseOut={(e) => btnMouseOut(props.minorColor, e)}
                         className={"poemFont"} style={{color: getFontColor(props.minorColor)}}>
                     {"诗词来源：https://www.jinrishici.com"}
                 </Button>
                 <Button type={"text"} shape={props.preferenceData.buttonShape} icon={<CodeOutlined/>}
-                        href={"https://www.jetbrains.com.cn/community/opensource/#support/"} target={"_blank"}
+                        href={"https://www.jetbrains.com.cn/community/opensource/#support/"} target={"_self"}
                         onMouseOver={(e) => btnMouseOver(props.majorColor, e)}
                         onMouseOut={(e) => btnMouseOut(props.minorColor, e)}
                         className={"poemFont"} style={{color: getFontColor(props.minorColor)}}>

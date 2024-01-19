@@ -34,13 +34,13 @@ function PreferenceProductComponent(props: any) {
                 <Col span="5">
                     <Space>
                         <Button type={"text"} shape={buttonShape} icon={<GithubOutlined/>}
-                                href={"https://github.com/xyk953651094/SkyDocuments/"} target={"_blank"}
+                                href={"https://github.com/xyk953651094/SkyDocuments/"} target={"_self"}
                                 onMouseOver={(e) => btnMouseOver(props.majorColor, e)}
                                 onMouseOut={(e) => btnMouseOut(props.minorColor, e)}
                                 className={"poemFont"} style={{color: getFontColor(props.minorColor)}}>
                         </Button>
                         <Button type={"text"} shape={buttonShape} icon={<GitlabOutlined/>}
-                                href={"https://gitlab.com/xyk953651094/SkyDocuments/"} target={"_blank"}
+                                href={"https://gitlab.com/xyk953651094/SkyDocuments/"} target={"_self"}
                                 onMouseOver={(e) => btnMouseOver(props.majorColor, e)}
                                 onMouseOut={(e) => btnMouseOut(props.minorColor, e)}
                                 className={"poemFont"} style={{color: getFontColor(props.minorColor)}}>
@@ -58,13 +58,13 @@ function PreferenceProductComponent(props: any) {
                 <Col span="5">
                     <Space>
                         <Button type={"text"} shape={buttonShape} icon={<GithubOutlined/>}
-                                href={"https://github.com/xyk953651094/SkyWallpaper-Electron/"} target={"_blank"}
+                                href={"https://github.com/xyk953651094/SkyWallpaper-Electron/"} target={"_self"}
                                 onMouseOver={(e) => btnMouseOver(props.majorColor, e)}
                                 onMouseOut={(e) => btnMouseOut(props.minorColor, e)}
                                 className={"poemFont"} style={{color: getFontColor(props.minorColor)}}>
                         </Button>
                         <Button type={"text"} shape={buttonShape} icon={<GitlabOutlined/>}
-                                href={"https://gitlab.com/xyk953651094/SkyWallpaper-Electron/"} target={"_blank"}
+                                href={"https://gitlab.com/xyk953651094/SkyWallpaper-Electron/"} target={"_self"}
                                 onMouseOver={(e) => btnMouseOver(props.majorColor, e)}
                                 onMouseOut={(e) => btnMouseOut(props.minorColor, e)}
                                 className={"poemFont"} style={{color: getFontColor(props.minorColor)}}>
@@ -82,13 +82,13 @@ function PreferenceProductComponent(props: any) {
                 <Col span="5">
                     <Space>
                         <Button type={"text"} shape={buttonShape} icon={<GithubOutlined/>}
-                                href={"https://github.com/xyk953651094/SkyNewTab-React/"} target={"_blank"}
+                                href={"https://github.com/xyk953651094/SkyNewTab-React/"} target={"_self"}
                                 onMouseOver={(e) => btnMouseOver(props.majorColor, e)}
                                 onMouseOut={(e) => btnMouseOut(props.minorColor, e)}
                                 className={"poemFont"} style={{color: getFontColor(props.minorColor)}}>
                         </Button>
                         <Button type={"text"} shape={buttonShape} icon={<GitlabOutlined/>}
-                                href={"https://gitlab.com/xyk953651094/SkyNewTab-React/"} target={"_blank"}
+                                href={"https://gitlab.com/xyk953651094/SkyNewTab-React/"} target={"_self"}
                                 onMouseOver={(e) => btnMouseOver(props.majorColor, e)}
                                 onMouseOut={(e) => btnMouseOut(props.minorColor, e)}
                                 className={"poemFont"} style={{color: getFontColor(props.minorColor)}}>
@@ -106,13 +106,13 @@ function PreferenceProductComponent(props: any) {
                 <Col span="5">
                     <Space>
                         <Button type={"text"} shape={buttonShape} icon={<GithubOutlined/>}
-                                href={"https://github.com/xyk953651094/SkyNewTab-Vue/"} target={"_blank"}
+                                href={"https://github.com/xyk953651094/SkyNewTab-Vue/"} target={"_self"}
                                 onMouseOver={(e) => btnMouseOver(props.majorColor, e)}
                                 onMouseOut={(e) => btnMouseOut(props.minorColor, e)}
                                 className={"poemFont"} style={{color: getFontColor(props.minorColor)}}>
                         </Button>
                         <Button type={"text"} shape={buttonShape} icon={<GitlabOutlined/>}
-                                href={"https://gitlab.com/xyk953651094/SkyNewTab-Vue/"} target={"_blank"}
+                                href={"https://gitlab.com/xyk953651094/SkyNewTab-Vue/"} target={"_self"}
                                 onMouseOver={(e) => btnMouseOver(props.majorColor, e)}
                                 onMouseOut={(e) => btnMouseOut(props.minorColor, e)}
                                 className={"poemFont"} style={{color: getFontColor(props.minorColor)}}>
@@ -130,13 +130,13 @@ function PreferenceProductComponent(props: any) {
                 <Col span="5">
                     <Space>
                         <Button type={"text"} shape={buttonShape} icon={<GithubOutlined/>}
-                                href={"https://github.com/xyk953651094/SkyNewTab-Poem-Angular/"} target={"_blank"}
+                                href={"https://github.com/xyk953651094/SkyNewTab-Poem-Angular/"} target={"_self"}
                                 onMouseOver={(e) => btnMouseOver(props.majorColor, e)}
                                 onMouseOut={(e) => btnMouseOut(props.minorColor, e)}
                                 className={"poemFont"} style={{color: getFontColor(props.minorColor)}}>
                         </Button>
                         <Button type={"text"} shape={buttonShape} icon={<GitlabOutlined/>}
-                                href={"https://gitlab.com/xyk953651094/SkyNewTab-Poem-Angular/"} target={"_blank"}
+                                href={"https://gitlab.com/xyk953651094/SkyNewTab-Poem-Angular/"} target={"_self"}
                                 onMouseOver={(e) => btnMouseOver(props.majorColor, e)}
                                 onMouseOut={(e) => btnMouseOut(props.minorColor, e)}
                                 className={"poemFont"} style={{color: getFontColor(props.minorColor)}}>

@@ -12,7 +12,7 @@ function SearchComponent(props: any) {
     const [searchEngineUrl, setSearchEngineUrl] = useState("https://www.bing.com/search?q=");
 
     function onPressEnter(e: any) {
-        window.open(searchEngineUrl + e.target.value);
+        window.open(searchEngineUrl + e.target.value, "_self");
     }
 
     function changeSearchEngine() {

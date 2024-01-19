@@ -29,11 +29,11 @@ function PoemComponent(props: any) {
     }
 
     function poemContentBtnOnClick() {
-        window.open(searchEngineUrl + poemContent, "_blank");
+        window.open(searchEngineUrl + poemContent, "_self");
     }
 
     function poemAuthorBtnOnClick() {
-        window.open(searchEngineUrl + poemAuthor, "_blank");
+        window.open(searchEngineUrl + poemAuthor, "_self");
     }
 
     function setPoem(poemData: any) {

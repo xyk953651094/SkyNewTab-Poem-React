@@ -30,14 +30,14 @@ function WeatherComponent(props: any) {
 
     function locationBtnOnClick() {
         if (location !== "暂无信息") {
-            window.open(searchEngineUrl + location, "_blank");
+            window.open(searchEngineUrl + location, "_self");
         } else {
             message.error("无跳转链接");
         }
     }
 
     function infoBtnOnClick() {
-        window.open(searchEngineUrl + "天气", "_blank");
+        window.open(searchEngineUrl + "天气", "_self");
     }
 
     useEffect(() => {
@@ -203,29 +203,21 @@ function WeatherComponent(props: any) {
     );
 
     return (
-        <PopoverComponent popoverTitle={popoverTitle} popoverContent={popoverContent}
-                          popoverPlacement={"bottomLeft"} popoverMinWidth={"350px"}
-                          buttonIcon={<i className={weatherIcon}></i>} buttonDisplay={display}
-                          buttonContent={weatherContent}
-                          preferenceData={props.preferenceData} minorColor={props.minorColor}
-
-        />
-
-        // <Popover title={popoverTitle} content={popoverContent} color={props.minorColor}
-        //          placement="bottomLeft" overlayStyle={{minWidth: "350px"}}>
-        //     <Button type="text" shape={props.preferenceData.buttonShape} size={"large"}
-        //             icon={<i className={weatherIcon}></i>}
-        //             className={"componentTheme poemFont"}
-        //             style={{
-        //                 display: display,
-        //                 cursor: "default",
-        //                 color: getFontColor(props.minorColor),
-        //                 backgroundColor: props.minorColor
-        //             }}
-        //     >
-        //         {weatherContent}
-        //     </Button>
-        // </Popover>
+        <Popover title={popoverTitle} content={popoverContent} color={props.minorColor}
+                 placement="bottomLeft" overlayStyle={{minWidth: "350px"}}>
+            <Button type="text" shape={props.preferenceData.buttonShape} size={"large"}
+                    icon={<i className={weatherIcon}></i>}
+                    className={"componentTheme poemFont"}
+                    style={{
+                        display: display,
+                        cursor: "default",
+                        color: getFontColor(props.minorColor),
+                        backgroundColor: props.minorColor
+                    }}
+            >
+                {weatherContent}
+            </Button>
+        </Popover>
     );
 }
 

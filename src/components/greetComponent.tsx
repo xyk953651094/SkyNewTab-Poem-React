@@ -35,11 +35,11 @@ function GreetComponent(props: any) {
     const [avoid, setAvoid] = useState("暂无信息");
 
     function historyBtnOnClick() {
-        window.open(searchEngineUrl + "历史上的今天", "_blank");
+        window.open(searchEngineUrl + "历史上的今天", "_self");
     }
 
     function infoBtnOnClick() {
-        window.open(searchEngineUrl + "万年历", "_blank");
+        window.open(searchEngineUrl + "万年历", "_self");
     }
 
     useEffect(() => {
