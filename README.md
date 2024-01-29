@@ -31,25 +31,15 @@
 
 ## 展示
 ### Chromium & Firefox & Safari for Mac
-<img width="1440" alt="截屏2023-09-10 21 21 43" src="https://github.com/xyk953651094/SkyNewTab-Poem-React/assets/28004442/4d883c89-874c-411e-9eeb-e1e1db4a0123">
+<img width="1440" alt="截屏2024-01-27 20 25 37" src="https://github.com/xyk953651094/SkyNewTab-React/assets/28004442/ab83cf68-de94-44eb-8068-a29d6f1ebce2">
 
-<img width="1440" alt="截屏2023-09-10 21 21 54" src="https://github.com/xyk953651094/SkyNewTab-Poem-React/assets/28004442/d840808c-656e-4c00-a154-08f6d9f452f1">
+<img width="1440" alt="截屏2024-01-27 20 25 55" src="https://github.com/xyk953651094/SkyNewTab-React/assets/28004442/81a06abe-1308-41e4-92e6-cce1925f2bf8">
 
-<img width="1440" alt="截屏2023-09-10 21 23 25" src="https://github.com/xyk953651094/SkyNewTab-Poem-React/assets/28004442/c4e838c2-d478-45a0-8b05-2d6c9599d0a0">
-
-<img width="1440" alt="截屏2023-09-10 21 22 20" src="https://github.com/xyk953651094/SkyNewTab-Poem-React/assets/28004442/a266e3f3-b465-4b2b-9ceb-041af8b92e09">
-
-<img width="1440" alt="截屏2023-09-10 21 22 46" src="https://github.com/xyk953651094/SkyNewTab-Poem-React/assets/28004442/f7a938bc-cbb8-48df-a9e5-2342caef9e96">
-
-<img width="1440" alt="截屏2023-09-10 21 23 48" src="https://github.com/xyk953651094/SkyNewTab-Poem-React/assets/28004442/b4c0d50e-437a-4087-a862-2c2be342d495">
+<img width="1440" alt="截屏2024-01-27 20 32 47" src="https://github.com/xyk953651094/SkyNewTab-React/assets/28004442/e3caf2b6-5e31-466d-a0c4-03ee6aef191a">
 
 ### Safari for iPhone
-<img width="300" alt="IMG_23F3F4A6B663-1" src="https://github.com/xyk953651094/SkyNewTab-Poem-React/assets/28004442/6ffd8dd0-191f-4af5-9653-da538bcdd24a">
-
-<img width="300" alt="IMG_5B1992591A09-1" src="https://github.com/xyk953651094/SkyNewTab-Poem-React/assets/28004442/9a1dbdde-0ec5-4561-a092-0160a14af61b">
+<img width="300" alt="IMG_23F3F4A6B663-1" src="https://github.com/xyk953651094/SkyNewTab-React/assets/28004442/36e34b1f-4377-4d7d-a2f3-adcced04aa5f">
 
 ### Safari for iPad
-![IMG_7DC385D5FCCB-1](https://github.com/xyk953651094/SkyNewTab-Poem-React/assets/28004442/83ba1ab7-19c3-4df6-9a37-aefca4b3bfb4)
-
-![IMG_18F7ECB432B4-1](https://github.com/xyk953651094/SkyNewTab-Poem-React/assets/28004442/1bcd91f1-5c09-4eef-951c-26561befe13d)
+![IMG_47670D08046B-1](https://github.com/xyk953651094/SkyNewTab-React/assets/28004442/78006b54-b864-4dcc-bf9a-9ddd7ee2917b)
 
