@@ -226,7 +226,7 @@ function TodoComponent(props: any) {
                    open={displayModal} onOk={modalOkBtnOnClick}
                    onCancel={modalCancelBtnOnClick}
                    destroyOnClose={true}
-                   maskStyle={{backdropFilter: "blur(10px)", WebkitBackdropFilter: "blur(10px)"}}
+                    styles={{mask: {backdropFilter: "blur(10px)", WebkitBackdropFilter: "blur(10px)"}}}
             >
                 <Form>
                     <Form.Item label={"待办事项"} name={"todoInput"}>

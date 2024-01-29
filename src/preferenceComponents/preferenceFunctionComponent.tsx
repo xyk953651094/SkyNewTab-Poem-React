@@ -189,7 +189,7 @@ function PreferenceFunctionComponent(props: any) {
                    onOk={resetPreferenceOkBtnOnClick}
                    onCancel={resetPreferenceCancelBtnOnClick}
                    destroyOnClose={true}
-                   maskStyle={{backdropFilter: "blur(10px)", WebkitBackdropFilter: "blur(10px)"}}
+                    styles={{mask: {backdropFilter: "blur(10px)", WebkitBackdropFilter: "blur(10px)"}}}
             >
                 <Text className={"poemFont"} style={{color: getFontColor(props.minorColor)}}>
                     {"注意：所有设置项将被重置为默认值，确定重置吗？"}
@@ -206,7 +206,7 @@ function PreferenceFunctionComponent(props: any) {
                    onOk={clearStorageOkBtnOnClick}
                    onCancel={clearStorageCancelBtnOnClick}
                    destroyOnClose={true}
-                   maskStyle={{backdropFilter: "blur(10px)", WebkitBackdropFilter: "blur(10px)"}}
+                    styles={{mask: {backdropFilter: "blur(10px)", WebkitBackdropFilter: "blur(10px)"}}}
             >
                 <Text className={"poemFont"} style={{color: getFontColor(props.minorColor)}}>
                     {"注意：本地存储的所有数据将被清空，确定重置吗？"}
