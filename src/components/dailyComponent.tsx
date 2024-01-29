@@ -223,7 +223,7 @@ function DailyComponent(props: any) {
                    open={displayModal} onOk={modalOkBtnOnClick}
                    onCancel={modalCancelBtnOnClick}
                    destroyOnClose={true}
-                   maskStyle={{backdropFilter: "blur(10px)", WebkitBackdropFilter: "blur(10px)"}}
+                   styles={{mask: {backdropFilter: "blur(10px)", WebkitBackdropFilter: "blur(10px)"}}}
             >
                 <Form>
                     <Form.Item label={"倒数标题"} name={"dailyInput"}>

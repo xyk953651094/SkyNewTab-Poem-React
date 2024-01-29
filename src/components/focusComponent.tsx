@@ -113,7 +113,6 @@ function FocusComponent(props: any) {
         let tempFocusFilter = "whiteListFilter";
         let focusFilterStorage = localStorage.getItem("focusFilter");
         if (focusFilterStorage) {
-            console.log("1 ", focusFilterStorage)
             tempFocusFilter = focusFilterStorage
         } else {
             localStorage.setItem("focusFilter", "whiteListFilter");

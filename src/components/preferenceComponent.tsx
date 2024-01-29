@@ -50,9 +50,6 @@ function PreferenceComponent(props: any) {
                 onClose={drawerOnClose}
                 open={displayDrawer}
                 closeIcon={false}
-                headerStyle={{color: getFontColor(props.minorColor), borderBottomColor: getFontColor(props.minorColor)}}
-                drawerStyle={{backgroundColor: props.minorColor}}
-                maskStyle={{backdropFilter: "blur(10px)", WebkitBackdropFilter: "blur(10px)"}}
                 title={
                     <PreferenceHeaderComponent
                         majorColor={props.majorColor}
@@ -67,10 +64,15 @@ function PreferenceComponent(props: any) {
                         preferenceData={props.preferenceData}
                     />
                 }
-                footerStyle={{
-                    backgroundColor: props.minorColor,
-                    borderTopColor: getFontColor(props.minorColor),
-                    textAlign: "center"
+                styles={{
+                    mask: {backdropFilter: "blur(10px)", WebkitBackdropFilter: "blur(10px)"},
+                    header: {color: getFontColor(props.minorColor), borderBottomColor: getFontColor(props.minorColor)},
+                    content: {backgroundColor: props.minorColor},
+                    footer: {
+                        backgroundColor: props.minorColor,
+                        borderTopColor: getFontColor(props.minorColor),
+                        textAlign: "center"
+                    }
                 }}
             >
                 <Space direction={"vertical"} size={"large"} id={"drawerContent"}>
