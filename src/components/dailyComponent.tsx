@@ -4,8 +4,8 @@ import {Button, Col, DatePicker, Form, Input, List, message, Modal, Popover, Row
 import {CalendarOutlined, ClockCircleOutlined, DeleteOutlined, PlusOutlined} from "@ant-design/icons";
 import {btnMouseOut, btnMouseOver, getFontColor, getTimeDetails} from "../typescripts/publicFunctions";
 
+
 const {Text} = Typography;
-const $ = require("jquery");
 
 function DailyComponent(props: any) {
     const [display, setDisplay] = useState("block");
@@ -15,6 +15,7 @@ function DailyComponent(props: any) {
     const [dailyMaxSize, setDailyMaxSize] = useState(5);
     const [selectedTimeStamp, setSelectedTimeStamp] = useState(0);
     const [buttonShape, setButtonShape] = useState<"circle" | "default" | "round" | undefined>("round");
+    const [inputValue, setInputValue] = useState("");
 
     function removeAllBtnOnClick() {
         let tempDaily = localStorage.getItem("daily");
@@ -55,15 +56,19 @@ function DailyComponent(props: any) {
         }
         if (daily.length < dailyMaxSize) {
             setDisplayModal(true);
+            setInputValue("");
             setSelectedTimeStamp(0);
         } else {
             message.error("倒数日数量最多为" + dailyMaxSize + "个");
         }
     }
 
+    function inputOnChange(e: any) {
+        setInputValue(e.target.value);
+    }
+
     function modalOkBtnOnClick() {
-        let title = $("#dailyInput").val();
-        if (title && title.length > 0 && selectedTimeStamp !== 0) {
+        if (inputValue && inputValue.length > 0 && selectedTimeStamp !== 0) {
             let daily = [];
             let tempDaily = localStorage.getItem("daily");
             if (tempDaily) {
@@ -71,7 +76,7 @@ function DailyComponent(props: any) {
             }
             if (daily.length < dailyMaxSize) {
                 daily.push({
-                    "title": title,
+                    "title": inputValue,
                     "selectedTimeStamp": selectedTimeStamp,
                     "timeStamp": Date.now()
                 });
@@ -204,13 +209,13 @@ function DailyComponent(props: any) {
                         id={"dailyBtn"}
                         className={"componentTheme poemFont"}
                         style={{
+                            backgroundColor: props.minorColor,
+                            color: getFontColor(props.minorColor),
                             cursor: "default",
                             display: display,
-                            backgroundColor: props.minorColor,
-                            color: getFontColor(props.minorColor)
                         }}
                 >
-                    {dailySize + " 个倒数日"}
+                    {dailySize + " 个"}
                 </Button>
             </Popover>
             <Modal title={"添加倒数日 " + dailySize + " / " + dailyMaxSize} closeIcon={false}
@@ -222,8 +227,8 @@ function DailyComponent(props: any) {
             >
                 <Form>
                     <Form.Item label={"倒数标题"} name={"dailyInput"}>
-                        <Input className={"poemFont"} placeholder="请输入标题" id={"dailyInput"} maxLength={10}
-                               allowClear showCount/>
+                        <Input className={"poemFont"} id={"dailyInput"} placeholder="请输入标题"
+                               value={inputValue} onChange={inputOnChange} maxLength={10} showCount allowClear/>
                     </Form.Item>
                     <Form.Item label={"倒数日期"} name={"dailyDatePicker"}>
                         <DatePicker className={"poemFont"} onChange={datePickerOnChange} id={"dailyDatePicker"}

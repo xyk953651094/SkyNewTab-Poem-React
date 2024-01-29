@@ -19,7 +19,7 @@ function PreferenceHelpComponent(props: any) {
             <Row>
                 <Col span="12">
                     <Button type={"text"} shape={props.preferenceData.buttonShape} icon={<GithubOutlined/>}
-                            href={"https://xyk953651094.github.io/SkyDocuments/"} target={"_blank"}
+                            href={"https://xyk953651094.github.io/SkyDocuments/"} target={"_self"}
                             onMouseOver={(e) => btnMouseOver(props.majorColor, e)}
                             onMouseOut={(e) => btnMouseOut(props.minorColor, e)}
                             className={"poemFont"} style={{color: getFontColor(props.minorColor)}}>
@@ -28,7 +28,7 @@ function PreferenceHelpComponent(props: any) {
                 </Col>
                 <Col span="12">
                     <Button type={"text"} shape={props.preferenceData.buttonShape} icon={<GitlabOutlined/>}
-                            href={"https://xyk953651094.gitlab.io/SkyDocuments/"} target={"_blank"}
+                            href={"https://xyk953651094.gitlab.io/SkyDocuments/"} target={"_self"}
                             onMouseOver={(e) => btnMouseOver(props.majorColor, e)}
                             onMouseOut={(e) => btnMouseOut(props.minorColor, e)}
                             className={"poemFont"} style={{color: getFontColor(props.minorColor)}}>

@@ -19,9 +19,10 @@ import PreferenceComponent from "./components/preferenceComponent";
 import {PreferenceDataInterface} from "./typescripts/publicInterface";
 import SearchComponent from "./components/searchComponent";
 import ClockComponent from "./components/clockComponent";
+import FocusComponent from "./components/focusComponent";
+import $ from "jquery";
 
 const {Header, Content, Footer} = Layout;
-const $ = require('jquery');
 const themeArray = setColorTheme();
 
 function App() {
@@ -58,11 +59,11 @@ function App() {
             localStorage.setItem("SkyNewTabPoemReactVersion", currentVersion);
 
             // 额外提醒
-            if (currentVersion === "2.5.0") {
+            if (currentVersion === "2.8.0") {
                 notification.open({
                     icon: null,
                     message: "重要通知",
-                    description: "本次更新改动较大，请前往 菜单栏 => 功能设置 => 重置设置",
+                    description: "新增专注模式，若专注模式无法生效，可尝试重新安装本插件",
                     placement: "bottomLeft",
                     duration: 10,
                     closeIcon: false
@@ -74,6 +75,7 @@ function App() {
         let bodyEle = $("body");
         bodyEle.bind("DOMNodeInserted", () => {
             // 通用
+            $(".ant-list-header").css({"borderBlockEndColor": getFontColor(minorColor)});
             $(".ant-list-item").css({"borderBlockEndColor": getFontColor(minorColor), "padding": "10px, 0"});
             $(".ant-list-item-meta-title").css("color", getFontColor(minorColor));
             $(".ant-list-item-meta-description").css("color", getFontColor(minorColor));
@@ -89,6 +91,13 @@ function App() {
                     "font-family": "'Times New Roman', cursive, sans-serif",
                     "font-size": "20px",
                 });
+                $(".ant-switch").find(".ant-switch-inner-checked").css("color", getFontColor(minorColor));
+
+                // focusComponent
+                let focusMode = localStorage.getItem("focusMode");
+                if (focusMode) {
+                    resetSwitchColor("#focusModeSwitch", JSON.parse(focusMode), majorColor);
+                }
             }
 
             // toolTip
@@ -122,6 +131,7 @@ function App() {
                 $(".ant-drawer-title").css("color", getFontColor(minorColor)).addClass("poemFont");
                 $(".ant-form-item-label > label").css("color", getFontColor(minorColor)).addClass("poemFont");
                 $(".ant-radio-wrapper").children(":last-child").css("color", getFontColor(minorColor)).addClass("poemFont");
+                $(".ant-switch").find(".ant-switch-inner-checked").css("color", getFontColor(minorColor));
 
                 // preferenceFunctionComponent
                 resetRadioColor(preferenceData.searchEngine, ["bing", "google"], majorColor);
@@ -190,6 +200,11 @@ function App() {
                                 preferenceData={preferenceData}
                             />
                             <TodoComponent
+                                majorColor={majorColor}
+                                minorColor={minorColor}
+                                preferenceData={preferenceData}
+                            />
+                            <FocusComponent
                                 majorColor={majorColor}
                                 minorColor={minorColor}
                                 preferenceData={preferenceData}

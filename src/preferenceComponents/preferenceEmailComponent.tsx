@@ -19,7 +19,7 @@ function PreferenceEmailComponent(props: any) {
             <Row>
                 <Col span="12">
                     <Button type={"text"} shape={props.preferenceData.buttonShape} icon={<LikeOutlined/>}
-                            href={"mailto:xyk953651094@qq.com?&subject=云开诗词新标签页-功能建议"} target={"_blank"}
+                            href={"mailto:xyk953651094@qq.com?&subject=云开诗词新标签页-功能建议"} target={"_self"}
                             onMouseOver={(e) => btnMouseOver(props.majorColor, e)}
                             onMouseOut={(e) => btnMouseOut(props.minorColor, e)}
                             className={"poemFont"} style={{color: getFontColor(props.minorColor)}}>
@@ -28,7 +28,7 @@ function PreferenceEmailComponent(props: any) {
                 </Col>
                 <Col span="12">
                     <Button type={"text"} shape={props.preferenceData.buttonShape} icon={<DislikeOutlined/>}
-                            href={"mailto:xyk953651094@qq.com?&subject=云开诗词新标签页-问题反馈"} target={"_blank"}
+                            href={"mailto:xyk953651094@qq.com?&subject=云开诗词新标签页-问题反馈"} target={"_self"}
                             onMouseOver={(e) => btnMouseOver(props.majorColor, e)}
                             onMouseOut={(e) => btnMouseOut(props.minorColor, e)}
                             className={"poemFont"} style={{color: getFontColor(props.minorColor)}}>

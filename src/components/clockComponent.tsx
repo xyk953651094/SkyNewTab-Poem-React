@@ -2,9 +2,9 @@ import React, {useEffect, useState} from "react";
 import {Col, Row, Space, Typography} from "antd";
 import "../stylesheets/clockComponent.scss"
 import {getFontColor} from "../typescripts/publicFunctions";
+import $ from "jquery";
 
 const {Text} = Typography;
-const $ = require("jquery");
 
 function ClockComponent(props: any) {
     const [display, setDisplay] = useState("flex");

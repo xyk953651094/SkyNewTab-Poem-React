@@ -4,7 +4,6 @@ import {CheckOutlined, CheckSquareOutlined, PlusOutlined, TagOutlined} from "@an
 import {btnMouseOut, btnMouseOver, getFontColor} from "../typescripts/publicFunctions";
 
 const {Text} = Typography;
-const $ = require("jquery");
 
 function TodoComponent(props: any) {
     const [display, setDisplay] = useState("block");
@@ -15,6 +14,7 @@ function TodoComponent(props: any) {
     const [tag, setTag] = useState("工作");
     const [priority, setPriority] = useState("★");
     const [buttonShape, setButtonShape] = useState<"circle" | "default" | "round" | undefined>("round");
+    const [inputValue, setInputValue] = useState("");
 
     function finishAllBtnOnClick() {
         let tempTodos = localStorage.getItem("todos");
@@ -32,8 +32,8 @@ function TodoComponent(props: any) {
             todos = JSON.parse(tempTodos);
         }
         if (todos.length < todoMaxSize) {
-            // $("#todoInput").val("");
             setDisplayModal(true);
+            setInputValue("");
             setTag("工作");
             setPriority("★");
         } else {
@@ -41,9 +41,12 @@ function TodoComponent(props: any) {
         }
     }
 
+    function inputOnChange(e: any) {
+        setInputValue(e.target.value);
+    }
+
     function modalOkBtnOnClick() {
-        let todoContent = $("#todoInput").val();
-        if (todoContent && todoContent.length > 0) {
+        if (inputValue && inputValue.length > 0) {
             let todos = [];
             let tempTodos = localStorage.getItem("todos");
             if (tempTodos) {
@@ -51,7 +54,7 @@ function TodoComponent(props: any) {
             }
             if (todos.length < todoMaxSize) {
                 todos.push({
-                    "title": todoContent,
+                    "title": inputValue,
                     "tag": tag,
                     "priority": priority,
                     "timeStamp": Date.now()
@@ -215,7 +218,7 @@ function TodoComponent(props: any) {
                             color: getFontColor(props.minorColor)
                         }}
                 >
-                    {todoSize + " 个待办事项"}
+                    {todoSize + " 个"}
                 </Button>
             </Popover>
             <Modal title={"添加待办事项 " + todoSize + " / " + todoMaxSize} closeIcon={false}
@@ -227,8 +230,8 @@ function TodoComponent(props: any) {
             >
                 <Form>
                     <Form.Item label={"待办事项"} name={"todoInput"}>
-                        <Input className={"poemFont"} placeholder="请输入待办内容" id="todoInput" maxLength={10}
-                               allowClear showCount/>
+                        <Input className={"poemFont"} id={"todoInput"} placeholder="请输入待办内容"
+                               value={inputValue} onChange={inputOnChange} maxLength={10} showCount allowClear/>
                     </Form.Item>
                     <Form.Item label={"标签分类"} name={"todoSelect"}>
                         <Select

@@ -19,6 +19,7 @@ function PopupImageComponent(props: any) {
     const [weatherContent, setWeatherContent] = useState("暂无信息");
     const [dailySize, setDailySize] = useState(0);
     const [todoSize, setTodoSize] = useState(0);
+    const [focusMode, setFocusMode] = useState(false);
     const [searchEngineUrl, setSearchEngineUrl] = useState("https://www.bing.com/search?q=");
 
     function greetBtnOnClick() {
@@ -45,12 +46,14 @@ function PopupImageComponent(props: any) {
         let tempWeather = localStorage.getItem("lastWeather");
         let tempDaily = localStorage.getItem("daily");
         let tempTodos = localStorage.getItem("todos");
+        let tempFocusMode = localStorage.getItem("focusMode");
 
         setGreetContent(tempGreet ? getGreetContent() + " ｜ " + setHoliday(JSON.parse(tempGreet)) : "暂无信息");
         setWeatherIcon(tempWeather ? getWeatherIcon(JSON.parse(tempWeather).weatherData.weather) : "");
         setWeatherContent(tempWeather ? JSON.parse(tempWeather).weatherData.weather + " ｜ " + JSON.parse(tempWeather).weatherData.temperature + "°C" : "暂无信息");
         setDailySize(tempDaily ? JSON.parse(tempDaily).length : 0);
         setTodoSize(tempTodos ? JSON.parse(tempTodos).length : 0);
+        setFocusMode(tempFocusMode ? JSON.parse(tempFocusMode) : false);
         setSearchEngineUrl(getSearchEngineDetail(props.preferenceData.searchEngine).searchEngineUrl);
     }, [props.preferenceData.searchEngine])
 
@@ -78,14 +81,22 @@ function PopupImageComponent(props: any) {
                         onMouseOut={(e) => btnMouseOut(props.minorColor, e)}
                         className={"popupFont"}
                         style={{color: getFontColor(props.minorColor), cursor: "default"}}>
-                    {dailySize + " 个倒数日"}
+                    {dailySize + " 个"}
                 </Button>
                 <Button type={"text"} shape={props.preferenceData.buttonShape} icon={<CheckSquareOutlined/>}
                         onMouseOver={(e) => btnMouseOver(props.majorColor, e)}
                         onMouseOut={(e) => btnMouseOut(props.minorColor, e)}
                         className={"popupFont"}
                         style={{color: getFontColor(props.minorColor), cursor: "default"}}>
-                    {todoSize + " 个待办事项"}
+                    {todoSize + " 个"}
+                </Button>
+                <Button type={"text"} shape={props.preferenceData.buttonShape}
+                        icon={<i className={focusMode ? "bi bi-cup-hot-fill" : "bi bi-cup-hot"}></i>}
+                        onMouseOver={(e) => btnMouseOver(props.majorColor, e)}
+                        onMouseOut={(e) => btnMouseOut(props.minorColor, e)}
+                        className={"popupFont"}
+                        style={{color: getFontColor(props.minorColor), cursor: "default"}}>
+                    {focusMode ? "专注中" : "未专注"}
                 </Button>
             </Space>
             <Button type={"text"} shape={props.preferenceData.buttonShape} icon={<InfoCircleOutlined/>}
