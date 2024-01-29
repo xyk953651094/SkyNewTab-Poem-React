@@ -32,7 +32,7 @@ function PopupFooterComponent(props: any) {
                     onMouseOver={(e) => btnMouseOver(props.majorColor, e)}
                     onMouseOut={(e) => btnMouseOut(props.minorColor, e)}
                     style={{color: getFontColor(props.minorColor)}} className={"popupFont"}>
-                支持
+                捐助
             </Button>
         </Space>
     );

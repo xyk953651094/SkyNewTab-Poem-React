@@ -18,7 +18,7 @@ function PreferenceHeaderComponent(props: any) {
                         onMouseOut={(e) => btnMouseOut(props.minorColor, e)}
                         className={"poemFont"}
                         style={{color: getFontColor(props.minorColor)}}>
-                    支持
+                    捐助
                 </Button>
             </Col>
         </Row>

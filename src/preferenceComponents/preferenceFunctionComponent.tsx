@@ -18,7 +18,6 @@ import {
     btnMouseOver,
     getFontColor,
     getPreferenceDataStorage,
-    resetRadioColor, resetSwitchColor
 } from "../typescripts/publicFunctions";
 import {PreferenceDataInterface} from "../typescripts/publicInterface";
 import {defaultPreferenceData} from "../typescripts/publicConstants";
@@ -26,6 +25,7 @@ import {defaultPreferenceData} from "../typescripts/publicConstants";
 const {Text} = Typography;
 
 function PreferenceFunctionComponent(props: any) {
+    const [formDisabled, setFormDisabled] = useState(false);
     const [displayResetPreferenceModal, setDisplayResetPreferenceModal] = useState(false);
     const [displayClearStorageModal, setDisplayClearStorageModal] = useState(false);
     const [preferenceData, setPreferenceData] = useState(getPreferenceDataStorage());
@@ -39,7 +39,7 @@ function PreferenceFunctionComponent(props: any) {
             return newPreferenceData;
         });
         message.success("已更换搜索引擎");
-        resetRadioColor(event.target.value, ["bing", "google"], props.majorColor);
+        // resetRadioColor(event.target.value, ["bing", "google"], props.majorColor);
     }
 
     function buttonShapeRadioOnChange(event: RadioChangeEvent) {
@@ -50,7 +50,7 @@ function PreferenceFunctionComponent(props: any) {
             return newPreferenceData;
         });
         message.success("已更换按钮形状");
-        resetRadioColor(event.target.value, ["round", "default"], props.majorColor);
+        // resetRadioColor(event.target.value, ["round", "default"], props.majorColor);
     }
 
     // 简洁模式
@@ -65,9 +65,10 @@ function PreferenceFunctionComponent(props: any) {
             message.success("已开启简洁模式");
         } else {
             message.success("已关闭简洁模式，一秒后刷新页面");
+            setFormDisabled(true);
             refreshWindow();
         }
-        resetSwitchColor("#simpleModeSwitch", checked, props.majorColor);
+        // resetSwitchColor("#simpleModeSwitch", checked, props.majorColor);
     }
 
     // 重置设置
@@ -79,6 +80,7 @@ function PreferenceFunctionComponent(props: any) {
         setDisplayResetPreferenceModal(true);
         localStorage.setItem("preferenceData", JSON.stringify(defaultPreferenceData));
         message.success("已重置设置，一秒后刷新页面");
+        setFormDisabled(true);
         refreshWindow();
     }
 
@@ -95,6 +97,7 @@ function PreferenceFunctionComponent(props: any) {
         setDisplayClearStorageModal(true);
         localStorage.clear();
         message.success("已重置插件，一秒后刷新页面");
+        setFormDisabled(true);
         refreshWindow();
     }
 
@@ -130,7 +133,7 @@ function PreferenceFunctionComponent(props: any) {
                   }}
                   bodyStyle={{backgroundColor: props.minorColor}}
             >
-                <Form colon={false} initialValues={preferenceData}>
+                <Form colon={false} initialValues={preferenceData} disabled={formDisabled}>
                     <Form.Item name={"searchEngine"} label={"搜索引擎"}>
                         <Radio.Group buttonStyle={"solid"} style={{width: "100%"}}
                                      onChange={searchEngineRadioOnChange}>
