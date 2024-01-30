@@ -2,7 +2,7 @@
 /// <reference types="firefox-webext-browser"/>
 
 import React, {useEffect, useState} from "react";
-import {Button, Col, Input, List, message, Popover, Row, Space, Switch, Typography} from 'antd';
+import {Button, Col, Input, List, message, notification, Popover, Row, Space, Switch, Typography} from 'antd';
 import {btnMouseOut, btnMouseOver, getBrowserType, getFontColor} from "../typescripts/publicFunctions";
 import {DeleteOutlined, LinkOutlined, PlusOutlined, SyncOutlined} from "@ant-design/icons";
 
@@ -19,12 +19,12 @@ function FocusComponent(props: any) {
 
     function setExtensionStorage(key: string, value: any) {
         const browserType = getBrowserType();
-        if (["Chrome", "Edge"].indexOf(browserType) !== -1) {
-            chrome.storage.local.set({[key]: value});
-        }
-        else if (["Firefox", "Safari"].indexOf(browserType) !== -1) {
-            browser.storage.local.set({[key]: value});
-        }
+        // if (["Chrome", "Edge"].indexOf(browserType) !== -1) {
+        //     chrome.storage.local.set({[key]: value});
+        // }
+        // else if (["Firefox", "Safari"].indexOf(browserType) !== -1) {
+        //     browser.storage.local.set({[key]: value});
+        // }
     }
 
     function focusModeSwitchOnChange(checked: boolean) {
@@ -104,6 +104,16 @@ function FocusComponent(props: any) {
         let focusModeStorage = localStorage.getItem("focusMode");
         if (focusModeStorage) {
             tempFocusMode = JSON.parse(focusModeStorage);
+            if (tempFocusMode) {
+                notification.open({
+                    icon: null,
+                    message: "已开启专注模式",
+                    description: "部分网页将无法访问，右上角专注中可修改设置",
+                    placement: "bottomLeft",
+                    duration: 5,
+                    closeIcon: false
+                });
+            }
         } else {
             localStorage.setItem("focusMode", JSON.stringify(false));
             setExtensionStorage("focusMode", false);
