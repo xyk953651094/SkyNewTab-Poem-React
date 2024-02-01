@@ -4,21 +4,20 @@
 import React, {useEffect, useState} from "react";
 import {Button, Col, Input, List, message, Popover, Row, Space, Switch, Typography} from 'antd';
 import {btnMouseOut, btnMouseOver, getBrowserType, getFontColor} from "../typescripts/publicFunctions";
-import {DeleteOutlined, LinkOutlined, PlusOutlined, SyncOutlined} from "@ant-design/icons";
+import {DeleteOutlined, LinkOutlined, PlusOutlined} from "@ant-design/icons";
 
 const {Text} = Typography;
 
 function FocusComponent(props: any) {
     const [display, setDisplay] = useState("block");
     const [focusMode, setFocusMode] = useState<boolean>(false);
-    const [focusFilter, setFocusFilter] = useState("whiteListFilter"); // whiteListFilter, blackListFilter
     const [inputValue, setInputValue] = useState("");
     const [filterList, setFilterList] = useState<any[]>([]);
     const [buttonShape, setButtonShape] = useState<"circle" | "default" | "round" | undefined>("round");
     const focusMaxSize = 5;
+    const browserType = getBrowserType();
 
     function setExtensionStorage(key: string, value: any) {
-        const browserType = getBrowserType();
         if (["Chrome", "Edge"].indexOf(browserType) !== -1) {
             chrome.storage.local.set({[key]: value});
         }
@@ -40,13 +39,6 @@ function FocusComponent(props: any) {
             localStorage.removeItem("filterList");
             setExtensionStorage("filterList", []);
         }
-    }
-
-    function switchFilterBtnOnClick() {
-        let tempFocusFilter = (focusFilter === "whiteListFilter" ? "blackListFilter" : "whiteListFilter");
-        setFocusFilter(tempFocusFilter);
-        localStorage.setItem("focusFilter", tempFocusFilter);
-        setExtensionStorage("focusFilter", tempFocusFilter);
     }
 
     function inputOnChange(e: any) {
@@ -109,16 +101,6 @@ function FocusComponent(props: any) {
             setExtensionStorage("focusMode", false);
         }
 
-        // 初始化过滤模式
-        let tempFocusFilter = "whiteListFilter";
-        let focusFilterStorage = localStorage.getItem("focusFilter");
-        if (focusFilterStorage) {
-            tempFocusFilter = focusFilterStorage
-        } else {
-            localStorage.setItem("focusFilter", "whiteListFilter");
-            setExtensionStorage("focusFilter", "whiteListFilter");
-        }
-
         // 初始化名单
         let tempFilterList = [];
         let filterListStorage = localStorage.getItem("filterList");
@@ -132,7 +114,6 @@ function FocusComponent(props: any) {
         setDisplay(props.preferenceData.simpleMode ? "none" : "block");
         setButtonShape(props.preferenceData.buttonShape === "round" ? "circle" : "default");
         setFocusMode(tempFocusMode);
-        setFocusFilter(tempFocusFilter);
         setFilterList(tempFilterList);
 
         if (props.preferenceData.simpleMode) {
@@ -168,18 +149,9 @@ function FocusComponent(props: any) {
             header={
                 <Row align={"middle"}>
                     <Col span={8}>
-                        <Space>
-                            <Text className={"poemFont"} style={{color: getFontColor(props.minorColor)}}>
-                                {(focusFilter === "whiteListFilter" ? "白名单 " : "黑名单 ") + filterList.length + " / " + focusMaxSize}
-                            </Text>
-                            <Button type={"text"} shape={buttonShape} icon={<SyncOutlined />}
-                                    onMouseOver={(e) => btnMouseOver(props.majorColor, e)}
-                                    onMouseOut={(e) => btnMouseOut(props.minorColor, e)}
-                                    onClick={switchFilterBtnOnClick}
-                                    className={"poemFont"}
-                                    style={{color: getFontColor(props.minorColor)}}>
-                            </Button>
-                        </Space>
+                        <Text className={"poemFont"} style={{color: getFontColor(props.minorColor)}}>
+                            {"黑名单 " + filterList.length + " / " + focusMaxSize}
+                        </Text>
                     </Col>
                     <Col span={16} style={{textAlign: "right"}}>
                         <Space>
@@ -222,11 +194,7 @@ function FocusComponent(props: any) {
             )}
             footer={
                 <Text className={"poemFont"} style={{color: getFontColor(props.minorColor)}}>
-                    {
-                        focusFilter === "whiteListFilter" ?
-                            "白名单模式下，访问白名单外的网站将自动跳转至新标签页或空白页" :
-                            "黑名单模式下，访问黑名单中的网站将自动跳转至新标签页或空白页"
-                    }
+                    {"访问黑名单中的网站将自动跳转至新标签页"}
                 </Text>
             }
         />

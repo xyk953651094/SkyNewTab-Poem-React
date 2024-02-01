@@ -2,7 +2,7 @@ import React from "react";
 import {Button} from "antd";
 import {btnMouseOut, btnMouseOver, getFontColor} from "../typescripts/publicFunctions";
 
-function PopoverComponent(props: any) {
+function ButtonComponent(props: any) {
     return (
         <Button type={"text"}
                 shape={props.buttonShape}
@@ -18,4 +18,4 @@ function PopoverComponent(props: any) {
     );
 }
 
-export default PopoverComponent;
+export default ButtonComponent;
