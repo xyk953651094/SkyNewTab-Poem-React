@@ -2,16 +2,15 @@
 /// <reference types="firefox-webext-browser"/>
 
 import React, {useEffect, useState} from "react";
-import {Button, Col, Input, List, message, notification, Popover, Row, Space, Switch, Typography} from 'antd';
+import {Button, Col, Input, List, message, Popover, Row, Space, Switch, Typography} from 'antd';
 import {btnMouseOut, btnMouseOver, getBrowserType, getFontColor} from "../typescripts/publicFunctions";
-import {DeleteOutlined, LinkOutlined, PlusOutlined, SyncOutlined} from "@ant-design/icons";
+import {DeleteOutlined, LinkOutlined, PlusOutlined} from "@ant-design/icons";
 
 const {Text} = Typography;
 
 function FocusComponent(props: any) {
     const [display, setDisplay] = useState("block");
     const [focusMode, setFocusMode] = useState<boolean>(false);
-    const [focusFilter, setFocusFilter] = useState("blackListFilter"); // whiteListFilter, blackListFilter
     const [inputValue, setInputValue] = useState("");
     const [filterList, setFilterList] = useState<any[]>([]);
     const [buttonShape, setButtonShape] = useState<"circle" | "default" | "round" | undefined>("round");
@@ -39,18 +38,6 @@ function FocusComponent(props: any) {
             setFilterList([]);
             localStorage.removeItem("filterList");
             setExtensionStorage("filterList", []);
-        }
-    }
-
-    function switchFilterBtnOnClick() {
-        if (["Firefox", "Safari"].indexOf(browserType) !== -1) {
-            message.error("暂不支持白名单模式");
-        }
-        else {
-            let tempFocusFilter = (focusFilter === "whiteListFilter" ? "blackListFilter" : "whiteListFilter");
-            setFocusFilter(tempFocusFilter);
-            localStorage.setItem("focusFilter", tempFocusFilter);
-            setExtensionStorage("focusFilter", tempFocusFilter);
         }
     }
 
@@ -109,32 +96,9 @@ function FocusComponent(props: any) {
         let focusModeStorage = localStorage.getItem("focusMode");
         if (focusModeStorage) {
             tempFocusMode = JSON.parse(focusModeStorage);
-            if (tempFocusMode) {
-                notification.open({
-                    icon: null,
-                    message: "已开启专注模式",
-                    description: "部分网页将无法访问，右上角专注中可修改设置",
-                    placement: "bottomLeft",
-                    duration: 5,
-                    closeIcon: false
-                });
-            }
         } else {
             localStorage.setItem("focusMode", JSON.stringify(false));
             setExtensionStorage("focusMode", false);
-        }
-
-        // 初始化过滤模式
-        let tempFocusFilter = "blackListFilter";
-        let focusFilterStorage = localStorage.getItem("focusFilter");
-        if (focusFilterStorage) {
-            tempFocusFilter = focusFilterStorage;
-            if (tempFocusFilter === "whiteListFilter" && (["Firefox", "Safari"].indexOf(browserType) !== -1)) {
-                message.info("暂不支持白名单模式，请切换成黑名单模式");
-            }
-        } else {
-            localStorage.setItem("focusFilter", "blackListFilter");
-            setExtensionStorage("focusFilter", "blackListFilter");
         }
 
         // 初始化名单
@@ -150,7 +114,6 @@ function FocusComponent(props: any) {
         setDisplay(props.preferenceData.simpleMode ? "none" : "block");
         setButtonShape(props.preferenceData.buttonShape === "round" ? "circle" : "default");
         setFocusMode(tempFocusMode);
-        setFocusFilter(tempFocusFilter);
         setFilterList(tempFilterList);
 
         if (props.preferenceData.simpleMode) {
@@ -186,18 +149,9 @@ function FocusComponent(props: any) {
             header={
                 <Row align={"middle"}>
                     <Col span={8}>
-                        <Space>
-                            <Text className={"poemFont"} style={{color: getFontColor(props.minorColor)}}>
-                                {(focusFilter === "whiteListFilter" ? "白名单 " : "黑名单 ") + filterList.length + " / " + focusMaxSize}
-                            </Text>
-                            <Button type={"text"} shape={buttonShape} icon={<SyncOutlined />}
-                                    onMouseOver={(e) => btnMouseOver(props.majorColor, e)}
-                                    onMouseOut={(e) => btnMouseOut(props.minorColor, e)}
-                                    onClick={switchFilterBtnOnClick}
-                                    className={"poemFont"}
-                                    style={{color: getFontColor(props.minorColor)}}>
-                            </Button>
-                        </Space>
+                        <Text className={"poemFont"} style={{color: getFontColor(props.minorColor)}}>
+                            {"黑名单 " + filterList.length + " / " + focusMaxSize}
+                        </Text>
                     </Col>
                     <Col span={16} style={{textAlign: "right"}}>
                         <Space>
@@ -240,11 +194,7 @@ function FocusComponent(props: any) {
             )}
             footer={
                 <Text className={"poemFont"} style={{color: getFontColor(props.minorColor)}}>
-                    {
-                        focusFilter === "whiteListFilter" ?
-                            "白名单模式下，访问白名单外的网站将自动跳转至新标签页或空白页" :
-                            "黑名单模式下，访问黑名单中的网站将自动跳转至新标签页或空白页"
-                    }
+                    {"访问黑名单中的网站将自动跳转至新标签页"}
                 </Text>
             }
         />
