@@ -4,7 +4,6 @@ import {Button, Col, DatePicker, Form, Input, List, message, Modal, Popover, Row
 import {CalendarOutlined, ClockCircleOutlined, DeleteOutlined, PlusOutlined} from "@ant-design/icons";
 import {btnMouseOut, btnMouseOver, getFontColor, getTimeDetails} from "../typescripts/publicFunctions";
 
-
 const {Text} = Typography;
 
 function DailyComponent(props: any) {

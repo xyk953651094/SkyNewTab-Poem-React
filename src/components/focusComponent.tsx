@@ -2,7 +2,7 @@
 /// <reference types="firefox-webext-browser"/>
 
 import React, {useEffect, useState} from "react";
-import {Button, Col, Input, List, message, Popover, Row, Space, Switch, Typography} from 'antd';
+import {Button, Col, Input, List, message, Popover, Row, Space, Switch, Typography, Modal, Form} from 'antd';
 import {btnMouseOut, btnMouseOver, getBrowserType, getFontColor} from "../typescripts/publicFunctions";
 import {DeleteOutlined, LinkOutlined, PlusOutlined} from "@ant-design/icons";
 
@@ -10,6 +10,7 @@ const {Text} = Typography;
 
 function FocusComponent(props: any) {
     const [display, setDisplay] = useState("block");
+    const [displayModal, setDisplayModal] = useState(false);
     const [focusMode, setFocusMode] = useState<boolean>(false);
     const [inputValue, setInputValue] = useState("");
     const [filterList, setFilterList] = useState<any[]>([]);
@@ -18,12 +19,12 @@ function FocusComponent(props: any) {
     const browserType = getBrowserType();
 
     function setExtensionStorage(key: string, value: any) {
-        if (["Chrome", "Edge"].indexOf(browserType) !== -1) {
-            chrome.storage.local.set({[key]: value});
-        }
-        else if (["Firefox", "Safari"].indexOf(browserType) !== -1) {
-            browser.storage.local.set({[key]: value});
-        }
+        // if (["Chrome", "Edge"].indexOf(browserType) !== -1) {
+        //     chrome.storage.local.set({[key]: value});
+        // }
+        // else if (["Firefox", "Safari"].indexOf(browserType) !== -1) {
+        //     browser.storage.local.set({[key]: value});
+        // }
     }
 
     function focusModeSwitchOnChange(checked: boolean) {
@@ -38,33 +39,6 @@ function FocusComponent(props: any) {
             setFilterList([]);
             localStorage.removeItem("filterList");
             setExtensionStorage("filterList", []);
-        }
-    }
-
-    function inputOnChange(e: any) {
-        setInputValue(e.target.value);
-    }
-
-    function addFilterListBtnOnClick() {
-        if (filterList.length < focusMaxSize) {
-            if (inputValue.length > 0) {
-                let tempFilterList = filterList;
-                tempFilterList.push({
-                    "domain": inputValue,
-                    "timeStamp": Date.now()
-                });
-
-                setInputValue("");
-                setFilterList(tempFilterList);
-                localStorage.setItem("filterList", JSON.stringify(filterList));
-                setExtensionStorage("filterList", filterList);
-            }
-            else {
-                message.error("域名不能为空");
-            }
-        }
-        else {
-            message.error("名单数量最多为" + focusMaxSize + "个");
         }
     }
 
@@ -88,6 +62,47 @@ function FocusComponent(props: any) {
 
             setFilterList(filterList);
         }
+    }
+
+    function showAddModalBtnOnClick() {
+        if (filterList.length < focusMaxSize) {
+            setDisplayModal(true);
+            setInputValue("");
+        } else {
+            message.error("域名数量最多为" + focusMaxSize + "个");
+        }
+    }
+
+    function inputOnChange(e: any) {
+        setInputValue(e.target.value);
+    }
+
+    function modalOkBtnOnClick() {
+        if (filterList.length < focusMaxSize) {
+            if (inputValue.length > 0) {
+                let tempFilterList = filterList;
+                tempFilterList.push({
+                    "domain": inputValue,
+                    "timeStamp": Date.now()
+                });
+                localStorage.setItem("filterList", JSON.stringify(filterList));
+                setExtensionStorage("filterList", filterList);
+
+                setDisplayModal(false);
+                setFilterList(tempFilterList);
+                message.success("添加成功");
+            }
+            else {
+                message.error("域名不能为空");
+            }
+        }
+        else {
+            message.error("域名数量最多为" + focusMaxSize + "个");
+        }
+    }
+
+    function modalCancelBtnOnClick() {
+        setDisplayModal(false);
     }
 
     useEffect(() => {
@@ -126,18 +141,27 @@ function FocusComponent(props: any) {
     const popoverTitle = (
         <Row align={"middle"}>
             <Col span={8}>
-                <Text className={"poemFont"} style={{color: getFontColor(props.minorColor)}}>{"专注模式"}</Text>
+                <Text className={"poemFont"} style={{color: getFontColor(props.minorColor)}}>
+                    {"专注模式 " + filterList.length + " / " + focusMaxSize}
+                </Text>
             </Col>
             <Col span={16} style={{textAlign: "right"}}>
                 <Space>
                     <Switch checkedChildren="已开启" unCheckedChildren="已关闭" id={"focusModeSwitch"} className={"poemFont"}
                             checked={focusMode} onChange={focusModeSwitchOnChange}/>
+                    <Button type={"text"} shape={props.preferenceData.buttonShape} icon={<PlusOutlined/>}
+                            onMouseOver={(e) => btnMouseOver(props.majorColor, e)}
+                            onMouseOut={(e) => btnMouseOut(props.minorColor, e)}
+                            onClick={showAddModalBtnOnClick}
+                            className={"poemFont"} style={{color: getFontColor(props.minorColor)}} >
+                        {"添加域名"}
+                    </Button>
                     <Button type={"text"} shape={props.preferenceData.buttonShape} icon={<DeleteOutlined/>}
                             onMouseOver={(e) => btnMouseOver(props.majorColor, e)}
                             onMouseOut={(e) => btnMouseOut(props.minorColor, e)}
-                            className={"poemFont"}
-                            style={{color: getFontColor(props.minorColor)}} onClick={removeAllBtnOnClick}>
-                        {"全部清空"}
+                            onClick={removeAllBtnOnClick}
+                            className={"poemFont"} style={{color: getFontColor(props.minorColor)}}>
+                        {"全部删除"}
                     </Button>
                 </Space>
             </Col>
@@ -146,29 +170,6 @@ function FocusComponent(props: any) {
 
     const popoverContent = (
         <List
-            header={
-                <Row align={"middle"}>
-                    <Col span={8}>
-                        <Text className={"poemFont"} style={{color: getFontColor(props.minorColor)}}>
-                            {"黑名单 " + filterList.length + " / " + focusMaxSize}
-                        </Text>
-                    </Col>
-                    <Col span={16} style={{textAlign: "right"}}>
-                        <Space>
-                            <Input className={"poemFont"} id={"focusInput"} placeholder="example.com"
-                                   value={inputValue} onChange={inputOnChange} maxLength={20} showCount allowClear/>
-                            <Button type={"text"} shape={props.preferenceData.buttonShape} icon={<PlusOutlined/>}
-                                    onMouseOver={(e) => btnMouseOver(props.majorColor, e)}
-                                    onMouseOut={(e) => btnMouseOut(props.minorColor, e)}
-                                    onClick={addFilterListBtnOnClick}
-                                    className={"poemFont"}
-                                    style={{color: getFontColor(props.minorColor)}}>
-                                {"添加"}
-                            </Button>
-                        </Space>
-                    </Col>
-                </Row>
-            }
             dataSource={filterList}
             renderItem={(item: any) => (
                 <List.Item
@@ -194,30 +195,51 @@ function FocusComponent(props: any) {
             )}
             footer={
                 <Text className={"poemFont"} style={{color: getFontColor(props.minorColor)}}>
-                    {"访问黑名单中的网站将自动跳转至新标签页"}
+                    {"开启专注模式后，访问以上域名时将自动跳转至新标签页"}
                 </Text>
             }
         />
     );
 
     return (
-        <Popover title={popoverTitle} content={popoverContent} placement={"bottomRight"}
-                 color={props.minorColor}
-                 overlayStyle={{width: "500px"}}>
-            <Button shape={props.preferenceData.buttonShape} size={"large"}
-                    icon={<i className={focusMode ? "bi bi-cup-hot-fill" : "bi bi-cup-hot"}></i>}
-                    id={"focusBtn"}
-                    className={"componentTheme poemFont"}
-                    style={{
-                        backgroundColor: props.minorColor,
-                        color: getFontColor(props.minorColor),
-                        cursor: "default",
-                        display: display,
-                    }}
+        <>
+            <Popover title={popoverTitle} content={popoverContent} placement={"bottomRight"}
+                     color={props.minorColor}
+                     overlayStyle={{width: "500px"}}>
+                <Button shape={props.preferenceData.buttonShape} size={"large"}
+                        icon={<i className={focusMode ? "bi bi-cup-hot-fill" : "bi bi-cup-hot"}></i>}
+                        id={"focusBtn"}
+                        className={"componentTheme poemFont"}
+                        style={{
+                            backgroundColor: props.minorColor,
+                            color: getFontColor(props.minorColor),
+                            cursor: "default",
+                            display: display,
+                        }}
+                >
+                    {focusMode ? "专注中" : "未专注"}
+                </Button>
+            </Popover>
+            <Modal title={
+                <Text style={{color: props.minorColor}}>
+                    {"添加域名 " + filterList.length + " / " + focusMaxSize}
+                </Text>
+            }
+                   closeIcon={false}
+                   centered
+                   open={displayModal} onOk={modalOkBtnOnClick}
+                   onCancel={modalCancelBtnOnClick}
+                   destroyOnClose={true}
+                   styles={{mask: {backdropFilter: "blur(10px)", WebkitBackdropFilter: "blur(10px)"}}}
             >
-                {focusMode ? "专注中" : "未专注"}
-            </Button>
-        </Popover>
+                <Form>
+                    <Form.Item label={"网站域名"} name={"focusInput"}>
+                        <Input className={"poemFont"} id={"focusInput"} placeholder="example.com"
+                               value={inputValue} onChange={inputOnChange} maxLength={20} showCount allowClear/>
+                    </Form.Item>
+                </Form>
+            </Modal>
+        </>
     );
 
 }
