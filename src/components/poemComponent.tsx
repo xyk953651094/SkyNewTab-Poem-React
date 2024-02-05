@@ -106,14 +106,16 @@ function PoemComponent(props: any) {
     useEffect(() => {
         setSearchEngineUrl(getSearchEngineDetail(props.preferenceData.searchEngine).searchEngineUrl);
 
+        let tempCustomPoem = false;
         let customPoemStorage = localStorage.getItem("customPoem");
         if (customPoemStorage) {
-            setCustomPoem(JSON.parse(customPoemStorage));
+            tempCustomPoem = JSON.parse(customPoemStorage);
+            setCustomPoem(tempCustomPoem);
         } else {
             localStorage.setItem("customPoem", JSON.stringify(false));
         }
 
-        if (customPoem) {
+        if (tempCustomPoem) {
             let customContentStorage = localStorage.getItem("customContent");
             let customAuthorStorage = localStorage.getItem("customAuthor");
             if (customContentStorage && customAuthorStorage) {
@@ -178,7 +180,7 @@ function PoemComponent(props: any) {
                    destroyOnClose={true}
                    styles={{mask: {backdropFilter: "blur(10px)", WebkitBackdropFilter: "blur(10px)"}}}
                    footer={[
-                       <Button type={"text"} shape={props.preferenceData.buttonShape}
+                       <Button type={"text"} shape={props.preferenceData.buttonShape} key={"closeCustomPoem"}
                                onMouseOver={(e) => btnMouseOver(props.majorColor, e)}
                                onMouseOut={(e) => btnMouseOut(props.minorColor, e)}
                                onClick={closeCustomPoemBtnOnClick}
@@ -186,7 +188,7 @@ function PoemComponent(props: any) {
                                style={{color: getFontColor(props.minorColor), display: customPoem ? "inline-block" : "none"}} >
                            {"关闭自定诗词"}
                        </Button>,
-                       <Button type={"text"} shape={props.preferenceData.buttonShape}
+                       <Button type={"text"} shape={props.preferenceData.buttonShape} key={"modalCancel"}
                                onMouseOver={(e) => btnMouseOver(props.majorColor, e)}
                                onMouseOut={(e) => btnMouseOut(props.minorColor, e)}
                                onClick={modalCancelBtnOnClick}
@@ -194,7 +196,7 @@ function PoemComponent(props: any) {
                                style={{color: getFontColor(props.minorColor)}} >
                            {"取消"}
                        </Button>,
-                       <Button type={"text"} shape={props.preferenceData.buttonShape}
+                       <Button type={"text"} shape={props.preferenceData.buttonShape} key={"modalOk"}
                                onMouseOver={(e) => btnMouseOver(props.majorColor, e)}
                                onMouseOut={(e) => btnMouseOut(props.minorColor, e)}
                                onClick={modalOkBtnOnClick}
