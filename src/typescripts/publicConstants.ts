@@ -132,7 +132,6 @@ export const chinaObject = [
 export let defaultPreferenceData: PreferenceDataInterface = {
     searchEngine: "bing",
     simpleMode: false,
-    displayAlert: true,
     buttonShape: "round"
 }
 

@@ -280,10 +280,6 @@ export function fixPreferenceData(preferenceData: PreferenceDataInterface) {
         preferenceData.simpleMode = defaultPreferenceData.simpleMode;
         isFixed = true;
     }
-    if (preferenceData.displayAlert === undefined || preferenceData.displayAlert === null) {
-        preferenceData.displayAlert = defaultPreferenceData.displayAlert;
-        isFixed = true;
-    }
 
     if (isFixed) {
         localStorage.setItem("preferenceData", JSON.stringify(preferenceData));  // 重新保存设置

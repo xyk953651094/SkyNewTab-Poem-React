@@ -4,57 +4,41 @@ import {Button, Col, DatePicker, Form, Input, List, message, Modal, Popover, Row
 import {CalendarOutlined, ClockCircleOutlined, DeleteOutlined, PlusOutlined} from "@ant-design/icons";
 import {btnMouseOut, btnMouseOver, getFontColor, getTimeDetails} from "../typescripts/publicFunctions";
 
-
 const {Text} = Typography;
 
 function DailyComponent(props: any) {
     const [display, setDisplay] = useState("block");
     const [displayModal, setDisplayModal] = useState(false);
-    const [listItems, setListItems] = useState([]);
-    const [dailySize, setDailySize] = useState(0);
-    const [dailyMaxSize, setDailyMaxSize] = useState(5);
+    const [dailyList, setDailyList] = useState<any[]>([]);
     const [selectedTimeStamp, setSelectedTimeStamp] = useState(0);
     const [buttonShape, setButtonShape] = useState<"circle" | "default" | "round" | undefined>("round");
     const [inputValue, setInputValue] = useState("");
+    const dailyMaxSize = 10;
 
     function removeAllBtnOnClick() {
-        let tempDaily = localStorage.getItem("daily");
-        if (tempDaily) {
-            localStorage.removeItem("daily");
-            setListItems([]);
-            setDailySize(0);
-        }
+        setDailyList([]);
+        localStorage.removeItem("daily");
     }
 
     function removeBtnOnClick(item: any) {
-        let daily = [];
-        let tempDaily = localStorage.getItem("daily");
-        if (tempDaily) {
-            daily = JSON.parse(tempDaily);
-            let index = -1;
-            for (let i = 0; i < daily.length; i++) {
-                if (item.timeStamp === daily[i].timeStamp) {
-                    index = i;
-                    break;
-                }
+        let tempDailyList = dailyList.concat();   // 深拷贝，不然删除后视图无法更新
+        let index = -1;
+        for (let i = 0; i < tempDailyList.length; i++) {
+            if (item.timeStamp === tempDailyList[i].timeStamp) {
+                index = i;
+                break;
             }
-            if (index !== -1) {
-                daily.splice(index, 1);
-            }
-            localStorage.setItem("daily", JSON.stringify(daily));
-
-            setListItems(daily);
-            setDailySize(daily.length);
         }
+        if (index !== -1) {
+            tempDailyList.splice(index, 1);
+        }
+
+        setDailyList(tempDailyList);
+        localStorage.setItem("daily", JSON.stringify(tempDailyList));
     }
 
     function showAddModalBtnOnClick() {
-        let daily = [];
-        let tempDaily = localStorage.getItem("daily");
-        if (tempDaily) {
-            daily = JSON.parse(tempDaily);
-        }
-        if (daily.length < dailyMaxSize) {
+        if (dailyList.length < dailyMaxSize) {
             setDisplayModal(true);
             setInputValue("");
             setSelectedTimeStamp(0);
@@ -69,26 +53,17 @@ function DailyComponent(props: any) {
 
     function modalOkBtnOnClick() {
         if (inputValue && inputValue.length > 0 && selectedTimeStamp !== 0) {
-            let daily = [];
-            let tempDaily = localStorage.getItem("daily");
-            if (tempDaily) {
-                daily = JSON.parse(tempDaily);
-            }
-            if (daily.length < dailyMaxSize) {
-                daily.push({
-                    "title": inputValue,
-                    "selectedTimeStamp": selectedTimeStamp,
-                    "timeStamp": Date.now()
-                });
-                localStorage.setItem("daily", JSON.stringify(daily));
+            let tempDailyList = dailyList;
+            tempDailyList.push({
+                "title": inputValue,
+                "selectedTimeStamp": selectedTimeStamp,
+                "timeStamp": Date.now()
+            });
 
-                setDisplayModal(false);
-                setListItems(daily);
-                setDailySize(daily.length);
-                message.success("添加成功");
-            } else {
-                message.error("倒数日数量最多为" + dailyMaxSize + "个");
-            }
+            setDisplayModal(false);
+            setDailyList(tempDailyList);
+            localStorage.setItem("daily", JSON.stringify(tempDailyList));
+            message.success("添加成功");
         } else {
             message.error("表单不能为空");
         }
@@ -123,13 +98,10 @@ function DailyComponent(props: any) {
         setDisplay(props.preferenceData.simpleMode ? "none" : "block");
         setButtonShape(props.preferenceData.buttonShape === "round" ? "circle" : "default");
 
-        let daily = [];
-        let tempDaily = localStorage.getItem("daily");
-        if (tempDaily) {
-            daily = JSON.parse(tempDaily);
+        let dailyListStorage = localStorage.getItem("daily");
+        if (dailyListStorage) {
+            setDailyList(JSON.parse(dailyListStorage));
         }
-        setListItems(daily);
-        setDailySize(daily.length);
     }, [props.preferenceData.buttonShape, props.preferenceData.simpleMode])
 
 
@@ -137,7 +109,7 @@ function DailyComponent(props: any) {
         <Row align={"middle"}>
             <Col span={10}>
                 <Text className={"poemFont"} style={{color: getFontColor(props.minorColor)}}>
-                    {"倒数日 " + dailySize + " / " + dailyMaxSize}
+                    {"倒数日 " + dailyList.length + " / " + dailyMaxSize}
                 </Text>
             </Col>
             <Col span={14} style={{textAlign: "right"}}>
@@ -163,7 +135,7 @@ function DailyComponent(props: any) {
 
     const popoverContent = (
         <List
-            dataSource={listItems}
+            dataSource={dailyList}
             renderItem={(item: any) => (
                 <List.Item
                     actions={[
@@ -215,10 +187,10 @@ function DailyComponent(props: any) {
                             display: display,
                         }}
                 >
-                    {dailySize + " 个"}
+                    {dailyList.length + " 个"}
                 </Button>
             </Popover>
-            <Modal title={"添加倒数日 " + dailySize + " / " + dailyMaxSize} closeIcon={false}
+            <Modal title={"添加倒数日 " + dailyList.length + " / " + dailyMaxSize} closeIcon={false}
                    centered
                    open={displayModal} onOk={modalOkBtnOnClick}
                    onCancel={modalCancelBtnOnClick}
