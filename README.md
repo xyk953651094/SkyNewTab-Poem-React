@@ -25,10 +25,6 @@
 * GitHub Pages：https://xyk953651094.github.io/SkyDocuments
 * GitLab Pages：https://xyk953651094.gitlab.io/SkyDocuments
 
-## 链接
-* 博客：https://xyk953651094.blogspot.com
-* 捐助：https://afdian.net/a/xyk953651094
-
 ## 展示
 ### Chromium & Firefox & Safari for Mac
 <img width="1440" alt="截屏2024-01-27 20 25 37" src="https://github.com/xyk953651094/SkyNewTab-React/assets/28004442/ab83cf68-de94-44eb-8068-a29d6f1ebce2">
@@ -43,3 +39,9 @@
 ### Safari for iPad
 ![IMG_47670D08046B-1](https://github.com/xyk953651094/SkyNewTab-React/assets/28004442/78006b54-b864-4dcc-bf9a-9ddd7ee2917b)
 
+## 捐助
+* 如果您喜欢我的作品，请考虑捐助。
+* 注意：捐助是无偿的，但这可以为我提供更大的创作动力。
+* 爱发电：https://afdian.net/a/xyk953651094
+* <img width="300" alt="爱发电" src="https://github.com/xyk953651094/SkyNewTab-React/assets/28004442/7766955b-46fe-490f-aadb-55099ce4f6fc">
+* <img width="300" alt="微信赞赏码" src="https://github.com/xyk953651094/SkyNewTab-React/assets/28004442/6b7c2305-753c-4841-9031-106f39683494">
