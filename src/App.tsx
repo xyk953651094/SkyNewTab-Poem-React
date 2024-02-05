@@ -75,13 +75,11 @@ function App() {
         let bodyEle = $("body");
         bodyEle.bind("DOMNodeInserted", () => {
             // 通用
-            $(".ant-list-header").css({"borderBlockEndColor": getFontColor(minorColor)});
-            $(".ant-list-item").css({"borderBlockEndColor": getFontColor(minorColor), "padding": "10px, 0"});
+            $(".ant-list-item").css({"borderBlockEndColor": getFontColor(minorColor), "padding": "6px 0"});
             $(".ant-list-item-meta-title").css("color", getFontColor(minorColor));
             $(".ant-list-item-meta-description").css("color", getFontColor(minorColor));
             $(".ant-list-item-action").css("marginInlineStart", "0");
             $(".ant-empty-description").css("color", getFontColor(minorColor)).addClass("poemFont");
-            $(".ant-alert").css("padding", "10px");
 
             // popover
             let popoverEle = $(".ant-popover");
@@ -249,6 +247,7 @@ function App() {
                     </Col>
                     <Col span={24}>
                         <PoemComponent
+                            majorColor={majorColor}
                             minorColor={minorColor}
                             preferenceData={preferenceData}
                         />

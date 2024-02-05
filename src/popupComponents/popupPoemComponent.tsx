@@ -9,8 +9,8 @@ const poemMaxSize = 25;
 function PopupPoemComponent(props: any) {
     const [searchEngineUrl, setSearchEngineUrl] = useState("https://www.bing.com/search?q=");
     const [poemContent, setPoemContent] = useState("海上生明月，天涯共此时。");
-    const [poemAuthor, setPoemAuthor] = useState("张九龄");
-    const [poemAuthorDetails, setPoemAuthorDetails] = useState("【唐】张九龄 ·《望月怀远》");
+    const [poemAuthor, setPoemAuthor] = useState("【唐】张九龄 ·《望月怀远》");
+    const [customPoem, setCustomPoem] = useState(false);
 
     function poemContentBtnOnClick() {
         window.open(searchEngineUrl + poemContent, "_blank");
@@ -21,25 +21,47 @@ function PopupPoemComponent(props: any) {
     }
 
     function setPoem(poemData: any) {
-        setPoemContent(poemData.data.content);
-        setPoemAuthor(poemData.data.origin.author);
-        setPoemAuthorDetails("【" + poemData.data.origin.dynasty + "】" +
+        let tempPoemContent = poemData.data.content.length < poemMaxSize ?
+            poemData.data.content : poemData.data.content.substring(0, poemMaxSize) + "...";
+
+        let tempPoemAuthor =
+            "【" + poemData.data.origin.dynasty + "】" +
             poemData.data.origin.author + " ·" +
-            "《" + poemData.data.origin.title + "》"
-        );
+            "《" + poemData.data.origin.title + "》";
+        tempPoemAuthor = tempPoemAuthor.length < poemMaxSize ?
+            tempPoemAuthor : tempPoemAuthor.substring(0, poemMaxSize) + "...";
+
+        setPoemContent(tempPoemContent);
+        setPoemAuthor(tempPoemAuthor);
+    }
+
+    function getPoem() {
+        let poemData = localStorage.getItem("lastPoem");
+        if (poemData) {
+            setPoem(JSON.parse(poemData));
+        }
     }
 
     useEffect(() => {
         setSearchEngineUrl(getSearchEngineDetail(props.preferenceData.searchEngine).searchEngineUrl);
 
-        function getPoem() {
-            let poemData = localStorage.getItem("lastPoem");
-            if (poemData) {
-                setPoem(JSON.parse(poemData));
-            }
+        let customPoemStorage = localStorage.getItem("customPoem");
+        if (customPoemStorage) {
+            setCustomPoem(JSON.parse(customPoemStorage));
+        } else {
+            localStorage.setItem("customPoem", JSON.stringify(false));
         }
 
-        getPoem();
+        if (customPoem) {
+            let customContentStorage = localStorage.getItem("customContent");
+            let customAuthorStorage = localStorage.getItem("customAuthor");
+            if (customContentStorage && customAuthorStorage) {
+                setPoemContent(customContentStorage);
+                setPoemAuthor(customAuthorStorage);
+            }
+        } else {
+            getPoem();
+        }
     }, [props.preferenceData.searchEngine]);
 
     return (
@@ -51,8 +73,7 @@ function PopupPoemComponent(props: any) {
                             style={{color: getFontColor(props.minorColor)}}
                             onClick={poemContentBtnOnClick} onMouseOver={(e) => btnMouseOver(props.majorColor, e)}
                             onMouseOut={(e) => btnMouseOut(props.minorColor, e)}>
-                        {/*{"你好你好你好你好你好你好你好你好你好你好你好你好你好你好你好..."}*/}
-                        {poemContent.length < poemMaxSize ? poemContent : poemContent.substring(0, poemMaxSize) + "..."}
+                        {poemContent}
                     </Button>
                 </Col>
                 <Col span={24}>
@@ -61,7 +82,7 @@ function PopupPoemComponent(props: any) {
                             style={{color: getFontColor(props.minorColor)}}
                             onClick={poemAuthorBtnOnClick} onMouseOver={(e) => btnMouseOver(props.majorColor, e)}
                             onMouseOut={(e) => btnMouseOut(props.minorColor, e)}>
-                        {poemAuthorDetails.length < poemMaxSize ? poemAuthorDetails : poemAuthorDetails.substring(0, poemMaxSize) + "..."}
+                        {poemAuthor}
                     </Button>
                 </Col>
             </Space>

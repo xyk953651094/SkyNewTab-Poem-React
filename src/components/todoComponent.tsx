@@ -8,30 +8,20 @@ const {Text} = Typography;
 function TodoComponent(props: any) {
     const [display, setDisplay] = useState("block");
     const [displayModal, setDisplayModal] = useState(false);
-    const [listItems, setListItems] = useState([]);
-    const [todoSize, setTodoSize] = useState(0);
-    const [todoMaxSize, setTodoMaxSize] = useState(5);
+    const [todoList, setTodoList] = useState<any[]>([]);
     const [tag, setTag] = useState("工作");
     const [priority, setPriority] = useState("★");
     const [buttonShape, setButtonShape] = useState<"circle" | "default" | "round" | undefined>("round");
     const [inputValue, setInputValue] = useState("");
+    const todoMaxSize = 10;
 
     function finishAllBtnOnClick() {
-        let tempTodos = localStorage.getItem("todos");
-        if (tempTodos) {
-            localStorage.removeItem("todos");
-            setListItems([]);
-            setTodoSize(0);
-        }
+        setTodoList([]);
+        localStorage.removeItem("todos");
     }
 
     function showAddModalBtnOnClick() {
-        let todos = [];
-        let tempTodos = localStorage.getItem("todos");
-        if (tempTodos) {
-            todos = JSON.parse(tempTodos);
-        }
-        if (todos.length < todoMaxSize) {
+        if (todoList.length < todoMaxSize) {
             setDisplayModal(true);
             setInputValue("");
             setTag("工作");
@@ -47,26 +37,18 @@ function TodoComponent(props: any) {
 
     function modalOkBtnOnClick() {
         if (inputValue && inputValue.length > 0) {
-            let todos = [];
-            let tempTodos = localStorage.getItem("todos");
-            if (tempTodos) {
-                todos = JSON.parse(tempTodos);
-            }
-            if (todos.length < todoMaxSize) {
-                todos.push({
-                    "title": inputValue,
-                    "tag": tag,
-                    "priority": priority,
-                    "timeStamp": Date.now()
-                });
-                localStorage.setItem("todos", JSON.stringify(todos));
-                setDisplayModal(false);
-                setListItems(todos);
-                setTodoSize(todos.length);
-                message.success("添加成功");
-            } else {
-                message.error("待办数量最多为" + todoMaxSize + "个");
-            }
+            let tempTodoList = todoList;
+            tempTodoList.push({
+                "title": inputValue,
+                "tag": tag,
+                "priority": priority,
+                "timeStamp": Date.now()
+            });
+
+            setDisplayModal(false);
+            setTodoList(tempTodoList);
+            localStorage.setItem("todos", JSON.stringify(tempTodoList));
+            message.success("添加成功");
         } else {
             message.error("表单不能为空");
         }
@@ -77,29 +59,25 @@ function TodoComponent(props: any) {
     }
 
     function finishBtnOnClick(item: any) {
-        let todos = [];
-        let tempTodos = localStorage.getItem("todos");
-        if (tempTodos) {
-            todos = JSON.parse(tempTodos);
-            let index = -1;
-            for (let i = 0; i < todos.length; i++) {
-                if (item.timeStamp === todos[i].timeStamp) {
-                    index = i;
-                    break;
-                }
+        let tempTodoList = todoList.concat();  // 深拷贝，不然删除后视图无法更新
+        let index = -1;
+        for (let i = 0; i < tempTodoList.length; i++) {
+            if (item.timeStamp === tempTodoList[i].timeStamp) {
+                index = i;
+                break;
             }
-            if (index !== -1) {
-                todos.splice(index, 1);
-            }
-            localStorage.setItem("todos", JSON.stringify(todos));
-
-            setListItems(todos);
-            setTodoSize(todos.length);
         }
+        if (index !== -1) {
+            tempTodoList.splice(index, 1);
+        }
+
+
+        setTodoList(tempTodoList);
+        localStorage.setItem("todos", JSON.stringify(tempTodoList));
     }
 
     function selectOnChange(value: string) {
-        let tempTag = "工作";
+        let tempTag;
         switch (value) {
             case "work":
                 tempTag = "工作";
@@ -125,21 +103,17 @@ function TodoComponent(props: any) {
         setDisplay(props.preferenceData.simpleMode ? "none" : "block");
         setButtonShape(props.preferenceData.buttonShape === "round" ? "circle" : "default");
 
-        let todos = [];
-        let tempTodos = localStorage.getItem("todos");
-        if (tempTodos) {
-            todos = JSON.parse(tempTodos);
+        let tempTodoListStorage = localStorage.getItem("todos");
+        if (tempTodoListStorage) {
+            setTodoList(JSON.parse(tempTodoListStorage));
         }
-
-        setListItems(todos);
-        setTodoSize(todos.length);
     }, [props.preferenceData.buttonShape, props.preferenceData.simpleMode])
 
     const popoverTitle = (
         <Row align={"middle"}>
             <Col span={10}>
                 <Text className={"poemFont"} style={{color: getFontColor(props.minorColor)}}>
-                    {"待办事项 " + todoSize + " / " + todoMaxSize}
+                    {"待办事项 " + todoList.length + " / " + todoMaxSize}
                 </Text>
             </Col>
             <Col span={14} style={{textAlign: "right"}}>
@@ -165,7 +139,7 @@ function TodoComponent(props: any) {
 
     const popoverContent = (
         <List
-            dataSource={listItems}
+            dataSource={todoList}
             renderItem={(item: any) => (
                 <List.Item
                     actions={[
@@ -218,10 +192,10 @@ function TodoComponent(props: any) {
                             color: getFontColor(props.minorColor)
                         }}
                 >
-                    {todoSize + " 个"}
+                    {todoList.length + " 个"}
                 </Button>
             </Popover>
-            <Modal title={"添加待办事项 " + todoSize + " / " + todoMaxSize} closeIcon={false}
+            <Modal title={"添加待办事项 " + todoList.length + " / " + todoMaxSize} closeIcon={false}
                    centered
                    open={displayModal} onOk={modalOkBtnOnClick}
                    onCancel={modalCancelBtnOnClick}

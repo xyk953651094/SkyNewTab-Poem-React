@@ -124,14 +124,14 @@ function ClockComponent(props: any) {
                  style={{padding: "5px 10px", borderRadius: "8px", maxWidth: "max-content"}}
                  onMouseOver={btnMouseOver} onMouseOut={btnMouseOut}>
                 <Space align={"center"} id={"clock"}>
-                    <Text className={"textShadow clockText poemFont"} style={{color: props.minorColor}}>
+                    <Text className={"textShadow clockText poemFont"} style={{color: props.minorColor, cursor: "default"}}>
                         {currentTime}
                     </Text>
                     <Space align={"center"} direction={"vertical"}>
-                        <Text className={"textShadow dateText poemFont"} style={{color: props.minorColor}}>
+                        <Text className={"textShadow dateText poemFont"} style={{color: props.minorColor, cursor: "default"}}>
                             {currentYear}
                         </Text>
-                        <Text className={"textShadow dateText poemFont"} style={{color: props.minorColor}}>
+                        <Text className={"textShadow dateText poemFont"} style={{color: props.minorColor, cursor: "default"}}>
                             {currentDate}
                         </Text>
                     </Space>

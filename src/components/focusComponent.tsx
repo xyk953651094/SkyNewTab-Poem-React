@@ -15,16 +15,16 @@ function FocusComponent(props: any) {
     const [inputValue, setInputValue] = useState("");
     const [filterList, setFilterList] = useState<any[]>([]);
     const [buttonShape, setButtonShape] = useState<"circle" | "default" | "round" | undefined>("round");
-    const focusMaxSize = 5;
+    const focusMaxSize = 10;
     const browserType = getBrowserType();
 
     function setExtensionStorage(key: string, value: any) {
-        // if (["Chrome", "Edge"].indexOf(browserType) !== -1) {
-        //     chrome.storage.local.set({[key]: value});
-        // }
-        // else if (["Firefox", "Safari"].indexOf(browserType) !== -1) {
-        //     browser.storage.local.set({[key]: value});
-        // }
+        if (["Chrome", "Edge"].indexOf(browserType) !== -1) {
+            chrome.storage.local.set({[key]: value});
+        }
+        else if (["Firefox", "Safari"].indexOf(browserType) !== -1) {
+            browser.storage.local.set({[key]: value});
+        }
     }
 
     function focusModeSwitchOnChange(checked: boolean) {
@@ -34,34 +34,27 @@ function FocusComponent(props: any) {
     }
 
     function removeAllBtnOnClick() {
-        let tempFilterList = localStorage.getItem("filterList");
-        if (tempFilterList) {
-            setFilterList([]);
-            localStorage.removeItem("filterList");
-            setExtensionStorage("filterList", []);
-        }
+        setFilterList([]);
+        localStorage.removeItem("filterList");
+        setExtensionStorage("filterList", []);
     }
 
     function removeBtnOnClick(item: any) {
-        let filterList = [];
-        let tempFilterList = localStorage.getItem("filterList");
-        if (tempFilterList) {
-            filterList = JSON.parse(tempFilterList);
-            let index = -1;
-            for (let i = 0; i < filterList.length; i++) {
-                if (item.timeStamp === filterList[i].timeStamp) {
-                    index = i;
-                    break;
-                }
+        let tempFilterList = filterList.concat();  // 深拷贝，不然删除后视图无法更新
+        let index = -1;
+        for (let i = 0; i < tempFilterList.length; i++) {
+            if (item.timeStamp === tempFilterList[i].timeStamp) {
+                index = i;
+                break;
             }
-            if (index !== -1) {
-                filterList.splice(index, 1);
-            }
-            localStorage.setItem("filterList", JSON.stringify(filterList));
-            setExtensionStorage("filterList", filterList);
-
-            setFilterList(filterList);
         }
+        if (index !== -1) {
+            tempFilterList.splice(index, 1);
+        }
+
+        setFilterList(tempFilterList);
+        localStorage.setItem("filterList", JSON.stringify(tempFilterList));
+        setExtensionStorage("filterList", tempFilterList);
     }
 
     function showAddModalBtnOnClick() {
@@ -78,26 +71,20 @@ function FocusComponent(props: any) {
     }
 
     function modalOkBtnOnClick() {
-        if (filterList.length < focusMaxSize) {
-            if (inputValue.length > 0) {
-                let tempFilterList = filterList;
-                tempFilterList.push({
-                    "domain": inputValue,
-                    "timeStamp": Date.now()
-                });
-                localStorage.setItem("filterList", JSON.stringify(filterList));
-                setExtensionStorage("filterList", filterList);
+        if (inputValue.length > 0) {
+            let tempFilterList = filterList;
+            tempFilterList.push({
+                "domain": inputValue,
+                "timeStamp": Date.now()
+            });
 
-                setDisplayModal(false);
-                setFilterList(tempFilterList);
-                message.success("添加成功");
-            }
-            else {
-                message.error("域名不能为空");
-            }
-        }
-        else {
-            message.error("域名数量最多为" + focusMaxSize + "个");
+            setDisplayModal(false);
+            setFilterList(tempFilterList);
+            localStorage.setItem("filterList", JSON.stringify(filterList));
+            setExtensionStorage("filterList", filterList);
+            message.success("添加成功");
+        } else {
+            message.error("域名不能为空");
         }
     }
 
@@ -106,35 +93,31 @@ function FocusComponent(props: any) {
     }
 
     useEffect(() => {
-        // 初始化专注模式开启状态
-        let tempFocusMode = false;
-        let focusModeStorage = localStorage.getItem("focusMode");
-        if (focusModeStorage) {
-            tempFocusMode = JSON.parse(focusModeStorage);
-        } else {
-            localStorage.setItem("focusMode", JSON.stringify(false));
-            setExtensionStorage("focusMode", false);
-        }
-
-        // 初始化名单
-        let tempFilterList = [];
-        let filterListStorage = localStorage.getItem("filterList");
-        if (filterListStorage) {
-            tempFilterList = JSON.parse(filterListStorage);
-        } else {
-            localStorage.setItem("filterList", JSON.stringify([]));
-            setExtensionStorage("filterList", []);
-        }
-
         setDisplay(props.preferenceData.simpleMode ? "none" : "block");
         setButtonShape(props.preferenceData.buttonShape === "round" ? "circle" : "default");
-        setFocusMode(tempFocusMode);
-        setFilterList(tempFilterList);
 
+        // 初始化专注模式开启状态
         if (props.preferenceData.simpleMode) {
             setFocusMode(false);
             localStorage.setItem("focusMode", JSON.stringify(false));
             setExtensionStorage("focusMode", false);
+        } else {
+            let focusModeStorage = localStorage.getItem("focusMode");
+            if (focusModeStorage) {
+                setFocusMode(JSON.parse(focusModeStorage));
+            } else {
+                localStorage.setItem("focusMode", JSON.stringify(false));
+                setExtensionStorage("focusMode", false);
+            }
+        }
+
+        // 初始化名单
+        let filterListStorage = localStorage.getItem("filterList");
+        if (filterListStorage) {
+            setFilterList(JSON.parse(filterListStorage));
+        } else {
+            localStorage.setItem("filterList", JSON.stringify([]));
+            setExtensionStorage("filterList", []);
         }
     }, [props.preferenceData.buttonShape, props.preferenceData.simpleMode])
 
@@ -220,11 +203,7 @@ function FocusComponent(props: any) {
                     {focusMode ? "专注中" : "未专注"}
                 </Button>
             </Popover>
-            <Modal title={
-                <Text style={{color: props.minorColor}}>
-                    {"添加域名 " + filterList.length + " / " + focusMaxSize}
-                </Text>
-            }
+            <Modal title={"添加域名 " + filterList.length + " / " + focusMaxSize}
                    closeIcon={false}
                    centered
                    open={displayModal} onOk={modalOkBtnOnClick}
