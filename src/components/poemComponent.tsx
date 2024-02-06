@@ -37,6 +37,8 @@ function PoemComponent(props: any) {
 
     function showAddModalBtnOnClick() {
         setDisplayModal(true);
+        console.log("3", customContentInputValue);
+        console.log("4", customAuthorInputValue);
     }
 
     function customContentInputOnChange(e: any) {
@@ -121,6 +123,10 @@ function PoemComponent(props: any) {
             if (customContentStorage && customAuthorStorage) {
                 setPoemContent(customContentStorage);
                 setPoemAuthor(customAuthorStorage);
+                setCustomContentInputValue(customContentStorage);
+                setCustomAuthorInputValue(customAuthorStorage);
+                console.log("1", customContentInputValue);
+                console.log("2", customAuthorInputValue);
             }
         } else {
             // 防抖节流
@@ -140,7 +146,7 @@ function PoemComponent(props: any) {
                 }
             }
         }
-    }, []);
+    }, [props.preferenceData.searchEngine]);
 
     return (
         <>
@@ -209,11 +215,11 @@ function PoemComponent(props: any) {
                 <Form>
                     <Form.Item label={"诗词内容"} name={"customContentInput"}>
                         <Input className={"poemFont"} id={"customContentInput"} placeholder="请输入诗词内容"
-                               value={customContentInputValue} onChange={customContentInputOnChange} maxLength={30} showCount allowClear/>
+                               value={customContentInputValue} defaultValue={customContentInputValue} onChange={customContentInputOnChange} maxLength={30} showCount allowClear/>
                     </Form.Item>
                     <Form.Item label={"作者信息"} name={"customAuthorInput"}>
                         <Input className={"poemFont"} id={"customAuthorInput"} placeholder="请输入作者信息"
-                               value={customAuthorInputValue} onChange={customAuthorInputOnChange} maxLength={30} showCount allowClear/>
+                               value={customAuthorInputValue} defaultValue={customAuthorInputValue} onChange={customAuthorInputOnChange} maxLength={30} showCount allowClear/>
                     </Form.Item>
                 </Form>
             </Modal>

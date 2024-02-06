@@ -186,8 +186,9 @@ function SearchComponent(props: any) {
                         className={"poemFont"}
                         prefix={
                             <Row align={"middle"}>
-                                <Button type={"text"} size={"small"} className={"poemFont"} onClick={changeSearchEngine}
-                                        icon={<i className={"bi bi-" + searchEngineValue}></i>}
+                                <Button type={"text"} size={"small"} shape={props.preferenceData.buttonShape}
+                                        icon={<i className={"bi bi-" + searchEngineValue}></i>} onClick={changeSearchEngine}
+                                        className={"poemFont"}
                                         style={{
                                             backgroundColor: props.minorColor,
                                             color: getFontColor(props.minorColor)
@@ -201,6 +202,7 @@ function SearchComponent(props: any) {
                         placeholder={"按下 Enter 键搜索"}
                         onPressEnter={onPressEnter}
                         allowClear
+                        style={{borderRadius: props.preferenceData.buttonShape === "round" ? "20px" : ""}}
                     />
                 </List.Item>
             </List>

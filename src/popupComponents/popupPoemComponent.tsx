@@ -45,14 +45,16 @@ function PopupPoemComponent(props: any) {
     useEffect(() => {
         setSearchEngineUrl(getSearchEngineDetail(props.preferenceData.searchEngine).searchEngineUrl);
 
+        let tempCustomPoem = false;
         let customPoemStorage = localStorage.getItem("customPoem");
         if (customPoemStorage) {
-            setCustomPoem(JSON.parse(customPoemStorage));
+            tempCustomPoem = JSON.parse(customPoemStorage);
+            setCustomPoem(tempCustomPoem);
         } else {
             localStorage.setItem("customPoem", JSON.stringify(false));
         }
 
-        if (customPoem) {
+        if (tempCustomPoem) {
             let customContentStorage = localStorage.getItem("customContent");
             let customAuthorStorage = localStorage.getItem("customAuthor");
             if (customContentStorage && customAuthorStorage) {
