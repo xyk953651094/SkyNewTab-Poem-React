@@ -58,16 +58,29 @@ function App() {
             });
             localStorage.setItem("SkyNewTabPoemReactVersion", currentVersion);
 
+            setTimeout(() => {
+                notification.open({
+                    icon: null,
+                    message: "支持作者",
+                    description: "如果喜欢这款插件，请在插件商店五星好评",
+                    placement: "bottomLeft",
+                    duration: 5,
+                    closeIcon: false
+                });
+            }, 1000);
+
             // 额外提醒
             // if (currentVersion === "2.8.0") {
-            //     notification.open({
-            //         icon: null,
-            //         message: "重要通知",
-            //         description: "新增专注模式，若专注模式无法生效，可尝试重新安装本插件",
-            //         placement: "bottomLeft",
-            //         duration: 10,
-            //         closeIcon: false
-            //     });
+            //     setTimeout(() => {
+            //         notification.open({
+            //             icon: null,
+            //             message: "重要通知",
+            //             description: "新增专注模式，若专注模式无法生效，可尝试重新安装本插件",
+            //             placement: "bottomLeft",
+            //             duration: 10,
+            //             closeIcon: false
+            //         });
+            //     }, 2000);
             // }
         }
 
