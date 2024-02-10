@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {Button, Col, Popover, Row, Space, Typography, List} from "antd";
+import {Button, Col, Popover, Row, Space, Typography, List, notification} from "antd";
 import {
     CalendarOutlined,
     CheckCircleOutlined,
@@ -81,6 +81,16 @@ function GreetComponent(props: any) {
             }
             if (data.typeDes !== "休息日" && data.typeDes !== "工作日") {
                 holidayContent = holidayContent + " · " + data.typeDes;
+
+                // 发送恭贺通知
+                notification.open({
+                    icon: null,
+                    message: "今日" + data.typeDes,
+                    description: "云开诗词新标签页祝您" + data.typeDes + "快乐！",
+                    placement: "bottomLeft",
+                    duration: 5,
+                    closeIcon: false
+                });
             }
             let timeDetails = getTimeDetails(new Date());
 
@@ -98,9 +108,9 @@ function GreetComponent(props: any) {
             let nowTimeStamp = new Date().getTime();
             if (lastRequestTime === null) {  // 第一次请求时 lastRequestTime 为 null，因此直接进行请求赋值 lastRequestTime
                 getHoliday();
-            } else if (nowTimeStamp - parseInt(lastRequestTime) > 60 * 60 * 1000) {  // 必须多于一小时才能进行新的请求
+            } else if (nowTimeStamp - parseInt(lastRequestTime) > 4 * 60 * 60 * 1000) {  // 必须多于四小时才能进行新的请求
                 getHoliday();
-            } else {  // 一小时之内使用上一次请求结果
+            } else {  // 四小时之内使用上一次请求结果
                 let lastHoliday: any = localStorage.getItem("lastHoliday");
                 if (lastHoliday) {
                     lastHoliday = JSON.parse(lastHoliday);

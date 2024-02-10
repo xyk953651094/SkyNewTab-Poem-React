@@ -86,7 +86,7 @@ function WeatherComponent(props: any) {
             let nowTimeStamp = new Date().getTime();
             if (tempLastRequestTime === null) {  // 第一次请求时 tempLastRequestTime 为 null，因此直接进行请求赋值 tempLastRequestTime
                 getWeather();
-            } else if (nowTimeStamp - parseInt(tempLastRequestTime) > 0) {  // 必须多于一小时才能进行新的请求
+            } else if (nowTimeStamp - parseInt(tempLastRequestTime) > 60 * 60 * 1000) {  // 必须多于一小时才能进行新的请求
                 getWeather();
             } else {  // 一小时之内使用上一次请求结果
                 let lastWeather: any = localStorage.getItem("lastWeather");
