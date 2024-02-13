@@ -1,6 +1,6 @@
 import React from "react";
 import {Button, Card, Space} from "antd";
-import {CalendarOutlined, CloudOutlined, CodeOutlined, InfoCircleOutlined, ReadOutlined} from "@ant-design/icons";
+import {CalendarOutlined, CloudOutlined, CodeOutlined, InfoCircleOutlined, ReadOutlined, SoundOutlined} from "@ant-design/icons";
 import {btnMouseOut, btnMouseOver, getFontColor} from "../typescripts/publicFunctions";
 
 function PreferenceInfoComponent(props: any) {
@@ -22,7 +22,7 @@ function PreferenceInfoComponent(props: any) {
                         onMouseOver={(e) => btnMouseOver(props.majorColor, e)}
                         onMouseOut={(e) => btnMouseOut(props.minorColor, e)}
                         className={"poemFont"} style={{color: getFontColor(props.minorColor)}}>
-                    {"节气来源：https://www.mxnzp.com"}
+                    {"日历来源：https://www.mxnzp.com"}
                 </Button>
                 <Button type={"text"} shape={props.preferenceData.buttonShape} icon={<CloudOutlined/>}
                         href={"https://www.jinrishici.com/"} target={"_self"}
@@ -37,6 +37,13 @@ function PreferenceInfoComponent(props: any) {
                         onMouseOut={(e) => btnMouseOut(props.minorColor, e)}
                         className={"poemFont"} style={{color: getFontColor(props.minorColor)}}>
                     {"诗词来源：https://www.jinrishici.com"}
+                </Button>
+                <Button type={"text"} shape={props.preferenceData.buttonShape} icon={<SoundOutlined/>}
+                        href={"https://www.soundvery.com/"} target={"_self"}
+                        onMouseOver={(e) => btnMouseOver(props.majorColor, e)}
+                        onMouseOut={(e) => btnMouseOut(props.minorColor, e)}
+                        className={"poemFont"} style={{color: getFontColor(props.minorColor)}}>
+                    {"噪音来源：https://www.soundvery.com"}
                 </Button>
                 <Button type={"text"} shape={props.preferenceData.buttonShape} icon={<CodeOutlined/>}
                         href={"https://www.jetbrains.com.cn/community/opensource/#support/"} target={"_self"}
