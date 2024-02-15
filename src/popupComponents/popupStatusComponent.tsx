@@ -108,7 +108,7 @@ function PopupImageComponent(props: any) {
                         cursor: "default",
                         display: props.preferenceData.simpleMode ? "inline-block" : "none"
                     }}>
-                {"已开启简洁模式"}
+                {"已开启极简模式"}
             </Button>
         </>
     );

@@ -53,7 +53,7 @@ function PreferenceFunctionComponent(props: any) {
         // resetRadioColor(event.target.value, ["round", "default"], props.majorColor);
     }
 
-    // 简洁模式
+    // 极简模式
     function simpleModeSwitchOnChange(checked: boolean) {
         setPreferenceData((preferenceData: PreferenceDataInterface) => {
             let newPreferenceData = modifyPreferenceData({simpleMode: checked});
@@ -62,9 +62,9 @@ function PreferenceFunctionComponent(props: any) {
             return newPreferenceData;
         });
         if (checked) {
-            message.success("已开启简洁模式");
+            message.success("已开启极简模式");
         } else {
-            message.success("已关闭简洁模式，一秒后刷新页面");
+            message.success("已关闭极简模式，一秒后刷新页面");
             setFormDisabled(true);
             refreshWindow();
         }
@@ -152,11 +152,11 @@ function PreferenceFunctionComponent(props: any) {
                             </Row>
                         </Radio.Group>
                     </Form.Item>
-                    <Form.Item name={"simpleMode"} label={"简洁模式"} valuePropName={"checked"}>
+                    <Form.Item name={"simpleMode"} label={"极简模式"} valuePropName={"checked"}>
                         <Switch checkedChildren="已开启" unCheckedChildren="已关闭" className={"poemFont"}
                                 id={"simpleModeSwitch"} onChange={simpleModeSwitchOnChange}/>
                     </Form.Item>
-                    <Form.Item name={"clearStorageButton"} label={"危险设置"}>
+                    <Form.Item name={"clearStorageButton"} label={"危险设置"} extra={"出现异常时可尝试重置设置或插件"}>
                         <Space>
                             <Button type={"text"} shape={preferenceData.buttonShape} icon={<RedoOutlined/>}
                                     onMouseOver={(e) => btnMouseOver(props.majorColor, e)}
@@ -192,7 +192,7 @@ function PreferenceFunctionComponent(props: any) {
                     styles={{mask: {backdropFilter: "blur(10px)", WebkitBackdropFilter: "blur(10px)"}}}
             >
                 <Text className={"poemFont"} style={{color: getFontColor(props.minorColor)}}>
-                    {"注意：所有设置项将被重置为默认值，确定重置吗？"}
+                    {"注意：所有设置项将被重置为默认值"}
                 </Text>
             </Modal>
             <Modal title={
@@ -209,7 +209,7 @@ function PreferenceFunctionComponent(props: any) {
                     styles={{mask: {backdropFilter: "blur(10px)", WebkitBackdropFilter: "blur(10px)"}}}
             >
                 <Text className={"poemFont"} style={{color: getFontColor(props.minorColor)}}>
-                    {"注意：本地存储的所有数据将被清空，确定重置吗？"}
+                    {"注意：所有设置项将被重置为默认值，所有数据将被清空"}
                 </Text>
             </Modal>
         </>

@@ -287,14 +287,9 @@ function FocusComponent(props: any) {
                    styles={{mask: {backdropFilter: "blur(10px)", WebkitBackdropFilter: "blur(10px)"}}}
             >
                 <Form>
-                    <Form.Item label={"网站域名"} name={"focusInput"}>
+                    <Form.Item label={"网站域名"} name={"focusInput"} extra={"开启专注模式后，访问添加的域名时将自动跳转至本插件"}>
                         <Input className={"poemFont"} id={"focusInput"} placeholder="example.com"
                                value={inputValue} onChange={inputOnChange} maxLength={20} showCount allowClear/>
-                    </Form.Item>
-                    <Form.Item label={"注意事项"}>
-                        <Text className={"poemFont"} style={{color: getFontColor(props.minorColor)}}>
-                            {"开启专注模式后，访问添加的域名时将自动跳转至新标签页"}
-                        </Text>
                     </Form.Item>
                 </Form>
             </Modal>

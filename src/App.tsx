@@ -103,6 +103,7 @@ function App() {
                     "font-size": "20px",
                 });
                 $(".ant-switch").find(".ant-switch-inner-checked").css("color", getFontColor(minorColor));
+                $(".ant-form-item-extra").css("color", getFontColor(minorColor)).addClass("poemFont");
 
                 // focusComponent
                 let focusMode = localStorage.getItem("focusMode");
@@ -141,6 +142,7 @@ function App() {
             if (drawerEle.length && drawerEle.length > 0) {
                 $(".ant-drawer-title").css("color", getFontColor(minorColor)).addClass("poemFont");
                 $(".ant-form-item-label > label").css("color", getFontColor(minorColor)).addClass("poemFont");
+                $(".ant-form-item-extra").css("color", getFontColor(minorColor)).addClass("poemFont");
                 $(".ant-radio-wrapper").children(":last-child").css("color", getFontColor(minorColor)).addClass("poemFont");
                 $(".ant-switch").find(".ant-switch-inner-checked").css("color", getFontColor(minorColor));
 

@@ -327,7 +327,7 @@ export function resetRadioColor(selectedRadio: string | undefined, allRadios: st
         }
         else {
             currentRadio.next().css({ "borderColor": themeColor, "backgroundColor": themeColor });
-            currentRadio.parent().next().css({"color": themeColor, "fontWeight": "bold", "textDecoration": "underline"});
+            currentRadio.parent().next().css({"fontWeight": "bold", "textDecoration": "underline"});
         }
     }
 }
