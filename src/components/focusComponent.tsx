@@ -108,12 +108,16 @@ function FocusComponent(props: any) {
     }
 
     function playBtnOnClick() {
-        if (focusAudio.paused) {
-            setFocusAudioPaused(false);
-            playFocusSound(focusSound);
+        if (browserType !== "Safari") {
+            if (focusAudio.paused) {
+                setFocusAudioPaused(false);
+                playFocusSound(focusSound);
+            } else {
+                setFocusAudioPaused(true);
+                focusAudio.pause();
+            }
         } else {
-            setFocusAudioPaused(true);
-            focusAudio.pause();
+            message.error("Safari 暂不支持播放白噪音");
         }
     }
 
