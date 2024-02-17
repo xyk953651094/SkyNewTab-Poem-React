@@ -26,7 +26,7 @@ function PreferenceFooterComponent(props: any) {
                     onMouseOut={(e) => btnMouseOut(props.minorColor, e)}
                     className={"poemFont"}
                     style={{color: getFontColor(props.minorColor)}}>
-                博客
+                Blogger
             </Button>
         </Space>
     );
