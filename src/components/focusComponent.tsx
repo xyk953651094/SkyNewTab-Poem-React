@@ -22,8 +22,7 @@ function FocusComponent(props: any) {
     const [inputValue, setInputValue] = useState("");
     const [filterList, setFilterList] = useState<any[]>([]);
     const [focusSound, setFocusSound] = useState("古镇雨滴");
-    const [displayPlayBtn, setDisplayPlayBtn] = useState("block");
-    const [displayPauseBtn, setDisplayPauseBtn] = useState("none");
+    const [focusAudioPaused, setFocusAudioPaused] = useState(true);
     const [buttonShape, setButtonShape] = useState<"circle" | "default" | "round" | undefined>("round");
     const focusMaxSize = 10;
     const browserType = getBrowserType();
@@ -104,21 +103,18 @@ function FocusComponent(props: any) {
 
     function focusSoundSelectOnChange(value: string) {
         setFocusSound(value);
-        setDisplayPlayBtn("none");
-        setDisplayPauseBtn("block");
+        setFocusAudioPaused(false);
         playFocusSound(value);
     }
 
     function playBtnOnClick() {
-        setDisplayPlayBtn("none");
-        setDisplayPauseBtn("block");
-        playFocusSound(focusSound);
-    }
-
-    function pauseBtnOnClick() {
-        setDisplayPlayBtn("block");
-        setDisplayPauseBtn("none");
-        focusAudio.pause();
+        if (focusAudio.paused) {
+            setFocusAudioPaused(false);
+            playFocusSound(focusSound);
+        } else {
+            setFocusAudioPaused(true);
+            focusAudio.pause();
+        }
     }
 
     function playFocusSound(focusSound: string) {
@@ -229,7 +225,7 @@ function FocusComponent(props: any) {
             footer={
                 <Space>
                     <Text className={"poemFont"} style={{color: getFontColor(props.minorColor)}}>
-                        {displayPlayBtn === "block" ? "白噪音" : "播放中"}
+                        {focusAudioPaused ? "白噪音" : "播放中"}
                     </Text>
                     <Select defaultValue={focusSound} className={"poemFont"} style={{width: 120}} placement={"topLeft"}
                             onChange={focusSoundSelectOnChange}>
@@ -237,22 +233,13 @@ function FocusComponent(props: any) {
                         <Select.Option className={"poemFont"} value={"松树林小雪"}>{"松树林小雪"}</Select.Option>
                     </Select>
                     <Button type={"text"} shape={props.preferenceData.buttonShape}
-                            icon={<PlayCircleOutlined />}
+                            icon={focusAudioPaused ? <PlayCircleOutlined /> : <PauseCircleOutlined />}
                             onMouseOver={(e) => btnMouseOver(props.majorColor, e)}
                             onMouseOut={(e) => btnMouseOut(props.minorColor, e)}
                             className={"poemFont"}
                             onClick={playBtnOnClick}
-                            style={{color: getFontColor(props.minorColor), display: displayPlayBtn}}>
-                        {"播放"}
-                    </Button>
-                    <Button type={"text"} shape={props.preferenceData.buttonShape}
-                            icon={<PauseCircleOutlined />}
-                            onMouseOver={(e) => btnMouseOver(props.majorColor, e)}
-                            onMouseOut={(e) => btnMouseOut(props.minorColor, e)}
-                            className={"poemFont"}
-                            onClick={pauseBtnOnClick}
-                            style={{color: getFontColor(props.minorColor), display: displayPauseBtn}}>
-                        {"暂停"}
+                            style={{color: getFontColor(props.minorColor)}}>
+                        {focusAudioPaused ? "播放" : "暂停"}
                     </Button>
                 </Space>
             }
