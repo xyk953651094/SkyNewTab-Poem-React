@@ -25,7 +25,7 @@ function PopupFooterComponent(props: any) {
                     onMouseOver={(e) => btnMouseOver(props.majorColor, e)}
                     onMouseOut={(e) => btnMouseOut(props.minorColor, e)}
                     style={{color: getFontColor(props.minorColor)}} className={"popupFont"}>
-                博客
+                Blogger
             </Button>
             <Button type={"text"} shape={props.preferenceData.buttonShape} icon={<GiftOutlined/>}
                     href={"https://afdian.net/a/xyk953651094/"} target={"_blank"}

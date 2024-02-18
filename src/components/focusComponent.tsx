@@ -2,10 +2,17 @@
 /// <reference types="firefox-webext-browser"/>
 
 import React, {useEffect, useState} from "react";
-import {Button, Col, Input, List, message, Popover, Row, Space, Switch, Typography, Modal, Form} from 'antd';
+import {Button, Col, Input, List, message, Popover, Row, Space, Switch, Typography, Modal, Form, Select} from 'antd';
 import {btnMouseOut, btnMouseOver, getBrowserType, getFontColor} from "../typescripts/publicFunctions";
-import {DeleteOutlined, LinkOutlined, PlusOutlined} from "@ant-design/icons";
+import {DeleteOutlined, LinkOutlined, PlusOutlined, PlayCircleOutlined, PauseCircleOutlined} from "@ant-design/icons";
+import focusSoundOne from "../assets/focusSounds/古镇雨滴.mp3";
+import focusSoundTwo from "../assets/focusSounds/松树林小雪.mp3";
 
+const focusAudio = new Audio();
+const focusSoundsDictionary = {
+    "focusSoundOne": focusSoundOne,
+    "focusSoundTwo": focusSoundTwo,
+}
 const {Text} = Typography;
 
 function FocusComponent(props: any) {
@@ -14,6 +21,8 @@ function FocusComponent(props: any) {
     const [focusMode, setFocusMode] = useState<boolean>(false);
     const [inputValue, setInputValue] = useState("");
     const [filterList, setFilterList] = useState<any[]>([]);
+    const [focusSound, setFocusSound] = useState("古镇雨滴");
+    const [focusAudioPaused, setFocusAudioPaused] = useState(true);
     const [buttonShape, setButtonShape] = useState<"circle" | "default" | "round" | undefined>("round");
     const focusMaxSize = 10;
     const browserType = getBrowserType();
@@ -90,6 +99,44 @@ function FocusComponent(props: any) {
 
     function modalCancelBtnOnClick() {
         setDisplayModal(false);
+    }
+
+    function focusSoundSelectOnChange(value: string) {
+        setFocusSound(value);
+        setFocusAudioPaused(false);
+        playFocusSound(value);
+    }
+
+    function playBtnOnClick() {
+        if (browserType !== "Safari") {
+            if (focusAudio.paused) {
+                setFocusAudioPaused(false);
+                playFocusSound(focusSound);
+            } else {
+                setFocusAudioPaused(true);
+                focusAudio.pause();
+            }
+        } else {
+            message.error("Safari 暂不支持播放白噪音");
+        }
+    }
+
+    function playFocusSound(focusSound: string) {
+        switch (focusSound) {
+            case "古镇雨滴": {
+                focusAudio.src = focusSoundsDictionary.focusSoundOne;
+                break;
+            }
+            case "松树林小雪": {
+                focusAudio.src = focusSoundsDictionary.focusSoundTwo;
+                break;
+            }
+            default: {
+                focusAudio.src = focusSoundsDictionary.focusSoundOne;
+            }
+        }
+        focusAudio.loop = true;
+        focusAudio.play();
     }
 
     useEffect(() => {
@@ -180,9 +227,25 @@ function FocusComponent(props: any) {
                 </List.Item>
             )}
             footer={
-                <Text className={"poemFont"} style={{color: getFontColor(props.minorColor)}}>
-                    {"开启专注模式后，访问以上域名时将自动跳转至新标签页"}
-                </Text>
+                <Space>
+                    <Text className={"poemFont"} style={{color: getFontColor(props.minorColor)}}>
+                        {focusAudioPaused ? "白噪音" : "播放中"}
+                    </Text>
+                    <Select defaultValue={focusSound} className={"poemFont"} style={{width: 120}} placement={"topLeft"}
+                            onChange={focusSoundSelectOnChange}>
+                        <Select.Option className={"poemFont"} value={"古镇雨滴"}>{"古镇雨滴"}</Select.Option>
+                        <Select.Option className={"poemFont"} value={"松树林小雪"}>{"松树林小雪"}</Select.Option>
+                    </Select>
+                    <Button type={"text"} shape={props.preferenceData.buttonShape}
+                            icon={focusAudioPaused ? <PlayCircleOutlined /> : <PauseCircleOutlined />}
+                            onMouseOver={(e) => btnMouseOver(props.majorColor, e)}
+                            onMouseOut={(e) => btnMouseOut(props.minorColor, e)}
+                            className={"poemFont"}
+                            onClick={playBtnOnClick}
+                            style={{color: getFontColor(props.minorColor)}}>
+                        {focusAudioPaused ? "播放" : "暂停"}
+                    </Button>
+                </Space>
             }
         />
     );
@@ -215,7 +278,7 @@ function FocusComponent(props: any) {
                    styles={{mask: {backdropFilter: "blur(10px)", WebkitBackdropFilter: "blur(10px)"}}}
             >
                 <Form>
-                    <Form.Item label={"网站域名"} name={"focusInput"}>
+                    <Form.Item label={"网站域名"} name={"focusInput"} extra={"开启专注模式后，访问添加的域名时将自动跳转至本插件"}>
                         <Input className={"poemFont"} id={"focusInput"} placeholder="example.com"
                                value={inputValue} onChange={inputOnChange} maxLength={20} showCount allowClear/>
                     </Form.Item>
