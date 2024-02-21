@@ -1,15 +1,9 @@
-import React, {useEffect, useState} from "react";
-import {Button, Card, Col, Row, Space} from "antd";
-import {AppstoreOutlined, GithubOutlined, GitlabOutlined, ProfileOutlined} from "@ant-design/icons";
+import React from "react";
+import {Button, Card, Col, Row} from "antd";
+import {AppstoreOutlined, GithubOutlined, GitlabOutlined} from "@ant-design/icons";
 import {btnMouseOut, btnMouseOver, getFontColor} from "../typescripts/publicFunctions";
 
 function MenuProductsComponent(props: any) {
-    const [buttonShape, setButtonShape] = useState<"circle" | "default" | "round" | undefined>("round");
-
-    useEffect(() => {
-        setButtonShape(props.preferenceData.buttonShape === "round" ? "circle" : "default");
-    }, [props.preferenceData.buttonShape])
-
     return (
         <Card title={"更多产品"} size={"small"}
               extra={<AppstoreOutlined style={{color: getFontColor(props.minorColor)}}/>}
@@ -22,126 +16,24 @@ function MenuProductsComponent(props: any) {
               }}
               bodyStyle={{backgroundColor: props.minorColor}}
         >
-            <Row gutter={[0, 8]}>
-                <Col span="19">
-                    <Button type={"text"} shape={props.preferenceData.buttonShape} icon={<ProfileOutlined/>}
+            <Row>
+                <Col span="12">
+                    <Button type={"text"} shape={props.preferenceData.buttonShape} icon={<GithubOutlined/>}
+                            href={"https://github.com/xyk953651094/"} target={"_self"}
                             onMouseOver={(e) => btnMouseOver(props.majorColor, e)}
                             onMouseOut={(e) => btnMouseOut(props.minorColor, e)}
-                            className={"poemFont"} style={{color: getFontColor(props.minorColor), cursor: "default"}}>
-                        {"云开帮助文档"}
+                            style={{color: getFontColor(props.minorColor)}} className={"poemFont"}>
+                        GitHub 作者主页
                     </Button>
                 </Col>
-                <Col span="5">
-                    <Space>
-                        <Button type={"text"} shape={buttonShape} icon={<GithubOutlined/>}
-                                href={"https://github.com/xyk953651094/SkyDocuments/"} target={"_self"}
-                                onMouseOver={(e) => btnMouseOver(props.majorColor, e)}
-                                onMouseOut={(e) => btnMouseOut(props.minorColor, e)}
-                                className={"poemFont"} style={{color: getFontColor(props.minorColor)}}>
-                        </Button>
-                        <Button type={"text"} shape={buttonShape} icon={<GitlabOutlined/>}
-                                href={"https://gitlab.com/xyk953651094/SkyDocuments/"} target={"_self"}
-                                onMouseOver={(e) => btnMouseOver(props.majorColor, e)}
-                                onMouseOut={(e) => btnMouseOut(props.minorColor, e)}
-                                className={"poemFont"} style={{color: getFontColor(props.minorColor)}}>
-                        </Button>
-                    </Space>
-                </Col>
-                <Col span="19">
-                    <Button type={"text"} shape={props.preferenceData.buttonShape} icon={<AppstoreOutlined/>}
+                <Col span="12">
+                    <Button type={"text"} shape={props.preferenceData.buttonShape} icon={<GitlabOutlined/>}
+                            href={"https://gitlab.com/xyk953651094/"} target={"_self"}
                             onMouseOver={(e) => btnMouseOver(props.majorColor, e)}
                             onMouseOut={(e) => btnMouseOut(props.minorColor, e)}
-                            className={"poemFont"} style={{color: getFontColor(props.minorColor), cursor: "default"}}>
-                        {"云开壁纸（React）"}
+                            style={{color: getFontColor(props.minorColor)}} className={"poemFont"}>
+                        GitLab 作者主页
                     </Button>
-                </Col>
-                <Col span="5">
-                    <Space>
-                        <Button type={"text"} shape={buttonShape} icon={<GithubOutlined/>}
-                                href={"https://github.com/xyk953651094/SkyWallpaper-Electron/"} target={"_self"}
-                                onMouseOver={(e) => btnMouseOver(props.majorColor, e)}
-                                onMouseOut={(e) => btnMouseOut(props.minorColor, e)}
-                                className={"poemFont"} style={{color: getFontColor(props.minorColor)}}>
-                        </Button>
-                        <Button type={"text"} shape={buttonShape} icon={<GitlabOutlined/>}
-                                href={"https://gitlab.com/xyk953651094/SkyWallpaper-Electron/"} target={"_self"}
-                                onMouseOver={(e) => btnMouseOver(props.majorColor, e)}
-                                onMouseOut={(e) => btnMouseOut(props.minorColor, e)}
-                                className={"poemFont"} style={{color: getFontColor(props.minorColor)}}>
-                        </Button>
-                    </Space>
-                </Col>
-                <Col span="19">
-                    <Button type={"text"} shape={props.preferenceData.buttonShape} icon={<i className="bi bi-puzzle"/>}
-                            onMouseOver={(e) => btnMouseOver(props.majorColor, e)}
-                            onMouseOut={(e) => btnMouseOut(props.minorColor, e)}
-                            className={"poemFont"} style={{color: getFontColor(props.minorColor), cursor: "default"}}>
-                        {"云开新标签页（React）"}
-                    </Button>
-                </Col>
-                <Col span="5">
-                    <Space>
-                        <Button type={"text"} shape={buttonShape} icon={<GithubOutlined/>}
-                                href={"https://github.com/xyk953651094/SkyNewTab-React/"} target={"_self"}
-                                onMouseOver={(e) => btnMouseOver(props.majorColor, e)}
-                                onMouseOut={(e) => btnMouseOut(props.minorColor, e)}
-                                className={"poemFont"} style={{color: getFontColor(props.minorColor)}}>
-                        </Button>
-                        <Button type={"text"} shape={buttonShape} icon={<GitlabOutlined/>}
-                                href={"https://gitlab.com/xyk953651094/SkyNewTab-React/"} target={"_self"}
-                                onMouseOver={(e) => btnMouseOver(props.majorColor, e)}
-                                onMouseOut={(e) => btnMouseOut(props.minorColor, e)}
-                                className={"poemFont"} style={{color: getFontColor(props.minorColor)}}>
-                        </Button>
-                    </Space>
-                </Col>
-                <Col span="19">
-                    <Button type={"text"} shape={props.preferenceData.buttonShape} icon={<i className="bi bi-puzzle"/>}
-                            onMouseOver={(e) => btnMouseOver(props.majorColor, e)}
-                            onMouseOut={(e) => btnMouseOut(props.minorColor, e)}
-                            className={"poemFont"} style={{color: getFontColor(props.minorColor), cursor: "default"}}>
-                        {"云开新标签页（Vue）"}
-                    </Button>
-                </Col>
-                <Col span="5">
-                    <Space>
-                        <Button type={"text"} shape={buttonShape} icon={<GithubOutlined/>}
-                                href={"https://github.com/xyk953651094/SkyNewTab-Vue/"} target={"_self"}
-                                onMouseOver={(e) => btnMouseOver(props.majorColor, e)}
-                                onMouseOut={(e) => btnMouseOut(props.minorColor, e)}
-                                className={"poemFont"} style={{color: getFontColor(props.minorColor)}}>
-                        </Button>
-                        <Button type={"text"} shape={buttonShape} icon={<GitlabOutlined/>}
-                                href={"https://gitlab.com/xyk953651094/SkyNewTab-Vue/"} target={"_self"}
-                                onMouseOver={(e) => btnMouseOver(props.majorColor, e)}
-                                onMouseOut={(e) => btnMouseOut(props.minorColor, e)}
-                                className={"poemFont"} style={{color: getFontColor(props.minorColor)}}>
-                        </Button>
-                    </Space>
-                </Col>
-                <Col span="19">
-                    <Button type={"text"} shape={props.preferenceData.buttonShape} icon={<i className="bi bi-puzzle"/>}
-                            onMouseOver={(e) => btnMouseOver(props.majorColor, e)}
-                            onMouseOut={(e) => btnMouseOut(props.minorColor, e)}
-                            className={"poemFont"} style={{color: getFontColor(props.minorColor), cursor: "default"}}>
-                        {"云开诗词新标签页（Angular）"}
-                    </Button>
-                </Col>
-                <Col span="5">
-                    <Space>
-                        <Button type={"text"} shape={buttonShape} icon={<GithubOutlined/>}
-                                href={"https://github.com/xyk953651094/SkyNewTab-Poem-Angular/"} target={"_self"}
-                                onMouseOver={(e) => btnMouseOver(props.majorColor, e)}
-                                onMouseOut={(e) => btnMouseOut(props.minorColor, e)}
-                                className={"poemFont"} style={{color: getFontColor(props.minorColor)}}>
-                        </Button>
-                        <Button type={"text"} shape={buttonShape} icon={<GitlabOutlined/>}
-                                href={"https://gitlab.com/xyk953651094/SkyNewTab-Poem-Angular/"} target={"_self"}
-                                onMouseOver={(e) => btnMouseOver(props.majorColor, e)}
-                                onMouseOut={(e) => btnMouseOut(props.minorColor, e)}
-                                className={"poemFont"} style={{color: getFontColor(props.minorColor)}}>
-                        </Button>
-                    </Space>
                 </Col>
             </Row>
         </Card>

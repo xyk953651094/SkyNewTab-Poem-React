@@ -199,7 +199,7 @@ function App() {
         <Layout>
             <Header id={"header"}>
                 <Row justify="center">
-                    <Col xs={0} sm={0} md={0} lg={9} xl={9} xxl={9} className={"zIndexMiddle"}>
+                    <Col xs={0} sm={0} md={0} lg={10} xl={10} xxl={10} className={"zIndexMiddle"}>
                         <Space>
                             <SearchComponent
                                 majorColor={majorColor}
@@ -219,7 +219,7 @@ function App() {
                             />
                         </Space>
                     </Col>
-                    <Col xs={0} sm={0} md={0} lg={9} xl={9} xxl={9} style={{textAlign: "right"}}>
+                    <Col xs={0} sm={0} md={0} lg={10} xl={10} xxl={10} style={{textAlign: "right"}}>
                         <Space>
                             <DailyComponent
                                 majorColor={majorColor}

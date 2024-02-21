@@ -1,6 +1,6 @@
 import React from "react";
-import {Button, Card, Space} from "antd";
-import {CalendarOutlined, CloudOutlined, CodeOutlined, InfoCircleOutlined, ReadOutlined, SoundOutlined} from "@ant-design/icons";
+import {Button, Card, Col, Row} from "antd";
+import {GithubOutlined, GitlabOutlined, InfoCircleOutlined} from "@ant-design/icons";
 import {btnMouseOut, btnMouseOver, getFontColor} from "../typescripts/publicFunctions";
 
 function MenuInfoComponent(props: any) {
@@ -16,43 +16,26 @@ function MenuInfoComponent(props: any) {
               }}
               bodyStyle={{backgroundColor: props.minorColor}}
         >
-            <Space direction={"vertical"}>
-                <Button type={"text"} shape={props.preferenceData.buttonShape} icon={<CalendarOutlined/>}
-                        href={"https://www.mxnzp.com/"} target={"_self"}
-                        onMouseOver={(e) => btnMouseOver(props.majorColor, e)}
-                        onMouseOut={(e) => btnMouseOut(props.minorColor, e)}
-                        className={"poemFont"} style={{color: getFontColor(props.minorColor)}}>
-                    {"日历来源：https://www.mxnzp.com"}
-                </Button>
-                <Button type={"text"} shape={props.preferenceData.buttonShape} icon={<CloudOutlined/>}
-                        href={"https://www.jinrishici.com/"} target={"_self"}
-                        onMouseOver={(e) => btnMouseOver(props.majorColor, e)}
-                        onMouseOut={(e) => btnMouseOut(props.minorColor, e)}
-                        className={"poemFont"} style={{color: getFontColor(props.minorColor)}}>
-                    {"天气来源：https://www.jinrishici.com"}
-                </Button>
-                <Button type={"text"} shape={props.preferenceData.buttonShape} icon={<ReadOutlined/>}
-                        href={"https://www.jinrishici.com/"} target={"_self"}
-                        onMouseOver={(e) => btnMouseOver(props.majorColor, e)}
-                        onMouseOut={(e) => btnMouseOut(props.minorColor, e)}
-                        className={"poemFont"} style={{color: getFontColor(props.minorColor)}}>
-                    {"诗词来源：https://www.jinrishici.com"}
-                </Button>
-                <Button type={"text"} shape={props.preferenceData.buttonShape} icon={<SoundOutlined/>}
-                        href={"https://www.soundvery.com/"} target={"_self"}
-                        onMouseOver={(e) => btnMouseOver(props.majorColor, e)}
-                        onMouseOut={(e) => btnMouseOut(props.minorColor, e)}
-                        className={"poemFont"} style={{color: getFontColor(props.minorColor)}}>
-                    {"噪音来源：https://www.soundvery.com"}
-                </Button>
-                <Button type={"text"} shape={props.preferenceData.buttonShape} icon={<CodeOutlined/>}
-                        href={"https://www.jetbrains.com.cn/community/opensource/#support/"} target={"_self"}
-                        onMouseOver={(e) => btnMouseOver(props.majorColor, e)}
-                        onMouseOut={(e) => btnMouseOut(props.minorColor, e)}
-                        className={"poemFont"} style={{color: getFontColor(props.minorColor)}}>
-                    {"开发支持：JetBrains 免费许可证计划"}
-                </Button>
-            </Space>
+            <Row>
+                <Col span="12">
+                    <Button type={"text"} shape={props.preferenceData.buttonShape} icon={<GithubOutlined/>}
+                            href={"https://github.com/xyk953651094/SkyNewTab-Poem-React/"} target={"_self"}
+                            onMouseOver={(e) => btnMouseOver(props.majorColor, e)}
+                            onMouseOut={(e) => btnMouseOut(props.minorColor, e)}
+                            style={{color: getFontColor(props.minorColor)}} className={"poemFont"}>
+                        GitHub 产品主页
+                    </Button>
+                </Col>
+                <Col span="12">
+                    <Button type={"text"} shape={props.preferenceData.buttonShape} icon={<GitlabOutlined/>}
+                            href={"https://gitlab.com/xyk953651094/SkyNewTab-Poem-React/"} target={"_self"}
+                            onMouseOver={(e) => btnMouseOver(props.majorColor, e)}
+                            onMouseOut={(e) => btnMouseOut(props.minorColor, e)}
+                            style={{color: getFontColor(props.minorColor)}} className={"poemFont"}>
+                        GitLab 产品主页
+                    </Button>
+                </Col>
+            </Row>
         </Card>
     );
 }

@@ -81,17 +81,17 @@ function MenuComponent(props: any) {
                         minorColor={props.minorColor}
                         getPreferenceData={props.getPreferenceData}
                     />
+                    <MenuInfoComponent
+                        majorColor={props.majorColor}
+                        minorColor={props.minorColor}
+                        preferenceData={props.preferenceData}
+                    />
                     <MenuHelpComponent
                         majorColor={props.majorColor}
                         minorColor={props.minorColor}
                         preferenceData={props.preferenceData}
                     />
                     <MenuEmailComponent
-                        majorColor={props.majorColor}
-                        minorColor={props.minorColor}
-                        preferenceData={props.preferenceData}
-                    />
-                    <MenuInfoComponent
                         majorColor={props.majorColor}
                         minorColor={props.minorColor}
                         preferenceData={props.preferenceData}
