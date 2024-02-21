@@ -10,25 +10,68 @@ import {
     RadioChangeEvent,
     Row,
     Space,
-    Switch, Typography
+    Switch, Typography, Select
 } from "antd";
 import {RedoOutlined, SettingOutlined} from "@ant-design/icons";
 import {
     btnMouseOut,
     btnMouseOver,
     getFontColor,
-    getPreferenceDataStorage,
+    getPreferenceDataStorage, getTimeDetails,
 } from "../typescripts/publicFunctions";
 import {PreferenceDataInterface} from "../typescripts/publicInterface";
 import {defaultPreferenceData} from "../typescripts/publicConstants";
 
 const {Text} = Typography;
 
-function PreferenceFunctionComponent(props: any) {
+function MenuPreferenceComponent(props: any) {
     const [formDisabled, setFormDisabled] = useState(false);
     const [displayResetPreferenceModal, setDisplayResetPreferenceModal] = useState(false);
     const [displayClearStorageModal, setDisplayClearStorageModal] = useState(false);
     const [preferenceData, setPreferenceData] = useState(getPreferenceDataStorage());
+    const [lastPoemRequestTime, setLastPoemRequestTime] = useState("暂无信息");
+
+    // 诗词主题
+    function poemTopicsRadioOnChange(event: RadioChangeEvent) {
+        setPreferenceData((preferenceData: PreferenceDataInterface) => {
+            let newPreferenceData = modifyPreferenceData({poemTopic: event.target.value});
+            props.getPreferenceData(newPreferenceData);
+            localStorage.setItem("preferenceData", JSON.stringify(newPreferenceData));
+            return newPreferenceData;
+        });
+        message.success("已更换诗词主题，下次切换诗词时生效");
+    }
+
+    // 自动主题
+    function autoTopicSwitchOnChange(checked: boolean) {
+        setPreferenceData((preferenceData: PreferenceDataInterface) => {
+            let newPreferenceData = modifyPreferenceData({autoTopic: checked, changePoemTime: "3600000"});
+            props.getPreferenceData(newPreferenceData);
+            localStorage.setItem("preferenceData", JSON.stringify(newPreferenceData));
+            localStorage.removeItem("lastPoemRequestTime");  // 重置请求时间
+            return newPreferenceData;
+        });
+        if (checked) {
+            message.success("已开启自动主题，一秒后刷新页面");
+        } else {
+            message.success("已关闭自动主题，一秒后刷新页面");
+        }
+        setFormDisabled(true);
+        refreshWindow();
+    }
+
+    // 切换间隔
+    function changePoemTimeOnChange(value: string) {
+        setFormDisabled(true);
+        setPreferenceData((preferenceData: PreferenceDataInterface) => {
+            let newPreferenceData = modifyPreferenceData({changePoemTime: value});
+            props.getPreferenceData(newPreferenceData);
+            localStorage.setItem("preferenceData", JSON.stringify(newPreferenceData));
+            return newPreferenceData;
+        });
+        message.success("已修改切换间隔，一秒后刷新页面");
+        refreshWindow();
+    }
 
     // 搜索引擎
     function searchEngineRadioOnChange(event: RadioChangeEvent) {
@@ -117,12 +160,16 @@ function PreferenceFunctionComponent(props: any) {
     }
 
     useEffect(() => {
-
+        let lastPoemRequestTimeStorage = localStorage.getItem("lastPoemRequestTime");
+        if (lastPoemRequestTimeStorage !== null) {
+            console.log(lastPoemRequestTimeStorage);
+            setLastPoemRequestTime(getTimeDetails(new Date(parseInt(lastPoemRequestTimeStorage))).showDetail);
+        }
     }, []);
 
     return (
         <>
-            <Card title={"功能设置"} size={"small"}
+            <Card title={"偏好设置"} size={"small"}
                   extra={<SettingOutlined style={{color: getFontColor(props.minorColor)}}/>}
                   style={{border: "1px solid " + getFontColor(props.minorColor)}}
                   headStyle={{
@@ -151,6 +198,41 @@ function PreferenceFunctionComponent(props: any) {
                                 <Col span={12}><Radio value={"default"} id={"default"}>方形</Radio></Col>
                             </Row>
                         </Radio.Group>
+                    </Form.Item>
+                    <Form.Item name={"poemTopic"} label={"诗词主题"}>
+                        <Radio.Group buttonStyle={"solid"} style={{width: "100%"}}
+                                     disabled={preferenceData.autoTopic} onChange={poemTopicsRadioOnChange}>
+                            <Row gutter={[0, 8]}>
+                                <Col span={12}><Radio value={"all"} id={"all"}>随机</Radio></Col>
+                                <Col span={12}><Radio value={"shuqing"} id={"shuqing"}>抒情</Radio></Col>
+                                <Col span={12}><Radio value={"siji"} id={"siji"}>四季</Radio></Col>
+                                <Col span={12}><Radio value={"shanshui"} id={"shanshui"}>山水</Radio></Col>
+                                <Col span={12}><Radio value={"tianqi"} id={"tianqi"}>天气</Radio></Col>
+                                <Col span={12}><Radio value={"renwu"} id={"renwu"}>人物</Radio></Col>
+                                <Col span={12}><Radio value={"rensheng"} id={"rensheng"}>人生</Radio></Col>
+                                <Col span={12}><Radio value={"shenghuo"} id={"shenghuo"}>生活</Radio></Col>
+                                <Col span={12}><Radio value={"jieri"} id={"jieri"}>节日</Radio></Col>
+                                <Col span={12}><Radio value={"dongwu"} id={"dongwu"}>动物</Radio></Col>
+                                <Col span={12}><Radio value={"zhiwu"} id={"zhiwu"}>植物</Radio></Col>
+                                <Col span={12}><Radio value={"shiwu"} id={"shiwu"}>食物</Radio></Col>
+                            </Row>
+                        </Radio.Group>
+                    </Form.Item>
+                    <Form.Item name={"autoTopic"} label={"自动主题"} valuePropName={"checked"}
+                               extra={preferenceData.autoTopic ? "已禁用诗词主题与每次刷新" : ""}>
+                        <Switch checkedChildren="已开启" unCheckedChildren="已关闭" className={"poemFont"}
+                                id={"autoTopicSwitch"} onChange={autoTopicSwitchOnChange}/>
+                    </Form.Item>
+                    <Form.Item name={"changePoemTime"} label={"切换间隔"}
+                               extra={"上次切换：" + lastPoemRequestTime}>
+                        <Select popupClassName={"poemFont"} style={{width: 170}} onChange={changePoemTimeOnChange}
+                                options={[
+                                    {value: "0", label: "每次刷新（不推荐）", disabled: preferenceData.autoTopic},
+                                    {value: "900000", label: "每 15 分钟"},
+                                    {value: "1800000", label: "每 30 分钟"},
+                                    {value: "3600000", label: "每 60 分钟"},
+                                ]}
+                        />
                     </Form.Item>
                     <Form.Item name={"simpleMode"} label={"极简模式"} valuePropName={"checked"}>
                         <Switch checkedChildren="已开启" unCheckedChildren="已关闭" className={"poemFont"}
@@ -216,4 +298,4 @@ function PreferenceFunctionComponent(props: any) {
     );
 }
 
-export default PreferenceFunctionComponent;
+export default MenuPreferenceComponent;

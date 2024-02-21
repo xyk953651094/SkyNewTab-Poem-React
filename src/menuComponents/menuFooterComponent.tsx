@@ -3,7 +3,7 @@ import {Button, Space} from "antd";
 import {GithubOutlined, GitlabOutlined, NotificationOutlined} from "@ant-design/icons";
 import {btnMouseOut, btnMouseOver, getFontColor} from "../typescripts/publicFunctions";
 
-function PreferenceFooterComponent(props: any) {
+function MenuFooterComponent(props: any) {
     return (
         <Space>
             <Button type={"text"} shape={props.preferenceData.buttonShape} icon={<GithubOutlined/>}
@@ -32,4 +32,4 @@ function PreferenceFooterComponent(props: any) {
     );
 }
 
-export default PreferenceFooterComponent;
+export default MenuFooterComponent;

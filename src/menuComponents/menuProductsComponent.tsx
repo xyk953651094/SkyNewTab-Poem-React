@@ -3,7 +3,7 @@ import {Button, Card, Col, Row, Space} from "antd";
 import {AppstoreOutlined, GithubOutlined, GitlabOutlined, ProfileOutlined} from "@ant-design/icons";
 import {btnMouseOut, btnMouseOver, getFontColor} from "../typescripts/publicFunctions";
 
-function PreferenceProductComponent(props: any) {
+function MenuProductsComponent(props: any) {
     const [buttonShape, setButtonShape] = useState<"circle" | "default" | "round" | undefined>("round");
 
     useEffect(() => {
@@ -148,4 +148,4 @@ function PreferenceProductComponent(props: any) {
     );
 }
 
-export default PreferenceProductComponent;
+export default MenuProductsComponent;

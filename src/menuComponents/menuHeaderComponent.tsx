@@ -5,7 +5,7 @@ import {btnMouseOut, btnMouseOver, getFontColor} from "../typescripts/publicFunc
 
 const {Text} = Typography;
 
-function PreferenceHeaderComponent(props: any) {
+function MenuHeaderComponent(props: any) {
     return (
         <Row align={"middle"}>
             <Col span={12}>
@@ -25,4 +25,4 @@ function PreferenceHeaderComponent(props: any) {
     );
 }
 
-export default PreferenceHeaderComponent;
+export default MenuHeaderComponent;

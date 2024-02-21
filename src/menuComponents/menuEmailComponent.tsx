@@ -3,7 +3,7 @@ import {Button, Card, Col, Row} from "antd";
 import {DislikeOutlined, LikeOutlined, MailOutlined, StarOutlined} from "@ant-design/icons";
 import {btnMouseOut, btnMouseOver, getFontColor} from "../typescripts/publicFunctions";
 
-function PreferenceEmailComponent(props: any) {
+function MenuEmailComponent(props: any) {
     return (
         <Card title={"联系作者"} size={"small"}
               extra={<MailOutlined style={{color: getFontColor(props.minorColor)}}/>}
@@ -48,4 +48,4 @@ function PreferenceEmailComponent(props: any) {
     );
 }
 
-export default PreferenceEmailComponent;
+export default MenuEmailComponent;

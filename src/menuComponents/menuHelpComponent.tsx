@@ -3,7 +3,7 @@ import {Button, Card, Col, Row} from "antd";
 import {GithubOutlined, GitlabOutlined, QuestionCircleOutlined} from "@ant-design/icons";
 import {btnMouseOut, btnMouseOver, getFontColor} from "../typescripts/publicFunctions";
 
-function PreferenceHelpComponent(props: any) {
+function MenuHelpComponent(props: any) {
     return (
         <Card title={"帮助文档"} size={"small"}
               extra={<QuestionCircleOutlined style={{color: getFontColor(props.minorColor)}}/>}
@@ -40,4 +40,4 @@ function PreferenceHelpComponent(props: any) {
     );
 }
 
-export default PreferenceHelpComponent;
+export default MenuHelpComponent;

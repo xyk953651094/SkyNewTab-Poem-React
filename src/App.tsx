@@ -9,17 +9,18 @@ import TodoComponent from "./components/todoComponent";
 import SunComponent from "./components/sunComponent";
 import PoemComponent from "./components/poemComponent";
 import WaveComponent from "./components/waveComponent";
+import SearchComponent from "./components/searchComponent";
+import ClockComponent from "./components/clockComponent";
+import FocusComponent from "./components/focusComponent";
+import MenuComponent from "./components/menuComponent";
 import {
     getFontColor,
     getHolidayDataStorage,
     getPreferenceDataStorage, resetRadioColor, resetSwitchColor,
     setColorTheme
 } from "./typescripts/publicFunctions";
-import PreferenceComponent from "./components/preferenceComponent";
 import {PreferenceDataInterface} from "./typescripts/publicInterface";
-import SearchComponent from "./components/searchComponent";
-import ClockComponent from "./components/clockComponent";
-import FocusComponent from "./components/focusComponent";
+import {poemTopics} from "./typescripts/publicConstants";
 import $ from "jquery";
 
 const {Header, Content, Footer} = Layout;
@@ -145,10 +146,13 @@ function App() {
                 $(".ant-form-item-extra").css("color", getFontColor(minorColor)).addClass("poemFont");
                 $(".ant-radio-wrapper").children(":last-child").css("color", getFontColor(minorColor)).addClass("poemFont");
                 $(".ant-switch").find(".ant-switch-inner-checked").css("color", getFontColor(minorColor));
+                $(".ant-select-selection-item").addClass("poemFont");
 
                 // preferenceFunctionComponent
+                resetRadioColor(preferenceData.poemTopic, poemTopics, majorColor);
                 resetRadioColor(preferenceData.searchEngine, ["bing", "google"], majorColor);
                 resetRadioColor(preferenceData.buttonShape, ["round", "default"], majorColor);
+                resetSwitchColor("#autoTopicSwitch", preferenceData.autoTopic, majorColor);
                 resetSwitchColor("#simpleModeSwitch", preferenceData.simpleMode, majorColor);
             }
 
@@ -232,7 +236,7 @@ function App() {
                                 minorColor={minorColor}
                                 preferenceData={preferenceData}
                             />
-                            <PreferenceComponent
+                            <MenuComponent
                                 majorColor={majorColor}
                                 minorColor={minorColor}
                                 preferenceData={preferenceData}
@@ -241,7 +245,7 @@ function App() {
                         </Space>
                     </Col>
                     <Col xs={22} sm={22} md={22} lg={0} xl={0} xxl={0} style={{textAlign: "right"}}>
-                        <PreferenceComponent
+                        <MenuComponent
                             majorColor={majorColor}
                             minorColor={minorColor}
                             preferenceData={preferenceData}

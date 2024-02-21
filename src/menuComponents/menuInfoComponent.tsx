@@ -3,7 +3,7 @@ import {Button, Card, Space} from "antd";
 import {CalendarOutlined, CloudOutlined, CodeOutlined, InfoCircleOutlined, ReadOutlined, SoundOutlined} from "@ant-design/icons";
 import {btnMouseOut, btnMouseOver, getFontColor} from "../typescripts/publicFunctions";
 
-function PreferenceInfoComponent(props: any) {
+function MenuInfoComponent(props: any) {
     return (
         <Card title={"产品信息"} size={"small"}
               extra={<InfoCircleOutlined style={{color: getFontColor(props.minorColor)}}/>}
@@ -57,4 +57,4 @@ function PreferenceInfoComponent(props: any) {
     );
 }
 
-export default PreferenceInfoComponent;
+export default MenuInfoComponent;
