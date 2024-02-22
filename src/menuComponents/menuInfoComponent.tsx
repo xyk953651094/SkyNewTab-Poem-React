@@ -16,14 +16,14 @@ function MenuInfoComponent(props: any) {
               }}
               bodyStyle={{backgroundColor: props.minorColor}}
         >
-            <Row>
+            <Row gutter={[0, 8]}>
                 <Col span="12">
                     <Button type={"text"} shape={props.preferenceData.buttonShape} icon={<GithubOutlined/>}
                             href={"https://github.com/xyk953651094/SkyNewTab-Poem-React/"} target={"_self"}
                             onMouseOver={(e) => btnMouseOver(props.majorColor, e)}
                             onMouseOut={(e) => btnMouseOut(props.minorColor, e)}
                             style={{color: getFontColor(props.minorColor)}} className={"poemFont"}>
-                        GitHub 产品主页
+                        产品主页
                     </Button>
                 </Col>
                 <Col span="12">
@@ -32,7 +32,43 @@ function MenuInfoComponent(props: any) {
                             onMouseOver={(e) => btnMouseOver(props.majorColor, e)}
                             onMouseOut={(e) => btnMouseOut(props.minorColor, e)}
                             style={{color: getFontColor(props.minorColor)}} className={"poemFont"}>
-                        GitLab 产品主页
+                        产品主页
+                    </Button>
+                </Col>
+                <Col span="12">
+                    <Button type={"text"} shape={props.preferenceData.buttonShape} icon={<GithubOutlined/>}
+                            href={"https://github.com/xyk953651094/SkyNewTab-Poem-React/releases/"} target={"_self"}
+                            onMouseOver={(e) => btnMouseOver(props.majorColor, e)}
+                            onMouseOut={(e) => btnMouseOut(props.minorColor, e)}
+                            style={{color: getFontColor(props.minorColor)}} className={"poemFont"}>
+                        更新日志
+                    </Button>
+                </Col>
+                <Col span="12">
+                    <Button type={"text"} shape={props.preferenceData.buttonShape} icon={<GitlabOutlined/>}
+                            href={"https://gitlab.com/xyk953651094/SkyNewTab-React/-/releases/"} target={"_self"}
+                            onMouseOver={(e) => btnMouseOver(props.majorColor, e)}
+                            onMouseOut={(e) => btnMouseOut(props.minorColor, e)}
+                            style={{color: getFontColor(props.minorColor)}} className={"poemFont"}>
+                        更新日志
+                    </Button>
+                </Col>
+                <Col span="12">
+                    <Button type={"text"} shape={props.preferenceData.buttonShape} icon={<GithubOutlined/>}
+                            href={"https://xyk953651094.github.io/SkyDocuments/"} target={"_self"}
+                            onMouseOver={(e) => btnMouseOver(props.majorColor, e)}
+                            onMouseOut={(e) => btnMouseOut(props.minorColor, e)}
+                            className={"poemFont"} style={{color: getFontColor(props.minorColor)}}>
+                        帮助文档
+                    </Button>
+                </Col>
+                <Col span="12">
+                    <Button type={"text"} shape={props.preferenceData.buttonShape} icon={<GitlabOutlined/>}
+                            href={"https://xyk953651094.gitlab.io/SkyDocuments/"} target={"_self"}
+                            onMouseOver={(e) => btnMouseOver(props.majorColor, e)}
+                            onMouseOut={(e) => btnMouseOut(props.minorColor, e)}
+                            className={"poemFont"} style={{color: getFontColor(props.minorColor)}}>
+                        帮助文档
                     </Button>
                 </Col>
             </Row>

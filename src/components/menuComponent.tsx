@@ -5,12 +5,10 @@ import {getFontColor} from "../typescripts/publicFunctions";
 import {device} from "../typescripts/publicConstants";
 import MenuInfoComponent from "../menuComponents/menuInfoComponent";
 import MenuFooterComponent from "../menuComponents/menuFooterComponent";
-import MenuEmailComponent from "../menuComponents/menuEmailComponent";
+import MenuContactComponent from "../menuComponents/menuContactComponent";
 import MenuPreferenceComponent from "../menuComponents/menuPreferenceComponent";
 import MenuHeaderComponent from "../menuComponents/menuHeaderComponent";
-import MenuProductsComponent from "../menuComponents/menuProductsComponent";
 import MenuToTopComponent from "../menuComponents/menuToTopComponent";
-import MenuHelpComponent from "../menuComponents/menuHelpComponent";
 
 function MenuComponent(props: any) {
     const [displayDrawer, setDisplayDrawer] = useState(false);
@@ -86,17 +84,7 @@ function MenuComponent(props: any) {
                         minorColor={props.minorColor}
                         preferenceData={props.preferenceData}
                     />
-                    <MenuHelpComponent
-                        majorColor={props.majorColor}
-                        minorColor={props.minorColor}
-                        preferenceData={props.preferenceData}
-                    />
-                    <MenuEmailComponent
-                        majorColor={props.majorColor}
-                        minorColor={props.minorColor}
-                        preferenceData={props.preferenceData}
-                    />
-                    <MenuProductsComponent
+                    <MenuContactComponent
                         majorColor={props.majorColor}
                         minorColor={props.minorColor}
                         preferenceData={props.preferenceData}
