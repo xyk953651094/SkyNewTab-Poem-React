@@ -113,8 +113,6 @@ function PoemComponent(props: any) {
     }
 
     function getPoem() {
-        console.log(props.preferenceData.autoTopic)
-
         if (props.preferenceData.autoTopic) {
             poemRequest.load((result: any) => {
                 localStorage.setItem("lastPoemRequestTime", String(new Date().getTime()));  // 保存请求时间，防抖节流
@@ -180,7 +178,6 @@ function PoemComponent(props: any) {
             let nowTimeStamp = new Date().getTime();
             if (lastPoemRequestTime === null) {  // 第一次请求时 lastRequestTime 为 null，因此直接进行请求赋值 lastRequestTime
                 getPoem();
-            // } else if (nowTimeStamp - parseInt(lastPoemRequestTime) > 0) {
             } else if (nowTimeStamp - parseInt(lastPoemRequestTime) > parseInt(props.preferenceData.changePoemTime)) {  // 必须多于切换间隔分钟才能进行新的请求
                 getPoem();
             } else {  // 切换间隔之内使用上一次请求结果

@@ -31,6 +31,29 @@ function MenuPreferenceComponent(props: any) {
     const [preferenceData, setPreferenceData] = useState(getPreferenceDataStorage());
     const [lastPoemRequestTime, setLastPoemRequestTime] = useState("暂无信息");
 
+    // 搜索引擎
+    function searchEngineRadioOnChange(event: RadioChangeEvent) {
+        setPreferenceData((preferenceData: PreferenceDataInterface) => {
+            let newPreferenceData = modifyPreferenceData({searchEngine: event.target.value});
+            props.getPreferenceData(newPreferenceData);
+            localStorage.setItem("preferenceData", JSON.stringify(newPreferenceData));
+            return newPreferenceData;
+        });
+        message.success("已更换搜索引擎");
+        // resetRadioColor(event.target.value, ["bing", "google"], props.majorColor);
+    }
+
+    function buttonShapeRadioOnChange(event: RadioChangeEvent) {
+        setPreferenceData((preferenceData: PreferenceDataInterface) => {
+            let newPreferenceData = modifyPreferenceData({buttonShape: event.target.value});
+            props.getPreferenceData(newPreferenceData);
+            localStorage.setItem("preferenceData", JSON.stringify(newPreferenceData));
+            return newPreferenceData;
+        });
+        message.success("已更换按钮形状");
+        // resetRadioColor(event.target.value, ["round", "default"], props.majorColor);
+    }
+
     // 诗词主题
     function poemTopicsRadioOnChange(event: RadioChangeEvent) {
         setPreferenceData((preferenceData: PreferenceDataInterface) => {
@@ -71,29 +94,6 @@ function MenuPreferenceComponent(props: any) {
         });
         message.success("已修改切换间隔，一秒后刷新页面");
         refreshWindow();
-    }
-
-    // 搜索引擎
-    function searchEngineRadioOnChange(event: RadioChangeEvent) {
-        setPreferenceData((preferenceData: PreferenceDataInterface) => {
-            let newPreferenceData = modifyPreferenceData({searchEngine: event.target.value});
-            props.getPreferenceData(newPreferenceData);
-            localStorage.setItem("preferenceData", JSON.stringify(newPreferenceData));
-            return newPreferenceData;
-        });
-        message.success("已更换搜索引擎");
-        // resetRadioColor(event.target.value, ["bing", "google"], props.majorColor);
-    }
-
-    function buttonShapeRadioOnChange(event: RadioChangeEvent) {
-        setPreferenceData((preferenceData: PreferenceDataInterface) => {
-            let newPreferenceData = modifyPreferenceData({buttonShape: event.target.value});
-            props.getPreferenceData(newPreferenceData);
-            localStorage.setItem("preferenceData", JSON.stringify(newPreferenceData));
-            return newPreferenceData;
-        });
-        message.success("已更换按钮形状");
-        // resetRadioColor(event.target.value, ["round", "default"], props.majorColor);
     }
 
     // 极简模式
@@ -162,7 +162,6 @@ function MenuPreferenceComponent(props: any) {
     useEffect(() => {
         let lastPoemRequestTimeStorage = localStorage.getItem("lastPoemRequestTime");
         if (lastPoemRequestTimeStorage !== null) {
-            console.log(lastPoemRequestTimeStorage);
             setLastPoemRequestTime(getTimeDetails(new Date(parseInt(lastPoemRequestTimeStorage))).showDetail);
         }
     }, []);
