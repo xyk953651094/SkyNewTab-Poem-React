@@ -10,7 +10,6 @@ function PopupPoemComponent(props: any) {
     const [searchEngineUrl, setSearchEngineUrl] = useState("https://www.bing.com/search?q=");
     const [poemContent, setPoemContent] = useState("海上生明月，天涯共此时。");
     const [poemAuthor, setPoemAuthor] = useState("【唐】张九龄 ·《望月怀远》");
-    const [autoTopic, setAutoTopic] = useState(false);
 
     function poemContentBtnOnClick() {
         window.open(searchEngineUrl + poemContent, "_blank");
@@ -26,7 +25,8 @@ function PopupPoemComponent(props: any) {
             let poemData = JSON.parse(poemDataStorage);
             let tempPoemContent = "";
             let tempPoemAuthor = "";
-            if (autoTopic) {
+
+            if (props.preferenceData.autoTopic) {
                 tempPoemContent = poemData.data.content.length < poemMaxSize ?
                     poemData.data.content : poemData.data.content.substring(0, poemMaxSize) + "...";
 
@@ -71,7 +71,7 @@ function PopupPoemComponent(props: any) {
         } else {
             setPoem();
         }
-    }, [props.preferenceData.searchEngine]);
+    }, [props.preferenceData.autoTopic, props.preferenceData.searchEngine]);
 
     return (
         <Row justify="center" align="middle">

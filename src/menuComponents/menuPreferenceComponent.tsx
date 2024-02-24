@@ -69,7 +69,7 @@ function MenuPreferenceComponent(props: any) {
     // 智能主题
     function autoTopicSwitchOnChange(checked: boolean) {
         setPreferenceData((preferenceData: PreferenceDataInterface) => {
-            let newPreferenceData = modifyPreferenceData({autoTopic: checked});
+            let newPreferenceData = modifyPreferenceData({autoTopic: checked, changePoemTime: "3600000"});
             props.getPreferenceData(newPreferenceData);
             localStorage.setItem("preferenceData", JSON.stringify(newPreferenceData));
             localStorage.removeItem("lastPoemRequestTime");  // 重置请求时间
@@ -237,7 +237,7 @@ function MenuPreferenceComponent(props: any) {
                         </Radio.Group>
                     </Form.Item>
                     <Form.Item name={"autoTopic"} label={"智能主题"} valuePropName={"checked"}
-                               extra={preferenceData.autoTopic ? "已禁用诗词主题" : ""}>
+                               extra={preferenceData.autoTopic ? "已禁用诗词主题与部分切换间隔" : ""}>
                         <Switch checkedChildren="已开启" unCheckedChildren="已关闭" className={"poemFont"}
                                 id={"autoTopicSwitch"} onChange={autoTopicSwitchOnChange} disabled={customPoem}/>
                     </Form.Item>
@@ -245,8 +245,8 @@ function MenuPreferenceComponent(props: any) {
                                extra={"上次切换：" + lastPoemRequestTime}>
                         <Select popupClassName={"poemFont"} style={{width: 170}} onChange={changePoemTimeOnChange} disabled={customPoem}
                                 options={[
-                                    {value: "60000", label: "每隔 1 分钟"},
-                                    {value: "900000", label: "每隔 15 分钟"},
+                                    {value: "60000", label: "每隔 1 分钟", disabled:preferenceData.autoTopic},
+                                    {value: "900000", label: "每隔 15 分钟", disabled:preferenceData.autoTopic},
                                     {value: "3600000", label: "每隔 1 小时"},
                                     {value: "86400000", label: "每隔 1 天"},
                                 ]}
