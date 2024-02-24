@@ -10,7 +10,7 @@ function PopupPoemComponent(props: any) {
     const [searchEngineUrl, setSearchEngineUrl] = useState("https://www.bing.com/search?q=");
     const [poemContent, setPoemContent] = useState("海上生明月，天涯共此时。");
     const [poemAuthor, setPoemAuthor] = useState("【唐】张九龄 ·《望月怀远》");
-    const [customPoem, setCustomPoem] = useState(false);
+    const [autoTopic, setAutoTopic] = useState(false);
 
     function poemContentBtnOnClick() {
         window.open(searchEngineUrl + poemContent, "_blank");
@@ -20,25 +20,31 @@ function PopupPoemComponent(props: any) {
         window.open(searchEngineUrl + poemAuthor, "_blank");
     }
 
-    function setPoem(poemData: any) {
-        let tempPoemContent = poemData.data.content.length < poemMaxSize ?
-            poemData.data.content : poemData.data.content.substring(0, poemMaxSize) + "...";
+    function setPoem() {
+        let poemDataStorage = localStorage.getItem("lastPoem");
+        if (poemDataStorage) {
+            let poemData = JSON.parse(poemDataStorage);
+            let tempPoemContent = "";
+            let tempPoemAuthor = "";
+            if (autoTopic) {
+                tempPoemContent = poemData.data.content.length < poemMaxSize ?
+                    poemData.data.content : poemData.data.content.substring(0, poemMaxSize) + "...";
 
-        let tempPoemAuthor =
-            "【" + poemData.data.origin.dynasty + "】" +
-            poemData.data.origin.author + " ·" +
-            "《" + poemData.data.origin.title + "》";
-        tempPoemAuthor = tempPoemAuthor.length < poemMaxSize ?
-            tempPoemAuthor : tempPoemAuthor.substring(0, poemMaxSize) + "...";
+                tempPoemAuthor =
+                    "【" + poemData.data.origin.dynasty + " · " + poemData.data.origin.author + "】" +
+                    "《" + poemData.data.origin.title + "》";
+                tempPoemAuthor = tempPoemAuthor.length < poemMaxSize ?
+                    tempPoemAuthor : tempPoemAuthor.substring(0, poemMaxSize) + "...";
+            } else {
+                tempPoemContent = poemData.content.length < poemMaxSize ?
+                    poemData.content : poemData.content.substring(0, poemMaxSize) + "...";
 
-        setPoemContent(tempPoemContent);
-        setPoemAuthor(tempPoemAuthor);
-    }
-
-    function getPoem() {
-        let poemData = localStorage.getItem("lastPoem");
-        if (poemData) {
-            setPoem(JSON.parse(poemData));
+                tempPoemAuthor = "【" + poemData.author + "】《" + poemData.origin + "》";
+                tempPoemAuthor = tempPoemAuthor.length < poemMaxSize ?
+                    tempPoemAuthor : tempPoemAuthor.substring(0, poemMaxSize) + "...";
+            }
+            setPoemContent(tempPoemContent);
+            setPoemAuthor(tempPoemAuthor);
         }
     }
 
@@ -49,7 +55,6 @@ function PopupPoemComponent(props: any) {
         let customPoemStorage = localStorage.getItem("customPoem");
         if (customPoemStorage) {
             tempCustomPoem = JSON.parse(customPoemStorage);
-            setCustomPoem(tempCustomPoem);
         } else {
             localStorage.setItem("customPoem", JSON.stringify(false));
         }
@@ -58,11 +63,13 @@ function PopupPoemComponent(props: any) {
             let customContentStorage = localStorage.getItem("customContent");
             let customAuthorStorage = localStorage.getItem("customAuthor");
             if (customContentStorage && customAuthorStorage) {
-                setPoemContent(customContentStorage);
-                setPoemAuthor(customAuthorStorage);
+                setPoemContent(customContentStorage.length < poemMaxSize ?
+                    customContentStorage : customContentStorage.substring(0, poemMaxSize) + "...");
+                setPoemAuthor(customAuthorStorage.length < poemMaxSize ?
+                    customAuthorStorage : customAuthorStorage.substring(0, poemMaxSize) + "...");
             }
         } else {
-            getPoem();
+            setPoem();
         }
     }, [props.preferenceData.searchEngine]);
 

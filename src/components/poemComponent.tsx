@@ -63,7 +63,10 @@ function PoemComponent(props: any) {
             localStorage.setItem("customPoem", JSON.stringify(true));
             localStorage.setItem("customContent", customContentInputValue);
             localStorage.setItem("customAuthor", customAuthorInputValue);
-            message.success("设置成功");
+            message.success("已使用自定诗词，一秒后刷新页面");
+            setTimeout(() => {
+                window.location.reload();
+            }, 1000);
         } else {
             message.error("表单不能为空");
         }
@@ -103,7 +106,7 @@ function PoemComponent(props: any) {
             tempPoemContent = poemData.content.length < poemMaxSize ?
                 poemData.content : poemData.content.substring(0, poemMaxSize) + "...";
 
-            tempPoemAuthor = "【" + poemData.author + "】" + " ·" + "《" + poemData.origin + "》";
+            tempPoemAuthor = "【" + poemData.author + "】《" + poemData.origin + "》";
             tempPoemAuthor = tempPoemAuthor.length < poemMaxSize ?
                 tempPoemAuthor : tempPoemAuthor.substring(0, poemMaxSize) + "...";
         }

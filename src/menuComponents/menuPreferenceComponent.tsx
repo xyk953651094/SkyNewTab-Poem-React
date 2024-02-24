@@ -30,6 +30,7 @@ function MenuPreferenceComponent(props: any) {
     const [displayClearStorageModal, setDisplayClearStorageModal] = useState(false);
     const [preferenceData, setPreferenceData] = useState(getPreferenceDataStorage());
     const [lastPoemRequestTime, setLastPoemRequestTime] = useState("暂无信息");
+    const [customPoem, setCustomPoem] = useState(false);
 
     // 搜索引擎
     function searchEngineRadioOnChange(event: RadioChangeEvent) {
@@ -65,10 +66,10 @@ function MenuPreferenceComponent(props: any) {
         message.success("已更换诗词主题，下次切换诗词时生效");
     }
 
-    // 自动主题
+    // 智能主题
     function autoTopicSwitchOnChange(checked: boolean) {
         setPreferenceData((preferenceData: PreferenceDataInterface) => {
-            let newPreferenceData = modifyPreferenceData({autoTopic: checked, changePoemTime: "3600000"});
+            let newPreferenceData = modifyPreferenceData({autoTopic: checked});
             props.getPreferenceData(newPreferenceData);
             localStorage.setItem("preferenceData", JSON.stringify(newPreferenceData));
             localStorage.removeItem("lastPoemRequestTime");  // 重置请求时间
@@ -116,12 +117,18 @@ function MenuPreferenceComponent(props: any) {
 
     // 重置设置
     function resetPreferenceBtnOnClick() {
-        setDisplayResetPreferenceModal(true);
+        let resetTimeStampStorage = localStorage.getItem("resetTimeStamp");
+        if (resetTimeStampStorage && new Date().getTime() - parseInt(resetTimeStampStorage) < 60 * 1000) {
+            message.error("操作过于频繁，请稍后再试");
+        } else {
+            setDisplayResetPreferenceModal(true);
+        }
     }
 
     function resetPreferenceOkBtnOnClick() {
         setDisplayResetPreferenceModal(true);
         localStorage.setItem("preferenceData", JSON.stringify(defaultPreferenceData));
+        localStorage.setItem("resetTimeStamp", JSON.stringify(new Date().getTime()));
         message.success("已重置设置，一秒后刷新页面");
         setFormDisabled(true);
         refreshWindow();
@@ -133,12 +140,18 @@ function MenuPreferenceComponent(props: any) {
 
     // 重置插件
     function clearStorageBtnOnClick() {
-        setDisplayClearStorageModal(true);
+        let resetTimeStampStorage = localStorage.getItem("resetTimeStamp");
+        if (resetTimeStampStorage && new Date().getTime() - parseInt(resetTimeStampStorage) < 60 * 1000) {
+            message.error("操作过于频繁，请稍后再试");
+        } else {
+            setDisplayClearStorageModal(true);
+        }
     }
 
     function clearStorageOkBtnOnClick() {
         setDisplayClearStorageModal(true);
         localStorage.clear();
+        localStorage.setItem("resetTimeStamp", JSON.stringify(new Date().getTime()));
         message.success("已重置插件，一秒后刷新页面");
         setFormDisabled(true);
         refreshWindow();
@@ -163,6 +176,11 @@ function MenuPreferenceComponent(props: any) {
         let lastPoemRequestTimeStorage = localStorage.getItem("lastPoemRequestTime");
         if (lastPoemRequestTimeStorage !== null) {
             setLastPoemRequestTime(getTimeDetails(new Date(parseInt(lastPoemRequestTimeStorage))).showDetail);
+        }
+
+        let customPoemStorage = localStorage.getItem("customPoem");
+        if (customPoemStorage) {
+            setCustomPoem(JSON.parse(customPoemStorage));  // 用户使用自定诗词时，禁用诗词主题与切换间隔
         }
     }, []);
 
@@ -198,9 +216,10 @@ function MenuPreferenceComponent(props: any) {
                             </Row>
                         </Radio.Group>
                     </Form.Item>
-                    <Form.Item name={"poemTopic"} label={"诗词主题"}>
+                    <Form.Item name={"poemTopic"} label={"诗词主题"}
+                               extra={customPoem ? "正在使用自定诗词，已禁用主题与切换" : ""}>
                         <Radio.Group buttonStyle={"solid"} style={{width: "100%"}}
-                                     disabled={preferenceData.autoTopic} onChange={poemTopicsRadioOnChange}>
+                                     disabled={preferenceData.autoTopic || customPoem} onChange={poemTopicsRadioOnChange}>
                             <Row gutter={[0, 8]}>
                                 <Col span={12}><Radio value={"all"} id={"all"}>随机</Radio></Col>
                                 <Col span={12}><Radio value={"shuqing"} id={"shuqing"}>抒情</Radio></Col>
@@ -217,19 +236,19 @@ function MenuPreferenceComponent(props: any) {
                             </Row>
                         </Radio.Group>
                     </Form.Item>
-                    <Form.Item name={"autoTopic"} label={"自动主题"} valuePropName={"checked"}
-                               extra={preferenceData.autoTopic ? "已禁用诗词主题与每次刷新" : ""}>
+                    <Form.Item name={"autoTopic"} label={"智能主题"} valuePropName={"checked"}
+                               extra={preferenceData.autoTopic ? "已禁用诗词主题" : ""}>
                         <Switch checkedChildren="已开启" unCheckedChildren="已关闭" className={"poemFont"}
-                                id={"autoTopicSwitch"} onChange={autoTopicSwitchOnChange}/>
+                                id={"autoTopicSwitch"} onChange={autoTopicSwitchOnChange} disabled={customPoem}/>
                     </Form.Item>
                     <Form.Item name={"changePoemTime"} label={"切换间隔"}
                                extra={"上次切换：" + lastPoemRequestTime}>
-                        <Select popupClassName={"poemFont"} style={{width: 170}} onChange={changePoemTimeOnChange}
+                        <Select popupClassName={"poemFont"} style={{width: 170}} onChange={changePoemTimeOnChange} disabled={customPoem}
                                 options={[
-                                    {value: "0", label: "每次刷新（不推荐）", disabled: preferenceData.autoTopic},
-                                    {value: "900000", label: "每 15 分钟"},
-                                    {value: "1800000", label: "每 30 分钟"},
-                                    {value: "3600000", label: "每 60 分钟"},
+                                    {value: "60000", label: "每隔 1 分钟"},
+                                    {value: "900000", label: "每隔 15 分钟"},
+                                    {value: "3600000", label: "每隔 1 小时"},
+                                    {value: "86400000", label: "每隔 1 天"},
                                 ]}
                         />
                     </Form.Item>
