@@ -208,7 +208,7 @@ function PoemComponent(props: any) {
                         </Button>
                     </Col>
                     <Col xs={0} sm={0} md={0} lg={24} xl={24}>
-                        <Tooltip title={"自定诗词"} placement={"bottom"} color={props.minorColor}>
+                        <Tooltip title={"点击编辑自定诗词"} placement={"bottom"} color={props.minorColor}>
                             <Button type="text" shape={props.preferenceData.buttonShape} size={"large"}
                                     className="poemText poemFont largeFont"
                                     style={{color: props.minorColor}}
