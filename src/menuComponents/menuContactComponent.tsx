@@ -37,7 +37,7 @@ function MenuContactComponent(props: any) {
                 </Col>
                 <Col span="12">
                     <Button type={"text"} shape={props.preferenceData.buttonShape} icon={<LikeOutlined/>}
-                            href={"mailto:xyk953651094@qq.com?&subject=云开诗词新标签页-功能建议"} target={"_self"}
+                            href={"mailto:xyk953651094@qq.com?&subject=云开诗词新标签页-功能建议&body=提示：建议或反馈前请优先查阅帮助文档"} target={"_self"}
                             onMouseOver={(e) => btnMouseOver(props.majorColor, e)}
                             onMouseOut={(e) => btnMouseOut(props.minorColor, e)}
                             className={"poemFont"} style={{color: getFontColor(props.minorColor)}}>
@@ -46,7 +46,7 @@ function MenuContactComponent(props: any) {
                 </Col>
                 <Col span="12">
                     <Button type={"text"} shape={props.preferenceData.buttonShape} icon={<DislikeOutlined/>}
-                            href={"mailto:xyk953651094@qq.com?&subject=云开诗词新标签页-问题反馈"} target={"_self"}
+                            href={"mailto:xyk953651094@qq.com?&subject=云开诗词新标签页-问题反馈&body=提示：建议或反馈前请优先查阅帮助文档"} target={"_self"}
                             onMouseOver={(e) => btnMouseOver(props.majorColor, e)}
                             onMouseOut={(e) => btnMouseOut(props.minorColor, e)}
                             className={"poemFont"} style={{color: getFontColor(props.minorColor)}}>
