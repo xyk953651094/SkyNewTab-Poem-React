@@ -245,9 +245,11 @@ function MenuPreferenceComponent(props: any) {
                                extra={"上次切换：" + lastPoemRequestTime}>
                         <Select popupClassName={"poemFont"} style={{width: 170}} onChange={changePoemTimeOnChange} disabled={customPoem}
                                 options={[
-                                    {value: "60000", label: "每隔 1 分钟", disabled:preferenceData.autoTopic},
                                     {value: "900000", label: "每隔 15 分钟", disabled:preferenceData.autoTopic},
+                                    {value: "1800000", label: "每隔 30 分钟", disabled:preferenceData.autoTopic},
                                     {value: "3600000", label: "每隔 1 小时"},
+                                    {value: "21600000", label: "每隔 6 小时"},
+                                    {value: "43200000", label: "每隔 12 小时"},
                                     {value: "86400000", label: "每隔 1 天"},
                                 ]}
                         />
