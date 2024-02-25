@@ -30,7 +30,6 @@ function MenuPreferenceComponent(props: any) {
     const [displayClearStorageModal, setDisplayClearStorageModal] = useState(false);
     const [preferenceData, setPreferenceData] = useState(getPreferenceDataStorage());
     const [lastPoemRequestTime, setLastPoemRequestTime] = useState("暂无信息");
-    const [customPoem, setCustomPoem] = useState(false);
 
     // 搜索引擎
     function searchEngineRadioOnChange(event: RadioChangeEvent) {
@@ -177,11 +176,6 @@ function MenuPreferenceComponent(props: any) {
         if (lastPoemRequestTimeStorage !== null) {
             setLastPoemRequestTime(getTimeDetails(new Date(parseInt(lastPoemRequestTimeStorage))).showDetail);
         }
-
-        let customPoemStorage = localStorage.getItem("customPoem");
-        if (customPoemStorage) {
-            setCustomPoem(JSON.parse(customPoemStorage));  // 用户使用自定诗词时，禁用诗词主题与切换间隔
-        }
     }, []);
 
     return (
@@ -216,10 +210,9 @@ function MenuPreferenceComponent(props: any) {
                             </Row>
                         </Radio.Group>
                     </Form.Item>
-                    <Form.Item name={"poemTopic"} label={"诗词主题"}
-                               extra={customPoem ? "正在使用自定诗词，已禁用主题与切换" : ""}>
+                    <Form.Item name={"poemTopic"} label={"诗词主题"}>
                         <Radio.Group buttonStyle={"solid"} style={{width: "100%"}}
-                                     disabled={preferenceData.autoTopic || customPoem} onChange={poemTopicsRadioOnChange}>
+                                     disabled={preferenceData.autoTopic} onChange={poemTopicsRadioOnChange}>
                             <Row gutter={[0, 8]}>
                                 <Col span={12}><Radio value={"all"} id={"all"}>随机</Radio></Col>
                                 <Col span={12}><Radio value={"shuqing"} id={"shuqing"}>抒情</Radio></Col>
@@ -239,11 +232,11 @@ function MenuPreferenceComponent(props: any) {
                     <Form.Item name={"autoTopic"} label={"智能主题"} valuePropName={"checked"}
                                extra={preferenceData.autoTopic ? "已禁用诗词主题与部分切换间隔" : ""}>
                         <Switch checkedChildren="已开启" unCheckedChildren="已关闭" className={"poemFont"}
-                                id={"autoTopicSwitch"} onChange={autoTopicSwitchOnChange} disabled={customPoem}/>
+                                id={"autoTopicSwitch"} onChange={autoTopicSwitchOnChange}/>
                     </Form.Item>
                     <Form.Item name={"changePoemTime"} label={"切换间隔"}
                                extra={"上次切换：" + lastPoemRequestTime}>
-                        <Select popupClassName={"poemFont"} style={{width: 170}} onChange={changePoemTimeOnChange} disabled={customPoem}
+                        <Select popupClassName={"poemFont"} style={{width: 170}} onChange={changePoemTimeOnChange}
                                 options={[
                                     {value: "900000", label: "每隔 15 分钟", disabled:preferenceData.autoTopic},
                                     {value: "1800000", label: "每隔 30 分钟", disabled:preferenceData.autoTopic},
