@@ -57,8 +57,8 @@ function MenuContactComponent(props: any) {
                     <Button type={"text"} shape={props.preferenceData.buttonShape} icon={<BulbOutlined />}
                             onMouseOver={(e) => btnMouseOver(props.majorColor, e)}
                             onMouseOut={(e) => btnMouseOut(props.minorColor, e)}
-                            className={"poemFont"} style={{color: getFontColor(props.minorColor)}}>
-                        联系作者前请先查阅帮助文档
+                            className={"poemFont"} style={{color: getFontColor(props.minorColor), cursor: "default"}}>
+                        建议或反馈前请优先查阅帮助文档
                     </Button>
                 </Col>
             </Row>
