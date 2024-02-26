@@ -6,7 +6,7 @@ import {btnMouseOut, btnMouseOver, getFontColor} from "../typescripts/publicFunc
 function PopupHeaderComponent(props: any) {
     return (
         <Space align={"center"}>
-            <Button type={"text"} shape={props.preferenceData.buttonShape} icon={<DashboardOutlined/>}
+            <Button type={"text"} size={"large"} shape={props.preferenceData.buttonShape} icon={<DashboardOutlined/>}
                     onMouseOver={(e) => btnMouseOver(props.minorColor, e)}
                     onMouseOut={(e) => btnMouseOut(props.majorColor, e)}
                     style={{color: getFontColor(props.majorColor), cursor: "default"}}
