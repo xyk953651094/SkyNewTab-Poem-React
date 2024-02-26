@@ -77,7 +77,7 @@ function PopupPoemComponent(props: any) {
         <Row justify="center" align="middle">
             <Space direction={"vertical"}>
                 <Col span={24}>
-                    <Button type={"text"} size={"large"} shape={props.preferenceData.buttonShape} icon={<ReadOutlined/>}
+                    <Button type={"text"} shape={props.preferenceData.buttonShape} icon={<ReadOutlined/>}
                             className="popupFont"
                             style={{color: getFontColor(props.majorColor)}}
                             onClick={poemContentBtnOnClick} onMouseOver={(e) => btnMouseOver(props.minorColor, e)}
@@ -86,7 +86,7 @@ function PopupPoemComponent(props: any) {
                     </Button>
                 </Col>
                 <Col span={24}>
-                    <Button type={"text"} size={"large"} shape={props.preferenceData.buttonShape} icon={<UserOutlined/>}
+                    <Button type={"text"} shape={props.preferenceData.buttonShape} icon={<UserOutlined/>}
                             className="popupFont"
                             style={{color: getFontColor(props.majorColor)}}
                             onClick={poemAuthorBtnOnClick} onMouseOver={(e) => btnMouseOver(props.minorColor, e)}
