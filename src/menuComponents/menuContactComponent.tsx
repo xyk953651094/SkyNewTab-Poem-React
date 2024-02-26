@@ -1,6 +1,6 @@
 import React from "react";
 import {Button, Card, Col, Row} from "antd";
-import {DislikeOutlined, GithubOutlined, GitlabOutlined, LikeOutlined, MailOutlined, BulbOutlined} from "@ant-design/icons";
+import {DislikeOutlined, GithubOutlined, GitlabOutlined, LikeOutlined, MailOutlined} from "@ant-design/icons";
 import {btnMouseOut, btnMouseOver, getFontColor} from "../typescripts/publicFunctions";
 
 function MenuContactComponent(props: any) {
