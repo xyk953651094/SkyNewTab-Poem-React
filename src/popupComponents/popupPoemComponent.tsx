@@ -79,18 +79,18 @@ function PopupPoemComponent(props: any) {
                 <Col span={24}>
                     <Button type="text" shape={props.preferenceData.buttonShape} icon={<ReadOutlined/>}
                             className="popupFont"
-                            style={{color: getFontColor(props.minorColor)}}
-                            onClick={poemContentBtnOnClick} onMouseOver={(e) => btnMouseOver(props.majorColor, e)}
-                            onMouseOut={(e) => btnMouseOut(props.minorColor, e)}>
+                            style={{color: getFontColor(props.majorColor)}}
+                            onClick={poemContentBtnOnClick} onMouseOver={(e) => btnMouseOver(props.minorColor, e)}
+                            onMouseOut={(e) => btnMouseOut(props.majorColor, e)}>
                         {poemContent}
                     </Button>
                 </Col>
                 <Col span={24}>
                     <Button type="text" shape={props.preferenceData.buttonShape} icon={<UserOutlined/>}
                             className="popupFont"
-                            style={{color: getFontColor(props.minorColor)}}
-                            onClick={poemAuthorBtnOnClick} onMouseOver={(e) => btnMouseOver(props.majorColor, e)}
-                            onMouseOut={(e) => btnMouseOut(props.minorColor, e)}>
+                            style={{color: getFontColor(props.majorColor)}}
+                            onClick={poemAuthorBtnOnClick} onMouseOver={(e) => btnMouseOver(props.minorColor, e)}
+                            onMouseOut={(e) => btnMouseOut(props.majorColor, e)}>
                         {poemAuthor}
                     </Button>
                 </Col>

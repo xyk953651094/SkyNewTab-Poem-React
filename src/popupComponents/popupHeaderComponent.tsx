@@ -7,9 +7,9 @@ function PopupHeaderComponent(props: any) {
     return (
         <Space align={"center"}>
             <Button type={"text"} shape={props.preferenceData.buttonShape} icon={<DashboardOutlined/>}
-                    onMouseOver={(e) => btnMouseOver(props.majorColor, e)}
-                    onMouseOut={(e) => btnMouseOut(props.minorColor, e)}
-                    style={{color: getFontColor(props.minorColor), cursor: "default"}}
+                    onMouseOver={(e) => btnMouseOver(props.minorColor, e)}
+                    onMouseOut={(e) => btnMouseOut(props.majorColor, e)}
+                    style={{color: getFontColor(props.majorColor), cursor: "default"}}
                     className={"popupFont"}
             >
                 云开诗词新标签页的仪表盘
