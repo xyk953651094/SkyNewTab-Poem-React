@@ -11,14 +11,14 @@ function PopupFooterComponent(props: any) {
                     onMouseOver={(e) => btnMouseOver(props.majorColor, e)}
                     onMouseOut={(e) => btnMouseOut(props.minorColor, e)}
                     style={{color: getFontColor(props.minorColor)}} className={"popupFont"}>
-                GitHub 产品主页
+                产品主页
             </Button>
             <Button type={"text"} shape={props.preferenceData.buttonShape} icon={<GitlabOutlined/>}
                     href={"https://gitlab.com/xyk953651094/SkyNewTab-Poem-React/"} target={"_blank"}
                     onMouseOver={(e) => btnMouseOver(props.majorColor, e)}
                     onMouseOut={(e) => btnMouseOut(props.minorColor, e)}
                     style={{color: getFontColor(props.minorColor)}} className={"popupFont"}>
-                GitLab 产品主页
+                产品主页
             </Button>
             <Button type={"text"} shape={props.preferenceData.buttonShape} icon={<NotificationOutlined/>}
                     href={"https://xyk953651094.blogspot.com/"} target={"_blank"}
