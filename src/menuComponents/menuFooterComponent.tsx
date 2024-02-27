@@ -10,7 +10,7 @@ function MenuFooterComponent(props: any) {
                     onMouseOver={(e) => btnMouseOver(props.majorColor, e)}
                     onMouseOut={(e) => btnMouseOut(props.minorColor, e)}
                     className={"poemFont"} style={{color: getFontColor(props.minorColor), cursor: "default"}}>
-                如果喜欢这款插件，请在插件商店五星好评
+                如果喜欢这款插件，请考虑捐助或五星好评
             </Button>
         </Space>
     );
