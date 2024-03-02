@@ -3,16 +3,14 @@ import {Button, Drawer, Space, Tooltip} from "antd";
 import {MenuOutlined} from "@ant-design/icons";
 import {getFontColor} from "../typescripts/publicFunctions";
 import {device} from "../typescripts/publicConstants";
-import PreferenceInfoComponent from "../preferenceComponents/preferenceInfoComponent";
-import PreferenceFooterComponent from "../preferenceComponents/preferenceFooterComponent";
-import PreferenceEmailComponent from "../preferenceComponents/preferenceEmailComponent";
-import PreferenceFunctionComponent from "../preferenceComponents/preferenceFunctionComponent";
-import PreferenceHeaderComponent from "../preferenceComponents/preferenceHeaderComponent";
-import PreferenceProductComponent from "../preferenceComponents/preferenceProductComponent";
-import PreferenceToTopComponent from "../preferenceComponents/preferenceToTopComponent";
-import PreferenceHelpComponent from "../preferenceComponents/preferenceHelpComponent";
+import MenuInfoComponent from "../menuComponents/menuInfoComponent";
+import MenuFooterComponent from "../menuComponents/menuFooterComponent";
+import MenuContactComponent from "../menuComponents/menuContactComponent";
+import MenuPreferenceComponent from "../menuComponents/menuPreferenceComponent";
+import MenuHeaderComponent from "../menuComponents/menuHeaderComponent";
+import MenuToTopComponent from "../menuComponents/menuToTopComponent";
 
-function PreferenceComponent(props: any) {
+function MenuComponent(props: any) {
     const [displayDrawer, setDisplayDrawer] = useState(false);
     const [drawerPosition, setDrawerPosition] = useState<"right" | "bottom">("right");
 
@@ -51,14 +49,14 @@ function PreferenceComponent(props: any) {
                 open={displayDrawer}
                 closeIcon={false}
                 title={
-                    <PreferenceHeaderComponent
+                    <MenuHeaderComponent
                         majorColor={props.majorColor}
                         minorColor={props.minorColor}
                         preferenceData={props.preferenceData}
                     />
                 }
                 footer={
-                    <PreferenceFooterComponent
+                    <MenuFooterComponent
                         majorColor={props.majorColor}
                         minorColor={props.minorColor}
                         preferenceData={props.preferenceData}
@@ -76,32 +74,22 @@ function PreferenceComponent(props: any) {
                 }}
             >
                 <Space direction={"vertical"} size={"large"} id={"drawerContent"}>
-                    <PreferenceFunctionComponent
+                    <MenuPreferenceComponent
                         majorColor={props.majorColor}
                         minorColor={props.minorColor}
                         getPreferenceData={props.getPreferenceData}
                     />
-                    <PreferenceHelpComponent
+                    <MenuInfoComponent
                         majorColor={props.majorColor}
                         minorColor={props.minorColor}
                         preferenceData={props.preferenceData}
                     />
-                    <PreferenceEmailComponent
+                    <MenuContactComponent
                         majorColor={props.majorColor}
                         minorColor={props.minorColor}
                         preferenceData={props.preferenceData}
                     />
-                    <PreferenceInfoComponent
-                        majorColor={props.majorColor}
-                        minorColor={props.minorColor}
-                        preferenceData={props.preferenceData}
-                    />
-                    <PreferenceProductComponent
-                        majorColor={props.majorColor}
-                        minorColor={props.minorColor}
-                        preferenceData={props.preferenceData}
-                    />
-                    <PreferenceToTopComponent
+                    <MenuToTopComponent
                         majorColor={props.majorColor}
                         minorColor={props.minorColor}
                         preferenceData={props.preferenceData}
@@ -112,4 +100,4 @@ function PreferenceComponent(props: any) {
     );
 }
 
-export default PreferenceComponent;
+export default MenuComponent;

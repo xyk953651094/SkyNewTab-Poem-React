@@ -213,9 +213,9 @@ function TodoComponent(props: any) {
                             defaultValue="work"
                             onChange={selectOnChange}
                             options={[
-                                {value: 'work', label: '工作'},
-                                {value: 'study', label: '学习'},
-                                {value: 'life', label: '生活'},
+                                {value: "work", label: "工作"},
+                                {value: "study", label: "学习"},
+                                {value: "life", label: "生活"},
                             ]}
                         />
                     </Form.Item>

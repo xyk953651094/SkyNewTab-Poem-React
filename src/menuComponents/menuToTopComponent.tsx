@@ -3,7 +3,7 @@ import {Button, Row} from "antd";
 import {ToTopOutlined} from "@ant-design/icons";
 import {btnMouseOut, btnMouseOver, getFontColor} from "../typescripts/publicFunctions";
 
-function PreferenceToTopComponent(props: any) {
+function MenuToTopComponent(props: any) {
     function toTopBtnOnClick() {
         let drawerContent: HTMLElement | null = document.getElementById("drawerContent");
         if (drawerContent) {
@@ -24,4 +24,4 @@ function PreferenceToTopComponent(props: any) {
     );
 }
 
-export default PreferenceToTopComponent;
+export default MenuToTopComponent;

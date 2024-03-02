@@ -9,17 +9,18 @@ import TodoComponent from "./components/todoComponent";
 import SunComponent from "./components/sunComponent";
 import PoemComponent from "./components/poemComponent";
 import WaveComponent from "./components/waveComponent";
+import SearchComponent from "./components/searchComponent";
+import ClockComponent from "./components/clockComponent";
+import FocusComponent from "./components/focusComponent";
+import MenuComponent from "./components/menuComponent";
 import {
     getFontColor,
     getHolidayDataStorage,
     getPreferenceDataStorage, resetRadioColor, resetSwitchColor,
     setColorTheme
 } from "./typescripts/publicFunctions";
-import PreferenceComponent from "./components/preferenceComponent";
 import {PreferenceDataInterface} from "./typescripts/publicInterface";
-import SearchComponent from "./components/searchComponent";
-import ClockComponent from "./components/clockComponent";
-import FocusComponent from "./components/focusComponent";
+import {poemTopics} from "./typescripts/publicConstants";
 import $ from "jquery";
 
 const {Header, Content, Footer} = Layout;
@@ -62,7 +63,7 @@ function App() {
                 notification.open({
                     icon: null,
                     message: "支持作者",
-                    description: "如果喜欢这款插件，请在插件商店五星好评",
+                    description: "如果喜欢这款插件，请考虑捐助或五星好评",
                     placement: "bottomLeft",
                     duration: 5,
                     closeIcon: false
@@ -70,12 +71,12 @@ function App() {
             }, 1000);
 
             // 额外提醒
-            // if (currentVersion === "2.8.0") {
+            // if (currentVersion === "3.1.0") {
             //     setTimeout(() => {
             //         notification.open({
             //             icon: null,
             //             message: "重要通知",
-            //             description: "新增专注模式，若专注模式无法生效，可尝试重新安装本插件",
+            //             description: "本次更新修改了偏好设置中的切换间隔，如出现异常请点击重置设置按钮",
             //             placement: "bottomLeft",
             //             duration: 10,
             //             closeIcon: false
@@ -145,10 +146,13 @@ function App() {
                 $(".ant-form-item-extra").css("color", getFontColor(minorColor)).addClass("poemFont");
                 $(".ant-radio-wrapper").children(":last-child").css("color", getFontColor(minorColor)).addClass("poemFont");
                 $(".ant-switch").find(".ant-switch-inner-checked").css("color", getFontColor(minorColor));
+                $(".ant-select-selection-item").addClass("poemFont");
 
                 // preferenceFunctionComponent
+                resetRadioColor(preferenceData.poemTopic, poemTopics, majorColor);
                 resetRadioColor(preferenceData.searchEngine, ["bing", "google"], majorColor);
                 resetRadioColor(preferenceData.buttonShape, ["round", "default"], majorColor);
+                resetSwitchColor("#autoTopicSwitch", preferenceData.autoTopic, majorColor);
                 resetSwitchColor("#simpleModeSwitch", preferenceData.simpleMode, majorColor);
             }
 
@@ -195,7 +199,7 @@ function App() {
         <Layout>
             <Header id={"header"}>
                 <Row justify="center">
-                    <Col xs={0} sm={0} md={0} lg={9} xl={9} xxl={9} className={"zIndexMiddle"}>
+                    <Col xs={0} sm={0} md={0} lg={10} xl={10} xxl={10} className={"zIndexMiddle"}>
                         <Space>
                             <SearchComponent
                                 majorColor={majorColor}
@@ -215,7 +219,7 @@ function App() {
                             />
                         </Space>
                     </Col>
-                    <Col xs={0} sm={0} md={0} lg={9} xl={9} xxl={9} style={{textAlign: "right"}}>
+                    <Col xs={0} sm={0} md={0} lg={10} xl={10} xxl={10} style={{textAlign: "right"}}>
                         <Space>
                             <DailyComponent
                                 majorColor={majorColor}
@@ -232,7 +236,7 @@ function App() {
                                 minorColor={minorColor}
                                 preferenceData={preferenceData}
                             />
-                            <PreferenceComponent
+                            <MenuComponent
                                 majorColor={majorColor}
                                 minorColor={minorColor}
                                 preferenceData={preferenceData}
@@ -241,7 +245,7 @@ function App() {
                         </Space>
                     </Col>
                     <Col xs={22} sm={22} md={22} lg={0} xl={0} xxl={0} style={{textAlign: "right"}}>
-                        <PreferenceComponent
+                        <MenuComponent
                             majorColor={majorColor}
                             minorColor={minorColor}
                             preferenceData={preferenceData}

@@ -2,7 +2,13 @@ import React, {useEffect, useState} from 'react';
 import {Button, Col, message, Row, Space, Typography, Tooltip, Form, Input, Modal} from "antd";
 import "../stylesheets/publicStyles.scss";
 import "../stylesheets/poemComponent.scss"
-import {btnMouseOut, btnMouseOver, getFontColor, getSearchEngineDetail} from "../typescripts/publicFunctions";
+import {
+    btnMouseOut,
+    btnMouseOver,
+    getFontColor,
+    getSearchEngineDetail,
+    httpRequest
+} from "../typescripts/publicFunctions";
 
 const poemRequest = require('jinrishici');
 const {Text} = Typography;
@@ -37,8 +43,6 @@ function PoemComponent(props: any) {
 
     function showAddModalBtnOnClick() {
         setDisplayModal(true);
-        console.log("3", customContentInputValue);
-        console.log("4", customAuthorInputValue);
     }
 
     function customContentInputOnChange(e: any) {
@@ -59,7 +63,10 @@ function PoemComponent(props: any) {
             localStorage.setItem("customPoem", JSON.stringify(true));
             localStorage.setItem("customContent", customContentInputValue);
             localStorage.setItem("customAuthor", customAuthorInputValue);
-            message.success("设置成功");
+            message.success("已使用自定诗词，一秒后刷新页面");
+            setTimeout(() => {
+                window.location.reload();
+            }, 1000);
         } else {
             message.error("表单不能为空");
         }
@@ -83,26 +90,68 @@ function PoemComponent(props: any) {
     }
 
     function setPoem(poemData: any) {
-        let tempPoemContent = poemData.data.content.length < poemMaxSize ?
-            poemData.data.content : poemData.data.content.substring(0, poemMaxSize) + "...";
+        let tempPoemContent = "";
+        let tempPoemAuthor = "";
 
-        let tempPoemAuthor =
-            "【" + poemData.data.origin.dynasty + "】" +
-            poemData.data.origin.author + " ·" +
-            "《" + poemData.data.origin.title + "》";
-        tempPoemAuthor = tempPoemAuthor.length < poemMaxSize ?
-            tempPoemAuthor : tempPoemAuthor.substring(0, poemMaxSize) + "...";
+        if (props.preferenceData.autoTopic) {
+            tempPoemContent = poemData.data.content.length < poemMaxSize ?
+                poemData.data.content : poemData.data.content.substring(0, poemMaxSize) + "...";
+
+            tempPoemAuthor =
+                "【" + poemData.data.origin.dynasty + " · " + poemData.data.origin.author + "】" +
+                "《" + poemData.data.origin.title + "》";
+            tempPoemAuthor = tempPoemAuthor.length < poemMaxSize ?
+                tempPoemAuthor : tempPoemAuthor.substring(0, poemMaxSize) + "...";
+        } else {
+            tempPoemContent = poemData.content.length < poemMaxSize ?
+                poemData.content : poemData.content.substring(0, poemMaxSize) + "...";
+
+            tempPoemAuthor = "【" + poemData.author + "】《" + poemData.origin + "》";
+            tempPoemAuthor = tempPoemAuthor.length < poemMaxSize ?
+                tempPoemAuthor : tempPoemAuthor.substring(0, poemMaxSize) + "...";
+        }
 
         setPoemContent(tempPoemContent);
         setPoemAuthor(tempPoemAuthor);
     }
 
     function getPoem() {
-        poemRequest.load((result: any) => {
-            localStorage.setItem("lastPoemRequestTime", String(new Date().getTime()));  // 保存请求时间，防抖节流
-            localStorage.setItem("lastPoem", JSON.stringify(result));                   // 保存请求结果，防抖节流
-            setPoem(result);
-        });
+        if (props.preferenceData.autoTopic) {
+            poemRequest.load((result: any) => {
+                localStorage.setItem("lastPoemRequestTime", String(new Date().getTime()));  // 保存请求时间，防抖节流
+                localStorage.setItem("lastPoem", JSON.stringify(result));                   // 保存请求结果，防抖节流
+                setPoem(result);
+            }, (errorData: any) => {
+                // 请求失败时使用上一次请求结果
+                let lastPoem: any = localStorage.getItem("lastPoem");
+                if (lastPoem) {
+                    lastPoem = JSON.parse(lastPoem);
+                    setPoem(lastPoem);
+                } else {
+                    message.error("获取诗词失败");
+                }
+            });
+        } else {
+            let headers = {};
+            let url = "https://v1.jinrishici.com/" + props.preferenceData.poemTopic;
+            let data = {};
+            httpRequest(headers, url, data, "GET")
+                .then(function (resultData: any) {
+                    localStorage.setItem("lastPoemRequestTime", String(new Date().getTime()));  // 保存请求时间，防抖节流
+                    localStorage.setItem("lastPoem", JSON.stringify(resultData));               // 保存请求结果，防抖节流
+                    setPoem(resultData);
+                })
+                .catch(function () {
+                    // 请求失败时使用上一次请求结果
+                    let lastPoem: any = localStorage.getItem("lastPoem");
+                    if (lastPoem) {
+                        lastPoem = JSON.parse(lastPoem);
+                        setPoem(lastPoem);
+                    } else {
+                        message.error("获取诗词失败");
+                    }
+                });
+        }
     }
 
     useEffect(() => {
@@ -125,8 +174,6 @@ function PoemComponent(props: any) {
                 setPoemAuthor(customAuthorStorage);
                 setCustomContentInputValue(customContentStorage);
                 setCustomAuthorInputValue(customAuthorStorage);
-                console.log("1", customContentInputValue);
-                console.log("2", customAuthorInputValue);
             }
         } else {
             // 防抖节流
@@ -134,9 +181,9 @@ function PoemComponent(props: any) {
             let nowTimeStamp = new Date().getTime();
             if (lastPoemRequestTime === null) {  // 第一次请求时 lastRequestTime 为 null，因此直接进行请求赋值 lastRequestTime
                 getPoem();
-            } else if (nowTimeStamp - parseInt(lastPoemRequestTime) > 60 * 60 * 1000) {  // 必须多于 60 分钟才能进行新的请求
+            } else if (nowTimeStamp - parseInt(lastPoemRequestTime) > parseInt(props.preferenceData.changePoemTime)) {  // 必须多于切换间隔分钟才能进行新的请求
                 getPoem();
-            } else {  // 60 分钟之内使用上一次请求结果
+            } else {  // 切换间隔之内使用上一次请求结果
                 let lastPoem: any = localStorage.getItem("lastPoem");
                 if (lastPoem) {
                     lastPoem = JSON.parse(lastPoem);
@@ -161,7 +208,7 @@ function PoemComponent(props: any) {
                         </Button>
                     </Col>
                     <Col xs={0} sm={0} md={0} lg={24} xl={24}>
-                        <Tooltip title={"自定诗词"} placement={"bottom"} color={props.minorColor}>
+                        <Tooltip title={customPoem ? "正在显示自定诗词" : "点击启用自定诗词"} placement={"bottom"} color={props.minorColor}>
                             <Button type="text" shape={props.preferenceData.buttonShape} size={"large"}
                                     className="poemText poemFont largeFont"
                                     style={{color: props.minorColor}}

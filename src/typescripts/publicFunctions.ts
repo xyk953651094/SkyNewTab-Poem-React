@@ -268,6 +268,18 @@ export function getSearchEngineDetail(searchEngine: string) {
 // 补全设置数据
 export function fixPreferenceData(preferenceData: PreferenceDataInterface) {
     let isFixed = false;
+    if (!preferenceData.poemTopic) {
+        preferenceData.poemTopic = defaultPreferenceData.poemTopic;
+        isFixed = true;
+    }
+    if (!preferenceData.autoTopic) {
+        preferenceData.autoTopic = defaultPreferenceData.autoTopic;
+        isFixed = true;
+    }
+    if (!preferenceData.changePoemTime) {
+        preferenceData.changePoemTime = defaultPreferenceData.changePoemTime;
+        isFixed = true;
+    }
     if (!preferenceData.searchEngine) {
         preferenceData.searchEngine = defaultPreferenceData.searchEngine;
         isFixed = true;

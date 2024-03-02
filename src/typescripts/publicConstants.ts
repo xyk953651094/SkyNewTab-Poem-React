@@ -102,6 +102,10 @@ export const darkThemeArray: ({ majorColor: string; minorColor: string; svgColor
     },
 ];
 
+export const poemTopics = [
+    "all", "shuqing", "siji", "shanshui", "tianqi", "renwu", "rensheng", "shenghuo", "jieri", "dongwu", "zhiwu", "shiwu"
+];
+
 // 中国窗体
 export const chinaWindow = [
     "icon-chuangge1",
@@ -130,6 +134,10 @@ export const chinaObject = [
 ]
 
 export let defaultPreferenceData: PreferenceDataInterface = {
+    poemTopic: "all",
+    autoTopic: false,
+    changePoemTime: "3600000",
+
     searchEngine: "bing",
     simpleMode: false,
     buttonShape: "round"
