@@ -36,6 +36,24 @@ function MenuContactComponent(props: any) {
                     </Button>
                 </Col>
                 <Col span="12">
+                    <Button type={"text"} shape={props.preferenceData.buttonShape} icon={<GithubOutlined/>}
+                            href={"https://github.com/xyk953651094?tab=repositories/"} target={"_self"}
+                            onMouseOver={(e) => btnMouseOver(props.majorColor, e)}
+                            onMouseOut={(e) => btnMouseOut(props.minorColor, e)}
+                            style={{color: getFontColor(props.minorColor)}} className={"poemFont"}>
+                        更多产品
+                    </Button>
+                </Col>
+                <Col span="12">
+                    <Button type={"text"} shape={props.preferenceData.buttonShape} icon={<GitlabOutlined/>}
+                            href={"https://gitlab.com/users/xyk953651094/projects/"} target={"_self"}
+                            onMouseOver={(e) => btnMouseOver(props.majorColor, e)}
+                            onMouseOut={(e) => btnMouseOut(props.minorColor, e)}
+                            style={{color: getFontColor(props.minorColor)}} className={"poemFont"}>
+                        更多产品
+                    </Button>
+                </Col>
+                <Col span="12">
                     <Button type={"text"} shape={props.preferenceData.buttonShape} icon={<LikeOutlined/>}
                             href={"mailto:xyk953651094@qq.com?&subject=云开诗词新标签页-功能建议&body=提示：功能建议前请优先查阅帮助文档"} target={"_self"}
                             onMouseOver={(e) => btnMouseOver(props.majorColor, e)}
