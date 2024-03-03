@@ -12,7 +12,7 @@ import {
     Space,
     Switch, Typography, Select
 } from "antd";
-import {RedoOutlined, SettingOutlined} from "@ant-design/icons";
+import {RedoOutlined, SettingOutlined, ImportOutlined, ExportOutlined} from "@ant-design/icons";
 import {
     btnMouseOut,
     btnMouseOver,
@@ -112,6 +112,19 @@ function MenuPreferenceComponent(props: any) {
             refreshWindow();
         }
         // resetSwitchColor("#simpleModeSwitch", checked, props.majorColor);
+    }
+
+    // 导入数据
+    function importDataBtnOnClick() {
+        // TODO: 导入数据
+        message.success("已成功导入数据，一秒后刷新页面");
+        refreshWindow();
+    }
+
+    // 导入数据
+    function exportDataBtnOnClick() {
+        // TODO: 导出数据
+        message.success("已成功导出数据");
     }
 
     // 重置设置
@@ -250,6 +263,26 @@ function MenuPreferenceComponent(props: any) {
                     <Form.Item name={"simpleMode"} label={"极简模式"} valuePropName={"checked"}>
                         <Switch checkedChildren="已开启" unCheckedChildren="已关闭" className={"poemFont"}
                                 id={"simpleModeSwitch"} onChange={simpleModeSwitchOnChange}/>
+                    </Form.Item>
+                    <Form.Item name={"manageDataButton"} label={"数据管理"}>
+                        <Space>
+                            <Button type={"text"} shape={preferenceData.buttonShape} icon={<ImportOutlined/>}
+                                    onMouseOver={(e) => btnMouseOver(props.majorColor, e)}
+                                    onMouseOut={(e) => btnMouseOut(props.minorColor, e)}
+                                    onClick={importDataBtnOnClick}
+                                    className={"poemFont"}
+                                    style={{color: getFontColor(props.minorColor)}}>
+                                导入数据
+                            </Button>
+                            <Button type={"text"} shape={preferenceData.buttonShape} icon={<ExportOutlined/>}
+                                    onMouseOver={(e) => btnMouseOver(props.majorColor, e)}
+                                    onMouseOut={(e) => btnMouseOut(props.minorColor, e)}
+                                    onClick={exportDataBtnOnClick}
+                                    className={"poemFont"}
+                                    style={{color: getFontColor(props.minorColor)}}>
+                                导出数据
+                            </Button>
+                        </Space>
                     </Form.Item>
                     <Form.Item name={"clearStorageButton"} label={"危险设置"} extra={"出现异常时可尝试重置设置或插件"}>
                         <Space>
