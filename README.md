@@ -7,7 +7,7 @@
 * 所需权限：tabs、storage
 * 日历来源：https://www.mxnzp.com 
 * 天气来源：https://www.jinrishici.com  
-* 诗词来源：https://www.jinrishici.com
+* 诗词来源：https://www.jinrishici.com 以及 http://gushi.ci
 * 噪音来源：https://www.soundvery.com
 * 开发支持：[JetBrains Open Source Support](https://jb.gg/OpenSourceSupport "跳转至 JetBrains Open Source Support")
 * <img width="40" src="https://resources.jetbrains.com/storage/products/company/brand/logos/WebStorm_icon.png" alt="WebStorm logo.">

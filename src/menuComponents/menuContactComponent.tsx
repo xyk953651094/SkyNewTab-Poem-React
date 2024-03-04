@@ -1,6 +1,6 @@
 import React from "react";
 import {Button, Card, Col, Row} from "antd";
-import {DislikeOutlined, GithubOutlined, GitlabOutlined, LikeOutlined, MailOutlined} from "@ant-design/icons";
+import {DislikeOutlined, GithubOutlined, GitlabOutlined, LikeOutlined, MailOutlined, WechatOutlined} from "@ant-design/icons";
 import {btnMouseOut, btnMouseOver, getFontColor} from "../typescripts/publicFunctions";
 
 function MenuContactComponent(props: any) {
@@ -69,6 +69,14 @@ function MenuContactComponent(props: any) {
                             onMouseOut={(e) => btnMouseOut(props.minorColor, e)}
                             className={"poemFont"} style={{color: getFontColor(props.minorColor)}}>
                         问题反馈
+                    </Button>
+                </Col>
+                <Col span="12">
+                    <Button type={"text"} shape={props.preferenceData.buttonShape} icon={<WechatOutlined />}
+                            onMouseOver={(e) => btnMouseOver(props.majorColor, e)}
+                            onMouseOut={(e) => btnMouseOut(props.minorColor, e)}
+                            className={"poemFont"} style={{color: getFontColor(props.minorColor)}}>
+                        公众号
                     </Button>
                 </Col>
             </Row>
