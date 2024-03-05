@@ -29,14 +29,6 @@ function WeatherComponent(props: any) {
     const [visibility, setVisibility] = useState("暂无信息");
     const [windInfo, setWindInfo] = useState("暂无信息");
 
-    function locationBtnOnClick() {
-        if (location !== "暂无信息") {
-            window.open(searchEngineUrl + location, "_self");
-        } else {
-            message.error("无跳转链接");
-        }
-    }
-
     function infoBtnOnClick() {
         window.open(searchEngineUrl + "天气", "_self");
     }
@@ -143,8 +135,7 @@ function WeatherComponent(props: any) {
                         <Button type={"text"} shape={props.preferenceData.buttonShape} icon={<EnvironmentOutlined/>}
                                 onMouseOver={(e) => btnMouseOver(props.majorColor, e)}
                                 onMouseOut={(e) => btnMouseOut(props.minorColor, e)}
-                                onClick={locationBtnOnClick}
-                                className={"poemFont"} style={{color: getFontColor(props.minorColor)}}>
+                                className={"poemFont"} style={{color: getFontColor(props.minorColor), cursor: "default"}}>
                             {"地理位置：" + location}
                         </Button>
                     </Col>
