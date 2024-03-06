@@ -212,6 +212,7 @@ function SearchComponent(props: any) {
                         return (
                             <Button type={"text"} shape={props.preferenceData.buttonShape} className={"poemFont"}
                                     onClick={(event) => linkBtnOnClick(item)}
+                                    key={item.timeStamp}
                                     style={{color: getFontColor(props.majorColor), backgroundColor: props.majorColor}}>
                                 {item.linkName}
                             </Button>

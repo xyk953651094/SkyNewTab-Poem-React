@@ -10,8 +10,9 @@ import {
     RadioChangeEvent,
     Row,
     Space,
-    Switch, Typography, Select
+    Switch, Typography, Select, Upload
 } from "antd";
+import type { UploadProps } from 'antd';
 import {RedoOutlined, SettingOutlined, ImportOutlined, ExportOutlined} from "@ant-design/icons";
 import {
     btnMouseOut,
@@ -21,6 +22,7 @@ import {
 } from "../typescripts/publicFunctions";
 import {PreferenceDataInterface} from "../typescripts/publicInterface";
 import {defaultPreferenceData, device} from "../typescripts/publicConstants";
+import {RcFile} from "antd/es/upload";
 
 const {Text} = Typography;
 
@@ -115,23 +117,83 @@ function MenuPreferenceComponent(props: any) {
     }
 
     // 导入数据
-    function importDataBtnOnClick() {
+    function importDataBtnOnClick(file: RcFile) {
         if (device !== "") {
             message.error("暂不支持移动端");
         } else {
-            // TODO: 导入数据
-            message.success("已成功导入数据，一秒后刷新页面");
-            refreshWindow();
+            if (file.name.indexOf("云开诗词新标签页") === 0) {
+                file.text().then(result => {
+                    let importData = JSON.parse(result);
+                    if (importData) {
+                        localStorage.setItem("daily", JSON.stringify(importData.dailyList ? importData.dailyList : []));
+                        localStorage.setItem("todos", JSON.stringify(importData.todoList ? importData.todoList : []));
+                        localStorage.setItem("filterList", JSON.stringify(importData.filterList ? importData.filterList : []));
+                        localStorage.setItem("linkList", JSON.stringify(importData.linkList ? importData.linkList : []));
+                        localStorage.setItem("preferenceData", JSON.stringify(importData.preferenceData ? importData.preferenceData : defaultPreferenceData));
+
+                        setFormDisabled(true);
+                        message.success("导入数据成功，一秒后刷新页面");
+                        refreshWindow();
+                    } else {
+                        message.error("导入数据失败");
+                    }
+                })
+            } else {
+                message.error("请选择正确的文件");
+            }
         }
+        return false;
     }
 
-    // 导入数据
+    // 导出数据
     function exportDataBtnOnClick() {
         if (device !== "") {
             message.error("暂不支持移动端");
         } else {
-            // TODO: 导出数据
-            message.success("已成功导出数据");
+            // 倒数日
+            let tempDailyList = [];
+            let dailyListStorage = localStorage.getItem("daily");
+            if (dailyListStorage) {
+                tempDailyList = JSON.parse(dailyListStorage);
+            }
+
+            // 待办事项
+            let tempTodoList = [];
+            let todoListStorage = localStorage.getItem("todos");
+            if (todoListStorage) {
+                tempTodoList = JSON.parse(todoListStorage);
+            }
+
+            // 专注模式过滤名单
+            let tempFilterList = [];
+            let filterListStorage = localStorage.getItem("filterList");
+            if (filterListStorage) {
+                tempFilterList = JSON.parse(filterListStorage);
+            }
+
+            // 快捷链接
+            let tempLinkList = [];
+            let linkListStorage = localStorage.getItem("linkList");
+            if (linkListStorage) {
+                tempLinkList = JSON.parse(linkListStorage);
+            }
+
+            let exportData = {
+                dailyList: tempDailyList,
+                todoList: tempTodoList,
+                filterList: tempFilterList,
+                linkList: tempLinkList,
+                preferenceData: preferenceData,
+            }
+
+            let file = new Blob([JSON.stringify(exportData)], {type: "application/json"});
+            const objectURL = URL.createObjectURL(file);
+            let a = document.createElement("a");
+            a.href = objectURL;
+            a.download = "云开诗词新标签页.json";
+            a.click();
+            URL.revokeObjectURL(objectURL);
+            message.success("导出数据成功");
         }
     }
 
@@ -274,14 +336,18 @@ function MenuPreferenceComponent(props: any) {
                     </Form.Item>
                     <Form.Item name={"manageDataButton"} label={"数据管理"}>
                         <Space>
-                            <Button type={"text"} shape={preferenceData.buttonShape} icon={<ImportOutlined/>}
-                                    onMouseOver={(e) => btnMouseOver(props.majorColor, e)}
-                                    onMouseOut={(e) => btnMouseOut(props.minorColor, e)}
-                                    onClick={importDataBtnOnClick}
-                                    className={"poemFont"}
-                                    style={{color: getFontColor(props.minorColor)}}>
-                                导入数据
-                            </Button>
+                            <Upload accept={"application/json"}
+                                    maxCount={1}
+                                    beforeUpload={(file) => {importDataBtnOnClick(file)}}
+                                    showUploadList={false}>
+                                <Button type={"text"} shape={preferenceData.buttonShape} icon={<ImportOutlined/>}
+                                        onMouseOver={(e) => btnMouseOver(props.majorColor, e)}
+                                        onMouseOut={(e) => btnMouseOut(props.minorColor, e)}
+                                        className={"poemFont"}
+                                        style={{color: getFontColor(props.minorColor)}}>
+                                    导入数据
+                                </Button>
+                            </Upload>
                             <Button type={"text"} shape={preferenceData.buttonShape} icon={<ExportOutlined/>}
                                     onMouseOver={(e) => btnMouseOver(props.majorColor, e)}
                                     onMouseOut={(e) => btnMouseOut(props.minorColor, e)}

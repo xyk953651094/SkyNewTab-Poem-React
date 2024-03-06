@@ -149,9 +149,9 @@ function App() {
                 $(".ant-select-selection-item").addClass("poemFont");
 
                 // preferenceFunctionComponent
-                resetRadioColor(preferenceData.poemTopic, poemTopics, majorColor);
                 resetRadioColor(preferenceData.searchEngine, ["bing", "google"], majorColor);
                 resetRadioColor(preferenceData.buttonShape, ["round", "default"], majorColor);
+                resetRadioColor(preferenceData.poemTopic, poemTopics, majorColor);
                 resetSwitchColor("#autoTopicSwitch", preferenceData.autoTopic, majorColor);
                 resetSwitchColor("#simpleModeSwitch", preferenceData.simpleMode, majorColor);
             }
