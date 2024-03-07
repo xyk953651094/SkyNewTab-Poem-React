@@ -119,86 +119,88 @@ function WeatherComponent(props: any) {
     );
 
     const popoverContent = (
-        <List>
+        <List split={false}>
+            <List.Item style={{display: weatherTips.length === 0 ? "none" : "flex"}}>
+                <Button type={"text"} shape={props.preferenceData.buttonShape} icon={<BulbOutlined/>}
+                        onMouseOver={(e) => btnMouseOver(props.majorColor, e)}
+                        onMouseOut={(e) => btnMouseOut(props.minorColor, e)}
+                        className={"poemFont"}
+                        style={{color: getFontColor(props.minorColor), cursor: "default"}}>
+                    {weatherTips}
+                </Button>
+            </List.Item>
             <List.Item>
-                <Row gutter={[0, 8]}>
-                    <Col span={24} style={{display: weatherTips.length === 0 ? "none" : "block"}}>
-                        <Button type={"text"} shape={props.preferenceData.buttonShape} icon={<BulbOutlined/>}
-                                onMouseOver={(e) => btnMouseOver(props.majorColor, e)}
-                                onMouseOut={(e) => btnMouseOut(props.minorColor, e)}
-                                className={"poemFont"}
-                                style={{color: getFontColor(props.minorColor), cursor: "default"}}>
-                            {weatherTips}
-                        </Button>
-                    </Col>
-                    <Col span={12}>
-                        <Button type={"text"} shape={props.preferenceData.buttonShape} icon={<EnvironmentOutlined/>}
-                                onMouseOver={(e) => btnMouseOver(props.majorColor, e)}
-                                onMouseOut={(e) => btnMouseOut(props.minorColor, e)}
-                                className={"poemFont"} style={{color: getFontColor(props.minorColor), cursor: "default"}}>
-                            {"地理位置：" + location}
-                        </Button>
-                    </Col>
-                    <Col span={12}>
-                        <Button type="text" shape={props.preferenceData.buttonShape}
-                                icon={<i className="bi bi-wind"></i>}
-                                onMouseOver={(e) => btnMouseOver(props.majorColor, e)}
-                                onMouseOut={(e) => btnMouseOut(props.minorColor, e)}
-                                className={"poemFont"}
-                                style={{color: getFontColor(props.minorColor), cursor: "default"}}>
-                            {"风速情况：" + windInfo}
-                        </Button>
-                    </Col>
-                    <Col span={12}>
-                        <Button type="text" shape={props.preferenceData.buttonShape}
-                                icon={<i className="bi bi-moisture"></i>}
-                                onMouseOver={(e) => btnMouseOver(props.majorColor, e)}
-                                onMouseOut={(e) => btnMouseOut(props.minorColor, e)}
-                                className={"poemFont"}
-                                style={{color: getFontColor(props.minorColor), cursor: "default"}}>
-                            {"空气湿度：" + humidity + "%"}
-                        </Button>
-                    </Col>
-                    <Col span={12}>
-                        <Button type="text" shape={props.preferenceData.buttonShape}
-                                icon={<i className="bi bi-water"></i>}
-                                onMouseOver={(e) => btnMouseOver(props.majorColor, e)}
-                                onMouseOut={(e) => btnMouseOut(props.minorColor, e)}
-                                className={"poemFont"}
-                                style={{color: getFontColor(props.minorColor), cursor: "default"}}>
-                            {"空气质量：" + pm25}
-                        </Button>
-                    </Col>
-                    <Col span={12}>
-                        <Button type="text" shape={props.preferenceData.buttonShape}
-                                icon={<i className="bi bi-cloud-rain"></i>}
-                                onMouseOver={(e) => btnMouseOver(props.majorColor, e)}
-                                onMouseOut={(e) => btnMouseOut(props.minorColor, e)}
-                                className={"poemFont"}
-                                style={{color: getFontColor(props.minorColor), cursor: "default"}}>
-                            {"降雨概率：" + rainfall}
-                        </Button>
-                    </Col>
-                    <Col span={12}>
-                        <Button type="text" shape={props.preferenceData.buttonShape}
-                                icon={<i className="bi bi-eye"></i>}
-                                onMouseOver={(e) => btnMouseOver(props.majorColor, e)}
-                                onMouseOut={(e) => btnMouseOut(props.minorColor, e)}
-                                className={"poemFont"}
-                                style={{color: getFontColor(props.minorColor), cursor: "default"}}>
-                            {"视线距离：" + visibility}
-                        </Button>
-                    </Col>
-                    <Col span={24}>
-                        <Button type={"text"} shape={props.preferenceData.buttonShape} icon={<ClockCircleOutlined/>}
-                                onMouseOver={(e) => btnMouseOver(props.majorColor, e)}
-                                onMouseOut={(e) => btnMouseOut(props.minorColor, e)}
-                                className={"poemFont"}
-                                style={{color: getFontColor(props.minorColor), cursor: "default"}}>
-                            {"上次更新：" + lastRequestTime}
-                        </Button>
-                    </Col>
-                </Row>
+                <Col span={12}>
+                    <Button type={"text"} shape={props.preferenceData.buttonShape} icon={<EnvironmentOutlined/>}
+                            onMouseOver={(e) => btnMouseOver(props.majorColor, e)}
+                            onMouseOut={(e) => btnMouseOut(props.minorColor, e)}
+                            className={"poemFont"} style={{color: getFontColor(props.minorColor), cursor: "default"}}>
+                        {"地理位置：" + location}
+                    </Button>
+                </Col>
+                <Col span={12}>
+                    <Button type="text" shape={props.preferenceData.buttonShape}
+                            icon={<i className="bi bi-wind"></i>}
+                            onMouseOver={(e) => btnMouseOver(props.majorColor, e)}
+                            onMouseOut={(e) => btnMouseOut(props.minorColor, e)}
+                            className={"poemFont"}
+                            style={{color: getFontColor(props.minorColor), cursor: "default"}}>
+                        {"风速情况：" + windInfo}
+                    </Button>
+                </Col>
+            </List.Item>
+            <List.Item>
+                <Col span={12}>
+                    <Button type="text" shape={props.preferenceData.buttonShape}
+                            icon={<i className="bi bi-moisture"></i>}
+                            onMouseOver={(e) => btnMouseOver(props.majorColor, e)}
+                            onMouseOut={(e) => btnMouseOut(props.minorColor, e)}
+                            className={"poemFont"}
+                            style={{color: getFontColor(props.minorColor), cursor: "default"}}>
+                        {"空气湿度：" + humidity + "%"}
+                    </Button>
+                </Col>
+                <Col span={12}>
+                    <Button type="text" shape={props.preferenceData.buttonShape}
+                            icon={<i className="bi bi-water"></i>}
+                            onMouseOver={(e) => btnMouseOver(props.majorColor, e)}
+                            onMouseOut={(e) => btnMouseOut(props.minorColor, e)}
+                            className={"poemFont"}
+                            style={{color: getFontColor(props.minorColor), cursor: "default"}}>
+                        {"空气质量：" + pm25}
+                    </Button>
+                </Col>
+            </List.Item>
+            <List.Item>
+                <Col span={12}>
+                    <Button type="text" shape={props.preferenceData.buttonShape}
+                            icon={<i className="bi bi-cloud-rain"></i>}
+                            onMouseOver={(e) => btnMouseOver(props.majorColor, e)}
+                            onMouseOut={(e) => btnMouseOut(props.minorColor, e)}
+                            className={"poemFont"}
+                            style={{color: getFontColor(props.minorColor), cursor: "default"}}>
+                        {"降雨概率：" + rainfall}
+                    </Button>
+                </Col>
+                <Col span={12}>
+                    <Button type="text" shape={props.preferenceData.buttonShape}
+                            icon={<i className="bi bi-eye"></i>}
+                            onMouseOver={(e) => btnMouseOver(props.majorColor, e)}
+                            onMouseOut={(e) => btnMouseOut(props.minorColor, e)}
+                            className={"poemFont"}
+                            style={{color: getFontColor(props.minorColor), cursor: "default"}}>
+                        {"视线距离：" + visibility}
+                    </Button>
+                </Col>
+            </List.Item>
+            <List.Item>
+                <Button type={"text"} shape={props.preferenceData.buttonShape} icon={<ClockCircleOutlined/>}
+                        onMouseOver={(e) => btnMouseOver(props.majorColor, e)}
+                        onMouseOut={(e) => btnMouseOut(props.minorColor, e)}
+                        className={"poemFont"}
+                        style={{color: getFontColor(props.minorColor), cursor: "default"}}>
+                    {"上次更新：" + lastRequestTime}
+                </Button>
             </List.Item>
         </List>
     );
