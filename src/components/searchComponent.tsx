@@ -178,49 +178,49 @@ function SearchComponent(props: any) {
     );
 
     const popoverContent = (
-        <>
-            <List>
-                <List.Item>
-                    <Input
-                        id={"searchInput"}
-                        className={"poemFont"}
-                        prefix={
-                            <Row align={"middle"}>
-                                <Button type={"text"} size={"small"} shape={props.preferenceData.buttonShape}
-                                        icon={<i className={"bi bi-" + searchEngineValue}></i>} onClick={changeSearchEngine}
-                                        className={"poemFont"}
-                                        style={{
-                                            backgroundColor: props.minorColor,
-                                            color: getFontColor(props.minorColor)
-                                        }}>
-                                    {searchEngineName}
-                                </Button>
-                                <Divider type="vertical" style={{borderColor: props.minorColor}}/>
-                            </Row>
-                        }
-                        suffix={<SearchOutlined/>}
-                        placeholder={"按下 Enter 键搜索"}
-                        onPressEnter={onPressEnter}
-                        allowClear
-                        style={{borderRadius: props.preferenceData.buttonShape === "round" ? "20px" : ""}}
-                    />
-                </List.Item>
-            </List>
-            <Space>
-                {
-                    linkList.map((item: any) => {
-                        return (
-                            <Button type={"text"} shape={props.preferenceData.buttonShape} className={"poemFont"}
-                                    onClick={(event) => linkBtnOnClick(item)}
-                                    key={item.timeStamp}
-                                    style={{color: getFontColor(props.majorColor), backgroundColor: props.majorColor}}>
-                                {item.linkName}
+        <List split={false}>
+            <List.Item>
+                <Input
+                    id={"searchInput"}
+                    className={"poemFont"}
+                    prefix={
+                        <Row align={"middle"}>
+                            <Button type={"text"} size={"small"} shape={props.preferenceData.buttonShape}
+                                    icon={<i className={"bi bi-" + searchEngineValue}></i>} onClick={changeSearchEngine}
+                                    className={"poemFont"}
+                                    style={{
+                                        backgroundColor: props.minorColor,
+                                        color: getFontColor(props.minorColor)
+                                    }}>
+                                {searchEngineName}
                             </Button>
-                        )
-                    })
-                }
-            </Space>
-       </>
+                            <Divider type="vertical" style={{borderColor: props.minorColor}}/>
+                        </Row>
+                    }
+                    suffix={<SearchOutlined/>}
+                    placeholder={"按下 Enter 键搜索"}
+                    onPressEnter={onPressEnter}
+                    allowClear
+                    style={{borderRadius: props.preferenceData.buttonShape === "round" ? "20px" : ""}}
+                />
+            </List.Item>
+            <List.Item>
+                <Space>
+                    {
+                        linkList.map((item: any) => {
+                            return (
+                                <Button type={"text"} shape={props.preferenceData.buttonShape} className={"poemFont"}
+                                        onClick={(event) => linkBtnOnClick(item)}
+                                        key={item.timeStamp}
+                                        style={{color: getFontColor(props.majorColor), backgroundColor: props.majorColor}}>
+                                    {item.linkName}
+                                </Button>
+                            )
+                        })
+                    }
+                </Space>
+            </List.Item>
+        </List>
     );
 
     return (

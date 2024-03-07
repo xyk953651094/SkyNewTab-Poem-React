@@ -71,14 +71,6 @@ function MenuContactComponent(props: any) {
                         问题反馈
                     </Button>
                 </Col>
-                <Col span="12">
-                    <Button type={"text"} shape={props.preferenceData.buttonShape} icon={<WechatOutlined />}
-                            onMouseOver={(e) => btnMouseOver(props.majorColor, e)}
-                            onMouseOut={(e) => btnMouseOut(props.minorColor, e)}
-                            className={"poemFont"} style={{color: getFontColor(props.minorColor)}}>
-                        公众号
-                    </Button>
-                </Col>
             </Row>
         </Card>
     );

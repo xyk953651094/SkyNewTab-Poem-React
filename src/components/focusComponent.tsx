@@ -2,9 +2,24 @@
 /// <reference types="firefox-webext-browser"/>
 
 import React, {useEffect, useState} from "react";
-import {Button, Col, Input, List, message, Popover, Row, Space, Switch, Typography, Modal, Form, Select} from 'antd';
+import {
+    Button,
+    Col,
+    Input,
+    List,
+    message,
+    Popover,
+    Row,
+    Space,
+    Switch,
+    Typography,
+    Modal,
+    Form,
+    Select,
+    Avatar
+} from 'antd';
 import {btnMouseOut, btnMouseOver, getBrowserType, getFontColor} from "../typescripts/publicFunctions";
-import {DeleteOutlined, LinkOutlined, PlusOutlined, PlayCircleOutlined, PauseCircleOutlined} from "@ant-design/icons";
+import {DeleteOutlined, LinkOutlined, PlusOutlined, CaretRightOutlined, PauseOutlined} from "@ant-design/icons";
 import focusSoundOne from "../assets/focusSounds/古镇雨滴.mp3";
 import focusSoundTwo from "../assets/focusSounds/松树林小雪.mp3";
 
@@ -22,6 +37,7 @@ function FocusComponent(props: any) {
     const [inputValue, setInputValue] = useState("");
     const [filterList, setFilterList] = useState<any[]>([]);
     const [focusSound, setFocusSound] = useState("古镇雨滴");
+    const [focusSoundIconUrl, setFocusSoundIconUrl] = useState("https://www.soundvery.com/KUpload/image/20240111/20240111145630_9331.png");
     const [focusAudioPaused, setFocusAudioPaused] = useState(true);
     const [buttonShape, setButtonShape] = useState<"circle" | "default" | "round" | undefined>("round");
     const focusMaxSize = 10;
@@ -102,6 +118,19 @@ function FocusComponent(props: any) {
     }
 
     function focusSoundSelectOnChange(value: string) {
+        switch (value) {
+            case "古镇雨滴": {
+                setFocusSoundIconUrl("https://www.soundvery.com/KUpload/image/20240111/20240111145630_9331.png");
+                break;
+            }
+            case "松树林小雪": {
+                setFocusSoundIconUrl("https://www.soundvery.com/KUpload/image/20240125/20240125190604_0946.png");
+                break;
+            }
+            default: {
+                setFocusSoundIconUrl("https://www.soundvery.com/KUpload/image/20240111/20240111145630_9331.png");
+            }
+        }
         setFocusSound(value);
         setFocusAudioPaused(false);
         playFocusSound(value);
@@ -236,8 +265,9 @@ function FocusComponent(props: any) {
                         <Select.Option className={"poemFont"} value={"古镇雨滴"}>{"古镇雨滴"}</Select.Option>
                         <Select.Option className={"poemFont"} value={"松树林小雪"}>{"松树林小雪"}</Select.Option>
                     </Select>
+                    <Avatar size={"large"} src={focusSoundIconUrl} />
                     <Button type={"text"} shape={props.preferenceData.buttonShape}
-                            icon={focusAudioPaused ? <PlayCircleOutlined /> : <PauseCircleOutlined />}
+                            icon={focusAudioPaused ? <CaretRightOutlined /> : <PauseOutlined />}
                             onMouseOver={(e) => btnMouseOver(props.majorColor, e)}
                             onMouseOut={(e) => btnMouseOut(props.minorColor, e)}
                             className={"poemFont"}
