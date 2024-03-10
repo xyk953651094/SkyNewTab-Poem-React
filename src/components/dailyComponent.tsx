@@ -33,6 +33,10 @@ function DailyComponent(props: any) {
             tempDailyList.splice(index, 1);
         }
 
+        tempDailyList.sort((a: any, b: any) => {
+            return a.selectedTimeStamp - b.selectedTimeStamp;
+        });
+
         setDailyList(tempDailyList);
         localStorage.setItem("daily", JSON.stringify(tempDailyList));
     }
@@ -58,6 +62,10 @@ function DailyComponent(props: any) {
                 "title": inputValue,
                 "selectedTimeStamp": selectedTimeStamp,
                 "timeStamp": Date.now()
+            });
+
+            tempDailyList.sort((a: any, b: any) => {
+                return a.selectedTimeStamp - b.selectedTimeStamp;
             });
 
             setDisplayModal(false);
