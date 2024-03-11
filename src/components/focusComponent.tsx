@@ -56,6 +56,12 @@ function FocusComponent(props: any) {
         setFocusMode(checked);
         localStorage.setItem("focusMode", JSON.stringify(checked));
         setExtensionStorage("focusMode", checked);
+
+        // 关闭时停止播放白噪音
+        if (!checked && !focusAudio.paused) {
+            setFocusAudioPaused(true);
+            focusAudio.pause();
+        }
     }
 
     function removeAllBtnOnClick() {
