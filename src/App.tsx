@@ -193,7 +193,7 @@ function App() {
         //     });
         // });
         // observer.observe(document.body, {childList: true});
-    }, [majorColor, minorColor, preferenceData.buttonShape, preferenceData.searchEngine, preferenceData.simpleMode]);
+    }, [majorColor, minorColor, preferenceData.autoTopic, preferenceData.buttonShape, preferenceData.poemTopic, preferenceData.searchEngine, preferenceData.simpleMode]);
 
     return (
         <Layout>
