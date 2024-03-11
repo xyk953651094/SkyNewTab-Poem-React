@@ -277,7 +277,7 @@ function MenuPreferenceComponent(props: any) {
                   bodyStyle={{backgroundColor: props.minorColor}}
             >
                 <Form colon={false} initialValues={preferenceData} disabled={formDisabled}>
-                    <Form.Item name={"searchEngine"} label={"搜索引擎"}>
+                    <Form.Item name={"searchEngine"} label={"搜索引擎"} style={{display: ["iPhone", "Android"].indexOf(device) === -1 ? "block" : "none"}}>
                         <Radio.Group buttonStyle={"solid"} style={{width: "100%"}}
                                      onChange={searchEngineRadioOnChange}>
                             <Row>
@@ -332,11 +332,11 @@ function MenuPreferenceComponent(props: any) {
                                 ]}
                         />
                     </Form.Item>
-                    <Form.Item name={"simpleMode"} label={"极简模式"} valuePropName={"checked"}>
+                    <Form.Item name={"simpleMode"} label={"极简模式"} valuePropName={"checked"} style={{display: ["iPhone", "Android"].indexOf(device) === -1 ? "block" : "none"}}>
                         <Switch checkedChildren="已开启" unCheckedChildren="已关闭" className={"poemFont"}
                                 id={"simpleModeSwitch"} onChange={simpleModeSwitchOnChange}/>
                     </Form.Item>
-                    <Form.Item name={"manageDataButton"} label={"数据管理"}>
+                    <Form.Item name={"manageDataButton"} label={"数据管理"} style={{display: ["iPhone", "Android"].indexOf(device) === -1 ? "block" : "none"}}>
                         <Space>
                             <Upload accept={"application/json"}
                                     maxCount={1}
