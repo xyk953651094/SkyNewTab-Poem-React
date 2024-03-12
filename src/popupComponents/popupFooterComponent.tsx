@@ -1,6 +1,6 @@
 import React from "react";
 import {Button, Space} from "antd";
-import {GiftOutlined, GithubOutlined, GitlabOutlined, NotificationOutlined, WechatOutlined} from "@ant-design/icons";
+import {GiftOutlined, GithubOutlined, GitlabOutlined, WechatOutlined} from "@ant-design/icons";
 import {btnMouseOut, btnMouseOver, getFontColor} from "../typescripts/publicFunctions";
 
 function PopupFooterComponent(props: any) {
@@ -27,7 +27,7 @@ function PopupFooterComponent(props: any) {
                     style={{color: getFontColor(props.minorColor)}} className={"poemFont"}>
                 公众号
             </Button>
-            <Button type={"text"} shape={props.preferenceData.buttonShape} icon={<NotificationOutlined/>}
+            <Button type={"text"} shape={props.preferenceData.buttonShape} icon={<i className="bi bi-rss-fill"></i>}
                     href={"https://xyk953651094.blogspot.com/"} target={"_blank"}
                     onMouseOver={(e) => btnMouseOver(props.minorColor, e)}
                     onMouseOut={(e) => btnMouseOut(props.majorColor, e)}
