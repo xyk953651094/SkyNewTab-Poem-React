@@ -146,7 +146,7 @@ function App() {
                 $(".ant-form-item-extra").css("color", getFontColor(minorColor)).addClass("poemFont");
                 $(".ant-radio-wrapper").children(":last-child").css("color", getFontColor(minorColor)).addClass("poemFont");
                 $(".ant-switch").find(".ant-switch-inner-checked").css("color", getFontColor(minorColor));
-                $(".ant-select-selection-item").addClass("poemFont");
+                // $(".ant-select-selection-item").addClass("poemFont");
 
                 // preferenceFunctionComponent
                 resetRadioColor(preferenceData.searchEngine, ["bing", "google"], majorColor);

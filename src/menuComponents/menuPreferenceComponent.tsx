@@ -321,7 +321,7 @@ function MenuPreferenceComponent(props: any) {
                     </Form.Item>
                     <Form.Item name={"changePoemTime"} label={"切换间隔"}
                                extra={"上次切换：" + lastPoemRequestTime}>
-                        <Select popupClassName={"poemFont"} style={{width: 170}} onChange={changePoemTimeOnChange}
+                        <Select className={"poemFont"} popupClassName={"poemFont"} style={{width: 170}} onChange={changePoemTimeOnChange}
                                 options={[
                                     {value: "900000", label: "每隔 15 分钟", disabled:preferenceData.autoTopic},
                                     {value: "1800000", label: "每隔 30 分钟", disabled:preferenceData.autoTopic},

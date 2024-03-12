@@ -44,12 +44,12 @@ function FocusComponent(props: any) {
     const browserType = getBrowserType();
 
     function setExtensionStorage(key: string, value: any) {
-        if (["Chrome", "Edge"].indexOf(browserType) !== -1) {
-            chrome.storage.local.set({[key]: value});
-        }
-        else if (["Firefox", "Safari"].indexOf(browserType) !== -1) {
-            browser.storage.local.set({[key]: value});
-        }
+        // if (["Chrome", "Edge"].indexOf(browserType) !== -1) {
+        //     chrome.storage.local.set({[key]: value});
+        // }
+        // else if (["Firefox", "Safari"].indexOf(browserType) !== -1) {
+        //     browser.storage.local.set({[key]: value});
+        // }
     }
 
     function focusModeSwitchOnChange(checked: boolean) {
@@ -222,7 +222,7 @@ function FocusComponent(props: any) {
                             onMouseOut={(e) => btnMouseOut(props.minorColor, e)}
                             onClick={showAddModalBtnOnClick}
                             className={"poemFont"} style={{color: getFontColor(props.minorColor)}} >
-                        {"添加域名"}
+                        {"添加黑名单"}
                     </Button>
                     <Button type={"text"} shape={props.preferenceData.buttonShape} icon={<DeleteOutlined/>}
                             onMouseOver={(e) => btnMouseOver(props.majorColor, e)}
@@ -262,25 +262,40 @@ function FocusComponent(props: any) {
                 </List.Item>
             )}
             footer={
-                <Space>
-                    <Text className={"poemFont"} style={{color: getFontColor(props.minorColor)}}>
-                        {focusAudioPaused ? "白噪音" : "播放中"}
-                    </Text>
-                    <Select defaultValue={focusSound} className={"poemFont"} style={{width: 120}} placement={"topLeft"}
-                            onChange={focusSoundSelectOnChange}>
-                        <Select.Option className={"poemFont"} value={"古镇雨滴"}>{"古镇雨滴"}</Select.Option>
-                        <Select.Option className={"poemFont"} value={"松树林小雪"}>{"松树林小雪"}</Select.Option>
-                    </Select>
-                    <Avatar size={"large"} src={focusSoundIconUrl} />
-                    <Button type={"text"} shape={props.preferenceData.buttonShape}
-                            icon={focusAudioPaused ? <CaretRightOutlined /> : <PauseOutlined />}
-                            onMouseOver={(e) => btnMouseOver(props.majorColor, e)}
-                            onMouseOut={(e) => btnMouseOut(props.minorColor, e)}
-                            className={"poemFont"}
-                            onClick={playBtnOnClick}
-                            style={{color: getFontColor(props.minorColor)}}>
-                        {focusAudioPaused ? "播放" : "暂停"}
-                    </Button>
+                <Space direction={"vertical"}>
+                    <Space>
+                        <Text className={"poemFont"} style={{color: getFontColor(props.minorColor)}}>{"专注时段"}</Text>
+                        <Select defaultValue={"manual"} className={"poemFont"} popupClassName={"poemFont"} style={{width: 120}} placement={"topLeft"}
+                                options={[
+                                    {value: "manual", label: "手动"},
+                                    {value: "900000", label: "15 分钟"},
+                                    {value: "1800000", label: "30 分钟"},
+                                    {value: "2700000", label: "45 分钟"},
+                                    {value: "3600000", label: "60 分钟"},
+                                ]}
+                        />
+                        <Text className={"poemFont"} style={{color: getFontColor(props.minorColor)}}>{"剩余时间：29 : 36"}</Text>
+                    </Space>
+                    <Space>
+                        <Text className={"poemFont"} style={{color: getFontColor(props.minorColor)}}>{"专注噪音"}</Text>
+                        <Select defaultValue={focusSound} className={"poemFont"} popupClassName={"poemFont"} style={{width: 120}} placement={"topLeft"}
+                                onChange={focusSoundSelectOnChange}
+                                options={[
+                                    {value: "古镇雨滴", label: "古镇雨滴"},
+                                    {value: "松树林小雪", label: "松树林小雪"}
+                                ]}
+                        />
+                        <Avatar size={"large"} src={focusSoundIconUrl} />
+                        <Button type={"text"} shape={props.preferenceData.buttonShape}
+                                icon={focusAudioPaused ? <CaretRightOutlined /> : <PauseOutlined />}
+                                onMouseOver={(e) => btnMouseOver(props.majorColor, e)}
+                                onMouseOut={(e) => btnMouseOut(props.minorColor, e)}
+                                className={"poemFont"}
+                                onClick={playBtnOnClick}
+                                style={{color: getFontColor(props.minorColor)}}>
+                            {focusAudioPaused ? "播放" : "暂停"}
+                        </Button>
+                    </Space>
                 </Space>
             }
         />
@@ -290,7 +305,7 @@ function FocusComponent(props: any) {
         <>
             <Popover title={popoverTitle} content={popoverContent} placement={"bottomRight"}
                      color={props.minorColor}
-                     overlayStyle={{width: "500px"}}>
+                     overlayStyle={{width: "550px"}}>
                 <Button shape={props.preferenceData.buttonShape} size={"large"}
                         icon={<i className={focusMode ? "bi bi-cup-hot-fill" : "bi bi-cup-hot"}></i>}
                         id={"focusBtn"}
@@ -305,7 +320,7 @@ function FocusComponent(props: any) {
                     {focusMode ? "专注中" : "未专注"}
                 </Button>
             </Popover>
-            <Modal title={"添加域名 " + filterList.length + " / " + focusMaxSize}
+            <Modal title={"添加黑名单 " + filterList.length + " / " + focusMaxSize}
                    closeIcon={false}
                    centered
                    open={displayModal} onOk={modalOkBtnOnClick}
@@ -314,9 +329,9 @@ function FocusComponent(props: any) {
                    styles={{mask: {backdropFilter: "blur(10px)", WebkitBackdropFilter: "blur(10px)"}}}
             >
                 <Form>
-                    <Form.Item label={"网站域名"} name={"focusInput"} extra={"开启专注模式后，访问添加的域名时将自动跳转至本插件"}>
+                    <Form.Item label={"网站域名"} name={"focusInput"} extra={"开启专注模式后，访问黑名单中的域名时将自动跳转至本插件"}>
                         <Input className={"poemFont"} id={"focusInput"} placeholder="example.com"
-                               value={inputValue} onChange={inputOnChange} maxLength={20} showCount allowClear/>
+                               value={inputValue} onChange={inputOnChange} maxLength={30} showCount allowClear/>
                     </Form.Item>
                 </Form>
             </Modal>
