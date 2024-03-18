@@ -20,14 +20,8 @@ import {
 } from 'antd';
 import {btnMouseOut, btnMouseOver, getBrowserType, getFontColor} from "../typescripts/publicFunctions";
 import {DeleteOutlined, LinkOutlined, PlusOutlined, CaretRightOutlined, PauseOutlined} from "@ant-design/icons";
-import focusSoundOne from "../assets/focusSounds/古镇雨滴.mp3";
-import focusSoundTwo from "../assets/focusSounds/松树林小雪.mp3";
 
 const focusAudio = new Audio();
-const focusSoundsDictionary = {
-    "focusSoundOne": focusSoundOne,
-    "focusSoundTwo": focusSoundTwo,
-}
 const {Text} = Typography;
 
 function FocusComponent(props: any) {
@@ -44,12 +38,12 @@ function FocusComponent(props: any) {
     const browserType = getBrowserType();
 
     function setExtensionStorage(key: string, value: any) {
-        // if (["Chrome", "Edge"].indexOf(browserType) !== -1) {
-        //     chrome.storage.local.set({[key]: value});
-        // }
-        // else if (["Firefox", "Safari"].indexOf(browserType) !== -1) {
-        //     browser.storage.local.set({[key]: value});
-        // }
+        if (["Chrome", "Edge"].indexOf(browserType) !== -1) {
+            chrome.storage.local.set({[key]: value});
+        }
+        else if (["Firefox", "Safari"].indexOf(browserType) !== -1) {
+            browser.storage.local.set({[key]: value});
+        }
     }
 
     function focusModeSwitchOnChange(checked: boolean) {
@@ -143,31 +137,27 @@ function FocusComponent(props: any) {
     }
 
     function playBtnOnClick() {
-        if (browserType !== "Safari") {
-            if (focusAudio.paused) {
-                setFocusAudioPaused(false);
-                playFocusSound(focusSound);
-            } else {
-                setFocusAudioPaused(true);
-                focusAudio.pause();
-            }
+        if (focusAudio.paused) {
+            setFocusAudioPaused(false);
+            playFocusSound(focusSound);
         } else {
-            message.error("Safari 暂不支持播放白噪音");
+            setFocusAudioPaused(true);
+            focusAudio.pause();
         }
     }
 
     function playFocusSound(focusSound: string) {
         switch (focusSound) {
             case "古镇雨滴": {
-                focusAudio.src = focusSoundsDictionary.focusSoundOne;
+                focusAudio.src = "https://www.soundvery.com/KUpload/file/20240111/20240111145637_8657.mp3";
                 break;
             }
             case "松树林小雪": {
-                focusAudio.src = focusSoundsDictionary.focusSoundTwo;
+                focusAudio.src = "https://www.soundvery.com/KUpload/file/20240125/20240125190612_0979.mp3";
                 break;
             }
             default: {
-                focusAudio.src = focusSoundsDictionary.focusSoundOne;
+                focusAudio.src = "https://www.soundvery.com/KUpload/file/20240111/20240111145637_8657.mp3";
             }
         }
         focusAudio.loop = true;
@@ -262,40 +252,25 @@ function FocusComponent(props: any) {
                 </List.Item>
             )}
             footer={
-                <Space direction={"vertical"}>
-                    <Space>
-                        <Text className={"poemFont"} style={{color: getFontColor(props.minorColor)}}>{"专注时段"}</Text>
-                        <Select defaultValue={"manual"} className={"poemFont"} popupClassName={"poemFont"} style={{width: 120}} placement={"topLeft"}
-                                options={[
-                                    {value: "manual", label: "手动"},
-                                    {value: "900000", label: "15 分钟"},
-                                    {value: "1800000", label: "30 分钟"},
-                                    {value: "2700000", label: "45 分钟"},
-                                    {value: "3600000", label: "60 分钟"},
-                                ]}
-                        />
-                        <Text className={"poemFont"} style={{color: getFontColor(props.minorColor)}}>{"剩余时间：29 : 36"}</Text>
-                    </Space>
-                    <Space>
-                        <Text className={"poemFont"} style={{color: getFontColor(props.minorColor)}}>{"专注噪音"}</Text>
-                        <Select defaultValue={focusSound} className={"poemFont"} popupClassName={"poemFont"} style={{width: 120}} placement={"topLeft"}
-                                onChange={focusSoundSelectOnChange}
-                                options={[
-                                    {value: "古镇雨滴", label: "古镇雨滴"},
-                                    {value: "松树林小雪", label: "松树林小雪"}
-                                ]}
-                        />
-                        <Avatar size={"large"} src={focusSoundIconUrl} />
-                        <Button type={"text"} shape={props.preferenceData.buttonShape}
-                                icon={focusAudioPaused ? <CaretRightOutlined /> : <PauseOutlined />}
-                                onMouseOver={(e) => btnMouseOver(props.majorColor, e)}
-                                onMouseOut={(e) => btnMouseOut(props.minorColor, e)}
-                                className={"poemFont"}
-                                onClick={playBtnOnClick}
-                                style={{color: getFontColor(props.minorColor)}}>
-                            {focusAudioPaused ? "播放" : "暂停"}
-                        </Button>
-                    </Space>
+                <Space>
+                    <Text className={"poemFont"} style={{color: getFontColor(props.minorColor)}}>{"白噪音"}</Text>
+                    <Select defaultValue={focusSound} className={"poemFont"} popupClassName={"poemFont"} style={{width: 120}} placement={"topLeft"}
+                            onChange={focusSoundSelectOnChange}
+                            options={[
+                                {value: "古镇雨滴", label: "古镇雨滴"},
+                                {value: "松树林小雪", label: "松树林小雪"}
+                            ]}
+                    />
+                    <Avatar size={"large"} src={focusSoundIconUrl} />
+                    <Button type={"text"} shape={props.preferenceData.buttonShape}
+                            icon={focusAudioPaused ? <CaretRightOutlined /> : <PauseOutlined />}
+                            onMouseOver={(e) => btnMouseOver(props.majorColor, e)}
+                            onMouseOut={(e) => btnMouseOut(props.minorColor, e)}
+                            className={"poemFont"}
+                            onClick={playBtnOnClick}
+                            style={{color: getFontColor(props.minorColor)}}>
+                        {focusAudioPaused ? "播放" : "暂停"}
+                    </Button>
                 </Space>
             }
         />
