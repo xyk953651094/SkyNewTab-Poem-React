@@ -2,17 +2,26 @@
 /// <reference types="firefox-webext-browser"/>
 
 import React, {useEffect, useState} from "react";
-import {Button, Col, Input, List, message, Popover, Row, Space, Switch, Typography, Modal, Form, Select} from 'antd';
+import {
+    Button,
+    Col,
+    Input,
+    List,
+    message,
+    Popover,
+    Row,
+    Space,
+    Switch,
+    Typography,
+    Modal,
+    Form,
+    Select,
+    Avatar
+} from 'antd';
 import {btnMouseOut, btnMouseOver, getBrowserType, getFontColor} from "../typescripts/publicFunctions";
-import {DeleteOutlined, LinkOutlined, PlusOutlined, PlayCircleOutlined, PauseCircleOutlined} from "@ant-design/icons";
-import focusSoundOne from "../assets/focusSounds/古镇雨滴.mp3";
-import focusSoundTwo from "../assets/focusSounds/松树林小雪.mp3";
+import {DeleteOutlined, LinkOutlined, PlusOutlined, CaretRightOutlined, PauseOutlined} from "@ant-design/icons";
 
 const focusAudio = new Audio();
-const focusSoundsDictionary = {
-    "focusSoundOne": focusSoundOne,
-    "focusSoundTwo": focusSoundTwo,
-}
 const {Text} = Typography;
 
 function FocusComponent(props: any) {
@@ -22,6 +31,7 @@ function FocusComponent(props: any) {
     const [inputValue, setInputValue] = useState("");
     const [filterList, setFilterList] = useState<any[]>([]);
     const [focusSound, setFocusSound] = useState("古镇雨滴");
+    const [focusSoundIconUrl, setFocusSoundIconUrl] = useState("https://www.soundvery.com/KUpload/image/20240111/20240111145630_9331.png");
     const [focusAudioPaused, setFocusAudioPaused] = useState(true);
     const [buttonShape, setButtonShape] = useState<"circle" | "default" | "round" | undefined>("round");
     const focusMaxSize = 10;
@@ -40,6 +50,12 @@ function FocusComponent(props: any) {
         setFocusMode(checked);
         localStorage.setItem("focusMode", JSON.stringify(checked));
         setExtensionStorage("focusMode", checked);
+
+        // 关闭时停止播放白噪音
+        if (!checked && !focusAudio.paused) {
+            setFocusAudioPaused(true);
+            focusAudio.pause();
+        }
     }
 
     function removeAllBtnOnClick() {
@@ -102,37 +118,46 @@ function FocusComponent(props: any) {
     }
 
     function focusSoundSelectOnChange(value: string) {
+        switch (value) {
+            case "古镇雨滴": {
+                setFocusSoundIconUrl("https://www.soundvery.com/KUpload/image/20240111/20240111145630_9331.png");
+                break;
+            }
+            case "松树林小雪": {
+                setFocusSoundIconUrl("https://www.soundvery.com/KUpload/image/20240125/20240125190604_0946.png");
+                break;
+            }
+            default: {
+                setFocusSoundIconUrl("https://www.soundvery.com/KUpload/image/20240111/20240111145630_9331.png");
+            }
+        }
         setFocusSound(value);
         setFocusAudioPaused(false);
         playFocusSound(value);
     }
 
     function playBtnOnClick() {
-        if (browserType !== "Safari") {
-            if (focusAudio.paused) {
-                setFocusAudioPaused(false);
-                playFocusSound(focusSound);
-            } else {
-                setFocusAudioPaused(true);
-                focusAudio.pause();
-            }
+        if (focusAudio.paused) {
+            setFocusAudioPaused(false);
+            playFocusSound(focusSound);
         } else {
-            message.error("Safari 暂不支持播放白噪音");
+            setFocusAudioPaused(true);
+            focusAudio.pause();
         }
     }
 
     function playFocusSound(focusSound: string) {
         switch (focusSound) {
             case "古镇雨滴": {
-                focusAudio.src = focusSoundsDictionary.focusSoundOne;
+                focusAudio.src = "https://www.soundvery.com/KUpload/file/20240111/20240111145637_8657.mp3";
                 break;
             }
             case "松树林小雪": {
-                focusAudio.src = focusSoundsDictionary.focusSoundTwo;
+                focusAudio.src = "https://www.soundvery.com/KUpload/file/20240125/20240125190612_0979.mp3";
                 break;
             }
             default: {
-                focusAudio.src = focusSoundsDictionary.focusSoundOne;
+                focusAudio.src = "https://www.soundvery.com/KUpload/file/20240111/20240111145637_8657.mp3";
             }
         }
         focusAudio.loop = true;
@@ -187,7 +212,7 @@ function FocusComponent(props: any) {
                             onMouseOut={(e) => btnMouseOut(props.minorColor, e)}
                             onClick={showAddModalBtnOnClick}
                             className={"poemFont"} style={{color: getFontColor(props.minorColor)}} >
-                        {"添加域名"}
+                        {"添加黑名单"}
                     </Button>
                     <Button type={"text"} shape={props.preferenceData.buttonShape} icon={<DeleteOutlined/>}
                             onMouseOver={(e) => btnMouseOver(props.majorColor, e)}
@@ -228,16 +253,17 @@ function FocusComponent(props: any) {
             )}
             footer={
                 <Space>
-                    <Text className={"poemFont"} style={{color: getFontColor(props.minorColor)}}>
-                        {focusAudioPaused ? "白噪音" : "播放中"}
-                    </Text>
-                    <Select defaultValue={focusSound} className={"poemFont"} style={{width: 120}} placement={"topLeft"}
-                            onChange={focusSoundSelectOnChange}>
-                        <Select.Option className={"poemFont"} value={"古镇雨滴"}>{"古镇雨滴"}</Select.Option>
-                        <Select.Option className={"poemFont"} value={"松树林小雪"}>{"松树林小雪"}</Select.Option>
-                    </Select>
+                    <Text className={"poemFont"} style={{color: getFontColor(props.minorColor)}}>{"白噪音"}</Text>
+                    <Select defaultValue={focusSound} className={"poemFont"} popupClassName={"poemFont"} style={{width: 120}} placement={"topLeft"}
+                            onChange={focusSoundSelectOnChange}
+                            options={[
+                                {value: "古镇雨滴", label: "古镇雨滴"},
+                                {value: "松树林小雪", label: "松树林小雪"}
+                            ]}
+                    />
+                    <Avatar size={"large"} src={focusSoundIconUrl} />
                     <Button type={"text"} shape={props.preferenceData.buttonShape}
-                            icon={focusAudioPaused ? <PlayCircleOutlined /> : <PauseCircleOutlined />}
+                            icon={focusAudioPaused ? <CaretRightOutlined /> : <PauseOutlined />}
                             onMouseOver={(e) => btnMouseOver(props.majorColor, e)}
                             onMouseOut={(e) => btnMouseOut(props.minorColor, e)}
                             className={"poemFont"}
@@ -254,7 +280,7 @@ function FocusComponent(props: any) {
         <>
             <Popover title={popoverTitle} content={popoverContent} placement={"bottomRight"}
                      color={props.minorColor}
-                     overlayStyle={{width: "500px"}}>
+                     overlayStyle={{width: "550px"}}>
                 <Button shape={props.preferenceData.buttonShape} size={"large"}
                         icon={<i className={focusMode ? "bi bi-cup-hot-fill" : "bi bi-cup-hot"}></i>}
                         id={"focusBtn"}
@@ -269,7 +295,7 @@ function FocusComponent(props: any) {
                     {focusMode ? "专注中" : "未专注"}
                 </Button>
             </Popover>
-            <Modal title={"添加域名 " + filterList.length + " / " + focusMaxSize}
+            <Modal title={"添加黑名单 " + filterList.length + " / " + focusMaxSize}
                    closeIcon={false}
                    centered
                    open={displayModal} onOk={modalOkBtnOnClick}
@@ -278,9 +304,9 @@ function FocusComponent(props: any) {
                    styles={{mask: {backdropFilter: "blur(10px)", WebkitBackdropFilter: "blur(10px)"}}}
             >
                 <Form>
-                    <Form.Item label={"网站域名"} name={"focusInput"} extra={"开启专注模式后，访问添加的域名时将自动跳转至本插件"}>
+                    <Form.Item label={"网站域名"} name={"focusInput"} extra={"开启专注模式后，访问黑名单中的域名时将自动跳转至本插件"}>
                         <Input className={"poemFont"} id={"focusInput"} placeholder="example.com"
-                               value={inputValue} onChange={inputOnChange} maxLength={20} showCount allowClear/>
+                               value={inputValue} onChange={inputOnChange} maxLength={30} showCount allowClear/>
                     </Form.Item>
                 </Form>
             </Modal>

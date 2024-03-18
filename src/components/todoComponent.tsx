@@ -45,6 +45,10 @@ function TodoComponent(props: any) {
                 "timeStamp": Date.now()
             });
 
+            tempTodoList.sort((a: any, b: any) => {
+                return b.priority.length - a.priority.length;
+            });
+
             setDisplayModal(false);
             setTodoList(tempTodoList);
             localStorage.setItem("todos", JSON.stringify(tempTodoList));
@@ -71,6 +75,9 @@ function TodoComponent(props: any) {
             tempTodoList.splice(index, 1);
         }
 
+        tempTodoList.sort((a: any, b: any) => {
+            return b.priority.length - a.priority.length;
+        });
 
         setTodoList(tempTodoList);
         localStorage.setItem("todos", JSON.stringify(tempTodoList));
@@ -87,6 +94,12 @@ function TodoComponent(props: any) {
                 break;
             case "life":
                 tempTag = "生活";
+                break;
+            case "rest":
+                tempTag = "休闲";
+                break;
+            case "other":
+                tempTag = "其它";
                 break;
             default:
                 tempTag = "工作";
@@ -216,6 +229,8 @@ function TodoComponent(props: any) {
                                 {value: "work", label: "工作"},
                                 {value: "study", label: "学习"},
                                 {value: "life", label: "生活"},
+                                {value: 'rest', label: '休闲'},
+                                {value: 'other', label: '其它'},
                             ]}
                         />
                     </Form.Item>

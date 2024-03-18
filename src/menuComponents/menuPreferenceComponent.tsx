@@ -10,9 +10,10 @@ import {
     RadioChangeEvent,
     Row,
     Space,
-    Switch, Typography, Select
+    Switch, Typography, Select, Upload
 } from "antd";
-import {RedoOutlined, SettingOutlined} from "@ant-design/icons";
+import type { UploadProps } from 'antd';
+import {RedoOutlined, SettingOutlined, ImportOutlined, ExportOutlined} from "@ant-design/icons";
 import {
     btnMouseOut,
     btnMouseOver,
@@ -20,7 +21,8 @@ import {
     getPreferenceDataStorage, getTimeDetails,
 } from "../typescripts/publicFunctions";
 import {PreferenceDataInterface} from "../typescripts/publicInterface";
-import {defaultPreferenceData} from "../typescripts/publicConstants";
+import {defaultPreferenceData, device} from "../typescripts/publicConstants";
+import {RcFile} from "antd/es/upload";
 
 const {Text} = Typography;
 
@@ -114,6 +116,89 @@ function MenuPreferenceComponent(props: any) {
         // resetSwitchColor("#simpleModeSwitch", checked, props.majorColor);
     }
 
+    // 导入数据
+    function importDataBtnOnClick(file: RcFile) {
+        if (device !== "") {
+            message.error("暂不支持移动端");
+        } else {
+            if (file.name.indexOf("云开诗词新标签页") === 0) {
+                file.text().then(result => {
+                    let importData = JSON.parse(result);
+                    if (importData) {
+                        localStorage.setItem("daily", JSON.stringify(importData.dailyList ? importData.dailyList : []));
+                        localStorage.setItem("todos", JSON.stringify(importData.todoList ? importData.todoList : []));
+                        localStorage.setItem("filterList", JSON.stringify(importData.filterList ? importData.filterList : []));
+                        localStorage.setItem("linkList", JSON.stringify(importData.linkList ? importData.linkList : []));
+                        localStorage.setItem("preferenceData", JSON.stringify(importData.preferenceData ? importData.preferenceData : defaultPreferenceData));
+
+                        setFormDisabled(true);
+                        message.success("导入数据成功，一秒后刷新页面");
+                        refreshWindow();
+                    } else {
+                        message.error("导入数据失败");
+                    }
+                })
+            } else {
+                message.error("请选择正确的文件");
+            }
+        }
+        return false;
+    }
+
+    // 导出数据
+    function exportDataBtnOnClick() {
+        if (device !== "") {
+            message.error("暂不支持移动端");
+        } else {
+            // 倒数日
+            let tempDailyList = [];
+            let dailyListStorage = localStorage.getItem("daily");
+            if (dailyListStorage) {
+                tempDailyList = JSON.parse(dailyListStorage);
+            }
+
+            // 待办事项
+            let tempTodoList = [];
+            let todoListStorage = localStorage.getItem("todos");
+            if (todoListStorage) {
+                tempTodoList = JSON.parse(todoListStorage);
+            }
+
+            // 专注模式过滤名单
+            let tempFilterList = [];
+            let filterListStorage = localStorage.getItem("filterList");
+            if (filterListStorage) {
+                tempFilterList = JSON.parse(filterListStorage);
+            }
+
+            // 快捷链接
+            let tempLinkList = [];
+            let linkListStorage = localStorage.getItem("linkList");
+            if (linkListStorage) {
+                tempLinkList = JSON.parse(linkListStorage);
+            }
+
+            let exportData = {
+                title: "云开新标签页",
+                attention: "请不要修改本文件的名称和内容",
+                dailyList: tempDailyList,
+                todoList: tempTodoList,
+                filterList: tempFilterList,
+                linkList: tempLinkList,
+                preferenceData: preferenceData,
+            }
+
+            let file = new Blob([JSON.stringify(exportData)], {type: "application/json"});
+            const objectURL = URL.createObjectURL(file);
+            let a = document.createElement("a");
+            a.href = objectURL;
+            a.download = "云开诗词新标签页.json";
+            a.click();
+            URL.revokeObjectURL(objectURL);
+            message.success("导出数据成功");
+        }
+    }
+
     // 重置设置
     function resetPreferenceBtnOnClick() {
         let resetTimeStampStorage = localStorage.getItem("resetTimeStamp");
@@ -192,7 +277,7 @@ function MenuPreferenceComponent(props: any) {
                   bodyStyle={{backgroundColor: props.minorColor}}
             >
                 <Form colon={false} initialValues={preferenceData} disabled={formDisabled}>
-                    <Form.Item name={"searchEngine"} label={"搜索引擎"}>
+                    <Form.Item name={"searchEngine"} label={"搜索引擎"} style={{display: ["iPhone", "Android"].indexOf(device) === -1 ? "block" : "none"}}>
                         <Radio.Group buttonStyle={"solid"} style={{width: "100%"}}
                                      onChange={searchEngineRadioOnChange}>
                             <Row>
@@ -236,7 +321,7 @@ function MenuPreferenceComponent(props: any) {
                     </Form.Item>
                     <Form.Item name={"changePoemTime"} label={"切换间隔"}
                                extra={"上次切换：" + lastPoemRequestTime}>
-                        <Select popupClassName={"poemFont"} style={{width: 170}} onChange={changePoemTimeOnChange}
+                        <Select className={"poemFont"} popupClassName={"poemFont"} style={{width: 170}} onChange={changePoemTimeOnChange}
                                 options={[
                                     {value: "900000", label: "每隔 15 分钟", disabled:preferenceData.autoTopic},
                                     {value: "1800000", label: "每隔 30 分钟", disabled:preferenceData.autoTopic},
@@ -247,9 +332,33 @@ function MenuPreferenceComponent(props: any) {
                                 ]}
                         />
                     </Form.Item>
-                    <Form.Item name={"simpleMode"} label={"极简模式"} valuePropName={"checked"}>
+                    <Form.Item name={"simpleMode"} label={"极简模式"} valuePropName={"checked"} style={{display: ["iPhone", "Android"].indexOf(device) === -1 ? "block" : "none"}}>
                         <Switch checkedChildren="已开启" unCheckedChildren="已关闭" className={"poemFont"}
                                 id={"simpleModeSwitch"} onChange={simpleModeSwitchOnChange}/>
+                    </Form.Item>
+                    <Form.Item name={"manageDataButton"} label={"数据管理"} style={{display: ["iPhone", "Android"].indexOf(device) === -1 ? "block" : "none"}}>
+                        <Space>
+                            <Upload accept={"application/json"}
+                                    maxCount={1}
+                                    beforeUpload={(file) => {importDataBtnOnClick(file)}}
+                                    showUploadList={false}>
+                                <Button type={"text"} shape={preferenceData.buttonShape} icon={<ImportOutlined/>}
+                                        onMouseOver={(e) => btnMouseOver(props.majorColor, e)}
+                                        onMouseOut={(e) => btnMouseOut(props.minorColor, e)}
+                                        className={"poemFont"}
+                                        style={{color: getFontColor(props.minorColor)}}>
+                                    导入数据
+                                </Button>
+                            </Upload>
+                            <Button type={"text"} shape={preferenceData.buttonShape} icon={<ExportOutlined/>}
+                                    onMouseOver={(e) => btnMouseOver(props.majorColor, e)}
+                                    onMouseOut={(e) => btnMouseOut(props.minorColor, e)}
+                                    onClick={exportDataBtnOnClick}
+                                    className={"poemFont"}
+                                    style={{color: getFontColor(props.minorColor)}}>
+                                导出数据
+                            </Button>
+                        </Space>
                     </Form.Item>
                     <Form.Item name={"clearStorageButton"} label={"危险设置"} extra={"出现异常时可尝试重置设置或插件"}>
                         <Space>

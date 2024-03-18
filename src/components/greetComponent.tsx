@@ -164,28 +164,30 @@ function GreetComponent(props: any) {
     );
 
     const popoverContent = (
-        <List>
+        <List split={false}>
             <List.Item>
-                <Space direction={"vertical"}>
-                    <Button type={"text"} shape={props.preferenceData.buttonShape} icon={<CalendarOutlined/>}
-                            onMouseOver={(e) => btnMouseOver(props.majorColor, e)}
-                            onMouseOut={(e) => btnMouseOut(props.minorColor, e)}
-                            className={"poemFont"} style={{color: getFontColor(props.minorColor), cursor: "default"}}>
-                        {calendar}
-                    </Button>
-                    <Button type="text" shape={props.preferenceData.buttonShape} icon={<CheckCircleOutlined/>}
-                            onMouseOver={(e) => btnMouseOver(props.majorColor, e)}
-                            onMouseOut={(e) => btnMouseOut(props.minorColor, e)}
-                            className={"poemFont"} style={{color: getFontColor(props.minorColor), cursor: "default"}}>
-                        {"宜：" + (suit.length < btnMaxSize) ? suit : suit.substring(0, btnMaxSize) + "..."}
-                    </Button>
-                    <Button type="text" shape={props.preferenceData.buttonShape} icon={<CloseCircleOutlined/>}
-                            onMouseOver={(e) => btnMouseOver(props.majorColor, e)}
-                            onMouseOut={(e) => btnMouseOut(props.minorColor, e)}
-                            className={"poemFont"} style={{color: getFontColor(props.minorColor), cursor: "default"}}>
-                        {"忌：" + (avoid.length < btnMaxSize) ? avoid : avoid.substring(0, btnMaxSize) + "..."}
-                    </Button>
-                </Space>
+                <Button type={"text"} shape={props.preferenceData.buttonShape} icon={<CalendarOutlined/>}
+                        onMouseOver={(e) => btnMouseOver(props.majorColor, e)}
+                        onMouseOut={(e) => btnMouseOut(props.minorColor, e)}
+                        className={"poemFont"} style={{color: getFontColor(props.minorColor), cursor: "default"}}>
+                    {calendar}
+                </Button>
+            </List.Item>
+            <List.Item>
+                <Button type="text" shape={props.preferenceData.buttonShape} icon={<CheckCircleOutlined/>}
+                        onMouseOver={(e) => btnMouseOver(props.majorColor, e)}
+                        onMouseOut={(e) => btnMouseOut(props.minorColor, e)}
+                        className={"poemFont"} style={{color: getFontColor(props.minorColor), cursor: "default"}}>
+                    {"宜：" + (suit.length < btnMaxSize) ? suit : suit.substring(0, btnMaxSize) + "..."}
+                </Button>
+            </List.Item>
+            <List.Item>
+                <Button type="text" shape={props.preferenceData.buttonShape} icon={<CloseCircleOutlined/>}
+                        onMouseOver={(e) => btnMouseOver(props.majorColor, e)}
+                        onMouseOut={(e) => btnMouseOut(props.minorColor, e)}
+                        className={"poemFont"} style={{color: getFontColor(props.minorColor), cursor: "default"}}>
+                    {"忌：" + (avoid.length < btnMaxSize) ? avoid : avoid.substring(0, btnMaxSize) + "..."}
+                </Button>
             </List.Item>
         </List>
     );
