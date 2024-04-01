@@ -80,6 +80,11 @@ export function getTimeDetails(param: Date) {
     };
 }
 
+// 判断字符串是否合规
+export function isEmpty(param: string) {
+    return (param === null || param === undefined || param.length === 0);
+}
+
 // 根据当前时间段返回问候语
 export function getGreetContent() {
     let hour = new Date().getHours();

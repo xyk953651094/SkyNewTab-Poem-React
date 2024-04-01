@@ -13,7 +13,7 @@
     "@types/node": "^16.18.25",
     "@types/react": "^18.2.0",
     "@types/react-dom": "^18.2.1",
-    "antd": "^5.13.2",
+    "antd": "^5.15.4",
     "bootstrap-icons": "^1.11.2",
     "clean-webpack-plugin": "^4.0.0",
     "copy-webpack-plugin": "^11.0.0",
