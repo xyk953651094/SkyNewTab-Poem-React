@@ -18,7 +18,7 @@ import {
     Select,
     Avatar
 } from 'antd';
-import {btnMouseOut, btnMouseOver, getBrowserType, getFontColor} from "../typescripts/publicFunctions";
+import {btnMouseOut, btnMouseOver, getBrowserType, getFontColor, getTimeDetails} from "../typescripts/publicFunctions";
 import {DeleteOutlined, LinkOutlined, PlusOutlined, CaretRightOutlined, PauseOutlined} from "@ant-design/icons";
 
 const focusAudio = new Audio();
@@ -30,6 +30,8 @@ function FocusComponent(props: any) {
     const [focusMode, setFocusMode] = useState<boolean>(false);
     const [inputValue, setInputValue] = useState("");
     const [filterList, setFilterList] = useState<any[]>([]);
+    const [focusPeriod, setFocusPeriod] = useState("manual");
+    const [focusEndTime, setFocusEndTime] = useState("未开启专注模式");
     const [focusSound, setFocusSound] = useState("古镇雨滴");
     const [focusSoundIconUrl, setFocusSoundIconUrl] = useState("https://www.soundvery.com/KUpload/image/20240111/20240111145630_9331.png");
     const [focusAudioPaused, setFocusAudioPaused] = useState(true);
@@ -38,18 +40,37 @@ function FocusComponent(props: any) {
     const browserType = getBrowserType();
 
     function setExtensionStorage(key: string, value: any) {
-        // if (["Chrome", "Edge"].indexOf(browserType) !== -1) {
-        //     chrome.storage.local.set({[key]: value});
-        // }
-        // else if (["Firefox", "Safari"].indexOf(browserType) !== -1) {
-        //     browser.storage.local.set({[key]: value});
-        // }
+        if (["Chrome", "Edge"].indexOf(browserType) !== -1) {
+            chrome.storage.local.set({[key]: value});
+        }
+        else if (["Firefox", "Safari"].indexOf(browserType) !== -1) {
+            browser.storage.local.set({[key]: value});
+        }
     }
 
     function focusModeSwitchOnChange(checked: boolean) {
+        let tempFocusEndTime: string = "未开启专注模式";
+        let tempFocusEndTimeStamp: number = -1;
+        if (checked) {
+            if (focusPeriod === "manual") {
+                tempFocusEndTime = "手动关闭";
+                tempFocusEndTimeStamp = 0;
+            } else {
+                tempFocusEndTimeStamp = Date.now() + Number(focusPeriod);
+                tempFocusEndTime = getTimeDetails(new Date(tempFocusEndTimeStamp)).showDetail;
+            }
+        } else {
+            tempFocusEndTime = "未开启专注模式";
+            tempFocusEndTimeStamp = -1;
+        }
+
         setFocusMode(checked);
+        setFocusEndTime(tempFocusEndTime);
         localStorage.setItem("focusMode", JSON.stringify(checked));
+        localStorage.setItem("focusPeriod", JSON.stringify(focusPeriod));
+        localStorage.setItem("focusEndTimeStamp", JSON.stringify(tempFocusEndTimeStamp));
         setExtensionStorage("focusMode", checked);
+        setExtensionStorage("focusEndTimeStamp", tempFocusEndTimeStamp);
 
         // 关闭时停止播放白噪音
         if (!checked && !focusAudio.paused) {
@@ -117,6 +138,10 @@ function FocusComponent(props: any) {
         setDisplayModal(false);
     }
 
+    function focusTimeSelectOnChange(value: string) {
+        setFocusPeriod(value);
+    }
+
     function focusSoundSelectOnChange(value: string) {
         switch (value) {
             case "古镇雨滴": {
@@ -169,31 +194,73 @@ function FocusComponent(props: any) {
         setButtonShape(props.preferenceData.buttonShape === "round" ? "circle" : "default");
 
         // 初始化专注模式开启状态
-        if (props.preferenceData.simpleMode) {
-            setFocusMode(false);
+        let tempFocusMode = false;
+        let focusModeStorage = localStorage.getItem("focusMode");
+        if (focusModeStorage) {
+            tempFocusMode = JSON.parse(focusModeStorage);
+        } else {
             localStorage.setItem("focusMode", JSON.stringify(false));
             setExtensionStorage("focusMode", false);
-        } else {
-            let focusModeStorage = localStorage.getItem("focusMode");
-            if (focusModeStorage) {
-                setFocusMode(JSON.parse(focusModeStorage));
-                if (JSON.parse(focusModeStorage) === true) {
-                    message.info("已开启专注模式");
-                }
-            } else {
-                localStorage.setItem("focusMode", JSON.stringify(false));
-                setExtensionStorage("focusMode", false);
-            }
         }
 
         // 初始化名单
+        let tempFilterList = [];
         let filterListStorage = localStorage.getItem("filterList");
         if (filterListStorage) {
-            setFilterList(JSON.parse(filterListStorage));
+            tempFilterList = JSON.parse(filterListStorage);
         } else {
             localStorage.setItem("filterList", JSON.stringify([]));
             setExtensionStorage("filterList", []);
         }
+
+        // 初始化专注时间
+        let tempFocusPeriod = "manual";
+        let focusPeriodStorage = localStorage.getItem("focusPeriod");
+        if (focusPeriodStorage) {
+            tempFocusPeriod = JSON.parse(focusPeriodStorage);
+        } else {
+            localStorage.setItem("focusPeriod", JSON.stringify("manual"));
+        }
+
+        // 初始化专注截止时间
+        let tempFocusEndTime = "未开启专注模式";
+        let tempFocusEndTimeStamp = -1;
+        let focusEndTimeStampStorage = localStorage.getItem("focusEndTimeStamp");
+        if (focusEndTimeStampStorage) {
+            tempFocusEndTimeStamp = JSON.parse(focusEndTimeStampStorage);
+
+            if (tempFocusEndTimeStamp === -1) {
+                tempFocusEndTime = "未开启专注模式";
+            } else if (tempFocusEndTimeStamp === 0) {
+                tempFocusEndTime = "手动关闭";
+            } else {
+                tempFocusEndTime = getTimeDetails(new Date(tempFocusEndTimeStamp)).showDetail;
+            }
+        } else {
+            localStorage.setItem("focusEndTimeStamp", JSON.stringify(-1));
+            setExtensionStorage("focusEndTimeStamp", -1);
+        }
+
+        // 极简模式下或者专注时段过去后初始化专注模式
+        if (props.preferenceData.simpleMode || (tempFocusMode && tempFocusEndTimeStamp > 0 && Date.now() > tempFocusEndTimeStamp)) {
+            tempFocusMode = false;
+            tempFocusPeriod = "manual";
+            tempFocusEndTime = "未开启专注模式";
+            localStorage.setItem("focusMode", JSON.stringify(false));
+            localStorage.setItem("focusPeriod", JSON.stringify("manual"));
+            localStorage.setItem("focusEndTimeStamp", JSON.stringify(-1));
+            setExtensionStorage("focusMode", false);
+            setExtensionStorage("focusEndTimeStamp", -1);
+        }
+
+        if (tempFocusMode) {
+            message.info("已开启专注模式");
+        }
+
+        setFocusMode(tempFocusMode);
+        setFilterList(tempFilterList);
+        setFocusPeriod(tempFocusPeriod);
+        setFocusEndTime(tempFocusEndTime);
     }, [props.preferenceData.buttonShape, props.preferenceData.simpleMode])
 
     const popoverTitle = (
@@ -251,7 +318,7 @@ function FocusComponent(props: any) {
                     </Button>
                 </List.Item>
             )}
-            footer={
+            header={
                 <Space direction={"vertical"}>
                     <Space>
                         <Button type={"text"} shape={props.preferenceData.buttonShape}
@@ -262,9 +329,12 @@ function FocusComponent(props: any) {
                                 style={{color: getFontColor(props.minorColor), cursor: "default"}}>
                             {"专注时段"}
                         </Button>
-                        <Select defaultValue={"manual"} className={"poemFont"} popupClassName={"poemFont"} style={{width: 120}} placement={"topLeft"}
+                        <Select defaultValue={focusPeriod} className={"poemFont"} popupClassName={"poemFont"} style={{width: 120}} placement={"topLeft"}
+                                onChange={focusTimeSelectOnChange}
+                                disabled={focusMode}
                                 options={[
                                     {value: "manual", label: "手动结束"},
+                                    {value: "60000", label: "1 分钟后"},
                                     {value: "900000", label: "15 分钟后"},
                                     {value: "1800000", label: "30 分钟后"},
                                     {value: "2700000", label: "45 分钟后"},
@@ -276,7 +346,7 @@ function FocusComponent(props: any) {
                                 onMouseOut={(e) => btnMouseOut(props.minorColor, e)}
                                 className={"poemFont"}
                                 style={{color: getFontColor(props.minorColor), cursor: "default"}}>
-                            {"结束时间：手动结束"}
+                            {"结束时间：" + focusEndTime}
                         </Button>
                     </Space>
                     <Space>
@@ -288,14 +358,13 @@ function FocusComponent(props: any) {
                                 style={{color: getFontColor(props.minorColor), cursor: "default"}}>
                             {"专注噪音"}
                         </Button>
-                        <Select defaultValue={focusSound} className={"poemFont"} popupClassName={"poemFont"} style={{width: 120}} placement={"topLeft"}
+                        <Select defaultValue={focusSound} className={"poemFont"} popupClassName={"poemFont"} style={{width: 120}}
                                 onChange={focusSoundSelectOnChange}
                                 options={[
                                     {value: "古镇雨滴", label: "古镇雨滴"},
                                     {value: "松树林小雪", label: "松树林小雪"}
                                 ]}
                         />
-                        <Avatar size={"large"} src={focusSoundIconUrl} />
                         <Button type={"text"} shape={props.preferenceData.buttonShape}
                                 icon={focusAudioPaused ? <CaretRightOutlined /> : <PauseOutlined />}
                                 onMouseOver={(e) => btnMouseOver(props.majorColor, e)}
@@ -305,6 +374,7 @@ function FocusComponent(props: any) {
                                 style={{color: getFontColor(props.minorColor)}}>
                             {focusAudioPaused ? "播放" : "暂停"}
                         </Button>
+                        <Avatar size={"large"} src={focusSoundIconUrl} />
                     </Space>
                 </Space>
             }
