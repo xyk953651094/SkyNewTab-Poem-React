@@ -220,10 +220,9 @@ function TodoComponent(props: any) {
                         <Input className={"poemFont"} id={"todoInput"} placeholder="请输入待办内容"
                                value={inputValue} onChange={inputOnChange} maxLength={10} showCount allowClear/>
                     </Form.Item>
-                    <Form.Item label={"标签分类"} name={"todoSelect"}>
+                    <Form.Item label={"标签分类"} name={"todoSelect"} initialValue={"work"}>
                         <Select
                             popupClassName={"poemFont"}
-                            defaultValue="work"
                             onChange={selectOnChange}
                             options={[
                                 {value: "work", label: "工作"},
@@ -234,8 +233,8 @@ function TodoComponent(props: any) {
                             ]}
                         />
                     </Form.Item>
-                    <Form.Item label={"优先级别"} name={"todoRate"}>
-                        <Rate defaultValue={1} onChange={rateOnChange} style={{
+                    <Form.Item label={"优先级别"} name={"todoRate"} initialValue={1}>
+                        <Rate onChange={rateOnChange} style={{
                             color: props.majorColor,
                             stroke: getFontColor(props.minorColor),
                             strokeWidth: "25px"
