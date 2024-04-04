@@ -20,6 +20,7 @@ import {
 } from 'antd';
 import {btnMouseOut, btnMouseOver, getBrowserType, getFontColor, getTimeDetails} from "../typescripts/publicFunctions";
 import {DeleteOutlined, LinkOutlined, PlusOutlined, CaretRightOutlined, PauseOutlined} from "@ant-design/icons";
+import {PreferenceDataInterface} from "../typescripts/publicInterface";
 
 const focusAudio = new Audio();
 const {Text} = Typography;
@@ -49,11 +50,11 @@ function FocusComponent(props: any) {
     }
 
     function focusModeSwitchOnChange(checked: boolean) {
-        let tempFocusEndTime: string = "未开启专注模式";
-        let tempFocusEndTimeStamp: number = -1;
+        let tempFocusEndTime: string;
+        let tempFocusEndTimeStamp: number;
         if (checked) {
             if (focusPeriod === "manual") {
-                tempFocusEndTime = "手动关闭";
+                tempFocusEndTime = "手动结束";
                 tempFocusEndTimeStamp = 0;
             } else {
                 tempFocusEndTimeStamp = Date.now() + Number(focusPeriod);
@@ -71,6 +72,8 @@ function FocusComponent(props: any) {
         localStorage.setItem("focusEndTimeStamp", JSON.stringify(tempFocusEndTimeStamp));
         setExtensionStorage("focusMode", checked);
         setExtensionStorage("focusEndTimeStamp", tempFocusEndTimeStamp);
+
+        autoStopFocus(checked, tempFocusEndTimeStamp);
 
         // 关闭时停止播放白噪音
         if (!checked && !focusAudio.paused) {
@@ -189,6 +192,30 @@ function FocusComponent(props: any) {
         focusAudio.play();
     }
 
+    // 倒计时自动关闭专注模式
+    function autoStopFocus(focusMode: boolean, focusEndTimeStamp: number) {
+        if (focusMode && focusEndTimeStamp > 0 && Date.now() < focusEndTimeStamp) {
+            let interval = setInterval(() => {
+                if (Date.now() >= focusEndTimeStamp) {
+                    setFocusMode(false);
+                    setFocusPeriod("manual");
+                    setFocusEndTime("未开启专注模式");
+                    resetFocusModeStorage();
+                    message.info("已关闭专注模式");
+                    clearInterval(interval);
+                }
+            }, 1000);
+        }
+    }
+
+    function resetFocusModeStorage() {
+        localStorage.setItem("focusMode", JSON.stringify(false));
+        localStorage.setItem("focusPeriod", JSON.stringify("manual"));
+        localStorage.setItem("focusEndTimeStamp", JSON.stringify(-1));
+        setExtensionStorage("focusMode", false);
+        setExtensionStorage("focusEndTimeStamp", -1);
+    }
+
     useEffect(() => {
         setDisplay(props.preferenceData.simpleMode ? "none" : "block");
         setButtonShape(props.preferenceData.buttonShape === "round" ? "circle" : "default");
@@ -232,7 +259,7 @@ function FocusComponent(props: any) {
             if (tempFocusEndTimeStamp === -1) {
                 tempFocusEndTime = "未开启专注模式";
             } else if (tempFocusEndTimeStamp === 0) {
-                tempFocusEndTime = "手动关闭";
+                tempFocusEndTime = "手动结束";
             } else {
                 tempFocusEndTime = getTimeDetails(new Date(tempFocusEndTimeStamp)).showDetail;
             }
@@ -246,11 +273,7 @@ function FocusComponent(props: any) {
             tempFocusMode = false;
             tempFocusPeriod = "manual";
             tempFocusEndTime = "未开启专注模式";
-            localStorage.setItem("focusMode", JSON.stringify(false));
-            localStorage.setItem("focusPeriod", JSON.stringify("manual"));
-            localStorage.setItem("focusEndTimeStamp", JSON.stringify(-1));
-            setExtensionStorage("focusMode", false);
-            setExtensionStorage("focusEndTimeStamp", -1);
+            resetFocusModeStorage();
         }
 
         if (tempFocusMode) {
@@ -261,6 +284,8 @@ function FocusComponent(props: any) {
         setFilterList(tempFilterList);
         setFocusPeriod(tempFocusPeriod);
         setFocusEndTime(tempFocusEndTime);
+        autoStopFocus(tempFocusMode, tempFocusEndTimeStamp);
+
     }, [props.preferenceData.buttonShape, props.preferenceData.simpleMode])
 
     const popoverTitle = (
@@ -327,9 +352,9 @@ function FocusComponent(props: any) {
                                 onMouseOut={(e) => btnMouseOut(props.minorColor, e)}
                                 className={"poemFont"}
                                 style={{color: getFontColor(props.minorColor), cursor: "default"}}>
-                            {"专注时段"}
+                            {"自动结束"}
                         </Button>
-                        <Select defaultValue={focusPeriod} className={"poemFont"} popupClassName={"poemFont"} style={{width: 120}} placement={"topLeft"}
+                        <Select value={focusPeriod} className={"poemFont"} popupClassName={"poemFont"} style={{width: 120}} placement={"topLeft"}
                                 onChange={focusTimeSelectOnChange}
                                 disabled={focusMode}
                                 options={[
