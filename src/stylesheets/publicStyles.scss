@@ -57,6 +57,7 @@ html, body {
 
 .poemFont {
     font-family: "Times New Roman", cursive, sans-serif;
+    font-variant-east-asian: traditional;
 }
 
 #searchInput, #dailyInput, #todoInput, #focusInput, #customContentInput, #customAuthorInput, #linkNameInput, #linkUrlInput {

@@ -20,7 +20,6 @@ import {
 } from 'antd';
 import {btnMouseOut, btnMouseOver, getBrowserType, getFontColor, getTimeDetails} from "../typescripts/publicFunctions";
 import {DeleteOutlined, LinkOutlined, PlusOutlined, CaretRightOutlined, PauseOutlined} from "@ant-design/icons";
-import {PreferenceDataInterface} from "../typescripts/publicInterface";
 
 const focusAudio = new Audio();
 const {Text} = Typography;
