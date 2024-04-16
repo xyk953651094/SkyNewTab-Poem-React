@@ -201,6 +201,7 @@ function FocusComponent(props: any) {
                     setFocusEndTime("未开启专注模式");
                     resetFocusModeStorage();
                     message.info("已关闭专注模式");
+                    focusAudio.pause();
                     clearInterval(interval);
                 }
             }, 1000);

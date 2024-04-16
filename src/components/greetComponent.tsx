@@ -105,8 +105,8 @@ function GreetComponent(props: any) {
             setCalendar(timeDetails.showDate4 + " " + timeDetails.showWeek + " ｜ " +
                 data.yearTips + data.chineseZodiac + "年 ｜ " +
                 data.lunarCalendar + " ｜ " + data.constellation);
-            setSuit(data.suit.replace(/\./g, " · "));
-            setAvoid(data.avoid.replace(/\./g, " · "));
+            setSuit(data.suit ? data.suit.replace(/\./g, " · ") : "暂无信息");
+            setAvoid(data.avoid ? data.avoid.replace(/\./g, " · ") : "暂无信息");
         }
 
         // 防抖节流
