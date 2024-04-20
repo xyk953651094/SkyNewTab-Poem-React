@@ -106,7 +106,14 @@ function App() {
                 $(".ant-switch").find(".ant-switch-inner-checked").css("color", getFontColor(minorColor));
                 $(".ant-form-item-extra").css("color", getFontColor(minorColor)).addClass("poemFont");
 
-                // focusComponent
+                let dailyNotificationStorage = localStorage.getItem("dailyNotification");
+                if (dailyNotificationStorage) {
+                    resetSwitchColor("#dailyNotificationSwitch", JSON.parse(dailyNotificationStorage), majorColor);
+                }
+                let todoNotificationStorage = localStorage.getItem("todoNotification");
+                if (todoNotificationStorage) {
+                    resetSwitchColor("#todoNotificationSwitch", JSON.parse(todoNotificationStorage), majorColor);
+                }
                 let focusMode = localStorage.getItem("focusMode");
                 if (focusMode) {
                     resetSwitchColor("#focusModeSwitch", JSON.parse(focusMode), majorColor);

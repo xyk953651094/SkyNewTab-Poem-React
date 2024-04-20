@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {DatePickerProps, Select} from 'antd';
+import {DatePickerProps, Select, Switch} from 'antd';
 import dayjs from 'dayjs';
 import {Button, Col, DatePicker, Form, Input, List, message, Modal, Popover, Row, Space, Typography} from "antd";
 import {CalendarOutlined, ClockCircleOutlined, DeleteOutlined, PlusOutlined} from "@ant-design/icons";
@@ -13,6 +13,7 @@ function DailyComponent(props: any) {
     const [dailyList, setDailyList] = useState<any[]>([]);
     const [selectedTimeStamp, setSelectedTimeStamp] = useState(0);
     const [buttonShape, setButtonShape] = useState<"circle" | "default" | "round" | undefined>("round");
+    const [notification, setNotification] = useState(false);
     const [inputValue, setInputValue] = useState("");
     const [dailySelectDisabled, setDailySelectDisabled] = useState(false);
     const [loop, setLoop] = useState("");
@@ -42,6 +43,11 @@ function DailyComponent(props: any) {
 
         setDailyList(tempDailyList);
         localStorage.setItem("daily", JSON.stringify(tempDailyList));
+    }
+
+    function notificationSwitchOnChange(checked: boolean) {
+        setNotification(checked);
+        localStorage.setItem("dailyNotification", JSON.stringify(checked));
     }
 
     function showAddModalBtnOnClick() {
@@ -137,56 +143,68 @@ function DailyComponent(props: any) {
         setDisplay(props.preferenceData.simpleMode ? "none" : "block");
         setButtonShape(props.preferenceData.buttonShape === "round" ? "circle" : "default");
 
+        let tempNotification = false;
+        let notificationStorage = localStorage.getItem("dailyNotification");
+        if (notificationStorage) {
+            tempNotification = JSON.parse(notificationStorage);
+        } else {
+            localStorage.setItem("dailyNotification", JSON.stringify(false));
+        }
+
         let tempDailyList = [];
         let dailyListStorage = localStorage.getItem("daily");
         if (dailyListStorage) {
             tempDailyList = JSON.parse(dailyListStorage);
 
-            // 更新循环倒数日
             let tempDailyListModified = false;
             tempDailyList.map((value: any) => {
                 let tempValue = value;
-                if (!isEmpty(value.loop)) {
-                    let todayTimeStamp = new Date(getTimeDetails(new Date()).showDate5).getTime();
-                    if (value.selectedTimeStamp < todayTimeStamp) {
-                        tempDailyListModified = true;
-                        switch (value.loop) {
-                            case "每周":
-                                value.selectedTimeStamp += 604800000;
-                                break;
-                            case "每月": {
-                                let loopYear: string | number = new Date(value.selectedTimeStamp).getFullYear();
-                                let loopMonth: string | number = new Date(value.selectedTimeStamp).getMonth() + 1;
-                                let loopDate: string | number = new Date(value.selectedTimeStamp).getDate();
+                let todayTimeStamp = new Date(getTimeDetails(new Date()).showDate5).getTime();
 
-                                let nextLoopYear: string | number = loopYear;
-                                let nextLoopMonth: string | number = loopMonth + 1;
-                                if (loopMonth === 12) {
-                                    nextLoopYear += 1;
-                                    nextLoopMonth = 1;
-                                }
+                // 倒数日通知
+                if (tempNotification && value.selectedTimeStamp === todayTimeStamp) {
+                    message.info("今日" + value.title);
+                }
 
-                                nextLoopYear = nextLoopYear.toString();
-                                nextLoopMonth = nextLoopMonth < 10 ? ("0" + nextLoopMonth) : nextLoopMonth.toString();
-                                loopDate = loopDate < 10 ? ("0" + loopDate) : loopDate.toString();
+                // 更新循环倒数日
+                if (!isEmpty(value.loop) && value.selectedTimeStamp < todayTimeStamp) {
+                    tempDailyListModified = true;
+                    switch (value.loop) {
+                        case "每周":
+                            value.selectedTimeStamp += 604800000;
+                            break;
+                        case "每月": {
+                            let loopYear: string | number = new Date(value.selectedTimeStamp).getFullYear();
+                            let loopMonth: string | number = new Date(value.selectedTimeStamp).getMonth() + 1;
+                            let loopDate: string | number = new Date(value.selectedTimeStamp).getDate();
 
-                                let nextLoopString = nextLoopYear.toString() + "-" + nextLoopMonth.toString() + "-" + loopDate.toString();
-                                value.selectedTimeStamp = new Date(nextLoopString).getTime();
-                                break;
+                            let nextLoopYear: string | number = loopYear;
+                            let nextLoopMonth: string | number = loopMonth + 1;
+                            if (loopMonth === 12) {
+                                nextLoopYear += 1;
+                                nextLoopMonth = 1;
                             }
-                            case "每年": {
-                                let nextLoopYear: string | number = new Date(value.selectedTimeStamp).getFullYear() + 1;
-                                let loopMonth: string | number = new Date(value.selectedTimeStamp).getMonth() + 1;
-                                let loopDate: string | number = new Date(value.selectedTimeStamp).getDate();
 
-                                nextLoopYear = nextLoopYear.toString();
-                                loopMonth = loopMonth < 10 ? ("0" + loopMonth) : loopMonth.toString();
-                                loopDate = loopDate < 10 ? ("0" + loopDate) : loopDate.toString();
+                            nextLoopYear = nextLoopYear.toString();
+                            nextLoopMonth = nextLoopMonth < 10 ? ("0" + nextLoopMonth) : nextLoopMonth.toString();
+                            loopDate = loopDate < 10 ? ("0" + loopDate) : loopDate.toString();
 
-                                let nextLoopString = nextLoopYear.toString() + "-" + loopMonth.toString() + "-" + loopDate.toString();
-                                value.selectedTimeStamp = new Date(nextLoopString).getTime();
-                                break;
-                            }
+                            let nextLoopString = nextLoopYear.toString() + "-" + nextLoopMonth.toString() + "-" + loopDate.toString();
+                            value.selectedTimeStamp = new Date(nextLoopString).getTime();
+                            break;
+                        }
+                        case "每年": {
+                            let nextLoopYear: string | number = new Date(value.selectedTimeStamp).getFullYear() + 1;
+                            let loopMonth: string | number = new Date(value.selectedTimeStamp).getMonth() + 1;
+                            let loopDate: string | number = new Date(value.selectedTimeStamp).getDate();
+
+                            nextLoopYear = nextLoopYear.toString();
+                            loopMonth = loopMonth < 10 ? ("0" + loopMonth) : loopMonth.toString();
+                            loopDate = loopDate < 10 ? ("0" + loopDate) : loopDate.toString();
+
+                            let nextLoopString = nextLoopYear.toString() + "-" + loopMonth.toString() + "-" + loopDate.toString();
+                            value.selectedTimeStamp = new Date(nextLoopString).getTime();
+                            break;
                         }
                     }
                 }
@@ -202,18 +220,21 @@ function DailyComponent(props: any) {
         }
 
         setDailyList(tempDailyList);
+        setNotification(tempNotification);
     }, [props.preferenceData.buttonShape, props.preferenceData.simpleMode])
 
 
     const popoverTitle = (
         <Row align={"middle"}>
-            <Col span={10}>
+            <Col span={8}>
                 <Text className={"poemFont"} style={{color: getFontColor(props.minorColor)}}>
                     {"倒数日 " + dailyList.length + " / " + dailyMaxSize}
                 </Text>
             </Col>
-            <Col span={14} style={{textAlign: "right"}}>
+            <Col span={16} style={{textAlign: "right"}}>
                 <Space>
+                    <Switch checkedChildren="已开启" unCheckedChildren="已关闭" id={"dailyNotificationSwitch"} className={"poemFont"}
+                            checked={notification} onChange={notificationSwitchOnChange}/>
                     <Button type={"text"} shape={props.preferenceData.buttonShape} icon={<PlusOutlined/>}
                             onMouseOver={(e) => btnMouseOver(props.majorColor, e)}
                             onMouseOut={(e) => btnMouseOut(props.minorColor, e)}
