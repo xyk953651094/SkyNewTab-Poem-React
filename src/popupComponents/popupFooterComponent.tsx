@@ -22,9 +22,9 @@ function PopupFooterComponent(props: any) {
             </Button>
             <Button type={"text"} shape={props.preferenceData.buttonShape} icon={<WechatOutlined />}
                     href={"https://github.com/xyk953651094/xyk953651094/assets/28004442/fd605f5c-d2ca-43eb-ae16-86d17d5f6fb1/"} target={"_blank"}
-                    onMouseOver={(e) => btnMouseOver(props.majorColor, e)}
-                    onMouseOut={(e) => btnMouseOut(props.minorColor, e)}
-                    style={{color: getFontColor(props.minorColor)}} className={"poemFont"}>
+                    onMouseOver={(e) => btnMouseOver(props.minorColor, e)}
+                    onMouseOut={(e) => btnMouseOut(props.majorColor, e)}
+                    style={{color: getFontColor(props.majorColor)}} className={"poemFont"}>
                 公众号
             </Button>
             <Button type={"text"} shape={props.preferenceData.buttonShape} icon={<i className="bi bi-rss-fill"></i>}
