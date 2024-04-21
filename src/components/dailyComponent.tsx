@@ -301,7 +301,7 @@ function DailyComponent(props: any) {
         <Row>
             <Popover title={popoverTitle} content={popoverContent} placement={"bottomRight"}
                      color={props.minorColor}
-                     overlayStyle={{width: "650px"}}>
+                     overlayStyle={{width: "600px"}}>
                 <Button type={"text"} shape={props.preferenceData.buttonShape} icon={<CalendarOutlined/>} size={"large"}
                         id={"dailyBtn"}
                         className={"componentTheme poemFont"}
