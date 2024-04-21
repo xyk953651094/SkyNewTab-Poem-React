@@ -1,5 +1,20 @@
 import React, {useEffect, useState} from "react";
-import {Button, Col, Form, Input, List, message, Modal, Popover, Rate, Row, Select, Space, Typography} from "antd";
+import {
+    Button,
+    Col,
+    Form,
+    Input,
+    List,
+    message,
+    Modal,
+    Popover,
+    Rate,
+    Row,
+    Select,
+    Space,
+    Switch,
+    Typography
+} from "antd";
 import {CheckOutlined, CheckSquareOutlined, PlusOutlined, TagOutlined} from "@ant-design/icons";
 import {btnMouseOut, btnMouseOver, getFontColor} from "../typescripts/publicFunctions";
 
@@ -12,12 +27,18 @@ function TodoComponent(props: any) {
     const [tag, setTag] = useState("工作");
     const [priority, setPriority] = useState("★");
     const [buttonShape, setButtonShape] = useState<"circle" | "default" | "round" | undefined>("round");
+    const [notification, setNotification] = useState(false);
     const [inputValue, setInputValue] = useState("");
     const todoMaxSize = 10;
 
     function finishAllBtnOnClick() {
         setTodoList([]);
         localStorage.removeItem("todos");
+    }
+
+    function notificationSwitchOnChange(checked: boolean) {
+        setNotification(checked);
+        localStorage.setItem("todoNotification", checked.toString());
     }
 
     function showAddModalBtnOnClick() {
@@ -116,21 +137,37 @@ function TodoComponent(props: any) {
         setDisplay(props.preferenceData.simpleMode ? "none" : "block");
         setButtonShape(props.preferenceData.buttonShape === "round" ? "circle" : "default");
 
+        let tempNotification = false;
+        let notificationStorage = localStorage.getItem("todoNotification");
+        if (notificationStorage) {
+            tempNotification = JSON.parse(notificationStorage);
+        } else {
+            localStorage.setItem("todoNotification", JSON.stringify(false));
+        }
+
         let tempTodoListStorage = localStorage.getItem("todos");
         if (tempTodoListStorage) {
             setTodoList(JSON.parse(tempTodoListStorage));
+
+            if (tempNotification) {
+                message.warning("剩余 " + JSON.parse(tempTodoListStorage).length + " 个待办事项未处理");
+            }
         }
+
+        setNotification(tempNotification);
     }, [props.preferenceData.buttonShape, props.preferenceData.simpleMode])
 
     const popoverTitle = (
         <Row align={"middle"}>
-            <Col span={10}>
+            <Col span={8}>
                 <Text className={"poemFont"} style={{color: getFontColor(props.minorColor)}}>
                     {"待办事项 " + todoList.length + " / " + todoMaxSize}
                 </Text>
             </Col>
-            <Col span={14} style={{textAlign: "right"}}>
+            <Col span={16} style={{textAlign: "right"}}>
                 <Space>
+                    <Switch checkedChildren="已提醒" unCheckedChildren="不提醒" id={"todoNotificationSwitch"} className={"poemFont"}
+                            checked={notification} onChange={notificationSwitchOnChange}/>
                     <Button type={"text"} shape={props.preferenceData.buttonShape} icon={<PlusOutlined/>}
                             onMouseOver={(e) => btnMouseOver(props.majorColor, e)}
                             onMouseOut={(e) => btnMouseOut(props.minorColor, e)}
