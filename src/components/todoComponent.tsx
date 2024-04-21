@@ -166,7 +166,7 @@ function TodoComponent(props: any) {
             </Col>
             <Col span={16} style={{textAlign: "right"}}>
                 <Space>
-                    <Switch checkedChildren="已开启" unCheckedChildren="已关闭" id={"todoNotificationSwitch"} className={"poemFont"}
+                    <Switch checkedChildren="已提醒" unCheckedChildren="不提醒" id={"todoNotificationSwitch"} className={"poemFont"}
                             checked={notification} onChange={notificationSwitchOnChange}/>
                     <Button type={"text"} shape={props.preferenceData.buttonShape} icon={<PlusOutlined/>}
                             onMouseOver={(e) => btnMouseOver(props.majorColor, e)}
