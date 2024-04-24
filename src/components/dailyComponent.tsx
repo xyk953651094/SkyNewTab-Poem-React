@@ -22,6 +22,7 @@ function DailyComponent(props: any) {
     function removeAllBtnOnClick() {
         setDailyList([]);
         localStorage.removeItem("daily");
+        message.success("删除成功");
     }
 
     function removeBtnOnClick(item: any) {
@@ -43,6 +44,7 @@ function DailyComponent(props: any) {
 
         setDailyList(tempDailyList);
         localStorage.setItem("daily", JSON.stringify(tempDailyList));
+        message.success("删除成功");
     }
 
     function notificationSwitchOnChange(checked: boolean) {

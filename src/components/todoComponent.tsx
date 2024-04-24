@@ -34,6 +34,7 @@ function TodoComponent(props: any) {
     function finishAllBtnOnClick() {
         setTodoList([]);
         localStorage.removeItem("todos");
+        message.success("全部完成");
     }
 
     function notificationSwitchOnChange(checked: boolean) {
@@ -102,6 +103,7 @@ function TodoComponent(props: any) {
 
         setTodoList(tempTodoList);
         localStorage.setItem("todos", JSON.stringify(tempTodoList));
+        message.success("已完成");
     }
 
     function selectOnChange(value: string) {

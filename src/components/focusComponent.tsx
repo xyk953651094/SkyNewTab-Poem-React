@@ -23,12 +23,12 @@ function FocusComponent(props: any) {
     const browserType = getBrowserType();
 
     function setExtensionStorage(key: string, value: any) {
-        if (["Chrome", "Edge"].indexOf(browserType) !== -1) {
-            chrome.storage.local.set({[key]: value});
-        }
-        else if (["Firefox", "Safari"].indexOf(browserType) !== -1) {
-            browser.storage.local.set({[key]: value});
-        }
+        // if (["Chrome", "Edge"].indexOf(browserType) !== -1) {
+        //     chrome.storage.local.set({[key]: value});
+        // }
+        // else if (["Firefox", "Safari"].indexOf(browserType) !== -1) {
+        //     browser.storage.local.set({[key]: value});
+        // }
     }
 
     function focusModeSwitchOnChange(checked: boolean) {
@@ -67,6 +67,7 @@ function FocusComponent(props: any) {
         setFilterList([]);
         localStorage.removeItem("filterList");
         setExtensionStorage("filterList", []);
+        message.success("删除成功");
     }
 
     function removeBtnOnClick(item: any) {
@@ -85,6 +86,7 @@ function FocusComponent(props: any) {
         setFilterList(tempFilterList);
         localStorage.setItem("filterList", JSON.stringify(tempFilterList));
         setExtensionStorage("filterList", tempFilterList);
+        message.success("删除成功");
     }
 
     function showAddModalBtnOnClick() {
