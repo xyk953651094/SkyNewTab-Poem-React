@@ -89,7 +89,8 @@ function App() {
         let bodyEle = $("body");
         bodyEle.bind("DOMNodeInserted", () => {
             // 通用
-            $(".ant-list-header, .ant-list-item").css({"borderBlockEndColor": getFontColor(minorColor), "padding": "6px 0"});
+            $(".ant-list-header, .ant-list-item").css("borderBlockEndColor", getFontColor(minorColor));
+            $(".ant-list-header, .ant-list-item, .ant-list-footer").css("padding", "6px 0");
             $(".ant-list-item-meta-title").css("color", getFontColor(minorColor));
             $(".ant-list-item-meta-description").css("color", getFontColor(minorColor));
             $(".ant-list-item-action").css("marginInlineStart", "0");
