@@ -350,7 +350,7 @@ function SearchComponent(props: any) {
                         </List.Item>
                     )}
                     footer={
-                        <Text className={"poemFont"} style={{color: getFontColor(props.minorColor)}}>
+                        <Text className={"poemFont"} style={{color: getFontColor(props.minorColor), display: linkList.length > 0 ? "inline-block" : "none"}}>
                             {"在输入框中修改内容后按回车生效"}
                         </Text>
                     }

@@ -348,12 +348,10 @@ function FocusComponent(props: any) {
                             disabled={focusMode}
                             options={[
                                 {value: "manual", label: "手动结束"},
-                                {value: "900000", label: "15 分钟后"},
                                 {value: "1800000", label: "30 分钟后"},
                                 {value: "2700000", label: "45 分钟后"},
                                 {value: "3600000", label: "60 分钟后"},
                                 {value: "5400000", label: "90 分钟后"},
-                                {value: "7200000", label: "120 分钟后"},
                             ]}
                     />
                     <Button type={"text"} shape={props.preferenceData.buttonShape}
