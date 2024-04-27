@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react";
 import {DatePickerProps, Select, Switch} from 'antd';
 import dayjs from 'dayjs';
 import {Button, Col, DatePicker, Form, Input, List, message, Modal, Popover, Row, Space, Typography} from "antd";
-import {CalendarOutlined, ClockCircleOutlined, DeleteOutlined, PlusOutlined} from "@ant-design/icons";
+import {CalendarOutlined, ClockCircleOutlined, DeleteOutlined, PlusOutlined, ReloadOutlined} from "@ant-design/icons";
 import {btnMouseOut, btnMouseOver, getFontColor, getTimeDetails, isEmpty} from "../typescripts/publicFunctions";
 
 const {Text} = Typography;
@@ -283,7 +283,7 @@ function DailyComponent(props: any) {
                                 {item.title}
                             </Button>
                         </Col>
-                        <Col span={15}>
+                        <Col span={11}>
                             <Button type={"text"} shape={props.preferenceData.buttonShape} icon={<ClockCircleOutlined/>}
                                     onMouseOver={(e) => btnMouseOver(props.majorColor, e)}
                                     onMouseOut={(e) => btnMouseOut(props.minorColor, e)}
@@ -291,9 +291,17 @@ function DailyComponent(props: any) {
                                     style={{color: getFontColor(props.minorColor), cursor: "default"}}>
                                 {
                                     getTimeDetails(new Date(item.selectedTimeStamp)).showDate4 + " ｜ " +
-                                    getDailyDescription(item.selectedTimeStamp) +
-                                    (isEmpty(item.loop) ? "" : " · " + item.loop)
+                                    getDailyDescription(item.selectedTimeStamp)
                                 }
+                            </Button>
+                        </Col>
+                        <Col span={4}>
+                            <Button type={"text"} shape={props.preferenceData.buttonShape} icon={<ReloadOutlined/>}
+                                    onMouseOver={(e) => btnMouseOver(props.majorColor, e)}
+                                    onMouseOut={(e) => btnMouseOut(props.minorColor, e)}
+                                    className={"poemFont"}
+                                    style={{color: getFontColor(props.minorColor), cursor: "default", display: isEmpty(item.loop) ? "none" : "block"}}>
+                                {isEmpty(item.loop) ? "" : item.loop}
                             </Button>
                         </Col>
                     </Row>
@@ -306,7 +314,7 @@ function DailyComponent(props: any) {
         <Row>
             <Popover title={popoverTitle} content={popoverContent} placement={"bottomRight"}
                      color={props.minorColor}
-                     overlayStyle={{width: "600px"}}>
+                     overlayStyle={{width: "650px"}}>
                 <Button type={"text"} shape={props.preferenceData.buttonShape} icon={<CalendarOutlined/>} size={"large"}
                         id={"dailyBtn"}
                         className={"componentTheme poemFont"}

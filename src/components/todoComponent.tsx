@@ -227,22 +227,22 @@ function TodoComponent(props: any) {
                                 {item.title}
                             </Button>
                         </Col>
-                        <Col span={5}>
-                            <Button type={"text"} shape={props.preferenceData.buttonShape} icon={<ClockCircleOutlined/>}
-                                    onMouseOver={(e) => btnMouseOver(props.majorColor, e)}
-                                    onMouseOut={(e) => btnMouseOut(props.minorColor, e)}
-                                    className={"poemFont"}
-                                    style={{color: getFontColor(props.minorColor), cursor: "default"}}>
-                                {isEmpty(item.time) ? "未设置" : item.time}
-                            </Button>
-                        </Col>
-                        <Col span={10}>
+                        <Col span={9}>
                             <Button type={"text"} shape={props.preferenceData.buttonShape} icon={<TagOutlined/>}
                                     onMouseOver={(e) => btnMouseOver(props.majorColor, e)}
                                     onMouseOut={(e) => btnMouseOut(props.minorColor, e)}
                                     className={"poemFont"}
                                     style={{color: getFontColor(props.minorColor), cursor: "default"}}>
                                 {item.tag + " ｜ " + item.priority}
+                            </Button>
+                        </Col>
+                        <Col span={6}>
+                            <Button type={"text"} shape={props.preferenceData.buttonShape} icon={<ClockCircleOutlined/>}
+                                    onMouseOver={(e) => btnMouseOver(props.majorColor, e)}
+                                    onMouseOut={(e) => btnMouseOut(props.minorColor, e)}
+                                    className={"poemFont"}
+                                    style={{color: getFontColor(props.minorColor), cursor: "default", display: isEmpty(item.time) ? "none" : "block"}}>
+                                {isEmpty(item.time) ? "" : item.time}
                             </Button>
                         </Col>
                     </Row>
