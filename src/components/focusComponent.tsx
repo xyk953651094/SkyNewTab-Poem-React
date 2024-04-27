@@ -39,6 +39,10 @@ function FocusComponent(props: any) {
         let tempFocusEndTime: string;
         let tempFocusEndTimeStamp: number;
         if (checked) {
+            if (filterList.length === 0) {
+                message.warning("请添加黑名单");
+            }
+
             if (focusPeriod === "manual") {
                 tempFocusEndTime = "手动结束";
                 tempFocusEndTimeStamp = 0;

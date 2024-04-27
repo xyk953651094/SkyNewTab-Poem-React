@@ -50,6 +50,9 @@ function DailyComponent(props: any) {
     function notificationSwitchOnChange(checked: boolean) {
         setNotification(checked);
         localStorage.setItem("dailyNotification", JSON.stringify(checked));
+        if (dailyList.length === 0) {
+            message.warning("请添加倒数日");
+        }
     }
 
     function showAddModalBtnOnClick() {
@@ -271,7 +274,7 @@ function DailyComponent(props: any) {
                     ]}
                 >
                     <Row style={{width: "100%"}}>
-                        <Col span={10}>
+                        <Col span={9}>
                             <Button type={"text"} shape={props.preferenceData.buttonShape} icon={<CalendarOutlined/>}
                                     onMouseOver={(e) => btnMouseOver(props.majorColor, e)}
                                     onMouseOut={(e) => btnMouseOut(props.minorColor, e)}
@@ -280,7 +283,7 @@ function DailyComponent(props: any) {
                                 {item.title}
                             </Button>
                         </Col>
-                        <Col span={14}>
+                        <Col span={15}>
                             <Button type={"text"} shape={props.preferenceData.buttonShape} icon={<ClockCircleOutlined/>}
                                     onMouseOver={(e) => btnMouseOver(props.majorColor, e)}
                                     onMouseOut={(e) => btnMouseOut(props.minorColor, e)}
