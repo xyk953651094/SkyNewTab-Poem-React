@@ -283,7 +283,7 @@ function DailyComponent(props: any) {
                                 {item.title}
                             </Button>
                         </Col>
-                        <Col span={11}>
+                        <Col span={15}>
                             <Button type={"text"} shape={props.preferenceData.buttonShape} icon={<ClockCircleOutlined/>}
                                     onMouseOver={(e) => btnMouseOver(props.majorColor, e)}
                                     onMouseOut={(e) => btnMouseOut(props.minorColor, e)}
@@ -291,17 +291,9 @@ function DailyComponent(props: any) {
                                     style={{color: getFontColor(props.minorColor), cursor: "default"}}>
                                 {
                                     getTimeDetails(new Date(item.selectedTimeStamp)).showDate4 + " ｜ " +
-                                    getDailyDescription(item.selectedTimeStamp)
+                                    getDailyDescription(item.selectedTimeStamp) +
+                                    (isEmpty(item.loop) ? "" : " · " + item.loop)
                                 }
-                            </Button>
-                        </Col>
-                        <Col span={4}>
-                            <Button type={"text"} shape={props.preferenceData.buttonShape} icon={<ReloadOutlined/>}
-                                    onMouseOver={(e) => btnMouseOver(props.majorColor, e)}
-                                    onMouseOut={(e) => btnMouseOut(props.minorColor, e)}
-                                    className={"poemFont"}
-                                    style={{color: getFontColor(props.minorColor), cursor: "default", display: isEmpty(item.loop) ? "none" : "block"}}>
-                                {isEmpty(item.loop) ? "" : item.loop}
                             </Button>
                         </Col>
                     </Row>
@@ -314,7 +306,7 @@ function DailyComponent(props: any) {
         <Row>
             <Popover title={popoverTitle} content={popoverContent} placement={"bottomRight"}
                      color={props.minorColor}
-                     overlayStyle={{width: "650px"}}>
+                     overlayStyle={{width: "600px"}}>
                 <Button type={"text"} shape={props.preferenceData.buttonShape} icon={<CalendarOutlined/>} size={"large"}
                         id={"dailyBtn"}
                         className={"componentTheme poemFont"}
