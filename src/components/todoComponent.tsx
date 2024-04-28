@@ -12,12 +12,11 @@ import {
     Row,
     Select,
     Space,
-    Switch, TimePicker, TimePickerProps,
+    Switch,
     Typography
 } from "antd";
-import {CheckOutlined, CheckSquareOutlined, PlusOutlined, TagOutlined, ClockCircleOutlined} from "@ant-design/icons";
-import {btnMouseOut, btnMouseOver, getFontColor, isEmpty} from "../typescripts/publicFunctions";
-import dayjs from "dayjs";
+import {CheckOutlined, CheckSquareOutlined, PlusOutlined, TagOutlined} from "@ant-design/icons";
+import {btnMouseOut, btnMouseOver, getFontColor} from "../typescripts/publicFunctions";
 
 const {Text} = Typography;
 
@@ -25,7 +24,6 @@ function TodoComponent(props: any) {
     const [display, setDisplay] = useState("block");
     const [displayModal, setDisplayModal] = useState(false);
     const [todoList, setTodoList] = useState<any[]>([]);
-    const [selectedTodoTime, setSelectedTodoTime] = useState("");
     const [tag, setTag] = useState("工作");
     const [priority, setPriority] = useState("★");
     const [buttonShape, setButtonShape] = useState<"circle" | "default" | "round" | undefined>("round");
@@ -68,7 +66,6 @@ function TodoComponent(props: any) {
             tempTodoList.push({
                 "title": inputValue,
                 "tag": tag,
-                "time": selectedTodoTime,
                 "priority": priority,
                 "timeStamp": Date.now()
             });
@@ -137,14 +134,6 @@ function TodoComponent(props: any) {
         setTag(tempTag);
     }
 
-    const timePickerOnChange: TimePickerProps['onChange'] = (time, timeString) => {
-        if (timeString && typeof timeString === "string") {
-            setSelectedTodoTime(timeString);
-        } else {
-            setSelectedTodoTime("");
-        }
-    };
-
     function rateOnChange(value: number) {
         setPriority("★".repeat(value));
     }
@@ -212,13 +201,13 @@ function TodoComponent(props: any) {
                         <Button type={"text"} shape={buttonShape} icon={<CheckOutlined/>}
                                 onMouseOver={(e) => btnMouseOver(props.majorColor, e)}
                                 onMouseOut={(e) => btnMouseOut(props.minorColor, e)}
-                                onClick={(event) => finishBtnOnClick(item)}
+                                onClick={(e) => finishBtnOnClick(item)}
                                 className={"poemFont"}
                                 style={{color: getFontColor(props.minorColor)}}/>
                     ]}
                 >
                     <Row style={{width: "100%"}}>
-                        <Col span={9}>
+                        <Col span={14}>
                             <Button type={"text"} shape={props.preferenceData.buttonShape} icon={<CheckSquareOutlined/>}
                                     onMouseOver={(e) => btnMouseOver(props.majorColor, e)}
                                     onMouseOut={(e) => btnMouseOut(props.minorColor, e)}
@@ -227,22 +216,13 @@ function TodoComponent(props: any) {
                                 {item.title}
                             </Button>
                         </Col>
-                        <Col span={9}>
+                        <Col span={10}>
                             <Button type={"text"} shape={props.preferenceData.buttonShape} icon={<TagOutlined/>}
                                     onMouseOver={(e) => btnMouseOver(props.majorColor, e)}
                                     onMouseOut={(e) => btnMouseOut(props.minorColor, e)}
                                     className={"poemFont"}
                                     style={{color: getFontColor(props.minorColor), cursor: "default"}}>
                                 {item.tag + " ｜ " + item.priority}
-                            </Button>
-                        </Col>
-                        <Col span={6}>
-                            <Button type={"text"} shape={props.preferenceData.buttonShape} icon={<ClockCircleOutlined/>}
-                                    onMouseOver={(e) => btnMouseOver(props.majorColor, e)}
-                                    onMouseOut={(e) => btnMouseOut(props.minorColor, e)}
-                                    className={"poemFont"}
-                                    style={{color: getFontColor(props.minorColor), cursor: "default", display: isEmpty(item.time) ? "none" : "block"}}>
-                                {isEmpty(item.time) ? "" : item.time}
                             </Button>
                         </Col>
                     </Row>
@@ -280,7 +260,7 @@ function TodoComponent(props: any) {
                 <Form>
                     <Form.Item label={"待办事项"} name={"todoInput"}>
                         <Input className={"poemFont"} id={"todoInput"} placeholder="请输入待办内容"
-                               value={inputValue} onChange={inputOnChange} maxLength={10} showCount allowClear/>
+                               value={inputValue} onChange={inputOnChange} maxLength={15} showCount allowClear/>
                     </Form.Item>
                     <Form.Item label={"标签分类"} name={"todoSelect"} initialValue={"work"}>
                         <Select
@@ -294,12 +274,6 @@ function TodoComponent(props: any) {
                                 {value: 'other', label: '其它'},
                             ]}
                         />
-                    </Form.Item>
-                    <Form.Item label={"截止时间"} name={"todoTime"}>
-                        <TimePicker format={"HH:mm"} minuteStep={5}
-                                    defaultOpenValue={dayjs("09:00", "HH:mm")}
-                                    onChange={timePickerOnChange}
-                                    placeholder={"可选，注意插件并不会通知截止时间"} className={"poemFont"} style={{width: "100%"}}/>
                     </Form.Item>
                     <Form.Item label={"优先级别"} name={"todoRate"} initialValue={1}>
                         <Rate onChange={rateOnChange} style={{
