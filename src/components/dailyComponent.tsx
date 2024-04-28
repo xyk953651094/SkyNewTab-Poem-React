@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react";
 import {DatePickerProps, Select, Switch} from 'antd';
 import dayjs from 'dayjs';
 import {Button, Col, DatePicker, Form, Input, List, message, Modal, Popover, Row, Space, Typography} from "antd";
-import {CalendarOutlined, ClockCircleOutlined, DeleteOutlined, PlusOutlined} from "@ant-design/icons";
+import {CalendarOutlined, ClockCircleOutlined, DeleteOutlined, PlusOutlined, ReloadOutlined} from "@ant-design/icons";
 import {btnMouseOut, btnMouseOver, getFontColor, getTimeDetails, isEmpty} from "../typescripts/publicFunctions";
 
 const {Text} = Typography;
@@ -22,6 +22,7 @@ function DailyComponent(props: any) {
     function removeAllBtnOnClick() {
         setDailyList([]);
         localStorage.removeItem("daily");
+        message.success("删除成功");
     }
 
     function removeBtnOnClick(item: any) {
@@ -43,11 +44,15 @@ function DailyComponent(props: any) {
 
         setDailyList(tempDailyList);
         localStorage.setItem("daily", JSON.stringify(tempDailyList));
+        message.success("删除成功");
     }
 
     function notificationSwitchOnChange(checked: boolean) {
         setNotification(checked);
         localStorage.setItem("dailyNotification", JSON.stringify(checked));
+        if (dailyList.length === 0) {
+            message.warning("请添加倒数日");
+        }
     }
 
     function showAddModalBtnOnClick() {
@@ -269,7 +274,7 @@ function DailyComponent(props: any) {
                     ]}
                 >
                     <Row style={{width: "100%"}}>
-                        <Col span={10}>
+                        <Col span={9}>
                             <Button type={"text"} shape={props.preferenceData.buttonShape} icon={<CalendarOutlined/>}
                                     onMouseOver={(e) => btnMouseOver(props.majorColor, e)}
                                     onMouseOut={(e) => btnMouseOut(props.minorColor, e)}
@@ -278,7 +283,7 @@ function DailyComponent(props: any) {
                                 {item.title}
                             </Button>
                         </Col>
-                        <Col span={14}>
+                        <Col span={15}>
                             <Button type={"text"} shape={props.preferenceData.buttonShape} icon={<ClockCircleOutlined/>}
                                     onMouseOver={(e) => btnMouseOver(props.majorColor, e)}
                                     onMouseOut={(e) => btnMouseOut(props.minorColor, e)}

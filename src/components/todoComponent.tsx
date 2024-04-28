@@ -34,11 +34,15 @@ function TodoComponent(props: any) {
     function finishAllBtnOnClick() {
         setTodoList([]);
         localStorage.removeItem("todos");
+        message.success("全部完成");
     }
 
     function notificationSwitchOnChange(checked: boolean) {
         setNotification(checked);
         localStorage.setItem("todoNotification", checked.toString());
+        if (todoList.length === 0) {
+            message.warning("请添加待办事项");
+        }
     }
 
     function showAddModalBtnOnClick() {
@@ -102,6 +106,7 @@ function TodoComponent(props: any) {
 
         setTodoList(tempTodoList);
         localStorage.setItem("todos", JSON.stringify(tempTodoList));
+        message.success("已完成");
     }
 
     function selectOnChange(value: string) {
@@ -149,7 +154,7 @@ function TodoComponent(props: any) {
         if (tempTodoListStorage) {
             setTodoList(JSON.parse(tempTodoListStorage));
 
-            if (tempNotification) {
+            if (tempNotification  && JSON.parse(tempTodoListStorage).length > 0) {
                 message.warning("剩余 " + JSON.parse(tempTodoListStorage).length + " 个待办事项未处理");
             }
         }
@@ -196,13 +201,13 @@ function TodoComponent(props: any) {
                         <Button type={"text"} shape={buttonShape} icon={<CheckOutlined/>}
                                 onMouseOver={(e) => btnMouseOver(props.majorColor, e)}
                                 onMouseOut={(e) => btnMouseOut(props.minorColor, e)}
-                                onClick={(event) => finishBtnOnClick(item)}
+                                onClick={(e) => finishBtnOnClick(item)}
                                 className={"poemFont"}
                                 style={{color: getFontColor(props.minorColor)}}/>
                     ]}
                 >
                     <Row style={{width: "100%"}}>
-                        <Col span={12}>
+                        <Col span={14}>
                             <Button type={"text"} shape={props.preferenceData.buttonShape} icon={<CheckSquareOutlined/>}
                                     onMouseOver={(e) => btnMouseOver(props.majorColor, e)}
                                     onMouseOut={(e) => btnMouseOut(props.minorColor, e)}
@@ -211,7 +216,7 @@ function TodoComponent(props: any) {
                                 {item.title}
                             </Button>
                         </Col>
-                        <Col span={12}>
+                        <Col span={10}>
                             <Button type={"text"} shape={props.preferenceData.buttonShape} icon={<TagOutlined/>}
                                     onMouseOver={(e) => btnMouseOver(props.majorColor, e)}
                                     onMouseOut={(e) => btnMouseOut(props.minorColor, e)}
@@ -230,7 +235,7 @@ function TodoComponent(props: any) {
         <Row>
             <Popover title={popoverTitle} content={popoverContent} placement="bottomRight"
                      color={props.minorColor}
-                     overlayStyle={{width: "550px"}}>
+                     overlayStyle={{width: "600px"}}>
                 <Button type={"text"} shape={props.preferenceData.buttonShape} icon={<CheckSquareOutlined/>}
                         size={"large"}
                         id={"todoBtn"}
@@ -250,12 +255,12 @@ function TodoComponent(props: any) {
                    open={displayModal} onOk={modalOkBtnOnClick}
                    onCancel={modalCancelBtnOnClick}
                    destroyOnClose={true}
-                    styles={{mask: {backdropFilter: "blur(10px)", WebkitBackdropFilter: "blur(10px)"}}}
+                   styles={{mask: {backdropFilter: "blur(10px)", WebkitBackdropFilter: "blur(10px)"}}}
             >
                 <Form>
                     <Form.Item label={"待办事项"} name={"todoInput"}>
                         <Input className={"poemFont"} id={"todoInput"} placeholder="请输入待办内容"
-                               value={inputValue} onChange={inputOnChange} maxLength={10} showCount allowClear/>
+                               value={inputValue} onChange={inputOnChange} maxLength={15} showCount allowClear/>
                     </Form.Item>
                     <Form.Item label={"标签分类"} name={"todoSelect"} initialValue={"work"}>
                         <Select

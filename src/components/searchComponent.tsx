@@ -33,6 +33,7 @@ function SearchComponent(props: any) {
     function removeAllBtnOnClick() {
         setLinkList([]);
         localStorage.removeItem("linkList");
+        message.success("删除成功");
     }
 
     function removeBtnOnClick(item: any) {
@@ -50,6 +51,7 @@ function SearchComponent(props: any) {
 
         setLinkList(tempLinkList);
         localStorage.setItem("linkList", JSON.stringify(tempLinkList));
+        message.success("删除成功");
     }
 
     function linkBtnOnClick(item: any) {
@@ -121,6 +123,56 @@ function SearchComponent(props: any) {
 
     function addModalCancelBtnOnClick() {
         setDisplayAddModal(false);
+    }
+
+    function editNameInputOnPressEnter(item: any, e: any) {
+        if (e.target.value.length > 0) {
+            let tempLinkList = linkList;
+
+            let index = -1;
+            for (let i = 0; i < tempLinkList.length; i++) {
+                if (item.timeStamp === tempLinkList[i].timeStamp) {
+                    index = i;
+                    break;
+                }
+            }
+            if (index !== -1) {
+                tempLinkList[index].linkName = e.target.value;
+
+                localStorage.setItem("linkList", JSON.stringify(tempLinkList));
+                setLinkList(tempLinkList);
+                message.success("修改成功");
+            } else {
+                message.error("修改失败");
+            }
+        } else {
+            message.warning("链接名称不能为空");
+        }
+    }
+
+    function editUrlInputOnPressEnter(item: any, e: any) {
+        if (e.target.value.length > 0) {
+            let tempLinkList = linkList;
+
+            let index = -1;
+            for (let i = 0; i < tempLinkList.length; i++) {
+                if (item.timeStamp === tempLinkList[i].timeStamp) {
+                    index = i;
+                    break;
+                }
+            }
+            if (index !== -1) {
+                tempLinkList[index].linkUrl = e.target.value;
+
+                localStorage.setItem("linkList", JSON.stringify(tempLinkList));
+                setLinkList(tempLinkList);
+                message.success("修改成功");
+            } else {
+                message.error("修改失败");
+            }
+        } else {
+            message.warning("链接地址不能为空");
+        }
     }
 
     function editModalOkBtnOnClick() {
@@ -277,6 +329,7 @@ function SearchComponent(props: any) {
                    closeIcon={false} centered
                    open={displayEditModal} onOk={editModalOkBtnOnClick}
                    onCancel={editModalCancelBtnOnClick}
+                   destroyOnClose={true}
                    styles={{mask: {backdropFilter: "blur(10px)", WebkitBackdropFilter: "blur(10px)"}}}
             >
                 <List
@@ -290,28 +343,17 @@ function SearchComponent(props: any) {
                                     className={"poemFont"} style={{color: getFontColor(props.minorColor)}}>
                             </Button>
                         ]}>
-                            <Row style={{width: "100%"}}>
-                                <Col span={8}>
-                                    <Button type={"text"} shape={props.preferenceData.buttonShape}
-                                            icon={<PushpinOutlined/>}
-                                            onMouseOver={(e) => btnMouseOver(props.majorColor, e)}
-                                            onMouseOut={(e) => btnMouseOut(props.minorColor, e)}
-                                            className={"poemFont"} style={{color: getFontColor(props.minorColor), cursor: "default"}}>
-                                        {item.linkName}
-                                    </Button>
-                                </Col>
-                                <Col span={16}>
-                                    <Button type={"text"} shape={props.preferenceData.buttonShape}
-                                            icon={<LinkOutlined/>}
-                                            onMouseOver={(e) => btnMouseOver(props.majorColor, e)}
-                                            onMouseOut={(e) => btnMouseOut(props.minorColor, e)}
-                                            className={"poemFont"} style={{color: getFontColor(props.minorColor), cursor: "default"}}>
-                                        {item.linkUrl.length < 30 ? item.linkUrl : item.linkUrl.substring(0, 30) + "..."}
-                                    </Button>
-                                </Col>
-                            </Row>
+                            <Space>
+                                <Input className={"poemFont"} id={"editNameInput"} style={{width: "150px"}} defaultValue={item.linkName} onPressEnter={(e) => editNameInputOnPressEnter(item, e)} maxLength={5} allowClear showCount/>
+                                <Input className={"poemFont"} id={"editUrlInput"} style={{width: "250px"}} defaultValue={item.linkUrl} onPressEnter={(e) => editUrlInputOnPressEnter(item, e)} allowClear/>
+                            </Space>
                         </List.Item>
                     )}
+                    footer={
+                        <Text className={"poemFont"} style={{color: getFontColor(props.minorColor), display: linkList.length > 0 ? "inline-block" : "none"}}>
+                            {"在输入框中修改内容后按回车生效"}
+                        </Text>
+                    }
                 />
             </Modal>
         </>
