@@ -18,7 +18,7 @@ function PoemComponent(props: any) {
     const [displayModal, setDisplayModal] = useState(false);
     const [searchEngineUrl, setSearchEngineUrl] = useState("https://www.bing.com/search?q=");
     const [poemContent, setPoemContent] = useState("海上生明月，天涯共此时。");
-    const [poemAuthor, setPoemAuthor] = useState("【唐】张九龄 ·《望月怀远》");
+    const [poemAuthor, setPoemAuthor] = useState("【张九龄】《望月怀远》");
     const [customPoem, setCustomPoem] = useState(false);
     const [customContentInputValue, setCustomContentInputValue] = useState("");
     const [customAuthorInputValue, setCustomAuthorInputValue] = useState("");
