@@ -2,6 +2,7 @@
 
 ## 简介
 * 在新标签页随机展示不同的中国诗词，并提供日历、天气、倒数日、待办事项、专注模式、白噪音、快捷链接等实用功能
+* 功能太多？也支持极简模式隐藏所有功能
 * 基于 Html + TypeScript + Sass + React + Webpack + Ant Design + Bootstrap Icon  
 * 支持语言：简体中文
 * 所需权限：tabs、storage
