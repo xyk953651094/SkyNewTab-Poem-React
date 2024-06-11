@@ -167,7 +167,7 @@ function DailyComponent(props: any) {
                 let todayTimeStamp = new Date(getTimeDetails(new Date()).showDate5).getTime();
 
                 // 倒数日通知
-                if (tempNotification && value.selectedTimeStamp === todayTimeStamp) {
+                if (tempNotification && value.selectedTimeStamp === todayTimeStamp && !props.preferenceData.simpleMode) {
                     message.info("今日" + value.title);
                 }
 

@@ -3,6 +3,15 @@ import {PreferenceDataInterface} from "./publicInterface";
 
 export const lightThemeArray: ({ majorColor: string; minorColor: string; svgColors: string[]; }[]) = [
     {
+        'majorColor': '#CCD0CF', 'minorColor': '#06141B',
+        'svgColors': ['#11212D', '#253745', '#4A5C6A']
+    },
+    {
+        'majorColor': '#FBE4DB', 'minorColor': '#190019',
+        'svgColors': ['#DFB6B2', '#554F6C', '#522B5B']
+    },
+
+    {
         'majorColor': '#F2E6CE', 'minorColor': '#6E8B74',
         'svgColors': ['#C0C7AF', '#90A897', '#668883']
     },
@@ -45,6 +54,15 @@ export const lightThemeArray: ({ majorColor: string; minorColor: string; svgColo
 ];
 
 export const darkThemeArray: ({ majorColor: string; minorColor: string; svgColors: string[]; }[]) = [
+    {
+        'majorColor': '#06141B', 'minorColor': '#CCD0CF',
+        'svgColors': ['#4A5C6A', '#253745', '#11212D']
+    },
+    {
+        'majorColor': '#190019', 'minorColor': '#FBE4DB',
+        'svgColors': ['#2B124C', '#522B5B', '#554F5C']
+    },
+
     {
         'majorColor': '#6E8B74', 'minorColor': '#F2E6CE',
         'svgColors': ['#597F71', '#47726E', '#3A6469']

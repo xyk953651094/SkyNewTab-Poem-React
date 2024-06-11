@@ -154,7 +154,7 @@ function TodoComponent(props: any) {
         if (tempTodoListStorage) {
             setTodoList(JSON.parse(tempTodoListStorage));
 
-            if (tempNotification  && JSON.parse(tempTodoListStorage).length > 0) {
+            if (tempNotification  && JSON.parse(tempTodoListStorage).length > 0 && !props.preferenceData.simpleMode) {
                 message.warning("剩余 " + JSON.parse(tempTodoListStorage).length + " 个待办事项未处理");
             }
         }
