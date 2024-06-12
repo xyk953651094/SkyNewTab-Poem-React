@@ -76,7 +76,7 @@ function PoemComponent(props: any) {
         setDisplayModal(false);
     }
 
-    function closeCustomPoemBtnOnClick() {
+    function disableCustomPoemBtnOnClick() {
         setDisplayModal(false);
         setCustomPoem(false);
         localStorage.setItem("customPoem", JSON.stringify(false));
@@ -236,7 +236,7 @@ function PoemComponent(props: any) {
                        <Button type={"text"} shape={props.preferenceData.buttonShape} key={"closeCustomPoem"}
                                onMouseOver={(e) => btnMouseOver(props.majorColor, e)}
                                onMouseOut={(e) => btnMouseOut(props.minorColor, e)}
-                               onClick={closeCustomPoemBtnOnClick}
+                               onClick={disableCustomPoemBtnOnClick}
                                className={"poemFont"}
                                style={{color: getFontColor(props.minorColor), display: customPoem ? "inline-block" : "none"}} >
                            {"关闭自定诗词"}

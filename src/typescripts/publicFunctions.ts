@@ -161,8 +161,11 @@ export function getObjectClassName() {
     return chinaObject[index];
 }
 
-// 随机显示多彩颜色主题
-export function setColorTheme() {
+// 设置颜色主题
+export function setTheme() {
+    let tempTheme;
+
+    // 随机颜色主题
     let currentHour = parseInt(getTimeDetails(new Date()).hour);
     let themeArray = lightThemeArray;
     if (currentHour > 18 || currentHour < 6) {  // 夜间显示深色背景
@@ -170,14 +173,29 @@ export function setColorTheme() {
     }
 
     let randomNum = Math.floor(Math.random() * themeArray.length);
-    let body = document.getElementsByTagName("body")[0];
-    body.style.backgroundColor = themeArray[randomNum].majorColor;    // 设置body背景颜色
+    tempTheme = themeArray[randomNum];
 
-    return {
-        "majorColor": themeArray[randomNum].majorColor,
-        "minorColor": themeArray[randomNum].minorColor,
-        "svgColors": themeArray[randomNum].svgColors,
-    };  // 返回各组件背景颜色
+    // 自定颜色主题
+    let customThemeState = false;
+    let customThemeStateStorage = localStorage.getItem("customThemeState");
+    if (customThemeStateStorage) {
+        customThemeState = JSON.parse(customThemeStateStorage);
+        if (customThemeState) {
+            let themeStorage = localStorage.getItem("theme");
+            if (themeStorage) {
+                tempTheme = JSON.parse(themeStorage);
+            }
+        }
+    }
+
+    // 存储颜色主题，供 popupComponent 使用
+    localStorage.setItem("theme", JSON.stringify(tempTheme));
+
+    // 设置body背景颜色
+    let body = document.getElementsByTagName("body")[0];
+    body.style.backgroundColor = tempTheme.majorColor;
+
+    return tempTheme;
 }
 
 // 根据图片背景颜色获取元素反色效果

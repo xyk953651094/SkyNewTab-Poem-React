@@ -77,6 +77,7 @@ function MenuComponent(props: any) {
                     <MenuPreferenceComponent
                         majorColor={props.majorColor}
                         minorColor={props.minorColor}
+                        svgColors={props.svgColors}
                         getPreferenceData={props.getPreferenceData}
                     />
                     <MenuInfoComponent

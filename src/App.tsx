@@ -17,19 +17,19 @@ import {
     getFontColor,
     getHolidayDataStorage,
     getPreferenceDataStorage, resetRadioColor, resetSwitchColor,
-    setColorTheme
+    setTheme
 } from "./typescripts/publicFunctions";
 import {PreferenceDataInterface} from "./typescripts/publicInterface";
 import {poemTopics} from "./typescripts/publicConstants";
 import $ from "jquery";
 
 const {Header, Content, Footer} = Layout;
-const themeArray = setColorTheme();
+const theme = setTheme();
 
 function App() {
-    const [majorColor] = useState(themeArray.majorColor);
-    const [minorColor] = useState(themeArray.minorColor);
-    const [svgColors] = useState(themeArray.svgColors);
+    const [majorColor] = useState(theme.majorColor);
+    const [minorColor] = useState(theme.minorColor);
+    const [svgColors] = useState(theme.svgColors);
     const [preferenceData, setPreferenceData] = useState(getPreferenceDataStorage());
     const [holidayData, setHolidayData] = useState(getHolidayDataStorage());
 
@@ -42,9 +42,6 @@ function App() {
     }
 
     useEffect(() => {
-        // 随机颜色主题
-        localStorage.setItem("themeArray", JSON.stringify(themeArray));
-
         // 版本号提醒
         let storageVersion = localStorage.getItem("SkyNewTabPoemReactVersion");
         let currentVersion = require('../package.json').version;
@@ -247,6 +244,7 @@ function App() {
                             <MenuComponent
                                 majorColor={majorColor}
                                 minorColor={minorColor}
+                                svgColors={svgColors}
                                 preferenceData={preferenceData}
                                 getPreferenceData={getPreferenceData}
                             />
@@ -256,6 +254,7 @@ function App() {
                         <MenuComponent
                             majorColor={majorColor}
                             minorColor={minorColor}
+                            svgColors={svgColors}
                             preferenceData={preferenceData}
                             getPreferenceData={getPreferenceData}
                         />

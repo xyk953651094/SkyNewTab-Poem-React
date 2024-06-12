@@ -7,7 +7,7 @@ import PopupWindowComponent from "../popupComponents/popupWindowComponent";
 import PopupObjectComponent from "../popupComponents/popupObjectComponent";
 import PopupStatusComponent from "../popupComponents/popupStatusComponent";
 import PopupHeaderComponent from "../popupComponents/popupHeaderComponent";
-import {getFontColor, getPreferenceDataStorage, setColorTheme} from "../typescripts/publicFunctions";
+import {getFontColor, getPreferenceDataStorage, setTheme} from "../typescripts/publicFunctions";
 
 const {Header, Content, Footer} = Layout;
 const $ = require("jquery")
@@ -19,17 +19,17 @@ function PopupComponent() {
 
     useEffect(() => {
         // 设置颜色主题
-        let themeArray;
-        let tempThemeArray = localStorage.getItem("themeArray");
-        if (tempThemeArray) {
-            themeArray = JSON.parse(tempThemeArray);
+        let tempTheme;
+        let tempThemeStorage = localStorage.getItem("theme");
+        if (tempThemeStorage) {
+            tempTheme = JSON.parse(tempThemeStorage);
             let bodyEle = $("body");
-            bodyEle.css("backgroundColor", themeArray.majorColor + " !important");
+            bodyEle.css("backgroundColor", tempTheme.majorColor + " !important");
         } else {
-            themeArray = setColorTheme();
+            tempTheme = setTheme();
         }
-        setMajorColor(themeArray.majorColor);
-        setMinorColor(themeArray.minorColor);
+        setMajorColor(tempTheme.majorColor);
+        setMinorColor(tempTheme.minorColor);
     }, [])
 
     return (

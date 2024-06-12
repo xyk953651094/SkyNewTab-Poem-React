@@ -10,10 +10,9 @@ import {
     RadioChangeEvent,
     Row,
     Space,
-    Switch, Typography, Select, Upload
+    Switch, Typography, Select, Upload, ColorPicker
 } from "antd";
-import type { UploadProps } from 'antd';
-import {RedoOutlined, SettingOutlined, ImportOutlined, ExportOutlined} from "@ant-design/icons";
+import {BgColorsOutlined, RedoOutlined, SettingOutlined, ImportOutlined, ExportOutlined} from "@ant-design/icons";
 import {
     btnMouseOut,
     btnMouseOver,
@@ -23,11 +22,20 @@ import {
 import {PreferenceDataInterface} from "../typescripts/publicInterface";
 import {defaultPreferenceData, device} from "../typescripts/publicConstants";
 import {RcFile} from "antd/es/upload";
+import type { ColorPickerProps, GetProp } from 'antd';
+type Color = GetProp<ColorPickerProps, 'value'>;
 
 const {Text} = Typography;
 
 function MenuPreferenceComponent(props: any) {
     const [formDisabled, setFormDisabled] = useState(false);
+    const [displayCustomThemeModal, setDisplayCustomThemeModal] = useState(false);
+    const [customThemeState, setCustomThemeState] = useState(false);
+    const [customMajorColor, setCustomMajorColor] = useState<Color>(props.majorColor);
+    const [customMinorColor, setCustomMinorColor] = useState<Color>(props.minorColor);
+    const [customSvgColor0, setCustomSvgColor0] = useState<Color>(props.svgColors[0]);
+    const [customSvgColor1, setCustomSvgColor1] = useState<Color>(props.svgColors[1]);
+    const [customSvgColor2, setCustomSvgColor2] = useState<Color>(props.svgColors[2]);
     const [displayResetPreferenceModal, setDisplayResetPreferenceModal] = useState(false);
     const [displayClearStorageModal, setDisplayClearStorageModal] = useState(false);
     const [preferenceData, setPreferenceData] = useState(getPreferenceDataStorage());
@@ -95,6 +103,39 @@ function MenuPreferenceComponent(props: any) {
             return newPreferenceData;
         });
         message.success("已修改切换间隔，一秒后刷新页面");
+        refreshWindow();
+    }
+
+    // 自定颜色
+    function customThemeBtnOnClick() {
+        setDisplayCustomThemeModal(true);
+    }
+
+    function customThemeOkBtnOnClick() {
+        setDisplayCustomThemeModal(false);
+        const customTheme = {
+            majorColor: customMajorColor,
+            minorColor: customMinorColor,
+            svgColors: [customSvgColor0, customSvgColor1, customSvgColor2]
+        }
+
+        setCustomThemeState(true);
+        localStorage.setItem("customThemeState", JSON.stringify(true));
+        localStorage.setItem("theme", JSON.stringify(customTheme));
+        message.success("已启用自定颜色，一秒后刷新页面");
+        refreshWindow();
+    }
+
+    function customThemeCancelBtnOnClick() {
+        setDisplayCustomThemeModal(false);
+    }
+
+    function disableCustomThemeBtnOnClick() {
+        setDisplayCustomThemeModal(false);
+        setCustomThemeState(false);
+        localStorage.setItem("customThemeState", JSON.stringify(false));
+        localStorage.removeItem("theme");
+        message.success("已关闭自定颜色，一秒后刷新页面");
         refreshWindow();
     }
 
@@ -273,6 +314,15 @@ function MenuPreferenceComponent(props: any) {
     }
 
     useEffect(() => {
+        let tempCustomThemeState = false;
+        let customThemeStateStorage = localStorage.getItem("customThemeState");
+        if (customThemeStateStorage) {
+            tempCustomThemeState = JSON.parse(customThemeStateStorage);
+            setCustomThemeState(tempCustomThemeState);
+        } else {
+            localStorage.setItem("customThemeState", JSON.stringify(false));
+        }
+
         let lastPoemRequestTimeStorage = localStorage.getItem("lastPoemRequestTime");
         if (lastPoemRequestTimeStorage !== null) {
             setLastPoemRequestTime(getTimeDetails(new Date(parseInt(lastPoemRequestTimeStorage))).showDetail);
@@ -348,6 +398,17 @@ function MenuPreferenceComponent(props: any) {
                                 ]}
                         />
                     </Form.Item>
+                    <Form.Item name={"customTheme"} label={"自定颜色"} style={{display: ["iPhone", "Android"].indexOf(device) === -1 ? "block" : "none"}}
+                               extra={customThemeState ? "已启用自定义主题颜色" : ""}>
+                        <Button type={"text"} shape={preferenceData.buttonShape} icon={<BgColorsOutlined />}
+                                onMouseOver={(e) => btnMouseOver(props.majorColor, e)}
+                                onMouseOut={(e) => btnMouseOut(props.minorColor, e)}
+                                className={"poemFont"}
+                                onClick={customThemeBtnOnClick}
+                                style={{color: getFontColor(props.minorColor)}}>
+                            自定义插件主题颜色
+                        </Button>
+                    </Form.Item>
                     <Form.Item name={"simpleMode"} label={"极简模式"} valuePropName={"checked"} style={{display: ["iPhone", "Android"].indexOf(device) === -1 ? "block" : "none"}}>
                         <Switch checkedChildren="已开启" unCheckedChildren="已关闭" className={"poemFont"}
                                 id={"simpleModeSwitch"} onChange={simpleModeSwitchOnChange}/>
@@ -398,6 +459,59 @@ function MenuPreferenceComponent(props: any) {
                     </Form.Item>
                 </Form>
             </Card>
+            <Modal title={
+                <Text className={"poemFont"} style={{color: getFontColor(props.minorColor)}}>
+                    {"自定义插件主题颜色"}
+                </Text>
+            }
+                   closeIcon={false}
+                   centered
+                   open={displayCustomThemeModal}
+                   destroyOnClose={true}
+                   styles={{mask: {backdropFilter: "blur(10px)", WebkitBackdropFilter: "blur(10px)"}}}
+                   footer={[
+                       <Button type={"text"} shape={preferenceData.buttonShape} key={"closeCustomPoem"}
+                               onMouseOver={(e) => btnMouseOver(props.majorColor, e)}
+                               onMouseOut={(e) => btnMouseOut(props.minorColor, e)}
+                               onClick={disableCustomThemeBtnOnClick}
+                               className={"poemFont"}
+                               style={{color: getFontColor(props.minorColor), display: customThemeState ? "inline-block" : "none"}} >
+                           {"恢复默认主题颜色"}
+                       </Button>,
+                       <Button type={"text"} shape={preferenceData.buttonShape} key={"modalCancel"}
+                               onMouseOver={(e) => btnMouseOver(props.majorColor, e)}
+                               onMouseOut={(e) => btnMouseOut(props.minorColor, e)}
+                               onClick={customThemeCancelBtnOnClick}
+                               className={"poemFont"}
+                               style={{color: getFontColor(props.minorColor)}} >
+                           {"取消"}
+                       </Button>,
+                       <Button type={"text"} shape={preferenceData.buttonShape} key={"modalOk"}
+                               onMouseOver={(e) => btnMouseOver(props.majorColor, e)}
+                               onMouseOut={(e) => btnMouseOut(props.minorColor, e)}
+                               onClick={customThemeOkBtnOnClick}
+                               className={"poemFont"}
+                               style={{color: getFontColor(props.minorColor)}} >
+                           {"确定"}
+                       </Button>
+                   ]}
+            >
+                <Form>
+                    <Form.Item label={"主要颜色"} name={"mainColor"} extra={"影响背景颜色与按钮颜色"}>
+                        <Space>
+                            <ColorPicker value={customMajorColor} onChange={(value: Color, hex: string) => setCustomMajorColor(hex)} className={"poemFont"} showText disabledAlpha/>
+                            <ColorPicker value={customMinorColor} onChange={(value: Color, hex: string) => setCustomMinorColor(hex)} className={"poemFont"} showText disabledAlpha/>
+                        </Space>
+                    </Form.Item>
+                    <Form.Item label={"SVG颜色"} name={"svgColor"} extra={"影响左上角月亮与底部波浪"}>
+                        <Space>
+                            <ColorPicker value={customSvgColor0} onChange={(value: Color, hex: string) => setCustomSvgColor0(hex)} className={"poemFont"} showText disabledAlpha/>
+                            <ColorPicker value={customSvgColor1} onChange={(value: Color, hex: string) => setCustomSvgColor1(hex)} className={"poemFont"} showText disabledAlpha/>
+                            <ColorPicker value={customSvgColor2} onChange={(value: Color, hex: string) => setCustomSvgColor2(hex)} className={"poemFont"} showText disabledAlpha/>
+                        </Space>
+                    </Form.Item>
+                </Form>
+            </Modal>
             <Modal title={
                 <Text className={"poemFont"} style={{color: getFontColor(props.minorColor)}}>
                     {"确定重置设置？"}
