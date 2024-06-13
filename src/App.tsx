@@ -268,7 +268,6 @@ function App() {
                         <ClockComponent
                             minorColor={minorColor}
                             holidayData={holidayData}
-                            preferenceData={preferenceData}
                         />
                     </Col>
                     <Col span={24}>

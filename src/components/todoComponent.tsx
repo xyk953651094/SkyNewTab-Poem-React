@@ -250,7 +250,19 @@ function TodoComponent(props: any) {
                     {todoList.length + " 个"}
                 </Button>
             </Popover>
-            <Modal title={"添加待办事项 " + todoList.length + " / " + todoMaxSize} closeIcon={false}
+            <Modal title={
+                <Row align={"middle"}>
+                    <Col span={12}>
+                        <Text className={"poemFont"} style={{color: getFontColor(props.minorColor)}}>
+                            {"添加待办事项 " + todoList.length + " / " + todoMaxSize}
+                        </Text>
+                    </Col>
+                    <Col span={12} style={{textAlign: "right"}}>
+                        <CheckSquareOutlined/>
+                    </Col>
+                </Row>
+            }
+                   closeIcon={false}
                    centered
                    open={displayModal} onOk={modalOkBtnOnClick}
                    onCancel={modalCancelBtnOnClick}

@@ -267,7 +267,7 @@ function MenuPreferenceComponent(props: any) {
     }
 
     function resetPreferenceOkBtnOnClick() {
-        setDisplayResetPreferenceModal(true);
+        setDisplayResetPreferenceModal(false);
         localStorage.setItem("preferenceData", JSON.stringify(defaultPreferenceData));
         localStorage.setItem("resetTimeStamp", JSON.stringify(new Date().getTime()));
         message.success("已重置设置，一秒后刷新页面");
@@ -290,7 +290,7 @@ function MenuPreferenceComponent(props: any) {
     }
 
     function clearStorageOkBtnOnClick() {
-        setDisplayClearStorageModal(true);
+        setDisplayClearStorageModal(false);
         localStorage.clear();
         localStorage.setItem("resetTimeStamp", JSON.stringify(new Date().getTime()));
         message.success("已重置插件，一秒后刷新页面");
@@ -299,7 +299,7 @@ function MenuPreferenceComponent(props: any) {
     }
 
     function clearStorageCancelBtnOnClick() {
-        setDisplayClearStorageModal(true);
+        setDisplayClearStorageModal(false);
     }
 
     // 修改偏好设置
@@ -460,9 +460,16 @@ function MenuPreferenceComponent(props: any) {
                 </Form>
             </Card>
             <Modal title={
-                <Text className={"poemFont"} style={{color: getFontColor(props.minorColor)}}>
-                    {"自定义插件主题颜色"}
-                </Text>
+                <Row align={"middle"}>
+                    <Col span={12}>
+                        <Text className={"poemFont"} style={{color: getFontColor(props.minorColor)}}>
+                            {"自定义插件主题颜色"}
+                        </Text>
+                    </Col>
+                    <Col span={12} style={{textAlign: "right"}}>
+                        <BgColorsOutlined />
+                    </Col>
+                </Row>
             }
                    closeIcon={false}
                    centered
@@ -513,9 +520,16 @@ function MenuPreferenceComponent(props: any) {
                 </Form>
             </Modal>
             <Modal title={
-                <Text className={"poemFont"} style={{color: getFontColor(props.minorColor)}}>
-                    {"确定重置设置？"}
-                </Text>
+                <Row align={"middle"}>
+                    <Col span={12}>
+                        <Text className={"poemFont"} style={{color: getFontColor(props.minorColor)}}>
+                            {"确定重置设置？"}
+                        </Text>
+                    </Col>
+                    <Col span={12} style={{textAlign: "right"}}>
+                        <RedoOutlined/>
+                    </Col>
+                </Row>
             }
                    closeIcon={false}
                    centered
@@ -530,9 +544,16 @@ function MenuPreferenceComponent(props: any) {
                 </Text>
             </Modal>
             <Modal title={
-                <Text className={"poemFont"} style={{color: getFontColor(props.minorColor)}}>
-                    {"确定重置插件？"}
-                </Text>
+                <Row align={"middle"}>
+                    <Col span={12}>
+                        <Text className={"poemFont"} style={{color: getFontColor(props.minorColor)}}>
+                            {"确定重置插件？"}
+                        </Text>
+                    </Col>
+                    <Col span={12} style={{textAlign: "right"}}>
+                        <RedoOutlined/>
+                    </Col>
+                </Row>
             }
                    closeIcon={false}
                    centered

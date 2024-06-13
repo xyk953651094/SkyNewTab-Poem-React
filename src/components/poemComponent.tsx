@@ -9,6 +9,7 @@ import {
     getSearchEngineDetail,
     httpRequest
 } from "../typescripts/publicFunctions";
+import {EditOutlined} from "@ant-design/icons";
 
 const poemRequest = require('jinrishici');
 const {Text} = Typography;
@@ -226,7 +227,18 @@ function PoemComponent(props: any) {
                     </Col>
                 </Space>
             </Row>
-            <Modal title={"自定诗词"}
+            <Modal title={
+                <Row align={"middle"}>
+                    <Col span={12}>
+                        <Text className={"poemFont"} style={{color: getFontColor(props.minorColor)}}>
+                            {"自定诗词"}
+                        </Text>
+                    </Col>
+                    <Col span={12} style={{textAlign: "right"}}>
+                        <EditOutlined />
+                    </Col>
+                </Row>
+            }
                    closeIcon={false}
                    centered
                    open={displayModal}

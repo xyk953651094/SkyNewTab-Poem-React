@@ -290,7 +290,19 @@ function SearchComponent(props: any) {
                         }}
                 />
             </Popover>
-            <Modal title={"添加链接 " + linkList.length + " / " + linkMaxSize} closeIcon={false}
+            <Modal title={
+                <Row align={"middle"}>
+                    <Col span={12}>
+                        <Text className={"poemFont"} style={{color: getFontColor(props.minorColor)}}>
+                            {"添加链接 " + linkList.length + " / " + linkMaxSize}
+                        </Text>
+                    </Col>
+                    <Col span={12} style={{textAlign: "right"}}>
+                        <LinkOutlined />
+                    </Col>
+                </Row>
+            }
+                   closeIcon={false}
                    centered
                    open={displayAddModal} onOk={addModalOkBtnOnClick}
                    onCancel={addModalCancelBtnOnClick}
