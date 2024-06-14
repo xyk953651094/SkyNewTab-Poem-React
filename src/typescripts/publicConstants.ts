@@ -10,6 +10,14 @@ export const lightThemeArray: ({ majorColor: string; minorColor: string; svgColo
         'majorColor': '#FBE4DB', 'minorColor': '#190019',
         'svgColors': ['#DFB6B2', '#554F6C', '#522B5B']
     },
+    {
+        'majorColor': '#FADCD5', 'minorColor': '#765D67',
+        'svgColors': ['#6D3C52', '#4B2138', '#2D222F']
+    },
+    {
+        'majorColor': '#F7CBCA', 'minorColor': '#5D6B6B',
+        'svgColors': ['#DEE7E8', '#DFD9D6', '#C8DBDE']
+    },
 
     {
         'majorColor': '#F2E6CE', 'minorColor': '#6E8B74',
@@ -61,6 +69,22 @@ export const darkThemeArray: ({ majorColor: string; minorColor: string; svgColor
     {
         'majorColor': '#190019', 'minorColor': '#FBE4DB',
         'svgColors': ['#2B124C', '#522B5B', '#554F5C']
+    },
+    {
+        'majorColor': '#2F4644', 'minorColor': '#D6D6D4',
+        'svgColors': ['#9EB6B3', '#808E8C', '#46746F']
+    },
+    {
+        'majorColor': '#D6D6D4', 'minorColor': '#2F4644',
+        'svgColors': ['#9EB6B3', '#808E8C', '#46746F']
+    },
+    {
+        'majorColor': '#5A636A', 'minorColor': '#0D1F23',
+        'svgColors': ['#69818D', '#2D4A53', '#132E35']
+    },
+    {
+        'majorColor': '#6DA5C0', 'minorColor': '#05161A',
+        'svgColors': ['#49B2B8', '#348A91', '#294D61']
     },
 
     {
