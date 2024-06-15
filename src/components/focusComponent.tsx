@@ -4,7 +4,7 @@
 import React, {useEffect, useState} from "react";
 import {Button, Col, Input, List, message, Popover, Row, Space, Switch, Typography, Modal, Form, Select} from 'antd';
 import {btnMouseOut, btnMouseOver, getBrowserType, getFontColor, getTimeDetails} from "../typescripts/publicFunctions";
-import {StopOutlined, DeleteOutlined, LinkOutlined, PlusOutlined} from "@ant-design/icons";
+import {StopOutlined, DeleteOutlined, PlusOutlined} from "@ant-design/icons";
 import focusSoundOne from "../assets/focusSounds/古镇雨滴.mp3";
 import focusSoundTwo from "../assets/focusSounds/松树林小雪.mp3";
 import focusSoundThree from "../assets/focusSounds/漓江水.mp3";
@@ -326,7 +326,7 @@ function FocusComponent(props: any) {
                     ]}
                 >
                     <Button type={"text"} shape={props.preferenceData.buttonShape}
-                            icon={<LinkOutlined />}
+                            icon={<StopOutlined />}
                             onMouseOver={(e) => btnMouseOver(props.majorColor, e)}
                             onMouseOut={(e) => btnMouseOut(props.minorColor, e)}
                             className={"poemFont"}

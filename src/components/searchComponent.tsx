@@ -13,8 +13,8 @@ import {
     Form,
     Modal
 } from "antd";
-import {DeleteOutlined, PlusOutlined, SearchOutlined, EditOutlined, PushpinOutlined, LinkOutlined} from "@ant-design/icons";
-import {btnMouseOut, btnMouseOver, getFontColor, getSearchEngineDetail} from "../typescripts/publicFunctions";
+import {DeleteOutlined, PlusOutlined, SearchOutlined, EditOutlined, LinkOutlined} from "@ant-design/icons";
+import {btnMouseOver, btnMouseOut, getFontColor, getSearchEngineDetail} from "../typescripts/publicFunctions";
 
 const {Text} = Typography;
 
@@ -262,9 +262,11 @@ function SearchComponent(props: any) {
                         linkList.map((item: any) => {
                             return (
                                 <Button type={"text"} shape={props.preferenceData.buttonShape} className={"poemFont"}
+                                        onMouseOver={(e) => btnMouseOver(props.majorColor, e)}
+                                        onMouseOut={(e) => btnMouseOut(props.minorColor, e)}
                                         onClick={(event) => linkBtnOnClick(item)}
                                         key={item.timeStamp}
-                                        style={{color: getFontColor(props.majorColor), backgroundColor: props.majorColor}}>
+                                        style={{color: getFontColor(props.minorColor)}}>
                                     {item.linkName}
                                 </Button>
                             )

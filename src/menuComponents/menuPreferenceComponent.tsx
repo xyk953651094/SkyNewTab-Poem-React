@@ -338,7 +338,7 @@ function MenuPreferenceComponent(props: any) {
                       backgroundColor: props.minorColor,
                       color: getFontColor(props.minorColor),
                       borderBottom: "2px solid " + getFontColor(props.minorColor),
-                      fontFamily: "Times New Roman, cursive, sans-serif"
+                      fontFamily: "Times New Roman, cursive, serif"
                   }}
                   bodyStyle={{backgroundColor: props.minorColor}}
             >
@@ -361,7 +361,8 @@ function MenuPreferenceComponent(props: any) {
                             </Row>
                         </Radio.Group>
                     </Form.Item>
-                    <Form.Item name={"poemTopic"} label={"诗词主题"}>
+                    <Form.Item name={"poemTopic"} label={"诗词主题"}
+                               extra={preferenceData.autoTopic ? "已禁用诗词主题与部分切换间隔" : "已启用诗词主题"}>
                         <Radio.Group buttonStyle={"solid"} style={{width: "100%"}}
                                      disabled={preferenceData.autoTopic} onChange={poemTopicsRadioOnChange}>
                             <Row gutter={[0, 8]}>
@@ -381,7 +382,7 @@ function MenuPreferenceComponent(props: any) {
                         </Radio.Group>
                     </Form.Item>
                     <Form.Item name={"autoTopic"} label={"智能主题"} valuePropName={"checked"}
-                               extra={preferenceData.autoTopic ? "已禁用诗词主题与部分切换间隔" : ""}>
+                               extra={preferenceData.autoTopic ? "已启用智能主题" : "已禁用智能主题"}>
                         <Switch checkedChildren="已开启" unCheckedChildren="已关闭" className={"poemFont"}
                                 id={"autoTopicSwitch"} onChange={autoTopicSwitchOnChange}/>
                     </Form.Item>

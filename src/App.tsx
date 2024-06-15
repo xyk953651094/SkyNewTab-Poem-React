@@ -98,7 +98,7 @@ function App() {
             if (popoverEle.length && popoverEle.length > 0) {
                 $(".ant-popover-title").css({
                     "color": getFontColor(minorColor),
-                    "font-family": "'Times New Roman', cursive, sans-serif",
+                    "font-family": "'Times New Roman', cursive, serif",
                     "font-size": "20px",
                 });
                 $(".ant-switch").find(".ant-switch-inner-checked").css("color", getFontColor(minorColor));
