@@ -2,6 +2,7 @@
 
 ## 简介
 * 在新标签页随机展示不同的中国诗词，并提供日历、天气、倒数日、待办事项、专注模式、白噪音、快捷链接等实用功能
+* 功能太多？也支持极简模式隐藏所有功能
 * 基于 Html + TypeScript + Sass + React + Webpack + Ant Design + Bootstrap Icon  
 * 支持语言：简体中文
 * 所需权限：tabs、storage
@@ -37,14 +38,3 @@
 
 ### Safari for iPad
 ![IMG_47670D08046B-1](https://github.com/xyk953651094/SkyNewTab-React/assets/28004442/78006b54-b864-4dcc-bf9a-9ddd7ee2917b)
-
-## 捐助
-* 如果您喜欢我的作品，请考虑捐助
-* 注意：捐助是自愿且无偿的，但这可以为我提供更大的创作动力
-* 若无意捐助，也可在各插件商店五星好评或者在 Github、GitLab 添加星标支持一下
-* 爱发电：https://afdian.net/a/xyk953651094
-<figure class="half">
-  <img width="200" alt="爱发电" src="https://github.com/xyk953651094/SkyNewTab-React/assets/28004442/7766955b-46fe-490f-aadb-55099ce4f6fc">
-  <img width="200" alt="微信赞赏码" src="https://github.com/xyk953651094/SkyNewTab-React/assets/28004442/6b7c2305-753c-4841-9031-106f39683494">
-  <img width="200" alt="微信公众号" src="https://github.com/xyk953651094/xyk953651094/assets/28004442/fd605f5c-d2ca-43eb-ae16-86d17d5f6fb1">
-</figure>

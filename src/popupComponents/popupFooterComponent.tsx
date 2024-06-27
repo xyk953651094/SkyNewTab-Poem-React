@@ -34,13 +34,6 @@ function PopupFooterComponent(props: any) {
                     style={{color: getFontColor(props.majorColor)}} className={"popupFont"}>
                 博客
             </Button>
-            <Button type={"text"} shape={props.preferenceData.buttonShape} icon={<GiftOutlined/>}
-                    href={"https://afdian.net/a/xyk953651094/"} target={"_blank"}
-                    onMouseOver={(e) => btnMouseOver(props.minorColor, e)}
-                    onMouseOut={(e) => btnMouseOut(props.majorColor, e)}
-                    style={{color: getFontColor(props.majorColor)}} className={"popupFont"}>
-                捐助
-            </Button>
         </Space>
     );
 }

@@ -27,13 +27,6 @@ function MenuHeaderComponent(props: any) {
                             onMouseOut={(e) => btnMouseOut(props.minorColor, e)}
                             className={"poemFont"} style={{color: getFontColor(props.minorColor)}}>
                     </Button>
-                    <Button type={"text"} shape={props.preferenceData.buttonShape} icon={<GiftOutlined/>}
-                            href={"https://afdian.net/a/xyk953651094"} target={"_self"}
-                            onMouseOver={(e) => btnMouseOver(props.majorColor, e)}
-                            onMouseOut={(e) => btnMouseOut(props.minorColor, e)}
-                            className={"poemFont"} style={{color: getFontColor(props.minorColor)}}>
-                        捐助
-                    </Button>
                 </Space>
             </Col>
         </Row>

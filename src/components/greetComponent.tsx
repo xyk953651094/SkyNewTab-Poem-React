@@ -34,10 +34,6 @@ function GreetComponent(props: any) {
     const [suit, setSuit] = useState("暂无信息");
     const [avoid, setAvoid] = useState("暂无信息");
 
-    function historyBtnOnClick() {
-        window.open(searchEngineUrl + "历史上的今天", "_self");
-    }
-
     function infoBtnOnClick() {
         window.open(searchEngineUrl + "万年历", "_self");
     }
@@ -138,27 +134,18 @@ function GreetComponent(props: any) {
                 <Text className={"poemFont"} style={{color: getFontColor(props.minorColor)}}>{"万年历"}</Text>
             </Col>
             <Col span={14} style={{textAlign: "right"}}>
-                <Space>
-                    <Button type={"text"} shape={props.preferenceData.buttonShape} icon={<HistoryOutlined/>}
-                            onClick={historyBtnOnClick}
-                            onMouseOver={(e) => btnMouseOver(props.majorColor, e)}
-                            onMouseOut={(e) => btnMouseOut(props.minorColor, e)}
-                            className={"poemFont"} style={{color: getFontColor(props.minorColor)}}>
-                        {"历史上的今天"}
-                    </Button>
-                    <Button type={"text"} shape={props.preferenceData.buttonShape} icon={<MoreOutlined/>}
-                            onClick={infoBtnOnClick}
-                            onMouseOver={(e) => btnMouseOver(props.majorColor, e)}
-                            onMouseOut={(e) => btnMouseOut(props.minorColor, e)}
-                            className={"poemFont"} style={{color: getFontColor(props.minorColor)}}>
-                        {"更多信息"}
-                    </Button>
-                    {/*<ButtonComponent buttonShape={props.preferenceData.buttonShape} buttonIcon={<MoreOutlined/>}*/}
-                    {/*                 buttonCursor={"pointer"} buttonOnClick={infoBtnOnClick} */}
-                    {/*                 buttonContent={"更多信息"}*/}
-                    {/*                 majorColor={props.majorColor} minorColor={props.minorColor}*/}
-                    {/*/>*/}
-                </Space>
+                <Button type={"text"} shape={props.preferenceData.buttonShape} icon={<MoreOutlined/>}
+                        onClick={infoBtnOnClick}
+                        onMouseOver={(e) => btnMouseOver(props.majorColor, e)}
+                        onMouseOut={(e) => btnMouseOut(props.minorColor, e)}
+                        className={"poemFont"} style={{color: getFontColor(props.minorColor)}}>
+                    {"更多信息"}
+                </Button>
+                {/*<ButtonComponent buttonShape={props.preferenceData.buttonShape} buttonIcon={<MoreOutlined/>}*/}
+                {/*                 buttonCursor={"pointer"} buttonOnClick={infoBtnOnClick} */}
+                {/*                 buttonContent={"更多信息"}*/}
+                {/*                 majorColor={props.majorColor} minorColor={props.minorColor}*/}
+                {/*/>*/}
             </Col>
         </Row>
     );

@@ -12,7 +12,7 @@ function MenuContactComponent(props: any) {
                   backgroundColor: props.minorColor,
                   color: getFontColor(props.minorColor),
                   borderBottom: "2px solid " + getFontColor(props.minorColor),
-                  fontFamily: "Times New Roman, cursive, sans-serif"
+                  fontFamily: "Times New Roman, cursive, serif"
               }}
               bodyStyle={{backgroundColor: props.minorColor}}
         >

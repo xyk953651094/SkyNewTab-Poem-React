@@ -2,7 +2,14 @@ import React, {useEffect, useState} from "react";
 import {DatePickerProps, Select, Switch} from 'antd';
 import dayjs from 'dayjs';
 import {Button, Col, DatePicker, Form, Input, List, message, Modal, Popover, Row, Space, Typography} from "antd";
-import {CalendarOutlined, ClockCircleOutlined, DeleteOutlined, PlusOutlined, ReloadOutlined} from "@ant-design/icons";
+import {
+    CalendarOutlined,
+    ClockCircleOutlined,
+    DeleteOutlined,
+    LinkOutlined,
+    PlusOutlined,
+    ReloadOutlined
+} from "@ant-design/icons";
 import {btnMouseOut, btnMouseOver, getFontColor, getTimeDetails, isEmpty} from "../typescripts/publicFunctions";
 
 const {Text} = Typography;
@@ -167,7 +174,7 @@ function DailyComponent(props: any) {
                 let todayTimeStamp = new Date(getTimeDetails(new Date()).showDate5).getTime();
 
                 // 倒数日通知
-                if (tempNotification && value.selectedTimeStamp === todayTimeStamp) {
+                if (tempNotification && value.selectedTimeStamp === todayTimeStamp && !props.preferenceData.simpleMode) {
                     message.info("今日" + value.title);
                 }
 
@@ -320,7 +327,19 @@ function DailyComponent(props: any) {
                     {dailyList.length + " 个"}
                 </Button>
             </Popover>
-            <Modal title={"添加倒数日 " + dailyList.length + " / " + dailyMaxSize} closeIcon={false}
+            <Modal title={
+                <Row align={"middle"}>
+                    <Col span={12}>
+                        <Text className={"poemFont"} style={{color: getFontColor(props.minorColor)}}>
+                            {"添加倒数日 " + dailyList.length + " / " + dailyMaxSize}
+                        </Text>
+                    </Col>
+                    <Col span={12} style={{textAlign: "right"}}>
+                        <CalendarOutlined/>
+                    </Col>
+                </Row>
+            }
+                   closeIcon={false}
                    centered
                    open={displayModal} onOk={modalOkBtnOnClick}
                    onCancel={modalCancelBtnOnClick}

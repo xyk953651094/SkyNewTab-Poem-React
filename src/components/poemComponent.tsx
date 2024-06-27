@@ -9,6 +9,7 @@ import {
     getSearchEngineDetail,
     httpRequest
 } from "../typescripts/publicFunctions";
+import {EditOutlined} from "@ant-design/icons";
 
 const poemRequest = require('jinrishici');
 const {Text} = Typography;
@@ -18,7 +19,7 @@ function PoemComponent(props: any) {
     const [displayModal, setDisplayModal] = useState(false);
     const [searchEngineUrl, setSearchEngineUrl] = useState("https://www.bing.com/search?q=");
     const [poemContent, setPoemContent] = useState("海上生明月，天涯共此时。");
-    const [poemAuthor, setPoemAuthor] = useState("【唐】张九龄 ·《望月怀远》");
+    const [poemAuthor, setPoemAuthor] = useState("【张九龄】《望月怀远》");
     const [customPoem, setCustomPoem] = useState(false);
     const [customContentInputValue, setCustomContentInputValue] = useState("");
     const [customAuthorInputValue, setCustomAuthorInputValue] = useState("");
@@ -76,7 +77,7 @@ function PoemComponent(props: any) {
         setDisplayModal(false);
     }
 
-    function closeCustomPoemBtnOnClick() {
+    function disableCustomPoemBtnOnClick() {
         setDisplayModal(false);
         setCustomPoem(false);
         localStorage.setItem("customPoem", JSON.stringify(false));
@@ -226,7 +227,18 @@ function PoemComponent(props: any) {
                     </Col>
                 </Space>
             </Row>
-            <Modal title={"自定诗词"}
+            <Modal title={
+                <Row align={"middle"}>
+                    <Col span={12}>
+                        <Text className={"poemFont"} style={{color: getFontColor(props.minorColor)}}>
+                            {"自定诗词"}
+                        </Text>
+                    </Col>
+                    <Col span={12} style={{textAlign: "right"}}>
+                        <EditOutlined />
+                    </Col>
+                </Row>
+            }
                    closeIcon={false}
                    centered
                    open={displayModal}
@@ -236,7 +248,7 @@ function PoemComponent(props: any) {
                        <Button type={"text"} shape={props.preferenceData.buttonShape} key={"closeCustomPoem"}
                                onMouseOver={(e) => btnMouseOver(props.majorColor, e)}
                                onMouseOut={(e) => btnMouseOut(props.minorColor, e)}
-                               onClick={closeCustomPoemBtnOnClick}
+                               onClick={disableCustomPoemBtnOnClick}
                                className={"poemFont"}
                                style={{color: getFontColor(props.minorColor), display: customPoem ? "inline-block" : "none"}} >
                            {"关闭自定诗词"}
