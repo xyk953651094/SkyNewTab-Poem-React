@@ -86,6 +86,7 @@ export function getGreetContent() {
     let hour = new Date().getHours();
 
     const greets = {
+        default: "您好",
         morning: "朝霞满",
         noon: "正当午",
         afternoon: "斜阳下",
@@ -94,7 +95,9 @@ export function getGreetContent() {
         daybreak: "又一宿"
     };
 
-    if (hour >= 0 && hour < 6) {           // 凌晨
+    if (isNaN(hour)) {
+        return greets.default;
+    } else if (hour >= 0 && hour < 6) {           // 凌晨
         return greets.daybreak;
     } else if (hour >= 6 && hour < 11) {   // 上午
         return greets.morning;
@@ -112,7 +115,10 @@ export function getGreetContent() {
 // 获取问候语图标 className
 export function getGreetIcon() {
     let hour = new Date().getHours();
-    if (hour >= 6 && hour < 12) {   // 上午
+
+    if (isNaN(hour)) {
+        return "";
+    } else if (hour >= 6 && hour < 12) {   // 上午
         return "bi bi-sunrise";
     } else if (hour >= 12 && hour < 18) {  // 下午
         return "bi bi-sunset";
@@ -123,25 +129,36 @@ export function getGreetIcon() {
 
 // 获取天气图标className
 export function getWeatherIcon(weatherInfo: string) {
-    if (weatherInfo.indexOf("晴") !== -1) {
-        return "bi bi-sun"
-    } else if (weatherInfo.indexOf("阴") !== -1) {
-        return "bi bi-cloud"
-    } else if (weatherInfo.indexOf("云") !== -1) {
-        return "bi bi-clouds"
-    } else if (weatherInfo.indexOf("雨") !== -1) {
-        return "bi bi-cloud-rain"
-    } else if (weatherInfo.indexOf("雾") !== -1) {
-        return "bi bi-cloud-fog"
-    } else if (weatherInfo.indexOf("霾") !== -1) {
-        return "bi bi-cloud-haze"
-    } else if (weatherInfo.indexOf("雪") !== -1) {
-        return "bi bi-cloud-snow"
-    } else if (weatherInfo.indexOf("雹") !== -1) {
-        return "bi bi-cloud-hail"
-    } else {
-        return ""
+    interface IconMapInterface {
+        "晴": string;
+        "阴": string;
+        "云": string;
+        "雨": string;
+        "雾": string;
+        "霾": string;
+        "雪": string;
+        "雹": string;
+        [key: string]: string; // 添加字符串索引签名
     }
+
+    const iconMap: IconMapInterface = {
+        "晴": "bi bi-sun",
+        "阴": "bi bi-cloud",
+        "云": "bi bi-clouds",
+        "雨": "bi bi-cloud-rain",
+        "雾": "bi bi-cloud-fog",
+        "霾": "bi bi-cloud-haze",
+        "雪": "bi bi-cloud-snow",
+        "雹": "bi bi-cloud-hail",
+    };
+
+    // 构建正则表达式，以匹配映射中的天气情况
+    const regex = new RegExp(Object.keys(iconMap).join("|"));
+    // 在天气信息中寻找匹配的天气情况
+    const match = weatherInfo.match(regex);
+
+    // 如果找到匹配项，返回相应的图标类；否则返回空字符串
+    return match ? iconMap[match[0]] : "";
 }
 
 // 获取中国窗体
@@ -168,6 +185,11 @@ export function setTheme() {
         themeArray = darkThemeArray;
     }
 
+    // 确保 themeArray 是有效的数组
+    if (!themeArray || !Array.isArray(themeArray) || themeArray.length === 0) {
+        throw new Error('Invalid themeArray.');
+    }
+
     let randomNum = Math.floor(Math.random() * themeArray.length);
     tempTheme = themeArray[randomNum];
 
@@ -189,19 +211,23 @@ export function setTheme() {
 
     // 设置body背景颜色
     let body = document.getElementsByTagName("body")[0];
-    body.style.backgroundColor = tempTheme.majorColor;
+    if (body) {
+        body.style.backgroundColor = tempTheme.majorColor;    // 设置body背景颜色
+    } else {
+        console.error('Unable to find the <body> element.');
+    }
 
     return tempTheme;
 }
 
-// 根据图片背景颜色获取元素反色效果
+// 根据背景颜色获取元素反色效果
 export function getReverseColor(color: string) {
     color = "0x" + color.replace("#", '');
     let newColor = "000000" + (0xFFFFFF - parseInt(color)).toString(16);
     return "#" + newColor.substring(newColor.length - 6, newColor.length);
 }
 
-// 根据图片背景颜色改变字体颜色效果
+// 根据背景颜色改变字体颜色效果
 export function getFontColor(color: string) {
     let rgb = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(color);
     if (rgb) {
@@ -255,32 +281,27 @@ export function getSearchEngineDetail(searchEngine: string) {
     let searchEngineName: string;
     let searchEngineValue: string;
     let searchEngineUrl: string;
-    let searchEngineIconUrl: string;
     switch (searchEngine) {
         case "bing":
             searchEngineName = "必应";
             searchEngineValue = "bing";
             searchEngineUrl = "https://www.bing.com/search?q=";
-            searchEngineIconUrl = "https://www.bing.com/favicon.ico";
             break;
         case "google":
             searchEngineName = "谷歌";
             searchEngineValue = "google";
             searchEngineUrl = "https://www.google.com/search?q=";
-            searchEngineIconUrl = "https://www.google.com/favicon.ico";
             break;
         default:
             searchEngineName = "必应";
             searchEngineValue = "bing";
             searchEngineUrl = "https://www.bing.com/search?q=";
-            searchEngineIconUrl = "https://www.bing.com/favicon.ico";
             break;
     }
     return {
         "searchEngineName": searchEngineName,
         "searchEngineValue": searchEngineValue,
         "searchEngineUrl": searchEngineUrl,
-        "searchEngineIconUrl": searchEngineIconUrl
     };
 }
 
