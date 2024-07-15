@@ -222,121 +222,158 @@ export function setTheme() {
 
 // 根据背景颜色获取元素反色效果
 export function getReverseColor(color: string) {
-    color = "0x" + color.replace("#", '');
-    let newColor = "000000" + (0xFFFFFF - parseInt(color)).toString(16);
-    return "#" + newColor.substring(newColor.length - 6, newColor.length);
+    // 验证输入是否为7字符长且以#开头
+    if (!/^#[0-9A-Fa-f]{6}$/.test(color)) {
+        throw new Error("Invalid color format. Expected a 6-digit hexadecimal color code prefixed with '#'.");
+    }
+
+    // 移除#并转换为16进制数，同时处理类型安全
+    const colorValue = Number.parseInt(color.slice(1), 16);
+
+    // 确保colorValue在正确的范围内
+    if (colorValue > 0xFFFFFF) {
+        throw new Error("Color value exceeds the maximum range.");
+    }
+
+    // 计算反色
+    const reverseColorValue = 0xFFFFFF - colorValue;
+
+    // 将计算出的反色值转换为16进制字符串，并确保它以6位数的形式呈现
+    const reverseColorHex = reverseColorValue.toString(16).padStart(6, '0');
+
+    // 返回最终结果，确保结果以#开头
+    return "#" + reverseColorHex;
 }
 
 // 根据背景颜色改变字体颜色效果
 export function getFontColor(color: string) {
     let rgb = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(color);
-    if (rgb) {
-        let r = parseInt(rgb[1], 16);
-        let g = parseInt(rgb[2], 16);
-        let b = parseInt(rgb[3], 16);
-        let gray = Math.round(r * 0.299 + g * 0.587 + b * 0.114);
-        if (gray > 128) {
-            return "#000000";
-        } else {
-            return "#ffffff";
-        }
-    } else {
+
+    if (!rgb) {
         return "#ffffff";
     }
+
+    let r = parseInt(rgb[1], 16);
+    let g = parseInt(rgb[2], 16);
+    let b = parseInt(rgb[3], 16);
+
+    if (isNaN(r) || isNaN(g) || isNaN(b)) {
+        return "#ffffff";
+    }
+
+    let gray = Math.round(r * 0.299 + g * 0.587 + b * 0.114);
+    return gray > 128 ? "#000000" : "#ffffff";
 }
 
 // 判断设备型号
 export function getDevice() {
-    let ua = navigator.userAgent;
-    if (ua.indexOf("iPhone") > -1) {
-        return "iPhone"
-    } else if (ua.indexOf("iPad") > -1) {
-        return "iPad"
-    } else if (ua.indexOf("Android") > -1) {
-        return "Android"
-    } else {
-        return ""
+    const userAgent = navigator.userAgent;
+
+    interface DeviceDetectionInterface {
+        [key: string]: boolean;
     }
+
+    const deviceDetection: DeviceDetectionInterface = {
+        "iPhone": userAgent.includes("iPhone"),
+        "iPad": userAgent.includes("iPad"),
+        "Android": userAgent.includes("Android"),
+    };
+
+    for (const device in deviceDetection) {
+        if (deviceDetection[device]) {
+            return device;
+        }
+    }
+    return "";
 }
 
 export function getBrowserType() {
-    let userAgent = navigator.userAgent;
-    let browser="Other";
-    if (userAgent.indexOf("Chrome") !== -1 && userAgent.indexOf("Safari") !== -1){
-        browser="Chrome";
+    const userAgent = navigator.userAgent;
+
+    interface BrowserDetectionInterface {
+        [key: string]: boolean;
     }
-    else if (userAgent.indexOf("Edge") !== -1){
-        browser="Edge";
+
+    const browserDetection: BrowserDetectionInterface = {
+        "Chrome": userAgent.includes("Chrome") && !userAgent.includes("Safari"),
+        "Edge": userAgent.includes("Edge"),
+        "Firefox": userAgent.includes("Firefox"),
+        "Safari": userAgent.includes("Safari") && !userAgent.includes("Chrome"),
+    };
+
+    for (const browser in browserDetection) {
+        if (browserDetection[browser]) {
+            return browser;
+        }
     }
-    else if (userAgent.indexOf("Firefox") !== -1){
-        browser = "Firefox";
-    }
-    else if (userAgent.indexOf("Safari") !== -1 && userAgent.indexOf("Chrome") === -1){
-        browser="Safari";
-    }
-    return browser;
+    return "Other";
 }
 
 export function getSearchEngineDetail(searchEngine: string) {
-    let searchEngineName: string;
-    let searchEngineValue: string;
-    let searchEngineUrl: string;
-    switch (searchEngine) {
-        case "bing":
-            searchEngineName = "必应";
-            searchEngineValue = "bing";
-            searchEngineUrl = "https://www.bing.com/search?q=";
-            break;
-        case "google":
-            searchEngineName = "谷歌";
-            searchEngineValue = "google";
-            searchEngineUrl = "https://www.google.com/search?q=";
-            break;
-        default:
-            searchEngineName = "必应";
-            searchEngineValue = "bing";
-            searchEngineUrl = "https://www.bing.com/search?q=";
-            break;
+    interface SearchEngineMapInterface {
+        [key: string]: {
+            searchEngineName: string;
+            searchEngineValue: string;
+            searchEngineUrl: string;
+        };
     }
-    return {
-        "searchEngineName": searchEngineName,
-        "searchEngineValue": searchEngineValue,
-        "searchEngineUrl": searchEngineUrl,
+
+    const searchEngineMap: SearchEngineMapInterface = {
+        "bing": {
+            searchEngineName: "必应",
+            searchEngineValue: "bing",
+            searchEngineUrl: "https://www.bing.com/search?q=",
+        },
+        "google": {
+            searchEngineName: "谷歌",
+            searchEngineValue: "google",
+            searchEngineUrl: "https://www.google.com/search?q=",
+        },
     };
+
+    return searchEngineMap[searchEngine] || searchEngineMap.bing;
 }
 
 // 补全设置数据
 export function fixPreferenceData(preferenceData: PreferenceDataInterface) {
     let isFixed = false;
-    if (!preferenceData.poemTopic) {
-        preferenceData.poemTopic = defaultPreferenceData.poemTopic;
-        isFixed = true;
+
+    function setDefaultIfUndefinedOrNull(obj: any, key: string, defaultValue: any) {
+        if (obj[key] === undefined || obj[key] === null) {
+            obj[key] = defaultValue;
+            isFixed = true;
+        }
     }
-    if (!preferenceData.autoTopic) {
-        preferenceData.autoTopic = defaultPreferenceData.autoTopic;
-        isFixed = true;
-    }
-    if (!preferenceData.changePoemTime) {
-        preferenceData.changePoemTime = defaultPreferenceData.changePoemTime;
-        isFixed = true;
-    }
-    if (!preferenceData.searchEngine) {
-        preferenceData.searchEngine = defaultPreferenceData.searchEngine;
-        isFixed = true;
-    }
-    if (!preferenceData.buttonShape) {
-        preferenceData.buttonShape = defaultPreferenceData.buttonShape;
-        isFixed = true;
-    }
-    if (preferenceData.simpleMode === undefined || preferenceData.simpleMode === null) {
-        preferenceData.simpleMode = defaultPreferenceData.simpleMode;
-        isFixed = true;
-    }
+
+    setDefaultIfUndefinedOrNull(preferenceData, 'poemTopic', defaultPreferenceData.poemTopic);
+    setDefaultIfUndefinedOrNull(preferenceData, 'autoTopic', defaultPreferenceData.autoTopic);
+    setDefaultIfUndefinedOrNull(preferenceData, 'changePoemTime', defaultPreferenceData.changePoemTime);
+    setDefaultIfUndefinedOrNull(preferenceData, 'searchEngine', defaultPreferenceData.searchEngine);
+    setDefaultIfUndefinedOrNull(preferenceData, 'buttonShape', defaultPreferenceData.buttonShape);
+    setDefaultIfUndefinedOrNull(preferenceData, 'simpleMode', defaultPreferenceData.simpleMode);
 
     if (isFixed) {
         localStorage.setItem("preferenceData", JSON.stringify(preferenceData));  // 重新保存设置
     }
     return preferenceData;
+}
+
+// 封装对 localStorage 的操作，增加异常处理
+export function getLocalStorageItem(key: string) {
+    try {
+        return localStorage.getItem(key);
+    } catch (error) {
+        console.error("Error reading from localStorage:", error);
+        return null;
+    }
+}
+
+export function setLocalStorageItem(key: string, value: string) {
+    try {
+        localStorage.setItem(key, value);
+    } catch (error) {
+        console.error("Error writing to localStorage:", error);
+    }
 }
 
 export function getPreferenceDataStorage() {
