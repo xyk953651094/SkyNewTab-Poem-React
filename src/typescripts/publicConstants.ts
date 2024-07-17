@@ -187,3 +187,4 @@ export let defaultPreferenceData: PreferenceDataInterface = {
 
 // 常用变量
 export const device = getDevice();  // 获取当前设备类型
+export const colorRegExp = /^#[0-9A-Fa-f]{6}$/;

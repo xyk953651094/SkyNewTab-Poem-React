@@ -1,5 +1,12 @@
 import "jquery-color"
-import {chinaObject, chinaWindow, darkThemeArray, defaultPreferenceData, lightThemeArray} from "./publicConstants";
+import {
+    chinaObject,
+    chinaWindow,
+    colorRegExp,
+    darkThemeArray,
+    defaultPreferenceData,
+    lightThemeArray
+} from "./publicConstants";
 import {PreferenceDataInterface} from "./publicInterface";
 
 import $ from "jquery";
@@ -223,7 +230,7 @@ export function setTheme() {
 // 根据背景颜色获取元素反色效果
 export function getReverseColor(color: string) {
     // 验证输入是否为7字符长且以#开头
-    if (!/^#[0-9A-Fa-f]{6}$/.test(color)) {
+    if (!colorRegExp.test(color)) {
         throw new Error("Invalid color format. Expected a 6-digit hexadecimal color code prefixed with '#'.");
     }
 
@@ -247,7 +254,7 @@ export function getReverseColor(color: string) {
 
 // 根据背景颜色改变字体颜色效果
 export function getFontColor(color: string) {
-    let rgb = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(color);
+    let rgb = /^#([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(color);
 
     if (!rgb) {
         return "#ffffff";
@@ -396,17 +403,33 @@ export function getHolidayDataStorage() {
 }
 
 export function btnMouseOver(color: string, e: any) {
-    e.currentTarget.style.backgroundColor = color;
-    e.currentTarget.style.color = getFontColor(color);
+    if (!colorRegExp.test(color)) {
+        throw new Error("Invalid color format. Expected a 6-digit hexadecimal color code prefixed with '#'.");
+    }
+
+    if (e.currentTarget && (e.currentTarget as HTMLElement).style) {
+        (e.currentTarget as HTMLElement).style.backgroundColor = color;
+        (e.currentTarget as HTMLElement).style.color = getFontColor(color);
+    }
 }
 
 export function btnMouseOut(color: string, e: any) {
-    e.currentTarget.style.backgroundColor = "transparent";
-    e.currentTarget.style.color = getFontColor(color);
+    if (!colorRegExp.test(color)) {
+        throw new Error("Invalid color format. Expected a 6-digit hexadecimal color code prefixed with '#'.");
+    }
+
+    if (e.currentTarget && (e.currentTarget as HTMLElement).style) {
+        (e.currentTarget as HTMLElement).style.backgroundColor = "transparent";
+        (e.currentTarget as HTMLElement).style.color = getFontColor(color);
+    }
 }
 
 // 修改菜单栏表单控件时变化主题颜色
 export function resetRadioColor(selectedRadio: string | undefined, allRadios: string[], themeColor: string) {
+    if (!colorRegExp.test(themeColor)) {
+        throw new Error("Invalid color format. Expected a 6-digit hexadecimal color code prefixed with '#'.");
+    }
+
     // 重置所有不是当前选中的选项的颜色
     for (let i = 0; i < allRadios.length; i++) {
         let currentRadio = $("#" + allRadios[i]);
@@ -422,6 +445,10 @@ export function resetRadioColor(selectedRadio: string | undefined, allRadios: st
 }
 
 export function resetSwitchColor(element: string, checked: boolean, themeColor: string) {
+    if (!colorRegExp.test(themeColor)) {
+        throw new Error("Invalid color format. Expected a 6-digit hexadecimal color code prefixed with '#'.");
+    }
+
     if (!checked) {
         $(element).children(".ant-switch-inner").css("backgroundColor", "rgb(0, 0, 0, 0)");
     }
