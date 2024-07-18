@@ -24,14 +24,19 @@ import {poemTopics} from "./typescripts/publicConstants";
 import $ from "jquery";
 
 const {Header, Content, Footer} = Layout;
-const theme = setTheme();
 
 function App() {
-    const [majorColor] = useState(theme.majorColor);
-    const [minorColor] = useState(theme.minorColor);
-    const [svgColors] = useState(theme.svgColors);
+    const [majorColor, setMajorColor] = useState("#000000");
+    const [minorColor, setMinorColor] = useState("#ffffff");
+    const [svgColors, setSvgColors] = useState(["#ffffff", "#ffffff", "#ffffff"]);
     const [preferenceData, setPreferenceData] = useState(getPreferenceDataStorage());
     const [holidayData, setHolidayData] = useState(getHolidayDataStorage());
+
+    function getTheme(value: any) {
+        setMajorColor(value.majorColor);
+        setMinorColor(value.minorColor);
+        setSvgColors(value.svgColors);
+    }
 
     function getPreferenceData(value: PreferenceDataInterface) {
         setPreferenceData(value);
@@ -42,6 +47,20 @@ function App() {
     }
 
     useEffect(() => {
+        // 获取颜色主题
+        let tempTheme;
+        let tempThemeStorage = localStorage.getItem("theme");
+        if (tempThemeStorage) {
+            tempTheme = JSON.parse(tempThemeStorage);
+            let bodyEle = $("body");
+            bodyEle.css("backgroundColor", tempTheme.majorColor + " !important");
+        } else {
+            tempTheme = setTheme();
+        }
+        setMajorColor(tempTheme.majorColor);
+        setMinorColor(tempTheme.minorColor);
+        setSvgColors(tempTheme.svgColors);
+
         // 版本号提醒
         let storageVersion = localStorage.getItem("SkyNewTabPoemReactVersion");
         let currentVersion = require('../package.json').version;
@@ -275,6 +294,7 @@ function App() {
                             majorColor={majorColor}
                             minorColor={minorColor}
                             preferenceData={preferenceData}
+                            getTheme={getTheme}
                         />
                     </Col>
                 </Row>
