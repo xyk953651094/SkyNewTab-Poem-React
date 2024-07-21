@@ -56,12 +56,18 @@ html, body {
 }
 
 .poemFont {
-    font-family: "Times New Roman", cursive, serif;
-    //font-variant-east-asian: traditional;
+    font-family: "Times New Roman", sans-serif;
+    font-weight: lighter;
 }
 
 #searchInput, #dailyInput, #todoInput, #focusInput, #customContentInput, #customAuthorInput, #linkNameInput, #linkUrlInput, #editNameInput, #editUrlInput {
     font-family: "Times New Roman", cursive, serif;
+    font-weight: lighter;
+}
+
+input::placeholder {
+    font-family: "Times New Roman", cursive, serif;
+    font-weight: lighter;
 }
 
 .largeFont {
@@ -92,10 +98,6 @@ html, body {
     //backdrop-filter: blur(10px);
     //-webkit-backdrop-filter: blur(10px);
     overflow: hidden;
-}
-
-input::placeholder {
-    font-family: "Times New Roman", cursive, serif;
 }
 
 /*桌面端大屏样式*/

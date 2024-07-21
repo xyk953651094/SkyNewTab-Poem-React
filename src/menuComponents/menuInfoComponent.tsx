@@ -1,20 +1,26 @@
 import React from "react";
-import {Button, Card, Col, Row} from "antd";
+import {Button, Card, Col, Row, Typography} from "antd";
 import {GithubOutlined, GitlabOutlined, InfoCircleOutlined} from "@ant-design/icons";
 import {btnMouseOut, btnMouseOver, getFontColor} from "../typescripts/publicFunctions";
 
+const {Text} = Typography;
+
 function MenuInfoComponent(props: any) {
     return (
-        <Card title={"产品信息"} size={"small"}
+        <Card title={<Text className={"poemFont"} style={{color: getFontColor(props.minorColor)}}>{"产品信息"}</Text>}
+              size={"small"}
               extra={<InfoCircleOutlined style={{color: getFontColor(props.minorColor)}}/>}
               style={{border: "1px solid " + getFontColor(props.minorColor)}}
-              headStyle={{
-                  backgroundColor: props.minorColor,
-                  color: getFontColor(props.minorColor),
-                  borderBottom: "2px solid " + getFontColor(props.minorColor),
-                  fontFamily: "Times New Roman, cursive, serif"
+              styles={{
+                  header: {
+                      backgroundColor: props.minorColor,
+                      color: getFontColor(props.minorColor),
+                      borderBottom: "2px solid " + getFontColor(props.minorColor)
+                  },
+                  body: {
+                      backgroundColor: props.minorColor
+                  }
               }}
-              bodyStyle={{backgroundColor: props.minorColor}}
         >
             <Row gutter={[0, 8]}>
                 <Col span="12">

@@ -5,5 +5,8 @@ export interface PreferenceDataInterface {
 
     searchEngine: "bing" | "google",
     simpleMode: boolean,
-    buttonShape: "circle" | "default" | "round" | undefined
+    buttonShape: "circle" | "default" | "round" | undefined,
+
+    fontFamily: "cursive" | "sansSerif",
+    fontVariant: "simplified" | "traditional"
 }

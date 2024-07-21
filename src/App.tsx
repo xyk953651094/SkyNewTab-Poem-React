@@ -16,7 +16,7 @@ import MenuComponent from "./components/menuComponent";
 import {
     getFontColor,
     getHolidayDataStorage,
-    getPreferenceDataStorage, resetRadioColor, resetSwitchColor,
+    getPreferenceDataStorage, resetRadioColor, resetSwitchColor, setFont,
     setTheme
 } from "./typescripts/publicFunctions";
 import {PreferenceDataInterface} from "./typescripts/publicInterface";
@@ -60,6 +60,9 @@ function App() {
         setMajorColor(tempTheme.majorColor);
         setMinorColor(tempTheme.minorColor);
         setSvgColors(tempTheme.svgColors);
+
+        // 设置字体
+        setFont(preferenceData);
 
         // 版本号提醒
         let storageVersion = localStorage.getItem("SkyNewTabPoemReactVersion");
@@ -117,9 +120,8 @@ function App() {
             if (popoverEle.length && popoverEle.length > 0) {
                 $(".ant-popover-title").css({
                     "color": getFontColor(minorColor),
-                    "font-family": "'Times New Roman', cursive, serif",
                     "font-size": "20px",
-                });
+                }).addClass("poemFont");
                 $(".ant-switch").find(".ant-switch-inner-checked").css("color", getFontColor(minorColor));
                 $(".ant-form-item-extra").css("color", getFontColor(minorColor)).addClass("poemFont");
 
@@ -176,6 +178,8 @@ function App() {
                 resetRadioColor(preferenceData.searchEngine, ["bing", "google"], majorColor);
                 resetRadioColor(preferenceData.buttonShape, ["round", "default"], majorColor);
                 resetRadioColor(preferenceData.poemTopic, poemTopics, majorColor);
+                resetRadioColor(preferenceData.fontFamily, ["cursive", "sansSerif"], majorColor);
+                resetRadioColor(preferenceData.fontVariant, ["simplified", "traditional"], majorColor);
                 resetSwitchColor("#autoTopicSwitch", preferenceData.autoTopic, majorColor);
                 resetSwitchColor("#simpleModeSwitch", preferenceData.simpleMode, majorColor);
             }
@@ -206,6 +210,9 @@ function App() {
 
                 $(".ant-select-selection-item").addClass("poemFont");
             }
+
+            // 设置字体
+            setFont(preferenceData);
         });
 
         // const observer = new MutationObserver((mutations) => {
@@ -217,7 +224,7 @@ function App() {
         //     });
         // });
         // observer.observe(document.body, {childList: true});
-    }, [majorColor, minorColor, preferenceData.autoTopic, preferenceData.buttonShape, preferenceData.poemTopic, preferenceData.searchEngine, preferenceData.simpleMode]);
+    }, [majorColor, minorColor, preferenceData, preferenceData.autoTopic, preferenceData.buttonShape, preferenceData.poemTopic, preferenceData.searchEngine, preferenceData.simpleMode]);
 
     return (
         <Layout>
