@@ -460,16 +460,16 @@ export function resetSwitchColor(element: string, checked: boolean, themeColor: 
     }
 }
 
-export function setFont(preferenceData: PreferenceDataInterface) {
+export function setFont(element:  ".poemFont" | ".popupFont", preferenceData: PreferenceDataInterface) {
     if (preferenceData.fontFamily === "cursive") {
-        $(".poemFont").css("font-family", "'Times New Roman', cursive, serif");
+        $(element).css("font-family", "'Times New Roman', cursive, serif");
     } else if (preferenceData.fontFamily === "sansSerif") {
-        $(".poemFont").css("font-family", "sansSerif");
+        $(element).css("font-family", "sansSerif");
     }
 
     if (preferenceData.fontVariant === "simplified") {
-        $(".poemFont").css("font-variant-east-asian", "simplified");
+        $(element).css("font-variant-east-asian", "simplified");
     } else if (preferenceData.fontVariant === "traditional" && preferenceData.fontFamily === "sansSerif") {
-        $(".poemFont").css("font-variant-east-asian", "traditional");
+        $(element).css("font-variant-east-asian", "traditional");
     }
 }

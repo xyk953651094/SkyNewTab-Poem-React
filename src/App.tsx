@@ -62,7 +62,7 @@ function App() {
         setSvgColors(tempTheme.svgColors);
 
         // 设置字体
-        setFont(preferenceData);
+        setFont(".poemFont", preferenceData);
 
         // 版本号提醒
         let storageVersion = localStorage.getItem("SkyNewTabPoemReactVersion");
@@ -212,7 +212,7 @@ function App() {
             }
 
             // 设置字体
-            setFont(preferenceData);
+            setFont(".poemFont", preferenceData);
         });
 
         // const observer = new MutationObserver((mutations) => {
