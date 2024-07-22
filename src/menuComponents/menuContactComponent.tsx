@@ -1,20 +1,25 @@
 import React from "react";
-import {Button, Card, Col, Row} from "antd";
-import {DislikeOutlined, GithubOutlined, GitlabOutlined, LikeOutlined, MailOutlined, WechatOutlined} from "@ant-design/icons";
+import {Button, Card, Col, Row, Typography} from "antd";
+import {DislikeOutlined, GithubOutlined, GitlabOutlined, LikeOutlined, MailOutlined} from "@ant-design/icons";
 import {btnMouseOut, btnMouseOver, getFontColor} from "../typescripts/publicFunctions";
+
+const {Text} = Typography;
 
 function MenuContactComponent(props: any) {
     return (
-        <Card title={"联系作者"} size={"small"}
+        <Card title={<Text className={"poemFont"} style={{color: getFontColor(props.minorColor)}}>{"联系作者"}</Text>} size={"small"}
               extra={<MailOutlined style={{color: getFontColor(props.minorColor)}}/>}
               style={{border: "1px solid " + getFontColor(props.minorColor)}}
-              headStyle={{
-                  backgroundColor: props.minorColor,
-                  color: getFontColor(props.minorColor),
-                  borderBottom: "2px solid " + getFontColor(props.minorColor),
-                  fontFamily: "Times New Roman, cursive, serif"
+              styles={{
+                  header: {
+                      backgroundColor: props.minorColor,
+                      color: getFontColor(props.minorColor),
+                      borderBottom: "2px solid " + getFontColor(props.minorColor)
+                  },
+                  body: {
+                      backgroundColor: props.minorColor
+                  }
               }}
-              bodyStyle={{backgroundColor: props.minorColor}}
         >
             <Row gutter={[0, 8]}>
                 <Col span="12">

@@ -16,7 +16,7 @@ import MenuComponent from "./components/menuComponent";
 import {
     getFontColor,
     getHolidayDataStorage,
-    getPreferenceDataStorage, resetRadioColor, resetSwitchColor,
+    getPreferenceDataStorage, resetRadioColor, resetSwitchColor, setFont,
     setTheme
 } from "./typescripts/publicFunctions";
 import {PreferenceDataInterface} from "./typescripts/publicInterface";
@@ -24,14 +24,19 @@ import {poemTopics} from "./typescripts/publicConstants";
 import $ from "jquery";
 
 const {Header, Content, Footer} = Layout;
-const theme = setTheme();
 
 function App() {
-    const [majorColor] = useState(theme.majorColor);
-    const [minorColor] = useState(theme.minorColor);
-    const [svgColors] = useState(theme.svgColors);
+    const [majorColor, setMajorColor] = useState("#000000");
+    const [minorColor, setMinorColor] = useState("#ffffff");
+    const [svgColors, setSvgColors] = useState(["#ffffff", "#ffffff", "#ffffff"]);
     const [preferenceData, setPreferenceData] = useState(getPreferenceDataStorage());
     const [holidayData, setHolidayData] = useState(getHolidayDataStorage());
+
+    function getTheme(value: any) {
+        setMajorColor(value.majorColor);
+        setMinorColor(value.minorColor);
+        setSvgColors(value.svgColors);
+    }
 
     function getPreferenceData(value: PreferenceDataInterface) {
         setPreferenceData(value);
@@ -42,6 +47,23 @@ function App() {
     }
 
     useEffect(() => {
+        // 获取颜色主题
+        let tempTheme;
+        let tempThemeStorage = localStorage.getItem("theme");
+        if (tempThemeStorage) {
+            tempTheme = JSON.parse(tempThemeStorage);
+            let bodyEle = $("body");
+            bodyEle.css("backgroundColor", tempTheme.majorColor + " !important");
+        } else {
+            tempTheme = setTheme();
+        }
+        setMajorColor(tempTheme.majorColor);
+        setMinorColor(tempTheme.minorColor);
+        setSvgColors(tempTheme.svgColors);
+
+        // 设置字体
+        setFont(preferenceData);
+
         // 版本号提醒
         let storageVersion = localStorage.getItem("SkyNewTabPoemReactVersion");
         let currentVersion = require('../package.json').version;
@@ -49,7 +71,7 @@ function App() {
             notification.open({
                 icon: null,
                 message: "已更新至版本 V" + currentVersion,
-                description: "详细内容请前往 GitHub 或 GitLab 主页查看",
+                description: "详细内容请前往菜单栏更新日志查看",
                 placement: "bottomLeft",
                 duration: 5,
                 closeIcon: false
@@ -60,7 +82,7 @@ function App() {
                 notification.open({
                     icon: null,
                     message: "支持作者",
-                    description: "如果喜欢这款插件，请考虑捐助或五星好评",
+                    description: "如果喜欢这款插件，请考虑五星好评",
                     placement: "bottomLeft",
                     duration: 5,
                     closeIcon: false
@@ -98,9 +120,8 @@ function App() {
             if (popoverEle.length && popoverEle.length > 0) {
                 $(".ant-popover-title").css({
                     "color": getFontColor(minorColor),
-                    "font-family": "'Times New Roman', cursive, serif",
                     "font-size": "20px",
-                });
+                }).addClass("poemFont");
                 $(".ant-switch").find(".ant-switch-inner-checked").css("color", getFontColor(minorColor));
                 $(".ant-form-item-extra").css("color", getFontColor(minorColor)).addClass("poemFont");
 
@@ -157,6 +178,8 @@ function App() {
                 resetRadioColor(preferenceData.searchEngine, ["bing", "google"], majorColor);
                 resetRadioColor(preferenceData.buttonShape, ["round", "default"], majorColor);
                 resetRadioColor(preferenceData.poemTopic, poemTopics, majorColor);
+                resetRadioColor(preferenceData.fontFamily, ["cursive", "sansSerif"], majorColor);
+                resetRadioColor(preferenceData.fontVariant, ["simplified", "traditional"], majorColor);
                 resetSwitchColor("#autoTopicSwitch", preferenceData.autoTopic, majorColor);
                 resetSwitchColor("#simpleModeSwitch", preferenceData.simpleMode, majorColor);
             }
@@ -187,6 +210,9 @@ function App() {
 
                 $(".ant-select-selection-item").addClass("poemFont");
             }
+
+            // 设置字体
+            setFont(preferenceData);
         });
 
         // const observer = new MutationObserver((mutations) => {
@@ -198,7 +224,7 @@ function App() {
         //     });
         // });
         // observer.observe(document.body, {childList: true});
-    }, [majorColor, minorColor, preferenceData.autoTopic, preferenceData.buttonShape, preferenceData.poemTopic, preferenceData.searchEngine, preferenceData.simpleMode]);
+    }, [majorColor, minorColor, preferenceData, preferenceData.autoTopic, preferenceData.buttonShape, preferenceData.poemTopic, preferenceData.searchEngine, preferenceData.simpleMode]);
 
     return (
         <Layout>
@@ -275,6 +301,7 @@ function App() {
                             majorColor={majorColor}
                             minorColor={minorColor}
                             preferenceData={preferenceData}
+                            getTheme={getTheme}
                         />
                     </Col>
                 </Row>

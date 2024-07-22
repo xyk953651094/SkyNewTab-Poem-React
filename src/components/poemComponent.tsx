@@ -7,7 +7,7 @@ import {
     btnMouseOver,
     getFontColor,
     getSearchEngineDetail,
-    httpRequest
+    httpRequest, setTheme
 } from "../typescripts/publicFunctions";
 import {EditOutlined} from "@ant-design/icons";
 
@@ -121,6 +121,11 @@ function PoemComponent(props: any) {
             poemRequest.load((result: any) => {
                 localStorage.setItem("lastPoemRequestTime", String(new Date().getTime()));  // 保存请求时间，防抖节流
                 localStorage.setItem("lastPoem", JSON.stringify(result));                   // 保存请求结果，防抖节流
+
+                // 设置颜色主题
+                const theme = setTheme();
+                props.getTheme(theme);
+
                 setPoem(result);
             }, (errorData: any) => {
                 // 请求失败时使用上一次请求结果
@@ -140,6 +145,11 @@ function PoemComponent(props: any) {
                 .then(function (resultData: any) {
                     localStorage.setItem("lastPoemRequestTime", String(new Date().getTime()));  // 保存请求时间，防抖节流
                     localStorage.setItem("lastPoem", JSON.stringify(resultData));               // 保存请求结果，防抖节流
+
+                    // 设置颜色主题
+                    const theme = setTheme();
+                    props.getTheme(theme);
+
                     setPoem(resultData);
                 })
                 .catch(function () {

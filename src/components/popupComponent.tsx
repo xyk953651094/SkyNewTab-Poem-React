@@ -7,7 +7,7 @@ import PopupWindowComponent from "../popupComponents/popupWindowComponent";
 import PopupObjectComponent from "../popupComponents/popupObjectComponent";
 import PopupStatusComponent from "../popupComponents/popupStatusComponent";
 import PopupHeaderComponent from "../popupComponents/popupHeaderComponent";
-import {getFontColor, getPreferenceDataStorage, setTheme} from "../typescripts/publicFunctions";
+import {getFontColor, getPreferenceDataStorage, setTheme, setFont} from "../typescripts/publicFunctions";
 
 const {Header, Content, Footer} = Layout;
 const $ = require("jquery")
@@ -30,7 +30,10 @@ function PopupComponent() {
         }
         setMajorColor(tempTheme.majorColor);
         setMinorColor(tempTheme.minorColor);
-    }, [])
+
+        // 设置字体
+        setFont(preferenceData);
+    }, [preferenceData])
 
     return (
         <Layout className={"popupLayout"}>

@@ -106,6 +106,38 @@ function MenuPreferenceComponent(props: any) {
         refreshWindow();
     }
 
+    // 字体类型
+    function fontFamilyRadioOnChange(event: RadioChangeEvent) {
+        setPreferenceData((preferenceData: PreferenceDataInterface) => {
+            let newPreferenceData: PreferenceDataInterface;
+            if (event.target.value === "cursive") {
+                newPreferenceData = modifyPreferenceData({fontFamily: event.target.value, fontVariant: "simplified"});
+            } else {
+                newPreferenceData = modifyPreferenceData({fontFamily: event.target.value});
+            }
+            props.getPreferenceData(newPreferenceData);
+            localStorage.setItem("preferenceData", JSON.stringify(newPreferenceData));
+            return newPreferenceData;
+        });
+        message.success("已更换字体类型");
+    }
+
+    // 简繁切换
+    function fontVariantRadioOnChange(event: RadioChangeEvent) {
+        setPreferenceData((preferenceData: PreferenceDataInterface) => {
+            let newPreferenceData = modifyPreferenceData({fontVariant: event.target.value});
+            props.getPreferenceData(newPreferenceData);
+            localStorage.setItem("preferenceData", JSON.stringify(newPreferenceData));
+            return newPreferenceData;
+        });
+        if (event.target.value === "simplified") {
+            message.success("已切换为简体中文");
+        }
+        if (event.target.value === "traditional") {
+            message.success("已切换为繁体中文");
+        }
+    }
+
     // 自定颜色
     function customThemeBtnOnClick() {
         setDisplayCustomThemeModal(true);
@@ -331,16 +363,20 @@ function MenuPreferenceComponent(props: any) {
 
     return (
         <>
-            <Card title={"偏好设置"} size={"small"}
+            <Card title={<Text className={"poemFont"} style={{color: getFontColor(props.minorColor)}}>{"偏好设置"}</Text>}
+                  size={"small"}
                   extra={<SettingOutlined style={{color: getFontColor(props.minorColor)}}/>}
                   style={{border: "1px solid " + getFontColor(props.minorColor)}}
-                  headStyle={{
-                      backgroundColor: props.minorColor,
-                      color: getFontColor(props.minorColor),
-                      borderBottom: "2px solid " + getFontColor(props.minorColor),
-                      fontFamily: "Times New Roman, cursive, serif"
+                  styles={{
+                      header: {
+                          backgroundColor: props.minorColor,
+                          color: getFontColor(props.minorColor),
+                          borderBottom: "2px solid " + getFontColor(props.minorColor)
+                      },
+                      body: {
+                          backgroundColor: props.minorColor
+                      }
                   }}
-                  bodyStyle={{backgroundColor: props.minorColor}}
             >
                 <Form colon={false} initialValues={preferenceData} disabled={formDisabled}>
                     <Form.Item name={"searchEngine"} label={"搜索引擎"} style={{display: ["iPhone", "Android"].indexOf(device) === -1 ? "block" : "none"}}>
@@ -398,6 +434,24 @@ function MenuPreferenceComponent(props: any) {
                                     {value: "86400000", label: "每隔 1 天"},
                                 ]}
                         />
+                    </Form.Item>
+                    <Form.Item name={"fontFamily"} label={"字体类型"}>
+                        <Radio.Group buttonStyle={"solid"} style={{width: "100%"}}
+                                     onChange={fontFamilyRadioOnChange}>
+                            <Row>
+                                <Col span={12}><Radio value={"cursive"} id={"cursive"}>带衬线</Radio></Col>
+                                <Col span={12}><Radio value={"sansSerif"} id={"sansSerif"}>无衬线</Radio></Col>
+                            </Row>
+                        </Radio.Group>
+                    </Form.Item>
+                    <Form.Item name={"fontVariant"} label={"简繁切换"}>
+                        <Radio.Group buttonStyle={"solid"} style={{width: "100%"}}
+                                     onChange={fontVariantRadioOnChange}>
+                            <Row>
+                                <Col span={12}><Radio value={"simplified"} id={"simplified"}>简体中文</Radio></Col>
+                                <Col span={12}><Radio value={"traditional"} id={"traditional"}>繁体中文</Radio></Col>
+                            </Row>
+                        </Radio.Group>
                     </Form.Item>
                     <Form.Item name={"customTheme"} label={"自定颜色"} style={{display: ["iPhone", "Android"].indexOf(device) === -1 ? "block" : "none"}}
                                extra={customThemeState ? "已启用自定义主题颜色" : ""}>
