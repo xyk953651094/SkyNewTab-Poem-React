@@ -17,7 +17,7 @@ function MenuHeaderComponent(props: any) {
                         onMouseOver={(e) => btnMouseOver(props.majorColor, e)}
                         onMouseOut={(e) => btnMouseOut(props.minorColor, e)}
                         className={"poemFont"} style={{color: getFontColor(props.minorColor), cursor: "default"}}>
-                    {"版本：V" + require('../../package.json').version}
+                    {"V" + require('../../package.json').version}
                 </Button>
             </Col>
         </Row>
