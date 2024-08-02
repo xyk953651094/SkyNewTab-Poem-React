@@ -44,7 +44,7 @@ function FocusComponent(props: any) {
         let tempFocusEndTimeStamp: number;
         if (checked) {
             if (filterList.length === 0) {
-                message.warning("请添加黑名单");
+                message.warning("请先添加名单");
             }
 
             if (focusPeriod === "manual") {
@@ -300,7 +300,7 @@ function FocusComponent(props: any) {
                             onMouseOut={(e) => btnMouseOut(props.minorColor, e)}
                             onClick={showAddModalBtnOnClick}
                             className={"poemFont"} style={{color: getFontColor(props.minorColor)}} >
-                        {"添加黑名单"}
+                        {"添加名单"}
                     </Button>
                     <Button type={"text"} shape={props.preferenceData.buttonShape} icon={<DeleteOutlined/>}
                             onMouseOver={(e) => btnMouseOver(props.majorColor, e)}
@@ -397,7 +397,7 @@ function FocusComponent(props: any) {
                 <Row align={"middle"}>
                     <Col span={12}>
                         <Text className={"poemFont"} style={{color: getFontColor(props.minorColor)}}>
-                            {"添加黑名单 " + filterList.length + " / " + focusMaxSize}
+                            {"添加名单 " + filterList.length + " / " + focusMaxSize}
                         </Text>
                     </Col>
                     <Col span={12} style={{textAlign: "right"}}>
@@ -413,7 +413,7 @@ function FocusComponent(props: any) {
                    styles={{mask: {backdropFilter: "blur(10px)", WebkitBackdropFilter: "blur(10px)"}}}
             >
                 <Form>
-                    <Form.Item label={"网站域名"} name={"focusInput"} extra={"开启专注模式后，访问黑名单中的域名时将自动跳转至本插件"}>
+                    <Form.Item label={"网站域名"} name={"focusInput"} extra={"开启专注模式后，访问名单中的域名时将自动跳转至本插件"}>
                         <Input className={"poemFont"} id={"focusInput"} placeholder="example.com"
                                value={inputValue} onChange={inputOnChange} maxLength={30} showCount allowClear/>
                     </Form.Item>
