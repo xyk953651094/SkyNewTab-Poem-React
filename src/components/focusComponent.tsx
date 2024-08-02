@@ -27,11 +27,15 @@ function FocusComponent(props: any) {
     const browserType = getBrowserType();
 
     function setExtensionStorage(key: string, value: any) {
-        if (["Chrome", "Edge"].indexOf(browserType) !== -1) {
-            chrome.storage.local.set({[key]: value});
-        }
-        else if (["Firefox", "Safari"].indexOf(browserType) !== -1) {
-            browser.storage.local.set({[key]: value});
+        try {
+            if (["Chrome", "Edge"].indexOf(browserType) !== -1) {
+                chrome.storage.local.set({[key]: value});
+            }
+            else if (["Firefox", "Safari"].indexOf(browserType) !== -1) {
+                browser.storage.local.set({[key]: value});
+            }
+        } catch (error: any) {
+            console.error("Error writing to localStorage:", error);
         }
     }
 
@@ -335,7 +339,7 @@ function FocusComponent(props: any) {
                     </Button>
                 </List.Item>
             )}
-            header={
+            footer={
                 <Space>
                     <Select defaultValue={focusSound} className={"poemFont"} popupClassName={"poemFont"} style={{width: 160}}
                             onChange={focusSoundSelectOnChange}
@@ -347,7 +351,7 @@ function FocusComponent(props: any) {
                                 {value: "泉水水滴", label: "声谷 - 泉水水滴"}
                             ]}
                     />
-                    <Select value={focusPeriod} className={"poemFont"} popupClassName={"poemFont"} style={{width: 120}} placement={"topLeft"}
+                    <Select value={focusPeriod} className={"poemFont"} popupClassName={"poemFont"} style={{width: 120}}
                             onChange={focusTimeSelectOnChange}
                             disabled={focusMode}
                             options={[
@@ -374,7 +378,7 @@ function FocusComponent(props: any) {
         <>
             <Popover title={popoverTitle} content={popoverContent} placement={"bottomRight"}
                      color={props.minorColor}
-                     overlayStyle={{width: "550px"}}>
+                     overlayStyle={{width: "600px"}}>
                 <Button shape={props.preferenceData.buttonShape} size={"large"}
                         icon={<i className={focusMode ? "bi bi-cup-hot-fill" : "bi bi-cup-hot"}></i>}
                         id={"focusBtn"}

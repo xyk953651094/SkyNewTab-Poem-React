@@ -252,7 +252,7 @@ function DailyComponent(props: any) {
                             onMouseOut={(e) => btnMouseOut(props.minorColor, e)}
                             className={"poemFont"}
                             style={{color: getFontColor(props.minorColor)}} onClick={showAddModalBtnOnClick}>
-                        {"添加倒数日"}
+                        {"添加倒数"}
                     </Button>
                     <Button type={"text"} shape={props.preferenceData.buttonShape} icon={<DeleteOutlined/>}
                             onMouseOver={(e) => btnMouseOver(props.majorColor, e)}
@@ -331,7 +331,7 @@ function DailyComponent(props: any) {
                 <Row align={"middle"}>
                     <Col span={12}>
                         <Text className={"poemFont"} style={{color: getFontColor(props.minorColor)}}>
-                            {"添加倒数日 " + dailyList.length + " / " + dailyMaxSize}
+                            {"添加倒数 " + dailyList.length + " / " + dailyMaxSize}
                         </Text>
                     </Col>
                     <Col span={12} style={{textAlign: "right"}}>
