@@ -1,10 +1,9 @@
 import React, {useEffect, useState} from "react";
-import {Button, Col, Popover, Row, Space, Typography, List, notification} from "antd";
+import {Button, Col, Popover, Row, Typography, List} from "antd";
 import {
     CalendarOutlined,
     CheckCircleOutlined,
     CloseCircleOutlined,
-    HistoryOutlined,
     MoreOutlined,
 } from "@ant-design/icons";
 import {
@@ -77,22 +76,6 @@ function GreetComponent(props: any) {
             }
             if (data.typeDes !== "休息日" && data.typeDes !== "工作日") {
                 holidayContent = holidayContent + " · " + data.typeDes;
-
-                // 发送恭贺通知
-                let hideBlessStorage = localStorage.getItem("displayBless");
-                if (hideBlessStorage === null) {
-                    notification.open({
-                        icon: null,
-                        message: "今日" + data.typeDes,
-                        description: "云开诗词新标签页祝您" + data.typeDes + "快乐！",
-                        placement: "bottomLeft",
-                        duration: 5,
-                        closeIcon: false
-                    });
-                    localStorage.setItem("displayBless", JSON.stringify(true));
-                }
-            } else {
-                localStorage.removeItem("displayBless");
             }
 
             let timeDetails = getTimeDetails(new Date());
@@ -182,7 +165,7 @@ function GreetComponent(props: any) {
     return (
         <Popover
             title={popoverTitle} content={popoverContent}
-            placement="bottomLeft" overlayStyle={{minWidth: "550px"}} color={props.minorColor}>
+            placement="bottomLeft" overlayStyle={{minWidth: "600px"}} color={props.minorColor}>
             <Button type="text" shape={props.preferenceData.buttonShape} size={"large"}
                     icon={<i className={greetIcon}></i>}
                     className={"componentTheme poemFont"}

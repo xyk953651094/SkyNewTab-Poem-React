@@ -3,7 +3,8 @@
 
 import React, {useEffect, useState} from "react";
 import {Button, Col, Input, List, message, Popover, Row, Space, Switch, Typography, Modal, Form, Select} from 'antd';
-import {btnMouseOut, btnMouseOver, getBrowserType, getFontColor, getTimeDetails} from "../typescripts/publicFunctions";
+import {browserType} from "../typescripts/publicConstants"
+import {btnMouseOut, btnMouseOver, getFontColor, getTimeDetails} from "../typescripts/publicFunctions";
 import {StopOutlined, DeleteOutlined, PlusOutlined} from "@ant-design/icons";
 import focusSoundOne from "../assets/focusSounds/古镇雨滴.mp3";
 import focusSoundTwo from "../assets/focusSounds/松树林小雪.mp3";
@@ -24,7 +25,6 @@ function FocusComponent(props: any) {
     const [focusSound, setFocusSound] = useState("none");
     const [buttonShape, setButtonShape] = useState<"circle" | "default" | "round" | undefined>("round");
     const focusMaxSize = 10;
-    const browserType = getBrowserType();
 
     function setExtensionStorage(key: string, value: any) {
         try {

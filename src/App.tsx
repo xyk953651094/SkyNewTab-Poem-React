@@ -14,9 +14,10 @@ import ClockComponent from "./components/clockComponent";
 import FocusComponent from "./components/focusComponent";
 import MenuComponent from "./components/menuComponent";
 import {
+    getExtensionStorage,
     getFontColor,
     getHolidayDataStorage,
-    getPreferenceDataStorage, resetRadioColor, resetSwitchColor, setFont,
+    getPreferenceDataStorage, resetRadioColor, resetSwitchColor, setExtensionStorage, setFont,
     setTheme
 } from "./typescripts/publicFunctions";
 import {PreferenceDataInterface} from "./typescripts/publicInterface";
@@ -48,25 +49,23 @@ function App() {
 
     useEffect(() => {
         // 获取颜色主题
-        let tempTheme;
-        let tempThemeStorage = localStorage.getItem("theme");
+        let tempThemeStorage = getExtensionStorage("theme", null);
         if (tempThemeStorage) {
-            tempTheme = JSON.parse(tempThemeStorage);
             let bodyEle = $("body");
-            bodyEle.css("backgroundColor", tempTheme.majorColor + " !important");
+            bodyEle.css("backgroundColor", tempThemeStorage.majorColor + " !important");
         } else {
-            tempTheme = setTheme();
+            tempThemeStorage = setTheme();
         }
-        setMajorColor(tempTheme.majorColor);
-        setMinorColor(tempTheme.minorColor);
-        setSvgColors(tempTheme.svgColors);
+        setMajorColor(tempThemeStorage.majorColor);
+        setMinorColor(tempThemeStorage.minorColor);
+        setSvgColors(tempThemeStorage.svgColors);
 
         // 设置字体
         setFont(".poemFont", preferenceData);
 
         // 版本号提醒
-        let storageVersion = localStorage.getItem("SkyNewTabPoemReactVersion");
         let currentVersion = require('../package.json').version;
+        let storageVersion = getExtensionStorage("SkyNewTabPoemReactVersion", "0.0.0");
         if (storageVersion !== currentVersion) {
             notification.open({
                 icon: null,
@@ -76,7 +75,7 @@ function App() {
                 duration: 5,
                 closeIcon: false
             });
-            localStorage.setItem("SkyNewTabPoemReactVersion", currentVersion);
+            setExtensionStorage("SkyNewTabPoemReactVersion", currentVersion);
 
             setTimeout(() => {
                 notification.open({
@@ -126,18 +125,12 @@ function App() {
                         $(".ant-switch").find(".ant-switch-inner-checked").css("color", getFontColor(minorColor));
                         $(".ant-form-item-extra").css("color", getFontColor(minorColor)).addClass("poemFont");
 
-                        let dailyNotificationStorage = localStorage.getItem("dailyNotification");
-                        if (dailyNotificationStorage) {
-                            resetSwitchColor("#dailyNotificationSwitch", JSON.parse(dailyNotificationStorage), majorColor);
-                        }
-                        let todoNotificationStorage = localStorage.getItem("todoNotification");
-                        if (todoNotificationStorage) {
-                            resetSwitchColor("#todoNotificationSwitch", JSON.parse(todoNotificationStorage), majorColor);
-                        }
-                        let focusMode = localStorage.getItem("focusMode");
-                        if (focusMode) {
-                            resetSwitchColor("#focusModeSwitch", JSON.parse(focusMode), majorColor);
-                        }
+                        let dailyNotificationStorage = getExtensionStorage("dailyNotification", false);
+                        let todoNotificationStorage = getExtensionStorage("todoNotification", false);
+                        let focusModeStorage = getExtensionStorage("focusMode", false);
+                        resetSwitchColor("#dailyNotificationSwitch", dailyNotificationStorage, majorColor);
+                        resetSwitchColor("#todoNotificationSwitch", todoNotificationStorage, majorColor);
+                        resetSwitchColor("#focusModeSwitch", focusModeStorage, majorColor);
                     }
 
                     // toolTip
