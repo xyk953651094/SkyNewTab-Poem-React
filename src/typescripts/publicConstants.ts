@@ -1,4 +1,4 @@
-import {getDevice} from "./publicFunctions";
+import {getDevice, getBrowserType} from "./publicFunctions";
 import {PreferenceDataInterface} from "./publicInterface";
 
 export const lightThemeArray: ({ majorColor: string; minorColor: string; svgColors: string[]; }[]) = [
