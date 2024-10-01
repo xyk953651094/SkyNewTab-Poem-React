@@ -180,7 +180,7 @@ export let defaultPreferenceData: PreferenceDataInterface = {
     changePoemTime: "3600000",
 
     searchEngine: "bing",
-    simpleMode: false,
+    simpleMode: true,
     buttonShape: "default",
 
     fontFamily: "cursive",

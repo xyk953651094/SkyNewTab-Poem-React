@@ -78,16 +78,16 @@ function App() {
                 });
                 setExtensionStorage("SkyNewTabPoemReactVersion", currentVersion);
 
-                setTimeout(() => {
-                    notification.open({
-                        icon: null,
-                        message: "支持作者",
-                        description: "如果喜欢这款插件，请考虑五星好评",
-                        placement: "bottomLeft",
-                        duration: 5,
-                        closeIcon: false
-                    });
-                }, 1000);
+                // setTimeout(() => {
+                //     notification.open({
+                //         icon: null,
+                //         message: "支持作者",
+                //         description: "如果喜欢这款插件，请考虑五星好评",
+                //         placement: "bottomLeft",
+                //         duration: 5,
+                //         closeIcon: false
+                //     });
+                // }, 1000);
 
                 // 额外提醒
                 // if (currentVersion === "3.1.0") {
