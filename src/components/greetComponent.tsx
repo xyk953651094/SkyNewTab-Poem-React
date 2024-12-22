@@ -89,27 +89,28 @@ function GreetComponent(props: any) {
         }
 
         // 防抖节流
-        if (!props.preferenceData.simpleMode) {
-            let lastRequestTime: any = localStorage.getItem("lastHolidayRequestTime");
-            let nowTimeStamp = new Date().getTime();
-            if (lastRequestTime === null) {  // 第一次请求时 lastRequestTime 为 null，因此直接进行请求赋值 lastRequestTime
-                getHoliday();
-            } else if (nowTimeStamp - parseInt(lastRequestTime) > 4 * 60 * 60 * 1000) {  // 必须多于四小时才能进行新的请求
-                getHoliday();
-            } else {  // 四小时之内使用上一次请求结果
-                let lastHoliday: any = localStorage.getItem("lastHoliday");
-                if (lastHoliday) {
-                    lastHoliday = JSON.parse(lastHoliday);
-                    setHoliday(lastHoliday);
-                }
+        // if (!props.preferenceData.simpleMode) {
+        // 此处不能判定是否是简洁模式，因为 clockcomponent 也需要用到 holiday 数据
+        let lastRequestTime: any = localStorage.getItem("lastHolidayRequestTime");
+        let nowTimeStamp = new Date().getTime();
+        if (lastRequestTime === null) {  // 第一次请求时 lastRequestTime 为 null，因此直接进行请求赋值 lastRequestTime
+            getHoliday();
+        } else if (nowTimeStamp - parseInt(lastRequestTime) > 4 * 60 * 60 * 1000) {  // 必须多于四小时才能进行新的请求
+            getHoliday();
+        } else {  // 四小时之内使用上一次请求结果
+            let lastHoliday: any = localStorage.getItem("lastHoliday");
+            if (lastHoliday) {
+                lastHoliday = JSON.parse(lastHoliday);
+                setHoliday(lastHoliday);
             }
-
-            setInterval(() => {
-                setGreetIcon(getGreetIcon());
-                setGreetContent(getGreetContent());
-            }, 60 * 60 * 1000);
         }
-    }, [props.preferenceData.searchEngine, props.preferenceData.simpleMode]);
+
+        setInterval(() => {
+            setGreetIcon(getGreetIcon());
+            setGreetContent(getGreetContent());
+        }, 60 * 60 * 1000);
+        // }
+    }, [props, props.preferenceData.searchEngine, props.preferenceData.simpleMode]);
 
     const popoverTitle = (
         <Row align={"middle"}>
