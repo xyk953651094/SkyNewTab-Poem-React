@@ -380,7 +380,7 @@ function FocusComponent(props: any) {
                      color={props.minorColor}
                      overlayStyle={{width: "600px"}}>
                 <Button shape={props.preferenceData.buttonShape} size={"large"}
-                        icon={<i className={focusMode ? "bi bi-cup-hot-fill" : "bi bi-cup-hot"}></i>}
+                        icon={<i className={focusMode ? "bi bi-cup-hot" : "bi bi-cup"}></i>}
                         id={"focusBtn"}
                         className={"componentTheme poemFont"}
                         style={{
