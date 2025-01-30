@@ -32,7 +32,7 @@ function PopupComponent() {
         setMinorColor(tempTheme.minorColor);
 
         // 设置字体
-        setFont(preferenceData);
+        setFont(".popupFont", preferenceData);
     }, [preferenceData])
 
     return (

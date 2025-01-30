@@ -110,11 +110,7 @@ function MenuPreferenceComponent(props: any) {
     function fontFamilyRadioOnChange(event: RadioChangeEvent) {
         setPreferenceData((preferenceData: PreferenceDataInterface) => {
             let newPreferenceData: PreferenceDataInterface;
-            if (event.target.value === "cursive") {
-                newPreferenceData = modifyPreferenceData({fontFamily: event.target.value, fontVariant: "simplified"});
-            } else {
-                newPreferenceData = modifyPreferenceData({fontFamily: event.target.value});
-            }
+            newPreferenceData = modifyPreferenceData({fontFamily: event.target.value});
             props.getPreferenceData(newPreferenceData);
             localStorage.setItem("preferenceData", JSON.stringify(newPreferenceData));
             return newPreferenceData;

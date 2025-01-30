@@ -1,4 +1,4 @@
-import {getDevice} from "./publicFunctions";
+import {getDevice, getBrowserType} from "./publicFunctions";
 import {PreferenceDataInterface} from "./publicInterface";
 
 export const lightThemeArray: ({ majorColor: string; minorColor: string; svgColors: string[]; }[]) = [
@@ -180,8 +180,8 @@ export let defaultPreferenceData: PreferenceDataInterface = {
     changePoemTime: "3600000",
 
     searchEngine: "bing",
-    simpleMode: false,
-    buttonShape: "round",
+    simpleMode: true,
+    buttonShape: "default",
 
     fontFamily: "cursive",
     fontVariant: "simplified"
@@ -189,4 +189,5 @@ export let defaultPreferenceData: PreferenceDataInterface = {
 
 // 常用变量
 export const device = getDevice();  // 获取当前设备类型
+export const browserType = getBrowserType();
 export const colorRegExp = /^#[0-9A-Fa-f]{6}$/;

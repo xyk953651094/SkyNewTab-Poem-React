@@ -178,7 +178,7 @@ function TodoComponent(props: any) {
                             onMouseOut={(e) => btnMouseOut(props.minorColor, e)}
                             className={"poemFont"}
                             style={{color: getFontColor(props.minorColor)}} onClick={showAddModalBtnOnClick}>
-                        {"添加待办事项"}
+                        {"添加待办"}
                     </Button>
                     <Button type={"text"} shape={props.preferenceData.buttonShape} icon={<CheckOutlined/>}
                             onMouseOver={(e) => btnMouseOver(props.majorColor, e)}
@@ -254,7 +254,7 @@ function TodoComponent(props: any) {
                 <Row align={"middle"}>
                     <Col span={12}>
                         <Text className={"poemFont"} style={{color: getFontColor(props.minorColor)}}>
-                            {"添加待办事项 " + todoList.length + " / " + todoMaxSize}
+                            {"添加待办 " + todoList.length + " / " + todoMaxSize}
                         </Text>
                     </Col>
                     <Col span={12} style={{textAlign: "right"}}>

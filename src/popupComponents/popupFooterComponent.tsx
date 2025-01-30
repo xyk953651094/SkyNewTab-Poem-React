@@ -24,7 +24,7 @@ function PopupFooterComponent(props: any) {
                     onMouseOver={(e) => btnMouseOver(props.minorColor, e)}
                     onMouseOut={(e) => btnMouseOut(props.majorColor, e)}
                     style={{color: getFontColor(props.majorColor), cursor: "default"}} className={"popupFont"}>
-                {"版本：V" + require('../../package.json').version}
+                {"V" + require('../../package.json').version}
             </Button>
         </Space>
     );

@@ -14,7 +14,7 @@ import {
     Modal
 } from "antd";
 import {DeleteOutlined, PlusOutlined, SearchOutlined, EditOutlined, LinkOutlined} from "@ant-design/icons";
-import {btnMouseOver, btnMouseOut, getFontColor, getSearchEngineDetail} from "../typescripts/publicFunctions";
+import {btnMouseOver, btnMouseOut, getFontColor, getSearchEngineDetail, getExtensionStorage, setExtensionStorage, removeExtensionStorage} from "../typescripts/publicFunctions";
 
 const {Text} = Typography;
 
@@ -32,7 +32,7 @@ function SearchComponent(props: any) {
 
     function removeAllBtnOnClick() {
         setLinkList([]);
-        localStorage.removeItem("linkList");
+        removeExtensionStorage("linkList");
         message.success("删除成功");
     }
 
@@ -50,7 +50,7 @@ function SearchComponent(props: any) {
         }
 
         setLinkList(tempLinkList);
-        localStorage.setItem("linkList", JSON.stringify(tempLinkList));
+        setExtensionStorage("linkList", tempLinkList);
         message.success("删除成功");
     }
 
@@ -111,7 +111,7 @@ function SearchComponent(props: any) {
 
                 setDisplayAddModal(false);
                 setLinkList(tempLinkList);
-                localStorage.setItem("linkList", JSON.stringify(tempLinkList));
+                setExtensionStorage("linkList", tempLinkList);
                 message.success("添加成功");
             } else {
                 message.error("链接地址格式错误");
@@ -139,7 +139,7 @@ function SearchComponent(props: any) {
             if (index !== -1) {
                 tempLinkList[index].linkName = e.target.value;
 
-                localStorage.setItem("linkList", JSON.stringify(tempLinkList));
+                setExtensionStorage("linkList", tempLinkList);
                 setLinkList(tempLinkList);
                 message.success("修改成功");
             } else {
@@ -164,7 +164,7 @@ function SearchComponent(props: any) {
             if (index !== -1) {
                 tempLinkList[index].linkUrl = e.target.value;
 
-                localStorage.setItem("linkList", JSON.stringify(tempLinkList));
+                setExtensionStorage("linkList", tempLinkList);
                 setLinkList(tempLinkList);
                 message.success("修改成功");
             } else {
@@ -190,10 +190,9 @@ function SearchComponent(props: any) {
         setSearchEngineValue(searchEngineDetail.searchEngineValue);
         setSearchEngineUrl(searchEngineDetail.searchEngineUrl);
 
-        let linkListStorage = localStorage.getItem("linkList");
-        if (linkListStorage) {
-            setLinkList(JSON.parse(linkListStorage));
-        }
+        getExtensionStorage("linkList", []).then((linkList : any[]) => {
+            setLinkList(linkList);
+        })
     }, [props.preferenceData.buttonShape, props.preferenceData.searchEngine, props.preferenceData.simpleMode])
 
     const popoverTitle = (

@@ -207,7 +207,7 @@ function WeatherComponent(props: any) {
 
     return (
         <Popover title={popoverTitle} content={popoverContent} color={props.minorColor}
-                 placement="bottomLeft" overlayStyle={{width: "450px"}}>
+                 placement="bottomLeft" overlayStyle={{width: "600px"}}>
             <Button type="text" shape={props.preferenceData.buttonShape} size={"large"}
                     icon={<i className={weatherIcon}></i>}
                     className={"componentTheme poemFont"}

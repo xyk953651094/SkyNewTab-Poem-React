@@ -5,7 +5,8 @@ import {
     colorRegExp,
     darkThemeArray,
     defaultPreferenceData,
-    lightThemeArray
+    lightThemeArray,
+    browserType
 } from "./publicConstants";
 import {PreferenceDataInterface} from "./publicInterface";
 
@@ -302,10 +303,10 @@ export function getBrowserType() {
     }
 
     const browserDetection: BrowserDetectionInterface = {
-        "Chrome": userAgent.includes("Chrome") && !userAgent.includes("Safari"),
-        "Edge": userAgent.includes("Edge"),
+        "Chrome": userAgent.includes("Chrome") && userAgent.includes("Safari") && !userAgent.includes("Edg"),
+        "Edge": userAgent.includes("Edg"),
         "Firefox": userAgent.includes("Firefox"),
-        "Safari": userAgent.includes("Safari") && !userAgent.includes("Chrome"),
+        "Safari": !userAgent.includes("Chrome") && userAgent.includes("Safari"),
     };
 
     for (const browser in browserDetection) {
@@ -368,20 +369,98 @@ export function fixPreferenceData(preferenceData: PreferenceDataInterface) {
 }
 
 // 封装对 localStorage 的操作，增加异常处理
-export function getLocalStorageItem(key: string) {
+export async function getExtensionStorage(key: string, defaultValue: any) {
     try {
-        return localStorage.getItem(key);
+        let tempStorage;
+
+        // 生产环境
+        // if (["Chrome", "Edge"].indexOf(browserType) !== -1) {
+        //     await chrome.storage.local.get(key).then((result) => {
+        //         tempStorage = result[key];
+        //     });
+        // }
+        // else if (["Firefox", "Safari"].indexOf(browserType) !== -1) {
+        //     await browser.storage.local.get(key).then((result) => {
+        //         tempStorage = result[key];
+        //     });
+        // }
+        //
+        // if (tempStorage === null || tempStorage === undefined) {
+        //     if (defaultValue !== null && defaultValue !== undefined) {
+        //         setExtensionStorage(key, defaultValue);
+        //     }
+        //     return defaultValue;
+        // }
+        // return tempStorage;
+
+        // 开发环境
+        tempStorage = localStorage.getItem(key);
+        if (tempStorage) {
+            try {
+                return JSON.parse(tempStorage);
+            } catch(error) {
+                return tempStorage;  // 不是 JSON 的纯字符串
+            }
+        } else {
+            if (defaultValue !== null && defaultValue !== undefined) {
+                localStorage.setItem(key, JSON.stringify(defaultValue));
+            }
+            return defaultValue;
+        }
     } catch (error) {
-        console.error("Error reading from localStorage:", error);
-        return null;
+        console.error("Error reading from storage:", error);
+        return defaultValue;
     }
 }
 
-export function setLocalStorageItem(key: string, value: string) {
+export function setExtensionStorage(key: string, value: any) {
     try {
-        localStorage.setItem(key, value);
+        // 生产环境
+        // if (["Chrome", "Edge"].indexOf(browserType) !== -1) {
+        //     chrome.storage.local.set({[key]: value});
+        // }
+        // else if (["Firefox", "Safari"].indexOf(browserType) !== -1) {
+        //     browser.storage.local.set({[key]: value});
+        // }
+
+        // 开发环境
+        localStorage.setItem(key, JSON.stringify(value));
     } catch (error) {
-        console.error("Error writing to localStorage:", error);
+        console.error("Error writing to storage:", error);
+    }
+}
+
+export function removeExtensionStorage(key: string) {
+    try {
+        // 生产环境
+        // if (["Chrome", "Edge"].indexOf(browserType) !== -1) {
+        //     chrome.storage.local.remove(key);
+        // }
+        // else if (["Firefox", "Safari"].indexOf(browserType) !== -1) {
+        //     browser.storage.local.remove(key);
+        // }
+
+        // 开发环境
+        localStorage.removeItem(key);
+    } catch (error) {
+        console.error("Error removing from storage:", error);
+    }
+}
+
+export function clearExtensionStorage() {
+    try {
+        // 生产环境
+        // if (["Chrome", "Edge"].indexOf(browserType) !== -1) {
+        //     chrome.storage.local.clear();
+        // }
+        // else if (["Firefox", "Safari"].indexOf(browserType) !== -1) {
+        //     browser.storage.local.clear();
+        // }
+
+        // 开发环境
+        localStorage.clear();
+    } catch (error) {
+        console.error("Error clearing storage:", error);
     }
 }
 
@@ -460,16 +539,16 @@ export function resetSwitchColor(element: string, checked: boolean, themeColor: 
     }
 }
 
-export function setFont(preferenceData: PreferenceDataInterface) {
+export function setFont(element:  ".poemFont" | ".popupFont", preferenceData: PreferenceDataInterface) {
     if (preferenceData.fontFamily === "cursive") {
-        $(".poemFont").css("font-family", "'Times New Roman', cursive, serif");
+        $(element).css("font-family", "'Times New Roman', cursive, serif");
     } else if (preferenceData.fontFamily === "sansSerif") {
-        $(".poemFont").css("font-family", "sansSerif");
+        $(element).css("font-family", "sansSerif");
     }
 
     if (preferenceData.fontVariant === "simplified") {
-        $(".poemFont").css("font-variant-east-asian", "simplified");
+        $(element).css("font-variant-east-asian", "simplified");
     } else if (preferenceData.fontVariant === "traditional" && preferenceData.fontFamily === "sansSerif") {
-        $(".poemFont").css("font-variant-east-asian", "traditional");
+        $(element).css("font-variant-east-asian", "traditional");
     }
 }

@@ -3,7 +3,8 @@
 
 import React, {useEffect, useState} from "react";
 import {Button, Col, Input, List, message, Popover, Row, Space, Switch, Typography, Modal, Form, Select} from 'antd';
-import {btnMouseOut, btnMouseOver, getBrowserType, getFontColor, getTimeDetails} from "../typescripts/publicFunctions";
+import {browserType} from "../typescripts/publicConstants"
+import {btnMouseOut, btnMouseOver, getFontColor, getTimeDetails} from "../typescripts/publicFunctions";
 import {StopOutlined, DeleteOutlined, PlusOutlined} from "@ant-design/icons";
 import focusSoundOne from "../assets/focusSounds/古镇雨滴.mp3";
 import focusSoundTwo from "../assets/focusSounds/松树林小雪.mp3";
@@ -24,14 +25,17 @@ function FocusComponent(props: any) {
     const [focusSound, setFocusSound] = useState("none");
     const [buttonShape, setButtonShape] = useState<"circle" | "default" | "round" | undefined>("round");
     const focusMaxSize = 10;
-    const browserType = getBrowserType();
 
     function setExtensionStorage(key: string, value: any) {
-        if (["Chrome", "Edge"].indexOf(browserType) !== -1) {
-            chrome.storage.local.set({[key]: value});
-        }
-        else if (["Firefox", "Safari"].indexOf(browserType) !== -1) {
-            browser.storage.local.set({[key]: value});
+        try {
+            if (["Chrome", "Edge"].indexOf(browserType) !== -1) {
+                chrome.storage.local.set({[key]: value});
+            }
+            else if (["Firefox", "Safari"].indexOf(browserType) !== -1) {
+                browser.storage.local.set({[key]: value});
+            }
+        } catch (error: any) {
+            console.error("Error writing to localStorage:", error);
         }
     }
 
@@ -40,7 +44,7 @@ function FocusComponent(props: any) {
         let tempFocusEndTimeStamp: number;
         if (checked) {
             if (filterList.length === 0) {
-                message.warning("请添加黑名单");
+                message.warning("请先添加名单");
             }
 
             if (focusPeriod === "manual") {
@@ -296,7 +300,7 @@ function FocusComponent(props: any) {
                             onMouseOut={(e) => btnMouseOut(props.minorColor, e)}
                             onClick={showAddModalBtnOnClick}
                             className={"poemFont"} style={{color: getFontColor(props.minorColor)}} >
-                        {"添加黑名单"}
+                        {"添加名单"}
                     </Button>
                     <Button type={"text"} shape={props.preferenceData.buttonShape} icon={<DeleteOutlined/>}
                             onMouseOver={(e) => btnMouseOver(props.majorColor, e)}
@@ -335,7 +339,7 @@ function FocusComponent(props: any) {
                     </Button>
                 </List.Item>
             )}
-            header={
+            footer={
                 <Space>
                     <Select defaultValue={focusSound} className={"poemFont"} popupClassName={"poemFont"} style={{width: 160}}
                             onChange={focusSoundSelectOnChange}
@@ -347,7 +351,7 @@ function FocusComponent(props: any) {
                                 {value: "泉水水滴", label: "声谷 - 泉水水滴"}
                             ]}
                     />
-                    <Select value={focusPeriod} className={"poemFont"} popupClassName={"poemFont"} style={{width: 120}} placement={"topLeft"}
+                    <Select value={focusPeriod} className={"poemFont"} popupClassName={"poemFont"} style={{width: 120}}
                             onChange={focusTimeSelectOnChange}
                             disabled={focusMode}
                             options={[
@@ -374,9 +378,9 @@ function FocusComponent(props: any) {
         <>
             <Popover title={popoverTitle} content={popoverContent} placement={"bottomRight"}
                      color={props.minorColor}
-                     overlayStyle={{width: "550px"}}>
+                     overlayStyle={{width: "600px"}}>
                 <Button shape={props.preferenceData.buttonShape} size={"large"}
-                        icon={<i className={focusMode ? "bi bi-cup-hot-fill" : "bi bi-cup-hot"}></i>}
+                        icon={<i className={focusMode ? "bi bi-cup-hot" : "bi bi-cup"}></i>}
                         id={"focusBtn"}
                         className={"componentTheme poemFont"}
                         style={{
@@ -393,7 +397,7 @@ function FocusComponent(props: any) {
                 <Row align={"middle"}>
                     <Col span={12}>
                         <Text className={"poemFont"} style={{color: getFontColor(props.minorColor)}}>
-                            {"添加黑名单 " + filterList.length + " / " + focusMaxSize}
+                            {"添加名单 " + filterList.length + " / " + focusMaxSize}
                         </Text>
                     </Col>
                     <Col span={12} style={{textAlign: "right"}}>
@@ -409,7 +413,7 @@ function FocusComponent(props: any) {
                    styles={{mask: {backdropFilter: "blur(10px)", WebkitBackdropFilter: "blur(10px)"}}}
             >
                 <Form>
-                    <Form.Item label={"网站域名"} name={"focusInput"} extra={"开启专注模式后，访问黑名单中的域名时将自动跳转至本插件"}>
+                    <Form.Item label={"网站域名"} name={"focusInput"} extra={"开启专注模式后，访问名单中的域名时将自动跳转至本插件"}>
                         <Input className={"poemFont"} id={"focusInput"} placeholder="example.com"
                                value={inputValue} onChange={inputOnChange} maxLength={30} showCount allowClear/>
                     </Form.Item>
